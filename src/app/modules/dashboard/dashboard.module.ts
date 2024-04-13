@@ -19,6 +19,7 @@ import { BvnComponent } from './pages/profile/bvn/bvn.component';
 import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
 import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
+import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { InvestmentDetailsComponent } from './pages/investments/investment-detai
     AllInvestmentsComponent,
     MyInvestmentsComponent,
     InvestmentDetailsComponent,
+    DashboardComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })
