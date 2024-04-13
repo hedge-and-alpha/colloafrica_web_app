@@ -1,0 +1,16 @@
+:host .layout {
+  background: #ededed;
+  display: grid;
+}
+
+@media screen and (min-width: 48rem) {
+  :host .layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  :host .layout {
+    grid-template-columns: 58.33% calc(100% - 58.33%);
+  }
+}

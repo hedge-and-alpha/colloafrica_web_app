@@ -1,1 +1,39 @@
-<p>signin-form works!</p>
+<h1 class="font-semibold text-[2.5rem] leading-1.2 mb-8">Login</h1>
+
+<form>
+  <div class="mb-6">
+    <ca-form-field label="Email" labelFor="email" [isRequired]="true">
+      <i class="ca-at"></i> <input id="email" type="email" />
+    </ca-form-field>
+  </div>
+
+  <div class="mb-6">
+    <ca-form-field label="Password" labelFor="password" [isRequired]="true">
+      <input type="password" id="password" #passwordInput />
+      <i
+        (click)="
+          passwordInput.type === 'password'
+            ? (passwordInput.type = 'text')
+            : (passwordInput.type = 'password')
+        "
+        [ngClass]="{
+          'ca-eye': passwordInput.type === 'password',
+          'ca-eye-slash': passwordInput.type === 'text'
+        }"
+      ></i>
+    </ca-form-field>
+  </div>
+
+  <p class="text-purple-main mb-8 font-medium">
+    <a routerLink="/auth/forgot-password">Forgot Password?</a>
+  </p>
+
+  <!-- !TODO: Insert button -->
+
+  <p class="mt-6 mb-10 text-center text-sm font-medium">
+    Don't have an account?
+    <a routerLink="/auth/sign-up" class="text-purple-main hover:underline"
+      >Register</a
+    >
+  </p>
+</form>

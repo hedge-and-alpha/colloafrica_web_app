@@ -6,6 +6,9 @@ module.exports = {
       lineHeight: {
         1.2: 1.2,
       },
+      colors: {
+        "purple-main": "#470b96",
+      },
     },
   },
   plugins: [],
