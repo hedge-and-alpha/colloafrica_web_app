@@ -35,6 +35,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/icon-fonts/style.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -100,6 +101,11 @@
           }
         }
       }
+    }
+  },
+  "cli": {
+    "cache": {
+      "enabled": false
     }
   }
 }
