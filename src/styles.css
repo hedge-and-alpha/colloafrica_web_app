@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --purple: #470b96;
+}
+
 body {
   font-family: "Albert Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -10,4 +14,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
+  color: #333333;
 }
+
+/* Forms */
+::placeholder {
+  color: #5c5c5c;
+}
+
+.ca-form-control input,
+.ca-form-control input:focus-visible,
+.ca-form-control input:focus {
+  border-color: transparent;
+  outline: 0;
+}
+
+input {
+  font-weight: 500;
+  line-height: 1.2;
+}
+/* Forms */

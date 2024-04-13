@@ -1,0 +1,15 @@
+:host .ca-form-control {
+  height: 50px;
+  border-radius: 5px;
+}
+
+:host .ca-form-control:is(:hover, :focus-within) {
+  border-color: var(--purple);
+}
+
+:host .ca-form-control label {
+  top: -40%;
+  transform: translateY(25%);
+  left: 22px;
+  height: 19px;
+}
