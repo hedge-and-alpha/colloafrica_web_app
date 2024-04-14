@@ -60,6 +60,9 @@ input[type="checkbox"] {
 
 input[type="number"]::-webkit-inner-spin-button {
   display: none;
+}
+
+input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
 }

@@ -10,6 +10,7 @@ import { AuthComponent } from './auth.component';
 import { SigninFormComponent } from './components/signin-form/signin-form.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { AuthFormLayoutComponent } from './layouts/auth-form-layout/auth-form-layout.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
   imports: [
     CommonModule,
     AuthRoutingModule,
+    AuthFormLayoutComponent,
     ColsField2Component,
     FormFieldComponent,
     LogoComponent,
