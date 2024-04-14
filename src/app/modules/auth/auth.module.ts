@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { AuthRoutingModule } from './auth-routing.module';
-import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
-import { SigninFormComponent } from './components/signin-form/signin-form.component';
-import { SignupFormComponent } from './components/signup-form/signup-form.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { AuthComponent } from './auth.component';
-import { LogoComponent } from '../../components/logo/logo.component';
-import { FormFieldComponent } from '../../components/form-field/form-field.component';
 import { ColsField2Component } from '../../components/cols-field-2/cols-field-2.component';
+import { FormFieldComponent } from '../../components/form-field/form-field.component';
+import { LogoComponent } from '../../components/logo/logo.component';
+import { OtpComponent } from '../../components/otp/otp.component';
+import { AuthRoutingModule } from './auth-routing.module';
+import { AuthComponent } from './auth.component';
+import { SigninFormComponent } from './components/signin-form/signin-form.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +24,7 @@ import { ColsField2Component } from '../../components/cols-field-2/cols-field-2.
     ColsField2Component,
     FormFieldComponent,
     LogoComponent,
+    OtpComponent,
   ],
 })
 export class AuthModule {}

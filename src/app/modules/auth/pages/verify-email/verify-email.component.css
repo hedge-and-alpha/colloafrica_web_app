@@ -1,0 +1,8 @@
+:host img {
+  width: clamp(5.53rem, 4.915rem + 2.7333vw, 7.375rem);
+  aspect-ratio: 1;
+}
+
+:host img {
+  font-size: clamp(1.5rem, 1.1667rem + 1.4815vw, 2.5rem);
+}

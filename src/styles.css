@@ -5,6 +5,10 @@
 
 :root {
   --purple: #470b96;
+  --body-text-1: #333;
+  --body-text-2: #5c5c5c;
+
+  min-height: 100vh;
 }
 
 body {
@@ -14,7 +18,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  color: #333333;
+  color: var(--body-text-1);
+  background-color: #ededed;
+  min-height: 100vh;
+}
+
+hgroup h1 {
+  font-size: clamp(1.5rem, 1.1667rem + 1.4815vw, 2.5rem);
+}
+
+hgroup p {
+  color: var(--body-text-2);
+  font-size: clamp(0.875rem, 0.6667rem + 0.9259vw, 1.5rem);
 }
 
 /* Forms */
@@ -41,5 +56,11 @@ input[type="checkbox"] {
   border-radius: 4px;
   width: 24px;
   aspect-ratio: 1;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
 }
 /* Forms */

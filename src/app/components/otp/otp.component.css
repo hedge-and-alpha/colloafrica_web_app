@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+:host input {
+  width: clamp(2.5rem, 2.0833rem + 1.8519vw, 3.75rem);
+  aspect-ratio: 1;
+  border: 1px solid #dcdcdc;
+  background: #f6f6f6;
+}
+
+:host input:is(:hover, :focus, :focus-visible) {
+  border-color: var(--purple);
+  outline-color: var(--purple);
+}

@@ -26,6 +26,25 @@ const routes: Routes = [
         ],
       },
       { path: 'verify-email', component: VerifyEmailComponent },
+      {
+        path: 'forgot-password/email',
+        loadComponent: () =>
+          import('./pages/forgot-password/forgot-password.component').then(
+            (m) => m.ForgotPasswordComponent
+          ),
+      },
+      {
+        path: 'forgot-password/reset',
+        loadComponent: () =>
+          import('./pages/reset-password/reset-password.component').then(
+            (m) => m.ResetPasswordComponent
+          ),
+      },
+      {
+        path: 'forgot-password',
+        redirectTo: 'forgot-password/email',
+        pathMatch: 'full',
+      },
     ],
   },
 ];

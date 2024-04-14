@@ -3,6 +3,10 @@
   display: grid;
 }
 
+:host .layout .logo {
+  width: clamp(6.9375rem, 4.6042rem + 10.3704vw, 13.9375rem);
+}
+
 @media screen and (min-width: 48rem) {
   :host .layout {
     grid-template-columns: 1fr 1fr;
