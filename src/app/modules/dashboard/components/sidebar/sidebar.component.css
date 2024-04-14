@@ -6,6 +6,7 @@
 
 :host ul li a {
   color: #7d7f85;
+  width: 100%;
 }
 
 :host ul li a:is(.active, :hover) {

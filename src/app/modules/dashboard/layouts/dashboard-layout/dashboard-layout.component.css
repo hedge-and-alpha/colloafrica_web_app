@@ -1,0 +1,9 @@
+:host footer a {
+  color: #5c5c5c;
+}
+
+:host footer a:not(:last-of-type)::after {
+  content: "|";
+  color: #dcdcdc;
+  margin-inline-start: 0.75rem;
+}
