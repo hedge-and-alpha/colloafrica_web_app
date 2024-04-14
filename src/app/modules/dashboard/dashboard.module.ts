@@ -20,6 +20,8 @@ import { AllInvestmentsComponent } from './pages/investments/all-investments/all
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
 import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
 import { DashboardComponent } from './dashboard.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { DashboardComponent } from './dashboard.component';
     MyInvestmentsComponent,
     InvestmentDetailsComponent,
     DashboardComponent,
+    DashboardLayoutComponent,
+    SidebarComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })

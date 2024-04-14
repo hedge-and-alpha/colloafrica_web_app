@@ -1,0 +1,78 @@
+<div class="mt-9">
+  <a routerLink="/"><img src="assets/images/logo.svg" alt="" width="124" /></a>
+</div>
+
+<div class="divider mt-6"></div>
+
+<ul class="list-none">
+  <li class="h-[52px]">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-grid text-lg"></i><span>Dashboard</span>
+    </a>
+  </li>
+
+  <li class="h-[52px]">
+    <a
+      routerLink="/profile"
+      routerLinkActive="active"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-user-circle text-lg"></i><span>My Profile</span>
+    </a>
+  </li>
+
+  <li class="h-[52px]">
+    <a
+      routerLink="/mgr"
+      routerLinkActive="active"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-atom text-lg"></i><span>Merry Go Round</span>
+    </a>
+  </li>
+
+  <li class="h-[52px]">
+    <a
+      routerLink="/wallet"
+      routerLinkActive="active"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-wallet text-lg"></i><span>Account Wallet</span>
+    </a>
+  </li>
+
+  <li class="h-[52px]">
+    <a
+      routerLink="/investments"
+      routerLinkActive="active"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-currency-circle-dollar text-lg"></i><span>Investment</span>
+    </a>
+  </li>
+
+  <li class="h-[52px]">
+    <a
+      routerLink="/savings"
+      routerLinkActive="active"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-hand-coin text-lg"></i><span>My Savings</span>
+    </a>
+  </li>
+
+  <li class="h-[52px]">
+    <a
+      routerLink="/transactions"
+      routerLinkActive="active"
+      class="flex items-center gap-4 font-medium"
+    >
+      <i class="ca-clipboard text-lg"></i><span>Transaction History</span>
+    </a>
+  </li>
+</ul>
