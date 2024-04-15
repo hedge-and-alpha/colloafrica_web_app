@@ -1,1 +1,16 @@
-<p>profile works!</p>
+<ca-h1 class="mb-8">my profile</ca-h1>
+
+<nav
+  class="flex items-center flex-nowrap gap-5 sm:gap-7 md:gap-9 py-5 overflow-x-auto no-scrollbar"
+>
+  <a routerLink="./personal-info" routerLinkActive="active">Personal info</a>
+  <a routerLink="./id-verification" routerLinkActive="active"
+    >ID verification</a
+  >
+  <a routerLink="./cards" routerLinkActive="active">Cards</a>
+  <a routerLink="./bank-accounts" routerLinkActive="active">Banks accounts</a>
+  <a routerLink="./security" routerLinkActive="active">Security</a>
+  <a routerLink="./bvn" routerLinkActive="active">BVN</a>
+</nav>
+
+<router-outlet />

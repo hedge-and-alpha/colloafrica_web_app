@@ -1,0 +1,32 @@
+:host nav {
+  border-block: 1px solid #dddddd;
+}
+
+:host nav a {
+  color: #7d7f85;
+  font-weight: 500;
+  flex-shrink: 0;
+  position: relative;
+}
+
+:host nav a.active {
+  color: var(--purple);
+}
+
+:host nav a::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 36px;
+  height: 3px;
+  bottom: -8px;
+  background-color: transparent;
+  left: calc(50% - 18px);
+  transform: scaleX(0);
+  transition: transform 350ms;
+}
+
+:host nav a.active::after {
+  background-color: var(--purple);
+  transform: scaleX(1);
+}

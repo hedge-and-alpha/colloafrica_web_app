@@ -132,3 +132,12 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 /* Forms */
+
+/* Utils */
+.no-scrollbar {
+  scrollbar-width: 0;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Utils */

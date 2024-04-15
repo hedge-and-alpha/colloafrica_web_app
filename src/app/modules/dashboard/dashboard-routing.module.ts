@@ -15,14 +15,81 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'mgr', component: MgrComponent },
-      { path: 'wallet', component: AccountWalletComponent },
-      { path: 'investments', component: InvestmentsComponent },
-      { path: 'savings', component: SavingsComponent },
-      { path: 'transactions', component: TransactionsComponent },
-      { path: 'notifications', component: NotificationsComponent },
+      { path: '', component: HomeComponent, title: 'Home' },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        title: 'Profile',
+        children: [
+          {
+            path: 'personal-info',
+            title: 'Personal info | Profile',
+            loadComponent: () =>
+              import(
+                './pages/profile/personal-info/personal-info.component'
+              ).then((c) => c.PersonalInfoComponent),
+          },
+          {
+            path: 'id-verification',
+            title: 'ID verification | Profile',
+            loadComponent: () =>
+              import(
+                './pages/profile/id-verification/id-verification.component'
+              ).then((c) => c.IdVerificationComponent),
+          },
+          {
+            path: 'cards',
+            title: 'Cards | Profile',
+            loadComponent: () =>
+              import('./pages/profile/cards/cards.component').then(
+                (c) => c.CardsComponent
+              ),
+          },
+          {
+            path: 'bank-accounts',
+            title: 'Bank accounts | Profile',
+            loadComponent: () =>
+              import(
+                './pages/profile/bank-accounts/bank-accounts.component'
+              ).then((c) => c.BankAccountsComponent),
+          },
+          {
+            path: 'security',
+            title: 'Security | Profile',
+            loadComponent: () =>
+              import('./pages/profile/security/security.component').then(
+                (c) => c.SecurityComponent
+              ),
+          },
+          {
+            path: 'bvn',
+            title: 'BVN | Profile',
+            loadComponent: () =>
+              import('./pages/profile/bvn/bvn.component').then(
+                (c) => c.BvnComponent
+              ),
+          },
+          { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
+        ],
+      },
+      { path: 'mgr', component: MgrComponent, title: 'Merry Go Round' },
+      { path: 'wallet', component: AccountWalletComponent, title: 'Wallet' },
+      {
+        path: 'investments',
+        component: InvestmentsComponent,
+        title: 'Investments',
+      },
+      { path: 'savings', component: SavingsComponent, title: 'My Savings' },
+      {
+        path: 'transactions',
+        component: TransactionsComponent,
+        title: 'Transactions',
+      },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
+        title: 'Notifications',
+      },
     ],
   },
 ];

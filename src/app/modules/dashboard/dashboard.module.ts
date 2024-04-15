@@ -1,29 +1,24 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { H1Component } from './components/h1/h1.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { HomeComponent } from './pages/home/home.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { MgrComponent } from './pages/mgr/mgr.component';
-import { AccountWalletComponent } from './pages/account-wallet/account-wallet.component';
-import { InvestmentsComponent } from './pages/investments/investments.component';
-import { SavingsComponent } from './pages/savings/savings.component';
-import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
-import { PersonalInfoComponent } from './pages/profile/personal-info/personal-info.component';
-import { IdVerificationComponent } from './pages/profile/id-verification/id-verification.component';
-import { CardsComponent } from './pages/profile/cards/cards.component';
-import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
-import { SecurityComponent } from './pages/profile/security/security.component';
-import { BvnComponent } from './pages/profile/bvn/bvn.component';
-import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
-import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
-import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ErrorPageComponent } from './components/error-page/error-page.component';
-import { HeaderComponent } from './components/header/header.component';
+import { AccountWalletComponent } from './pages/account-wallet/account-wallet.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
+import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
+import { InvestmentsComponent } from './pages/investments/investments.component';
+import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
+import { MgrComponent } from './pages/mgr/mgr.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { SavingsComponent } from './pages/savings/savings.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +30,6 @@ import { HeaderComponent } from './components/header/header.component';
     SavingsComponent,
     TransactionsComponent,
     NotificationsComponent,
-    PersonalInfoComponent,
-    IdVerificationComponent,
-    CardsComponent,
-    BankAccountsComponent,
-    SecurityComponent,
-    BvnComponent,
     AllInvestmentsComponent,
     MyInvestmentsComponent,
     InvestmentDetailsComponent,
@@ -49,6 +38,7 @@ import { HeaderComponent } from './components/header/header.component';
     SidebarComponent,
     ErrorPageComponent,
     HeaderComponent,
+    H1Component,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })

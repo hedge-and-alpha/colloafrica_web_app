@@ -8,6 +8,8 @@ import { ShowcaseComponent } from './showcase/showcase.component';
 import { ButtonPrimaryDirective } from './directives/button-primary/button-primary.directive';
 import { ButtonSmDirective } from './directives/button-sm/button-sm.directive';
 import { ButtonSecondaryDirective } from './directives/button-secondary/button-secondary.directive';
+import { TitleStrategy } from '@angular/router';
+import { PageTitleStrategyService } from './services/page-title-strategy.service';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, ShowcaseComponent],
@@ -18,7 +20,7 @@ import { ButtonSecondaryDirective } from './directives/button-secondary/button-s
     ButtonSecondaryDirective,
     ButtonSmDirective,
   ],
-  providers: [],
+  providers: [{ provide: TitleStrategy, useClass: PageTitleStrategyService }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
