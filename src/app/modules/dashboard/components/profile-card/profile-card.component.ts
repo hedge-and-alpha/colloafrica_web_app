@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './profile-card.component.html',
   styles: `
     :host img {
-      outline: 1px solid #E3CFFC;
+      outline: 1px dashed #E3CFFC;
       outline-offset: 10px;
     }
     :host .name {
