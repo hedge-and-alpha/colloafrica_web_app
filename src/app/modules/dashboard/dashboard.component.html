@@ -1,3 +1,7 @@
 <ca-dashboard-layout>
+  @if (online) {
   <router-outlet />
+  } @else {
+  <ca-error-page />
+  }
 </ca-dashboard-layout>

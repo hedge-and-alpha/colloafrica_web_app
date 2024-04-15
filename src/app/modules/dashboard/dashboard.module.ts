@@ -22,6 +22,7 @@ import { InvestmentDetailsComponent } from './pages/investments/investment-detai
 import { DashboardComponent } from './dashboard.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     DashboardComponent,
     DashboardLayoutComponent,
     SidebarComponent,
+    ErrorPageComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })
