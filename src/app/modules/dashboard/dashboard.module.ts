@@ -23,6 +23,7 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
     DashboardLayoutComponent,
     SidebarComponent,
     ErrorPageComponent,
+    HeaderComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })

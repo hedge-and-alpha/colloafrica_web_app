@@ -1,0 +1,24 @@
+<header class="py-9 flex">
+  <img src="assets/images/logo.svg" alt="" width="75" />
+
+  <div class="ms-auto flex items-center">
+    <a routerLink="/notifications"><i class="ca-notification"></i></a>
+    <button class="ms-6 text-[#171717] inline-flex items-center gap-2">
+      <img
+        src="assets/images/profile-photo.jpg"
+        alt="Avatar"
+        width="30"
+        height="30"
+        class="rounded-full object-cover"
+      />
+      <span class="font-medium hidden sm:inline">Akinyemi Joshua</span>
+      <i class="ca-caret-down-fill text-xs"></i>
+    </button>
+    <button
+      class="btn btn-sm bg-purple-main text-white font-bold ms-2 menu-btn"
+      (click)="toggleChange.emit((isNavOpen = !isNavOpen))"
+    >
+      <i class="ca-list"></i>
+    </button>
+  </div>
+</header>

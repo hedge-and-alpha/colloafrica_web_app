@@ -8,6 +8,7 @@ import { AccountWalletComponent } from './pages/account-wallet/account-wallet.co
 import { InvestmentsComponent } from './pages/investments/investments.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'investments', component: InvestmentsComponent },
       { path: 'savings', component: SavingsComponent },
       { path: 'transactions', component: TransactionsComponent },
+      { path: 'notifications', component: NotificationsComponent },
     ],
   },
 ];

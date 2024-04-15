@@ -1,0 +1,17 @@
+:host header a {
+  width: 34px;
+  aspect-ratio: 1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: var(--purple);
+  background-color: #fff;
+}
+
+@media screen and (min-width: 56rem) {
+  :host header > img,
+  :host header .menu-btn {
+    display: none;
+  }
+}

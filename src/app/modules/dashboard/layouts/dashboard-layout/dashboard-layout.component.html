@@ -1,11 +1,11 @@
 <div class="h-screen ca-dashboard">
-  <nav class="w-72 bg-white h-full shrink-0 ps-8 pe-6">
+  <nav class="w-72 bg-white h-full shrink-0 ps-8 pe-6" [class.active]="showNav">
     <ca-sidebar />
   </nav>
 
   <div class="grow bg-[#f5f5f5] flex flex-col overflow-y-scroll main-content">
     <div class="px-5 grow pb-5">
-      <header></header>
+      <ca-header (toggleChange)="showNav = $event" />
       <main>
         <ng-content />
       </main>
