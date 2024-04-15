@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { SigninFormComponent } from './components/signin-form/signin-form.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+
     children: [
       {
         path: '',
@@ -19,25 +19,31 @@ const routes: Routes = [
             path: 'sign-up',
             loadComponent: () =>
               import('./components/signup-form/signup-form.component').then(
-                (m) => m.SignupFormComponent
+                (c) => c.SignupFormComponent
               ),
           },
           { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
         ],
       },
-      { path: 'verify-email', component: VerifyEmailComponent },
+      {
+        path: 'verify-email',
+        loadComponent: () =>
+          import('./pages/verify-email/verify-email.component').then(
+            (c) => c.VerifyEmailComponent
+          ),
+      },
       {
         path: 'forgot-password/email',
         loadComponent: () =>
           import('./pages/forgot-password/forgot-password.component').then(
-            (m) => m.ForgotPasswordComponent
+            (c) => c.ForgotPasswordComponent
           ),
       },
       {
         path: 'forgot-password/reset',
         loadComponent: () =>
           import('./pages/reset-password/reset-password.component').then(
-            (m) => m.ResetPasswordComponent
+            (c) => c.ResetPasswordComponent
           ),
       },
       {

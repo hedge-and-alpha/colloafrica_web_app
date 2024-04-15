@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { ButtonPrimaryDirective } from './directives/button-primary/button-primary.directive';
 import { ButtonSmDirective } from './directives/button-sm/button-sm.directive';
+import { ButtonSecondaryDirective } from './directives/button-secondary/button-secondary.directive';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent, ShowcaseComponent],
@@ -14,6 +15,7 @@ import { ButtonSmDirective } from './directives/button-sm/button-sm.directive';
     BrowserModule,
     AppRoutingModule,
     ButtonPrimaryDirective,
+    ButtonSecondaryDirective,
     ButtonSmDirective,
   ],
   providers: [],

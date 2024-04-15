@@ -11,7 +11,10 @@
   --button-text: #171717;
   --button-disabled: #d0d5dd;
 
+  --orange-50: #fff7e5;
+  --orange-400: #ffbb33;
   --orange-500: #e29700;
+  --orange-600: #cc8800;
 
   min-height: 100vh;
 }
@@ -49,20 +52,49 @@ hgroup p {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  transition: background-color 350ms;
 }
 
 .btn-sm {
   height: 46px;
 }
 
-.primary {
+.primary,
+.primary:enabled:active {
   color: var(--button-text);
   background-color: var(--orange-500);
+}
+
+.primary:enabled:hover {
+  background-color: var(--orange-400);
+}
+
+.primary:focus {
+  background-color: var(--orange-600);
 }
 
 .primary:disabled {
   background-color: var(--button-disabled);
   color: #fff;
+}
+
+.secondary {
+  color: var(--button-text);
+  background-color: #fff;
+  border: 1.5px solid var(--orange-500);
+}
+
+.secondary:enabled:is(:hover, :focus) {
+  background-color: var(--orange-50);
+}
+
+.secondary:disabled {
+  background-color: #fff;
+  color: #b0b0b0;
+  border: 2px solid var(--button-disabled);
+}
+
+:disabled {
   cursor: not-allowed;
 }
 

@@ -1,11 +1,12 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[caButtonIcon]',
-  standalone: true
+  selector: '[ca-button-icon]',
+  standalone: true,
+  host: {
+    class: 'btn icon',
+  },
 })
 export class ButtonIconDirective {
-
-  constructor() { }
-
+  constructor() {}
 }

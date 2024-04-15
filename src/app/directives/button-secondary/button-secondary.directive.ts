@@ -1,11 +1,12 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[caButtonSecondary]',
-  standalone: true
+  selector: '[ca-button-secondary]',
+  standalone: true,
+  host: {
+    class: 'btn secondary',
+  },
 })
 export class ButtonSecondaryDirective {
-
-  constructor() { }
-
+  constructor() {}
 }
