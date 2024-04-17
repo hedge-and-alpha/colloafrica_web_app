@@ -1,1 +1,40 @@
-<p>security works!</p>
+<form class="mt-8">
+  <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8">
+    <h2 class="text-purple-main mb-10 font-medium text-xl">Change Password</h2>
+
+    <ca-cols-field-3>
+      <ca-form-field
+        label="Old Password"
+        labelFor="old"
+        [isRequired]="true"
+        col-1
+      >
+        <input id="old" type="password" autocomplete="current-password" />
+      </ca-form-field>
+
+      <ca-form-field
+        label="New password"
+        labelFor="new"
+        [isRequired]="true"
+        col-2
+      >
+        <input id="new" type="password" autocomplete="new-password" />
+      </ca-form-field>
+
+      <ca-form-field
+        label="Confirm password"
+        labelFor="confirm"
+        [isRequired]="true"
+        col-3
+      >
+        <input id="confirm" type="password" autocomplete="new-password" />
+      </ca-form-field>
+    </ca-cols-field-3>
+  </ca-card>
+
+  <div class="mb-10">
+    <button class="btn bg-purple-main h-[44px] text-white">
+      Save & update
+    </button>
+  </div>
+</form>
