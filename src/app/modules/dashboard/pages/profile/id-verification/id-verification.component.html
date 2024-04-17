@@ -1,1 +1,31 @@
-<p>id-verification works!</p>
+<form class="mt-8">
+  <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8">
+    <h2 class="text-purple-main mb-10 font-medium text-xl">ID Card Details</h2>
+
+    <ca-cols-field-3>
+      <ca-form-field
+        label="ID Type"
+        labelFor="id_type"
+        [isRequired]="true"
+        col-1
+      >
+        <!-- <input id="first_name" type="text" /> -->
+      </ca-form-field>
+
+      <ca-form-field
+        label="ID Number"
+        labelFor="id_number"
+        [isRequired]="true"
+        col-2
+      >
+        <input id="id_number" type="number" />
+      </ca-form-field>
+    </ca-cols-field-3>
+  </ca-card>
+
+  <div class="mb-10">
+    <button class="btn bg-purple-main h-[44px] text-white">
+      Save & update
+    </button>
+  </div>
+</form>
