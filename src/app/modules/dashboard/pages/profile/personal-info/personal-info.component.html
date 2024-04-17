@@ -3,20 +3,157 @@
 </ca-card>
 
 <form class="mt-8">
-  <ca-card class="px-6 pt-4 pb-12 mb-5">
+  <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5">
     <h2 class="text-purple-main mb-10 font-medium text-xl">Basic info</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field
+        label="First Name"
+        labelFor="first_name"
+        [isRequired]="true"
+        col-1
+      >
+        <input id="first_name" type="text" />
+      </ca-form-field>
+
+      <ca-form-field
+        label="Last Name"
+        labelFor="last_name"
+        [isRequired]="true"
+        col-2
+      >
+        <input id="last_name" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field
+        label="Date of Birth"
+        labelFor="dob"
+        [isRequired]="true"
+        col-1
+      >
+        <!-- <input id="dob" type="text" /> -->
+      </ca-form-field>
+
+      <ca-form-field label="Marital Status" labelFor="marital-status" col-2>
+        <!-- <input id="last_name" type="text" /> -->
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <p for="gender" class="mb-3 font-medium text-xl block">Gender*</p>
+    <div class="inline-flex gap-10">
+      <label for="male" class="inline-flex items-center gap-3">
+        Male <input type="radio" id="male" name="gender" />
+      </label>
+      <label for="female" class="inline-flex items-center gap-3">
+        Female <input type="radio" id="female" name="gender" />
+      </label>
+    </div>
   </ca-card>
 
-  <ca-card class="px-6 pt-4 pb-12 mb-5">
+  <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5">
     <h2 class="text-purple-main mb-10 font-medium text-xl">Contact info</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field
+        label="Phone Number"
+        labelFor="phone"
+        [isRequired]="true"
+        col-1
+      >
+        <input id="phone" type="tel" />
+      </ca-form-field>
+
+      <ca-form-field
+        label="Email Address"
+        labelFor="email"
+        [isRequired]="true"
+        col-2
+      >
+        <input id="email" type="email" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 class="mb-6" col1Span="col-span-2">
+      <ca-form-field
+        label="Address"
+        labelFor="address"
+        [isRequired]="true"
+        col-1
+      >
+        <input id="address" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field label="Nearest Landmark" labelFor="landmark" col-1>
+        <input id="landmark" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="LGA" labelFor="lga" col-2>
+        <input id="lga" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Home Town" labelFor="home-town" col-3>
+        <input id="home-town" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3>
+      <ca-form-field label="State" labelFor="state" col-1>
+        <input id="state" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Nationality" labelFor="nationality" col-2>
+      </ca-form-field>
+    </ca-cols-field-3>
   </ca-card>
 
-  <ca-card class="px-6 pt-4 pb-12 mb-5">
+  <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5">
     <h2 class="text-purple-main mb-10 font-medium text-xl">Employment info</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field label="Occupation" labelFor="occupation" col-1>
+        <input id="occupation" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Employer Name" labelFor="employer" col-2>
+        <input id="employer" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Employer Address" labelFor="emp-address" col-3>
+        <input id="emp-address" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
   </ca-card>
 
-  <ca-card class="px-6 pt-4 pb-12 mb-8">
+  <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8">
     <h2 class="text-purple-main mb-10 font-medium text-xl">Next of kin</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field label="Full Name" labelFor="full-name" col-1>
+        <input id="full-name" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Phone Number" labelFor="nok-phone" col-2>
+        <input id="nok-phone" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Email" labelFor="nok-email" col-3>
+        <input id="nok-email" type="email" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 col2Span="col-span-2">
+      <ca-form-field label="Relationship" labelFor="relationship" col-1>
+        <input id="relationship" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Address" labelFor="nok-address" col-2>
+        <input id="nok-address" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
   </ca-card>
 
   <div class="mb-10">
