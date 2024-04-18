@@ -17,6 +17,10 @@
     display: flex;
   }
 
+  :host .ca-dashboard .main-content {
+    overflow-y: scroll;
+  }
+
   :host .ca-dashboard > nav {
     position: static;
     left: 0;

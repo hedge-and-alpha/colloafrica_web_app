@@ -1,1 +1,30 @@
-<p>cards works!</p>
+<ca-card class="px-4 sm:px-6 pt-4 pb-6 sm:pb-12 mb-8">
+  <div class="flex items-center">
+    <h2 class="text-purple-main font-medium text-xl">
+      Debit & Credit Card Info
+    </h2>
+
+    <button class="btn btn-xs bg-purple-main text-white ms-auto h-8">
+      <i class="ca-plus"></i> Add new card
+    </button>
+  </div>
+
+  <div class="mt-9 flex flex-col items-center">
+    <img
+      src="assets/images/no-card.svg"
+      alt=""
+      width="157.27"
+      height="153.32"
+    />
+    <p class="mt-1 font-medium">No cards added yet</p>
+    <p class="mt-[6px] text-xs text-[#5c5c5c]">
+      Seems like you’ve not added any card(s)
+    </p>
+  </div>
+
+  <div class="ca-payment-cards mt-6">
+    <ca-payment-card col-1 cardProvider="visa" />
+    <ca-payment-card col-2 cardProvider="master" />
+    <ca-payment-card col-3 cardProvider="verve" />
+  </div>
+</ca-card>

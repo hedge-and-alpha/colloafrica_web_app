@@ -1,0 +1,30 @@
+:host .ca-payment-card {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 19.6875rem;
+  height: 166px;
+  overflow-clip-margin: 1px;
+}
+
+:host .ca-payment-card.visa {
+  background-image: url("../../../../../assets/images/card-visa.png");
+}
+:host .ca-payment-card.verve {
+  background-image: url("../../../../../assets/images/card-verve.png");
+}
+:host .ca-payment-card.master {
+  background-image: url("../../../../../assets/images/card-master.png");
+}
+
+:host .ca-payment-card .card-number {
+  margin-block: 25px 20px;
+  color: #fefefe;
+  display: flex;
+  justify-content: space-between;
+  font-family: "KreditBack-Regular";
+}
+
+:host .ca-payment-card .card-number span {
+  letter-spacing: 4px;
+}

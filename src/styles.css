@@ -59,6 +59,11 @@ hgroup p {
   height: 46px;
 }
 
+.btn-xs {
+  height: 32px;
+  font-size: 0.875rem;
+}
+
 .primary,
 .primary:enabled:active {
   color: var(--button-text);

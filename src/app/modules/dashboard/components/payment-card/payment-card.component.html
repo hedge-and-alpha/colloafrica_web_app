@@ -1,0 +1,40 @@
+<div
+  class="ca-payment-card ps-6 pe-4 pt-4 rounded-xl w-full overflow-clip relative"
+  [ngClass]="{
+    visa: cardProvider === 'visa',
+    verve: cardProvider === 'verve',
+    master: cardProvider === 'master'
+  }"
+>
+  <div class="flex items-center h-9">
+    <img
+      src="assets/images/card-sim.png"
+      alt="Sim"
+      width="32"
+      height="28"
+      class="text-xs"
+    />
+
+    <img
+      [src]="'assets/images/card-logo-' + cardProvider + '.svg'"
+      [alt]="cardProvider"
+      class="ms-auto logo"
+      [width]=""
+    />
+  </div>
+
+  <p class="card-number leading-1.2">
+    <span>xxxx</span> <span>xxxx</span> <span>xxxx</span> <span>2158</span>
+  </p>
+
+  <div class="inline-flex items-center gap-1 text-[#fefefe]">
+    <span class="expires" style="font-size: 0.5rem">EXPIRES</span>
+    <div class="text-sm font-medium">12/28</div>
+  </div>
+
+  <button
+    class="absolute right-[-7px] bottom-[-7px] z-10 h-12 w-12 rounded-full text-center bg-white"
+  >
+    <i class="ca-trash-solid text-[#D92121]"></i>
+  </button>
+</div>
