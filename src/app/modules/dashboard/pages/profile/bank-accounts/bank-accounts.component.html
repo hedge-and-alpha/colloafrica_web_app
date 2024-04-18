@@ -1,1 +1,44 @@
-<p>bank-accounts works!</p>
+<ca-card class="px-4 sm:px-6 pt-4 pb-6 sm:pb-12 mb-8">
+  <div class="flex items-center">
+    <h2 class="text-purple-main font-medium text-xl">Bank Accounts Info</h2>
+
+    <button class="btn btn-xs bg-purple-main text-white ms-auto h-8">
+      <i class="ca-plus"></i> Add new bank account
+    </button>
+  </div>
+
+  <div class="mt-9 flex flex-col items-center">
+    <img src="assets/images/empty-folder.svg" alt="" width="136" height="148" />
+    <p class="mt-1 font-medium">No Bank accounts added yet</p>
+    <p class="mt-[6px] text-xs text-[#5c5c5c]">
+      Seems like you've not added a bank account
+    </p>
+  </div>
+
+  <div class="ca-bank-accounts mt-4">
+    <ca-bank-account-info-item>
+      <ca-bank-account-info-item-column
+        columnTitle="Bank Name"
+        class="sticky left-0 top-0 bottom-0"
+      >
+        <p class="font-medium">Access bank</p>
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column columnTitle="Account Number">
+        <p class="font-medium">0030918456</p>
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column columnTitle="Primary">
+        <!-- <p class="font-medium">Access bank</p> -->
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column columnTitle="Status">
+        <p class="font-medium">Verified</p>
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column class="sticky right-0 top-0 bottom-0">
+        <button class="text-purple-main"><i class="ca-trash-solid"></i></button>
+      </ca-bank-account-info-item-column>
+    </ca-bank-account-info-item>
+  </div>
+</ca-card>
