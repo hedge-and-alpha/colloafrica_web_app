@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CardComponent } from '../../../components/card/card.component';
 import { BankAccountInfoItemComponent } from '../../../components/bank-account-info-item/bank-account-info-item.component';
 import { BankAccountInfoItemColumnComponent } from '../../../components/bank-account-info-item-column/bank-account-info-item-column.component';
+import { SwitchComponent } from '../../../../../components/switch/switch.component';
 
 @Component({
   selector: 'ca-bank-accounts',
@@ -12,6 +13,7 @@ import { BankAccountInfoItemColumnComponent } from '../../../components/bank-acc
     BankAccountInfoItemComponent,
     BankAccountInfoItemColumnComponent,
     CardComponent,
+    SwitchComponent,
   ],
 })
 export class BankAccountsComponent {}

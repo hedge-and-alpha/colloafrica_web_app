@@ -1,0 +1,35 @@
+:host label {
+  width: 30px;
+  height: 18px;
+  display: inline-block;
+  background: #7d7f85;
+  border-radius: 30px;
+  position: relative;
+}
+
+:host label:has(:checked) {
+  background-color: var(--purple);
+}
+
+:host label:has(:focus-visible) {
+  outline: 1.5px solid black;
+  outline-offset: 2px;
+}
+
+:host label::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translateY(-50%);
+  transition: left 250ms;
+}
+
+:host label:has(input[type="checkbox"]:checked)::after {
+  left: calc((100% - 15%) - 10px);
+}
