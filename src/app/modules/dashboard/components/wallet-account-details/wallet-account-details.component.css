@@ -1,0 +1,10 @@
+:host {
+  display: block;
+}
+
+:host .ca-wa-details .value {
+  font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
+}
+:host .ca-wa-details .value-acct {
+  font-size: clamp(0.875rem, 0.75rem + 0.5556vw, 1.25rem);
+}

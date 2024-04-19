@@ -23,6 +23,7 @@ import { ContentSidebarComponent } from './layouts/content-sidebar/content-sideb
 import { AsideCardComponent } from './components/aside-card/aside-card.component';
 import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
 import { WalletBalanceCardComponent } from './components/wallet-balance-card/wallet-balance-card.component';
+import { WalletAccountDetailsComponent } from './components/wallet-account-details/wallet-account-details.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { WalletBalanceCardComponent } from './components/wallet-balance-card/wal
     AsideCardComponent,
     AdvertsSliderComponent,
     WalletBalanceCardComponent,
+    WalletAccountDetailsComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })
