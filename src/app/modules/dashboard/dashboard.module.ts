@@ -22,6 +22,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 import { ContentSidebarComponent } from './layouts/content-sidebar/content-sidebar.component';
 import { AsideCardComponent } from './components/aside-card/aside-card.component';
 import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
+import { WalletBalanceCardComponent } from './components/wallet-balance-card/wallet-balance-card.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slid
     ContentSidebarComponent,
     AsideCardComponent,
     AdvertsSliderComponent,
+    WalletBalanceCardComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })

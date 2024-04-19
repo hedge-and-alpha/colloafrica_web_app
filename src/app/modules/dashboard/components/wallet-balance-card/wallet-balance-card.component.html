@@ -1,0 +1,32 @@
+<div class="ca-wb-card text-white ps-4 pe-1 pt-[44px]">
+  <div class="font-semibold mb-8">Wallet Balance</div>
+
+  <div class="flex items-center h-[58px]">
+    @if (show) {
+    <div class="inline-flex items-center">
+      <i class="ca-naira text-lg"></i>
+      <span class="amount font-semibold">
+        {{ 0 | number : "1.2-2" }}
+      </span>
+    </div>
+    } @else {
+    <span class="inline-flex gap-1">
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+      <i class="ca-asterisk font-bold text-lg"></i>
+    </span>
+    }
+    <button class="ms-auto text-white border-0 p-4" (click)="show = !show">
+      @if (!show) {
+      <i class="ca-eye"></i>
+      } @else {
+      <i class="ca-eye-slash"></i>
+      }
+    </button>
+  </div>
+</div>

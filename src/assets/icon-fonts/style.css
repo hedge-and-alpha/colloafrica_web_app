@@ -1,6 +1,9 @@
 @font-face {
-  font-family: "ColloAfrica";
-  src: url("./fonts/ColloAfrica.woff?51xwbz") format("woff");
+  font-family: 'ColloAfrica';
+  src:
+    url('fonts/ColloAfrica.ttf?1tnmej') format('truetype'),
+    url('fonts/ColloAfrica.woff?1tnmej') format('woff'),
+    url('fonts/ColloAfrica.svg?1tnmej#ColloAfrica') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -8,7 +11,7 @@
 
 i {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "ColloAfrica" !important;
+  font-family: 'ColloAfrica' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -21,8 +24,14 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ca-sign-out:before {
+.ca-asterisk:before {
+  content: "\e938";
+}
+.ca-logout:before {
   content: "\e936";
+}
+.ca-naira:before {
+  content: "\e937";
 }
 .ca-trash-solid:before {
   content: "\e930";
@@ -83,6 +92,9 @@ i {
 }
 .ca-arrow-down-right:before {
   content: "\e924";
+}
+.ca-arrow-down-right1:before {
+  content: "\e925";
 }
 .ca-chart-bar:before {
   content: "\e908";

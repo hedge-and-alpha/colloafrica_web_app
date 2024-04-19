@@ -1,0 +1,12 @@
+:host .ca-wb-card {
+  display: block;
+  height: 195px;
+  border-radius: 12px;
+  background-color: var(--purple);
+  background-image: url("../../../../../assets/images/wallet-balance-pattern.svg");
+  box-shadow: 1px 2px 12px 0 #6f6f6f26;
+}
+
+:host .ca-wb-card .amount {
+  font-size: clamp(2rem, 1.625rem + 1.6667vw, 2.5rem);
+}
