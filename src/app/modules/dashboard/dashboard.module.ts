@@ -19,6 +19,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { ContentSidebarComponent } from './layouts/content-sidebar/content-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     ErrorPageComponent,
     HeaderComponent,
     H1Component,
+    ContentSidebarComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })

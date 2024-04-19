@@ -1,0 +1,5 @@
+:host
+  ca-bank-account-info-item
+  ca-bank-account-info-item-column:not(:last-of-type) {
+  min-width: 112px;
+}

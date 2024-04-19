@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './bank-account-info-item.component.html',
   styles: `
+    :host {
+      display: block;
+    }
     :host div {
       background: #F5F5F5;
       height: 80px;
