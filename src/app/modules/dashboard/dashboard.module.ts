@@ -20,6 +20,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { ContentSidebarComponent } from './layouts/content-sidebar/content-sidebar.component';
+import { AsideCardComponent } from './components/aside-card/aside-card.component';
+import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { ContentSidebarComponent } from './layouts/content-sidebar/content-sideb
     HeaderComponent,
     H1Component,
     ContentSidebarComponent,
+    AsideCardComponent,
+    AdvertsSliderComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule],
 })

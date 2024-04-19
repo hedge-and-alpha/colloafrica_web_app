@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+:host .ca-aside-card {
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: 1fr 3.25rem;
+  position: relative;
+}
+
+:host .ca-aside-card a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+}
