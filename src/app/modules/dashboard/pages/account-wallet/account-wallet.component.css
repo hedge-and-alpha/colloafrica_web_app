@@ -1,0 +1,41 @@
+:host .actions {
+  margin-block: 12px 20px;
+  grid-area: actions;
+}
+
+:host .actions button {
+  width: clamp(2rem, 1.375rem + 2.7778vw, 3.875rem);
+  aspect-ratio: 1;
+  background: #a970f51a;
+  font-size: clamp(1.125rem, 0.875rem + 1.1111vw, 1.875rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host .actions button + span {
+  font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
+}
+
+:host ca-wallet-balance-card {
+  grid-area: ca-wallet-balance-card;
+}
+
+:host ca-wallet-account-details {
+  grid-area: ca-wallet-account-details;
+}
+
+@media screen and (min-width: 36rem) {
+  :host .cards-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 1rem;
+    grid-template-areas:
+      "ca-wallet-balance-card ca-wallet-account-details"
+      "actions actions";
+  }
+
+  :host .actions {
+    margin-block: 0;
+  }
+}

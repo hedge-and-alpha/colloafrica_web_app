@@ -1,8 +1,43 @@
 <ca-content-sidebar>
   <ca-h1 class="mb-4 mt-3">Account Wallet</ca-h1>
 
-  <div class="">
+  <div class="cards-row">
     <ca-wallet-balance-card />
+
+    <div
+      class="actions flex justify-around bg-white py-4 lg:py-5 rounded-md lg:rounded-xl"
+    >
+      <div class="inline-flex flex-col items-center gap-2">
+        <button
+          class="text-purple-main rounded-md lg:rounded-[18px]"
+          aria-label="Top up"
+        >
+          <i class="ca-plus"></i>
+        </button>
+        <span class="font-medium lg:font-normal">Top up</span>
+      </div>
+
+      <div class="inline-flex flex-col items-center gap-2">
+        <button
+          class="text-purple-main rounded-md lg:rounded-[18px]"
+          aria-label="Withdraw"
+        >
+          <i class="ca-bank"></i>
+        </button>
+        <span class="font-medium lg:font-normal">Withdraw</span>
+      </div>
+
+      <div class="inline-flex flex-col items-center gap-2">
+        <button
+          class="text-purple-main rounded-md lg:rounded-[18px]"
+          aria-label="Pay bills"
+        >
+          <i class="ca-scroll"></i>
+        </button>
+        <span class="font-medium lg:font-normal">Pay bills</span>
+      </div>
+    </div>
+
     <ca-wallet-account-details />
   </div>
 </ca-content-sidebar>
