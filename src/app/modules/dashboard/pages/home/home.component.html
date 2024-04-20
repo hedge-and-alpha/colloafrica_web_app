@@ -1,1 +1,48 @@
-<p>home works!</p>
+<ca-h1 class="mb-[14px] mt-[18px]">dashboard</ca-h1>
+
+<ca-analytics />
+
+<div class="chart-area mb-4">
+  <ca-card class="rounded-xl px-4 sm:px-5 pt-6 pb-[28px] chart-box"></ca-card>
+
+  <div class="flex flex-col gap-3">
+    <ca-account-info-card />
+    <ca-start-plan-card />
+    <ca-referral-link />
+  </div>
+</div>
+
+<ca-card class="rounded-xl p-4 mb-6 lg:mb-10">
+  <ca-table [tableHeading]="tableHeading" [tableData]="tableData">
+    <ng-template let-item #tableBody>
+      <td class="whitespace-nowrap text-center">{{ item.sn }}</td>
+      <td class="whitespace-nowrap text-center">{{ item.id }}</td>
+      <td class="whitespace-nowrap text-center">
+        #{{ item.amount | number : "1.2-2" }}
+      </td>
+      <td
+        class="whitespace-nowrap text-center capitalize"
+        [ngClass]="{
+          'text-success': item.status === 'success',
+          'text-warning': item.status === 'pending',
+          'text-danger': item.status === 'failed'
+        }"
+      >
+        {{ item.status }}
+      </td>
+      <td class="whitespace-nowrap text-center">
+        {{ item.date | date : "dd MMM, yyyy" }}
+      </td>
+      <td class="whitespace-nowrap text-center">
+        <div class="h-full flex items-center justify-center gap-2">
+          @if (item.type === 'debit') {
+          <i class="ca-x-circle text-[#D92121]"></i>
+          } @else {
+          <i class="ca-check-circle text-[#049F0A]"></i>
+          }
+          {{ item.type | titlecase }}
+        </div>
+      </td>
+    </ng-template>
+  </ca-table>
+</ca-card>

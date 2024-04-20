@@ -185,6 +185,7 @@ input[type="number"] {
 /* Table */
 table td {
   padding: 12px 1.5rem;
+  font-weight: 500;
 }
 /* Table */
 

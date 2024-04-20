@@ -9,6 +9,9 @@ module.exports = {
       },
       colors: {
         "purple-main": "#470b96",
+        warning: "#E29700",
+        danger: "#D92121",
+        success: "#049F0A",
       },
     },
   },

@@ -28,6 +28,12 @@ import { WalletAccountTransactionsComponent } from './components/wallet-account-
 import { ModalComponent } from '../../components/modal/modal.component';
 import { TableComponent } from '../../components/table/table.component';
 import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
+import { CardComponent } from './components/card/card.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { ReferralLinkComponent } from './components/referral-link/referral-link.component';
+import { ButtonPrimaryDirective } from '../../directives/button-primary/button-primary.directive';
+import { StartPlanCardComponent } from './components/start-plan-card/start-plan-card.component';
+import { AccountInfoCardComponent } from './components/account-info-card/account-info-card.component';
 
 @NgModule({
   declarations: [
@@ -55,10 +61,16 @@ import { AnalyticsCardComponent } from './components/analytics-card/analytics-ca
     WalletAccountDetailsComponent,
     WalletAccountTransactionsComponent,
     AnalyticsCardComponent,
+    AnalyticsComponent,
+    ReferralLinkComponent,
+    StartPlanCardComponent,
+    AccountInfoCardComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    ButtonPrimaryDirective,
+    CardComponent,
     ModalComponent,
     TableComponent,
   ],

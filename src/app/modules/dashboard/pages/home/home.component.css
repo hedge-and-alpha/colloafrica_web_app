@@ -1,0 +1,42 @@
+:host .chart-area .chart-box {
+  margin-block-end: 24px;
+}
+
+@media (min-width: 50rem) {
+  :host .chart-area {
+    display: grid;
+    grid-template-columns: 59.124% 39.051%;
+    gap: 1.825%;
+    height: 356px;
+  }
+
+  :host .chart-area .chart-box {
+    margin-block-end: 0;
+  }
+}
+
+@media screen and (min-width: 56rem) {
+  :host .chart-area {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 1.5rem;
+  }
+  :host .chart-area .chart-box {
+    margin-block-end: 24px;
+  }
+}
+
+@media (min-width: 72.5rem) {
+  :host .chart-area {
+    grid-template-columns: 59.124% 39.051%;
+    gap: 1.825%;
+    height: 356px;
+  }
+  :host .chart-area .chart-box {
+    margin-block-end: 0;
+  }
+}
+
+:host ca-table::ng-deep th {
+  text-align: center;
+}

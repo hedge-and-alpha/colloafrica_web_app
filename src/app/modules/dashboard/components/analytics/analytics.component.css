@@ -1,0 +1,21 @@
+:host .analytics ca-analytics-card {
+  flex: 1 0 16.375rem;
+}
+
+:host ca-analytics-card span {
+  border-radius: 10px;
+}
+
+:host ca-analytics-card span.inv {
+  background: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%);
+}
+
+:host ca-analytics-card span.wallet {
+  background: linear-gradient(245.62deg, #006dca 8.35%, #1e96fc 100%);
+}
+
+@media screen and (min-width: 72.5rem) {
+  :host .analytics ca-analytics-card {
+    flex-shrink: 1;
+  }
+}
