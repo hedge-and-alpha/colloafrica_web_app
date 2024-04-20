@@ -1,0 +1,29 @@
+:host table {
+  border-collapse: collapse;
+}
+
+:host table th:first-of-type {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+:host table th:last-of-type {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+:host table thead tr {
+  background: #ededed;
+}
+:host table tbody tr {
+  border-block-end: 0.5px solid #d1d1d1;
+  height: 64px;
+}
+
+:host .ca-table .paginator button {
+  font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
+}
+:host .ca-table .paginator span {
+  font-size: clamp(0.625rem, 0.5rem + 0.5556vw, 1rem);
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 4px;
+}

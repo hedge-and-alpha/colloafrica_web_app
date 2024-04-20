@@ -24,6 +24,9 @@ import { AsideCardComponent } from './components/aside-card/aside-card.component
 import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
 import { WalletBalanceCardComponent } from './components/wallet-balance-card/wallet-balance-card.component';
 import { WalletAccountDetailsComponent } from './components/wallet-account-details/wallet-account-details.component';
+import { WalletAccountTransactionsComponent } from './components/wallet-account-transactions/wallet-account-transactions.component';
+import { ModalComponent } from '../../components/modal/modal.component';
+import { TableComponent } from '../../components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,13 @@ import { WalletAccountDetailsComponent } from './components/wallet-account-detai
     AdvertsSliderComponent,
     WalletBalanceCardComponent,
     WalletAccountDetailsComponent,
+    WalletAccountTransactionsComponent,
   ],
-  imports: [CommonModule, DashboardRoutingModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    ModalComponent,
+    TableComponent,
+  ],
 })
 export class DashboardModule {}

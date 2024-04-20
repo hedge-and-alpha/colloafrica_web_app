@@ -1,0 +1,59 @@
+<div class="ca-table overflow-x-scroll no-scrollbar">
+  <table class="w-full mb-[22px]">
+    <thead>
+      <tr>
+        @for (th of tableHeading; track $index; let isLast = $last; let isFirst
+        = $first) {
+        <th class="font-medium whitespace-nowrap py-3 text-start px-6">
+          {{ th.label }}
+        </th>
+        }
+      </tr>
+    </thead>
+
+    <tbody>
+      @if (!loading) {
+      <!-- Iterate through table data -->
+      @for (item of tableData; track $index) {
+      <tr class="h-[53px] lg:h-16">
+        <ng-container
+          *ngTemplateOutlet="
+            tableRow;
+            context: { $implicit: item, idx: $index }
+          "
+        />
+      </tr>
+      } @empty {
+      <tr class="h-[53px] lg:h-16">
+        <td [colSpan]="tableHeading.length">
+          <div class="text-center">No records found.</div>
+        </td>
+      </tr>
+      } } @else {
+      <tr class="h-[53px] lg:h-16">
+        <td [colSpan]="tableHeading.length">
+          <div class="text-center">Loading...</div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Paginator -->
+  @if (tableData.length) {
+  <div class="flex items-center font-medium text-[#5c5c5c]">
+    <p class="hidden sm:block">
+      Showing {{ currentPage }} to 4 of {{ tableData.length }} Entries
+    </p>
+
+    <div class="paginator sm:ms-auto flex items-center gap-2">
+      <button>Previous</button>
+      <span
+        class="bg-purple-main text-white inline-flex items-center justify-center font-semibold"
+        >1</span
+      >
+      <button>Next</button>
+    </div>
+  </div>
+  }
+</div>
