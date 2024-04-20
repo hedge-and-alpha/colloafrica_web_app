@@ -1,1 +1,13 @@
-<p>modal works!</p>
+<div class="ca-modal fixed inset-0">
+  <div class="h-full w-full flex items-center justify-center">
+    <div
+      class="ca-modal-content bg-white px-4 sm:px-8 md:px-11 relative"
+      [ngClass]="{
+        'large no-scrollbar': size === 'large',
+        small: size === 'small'
+      }"
+    >
+      <ng-content />
+    </div>
+  </div>
+</div>

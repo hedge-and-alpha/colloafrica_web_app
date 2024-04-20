@@ -27,6 +27,7 @@ import { WalletAccountDetailsComponent } from './components/wallet-account-detai
 import { WalletAccountTransactionsComponent } from './components/wallet-account-transactions/wallet-account-transactions.component';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { TableComponent } from '../../components/table/table.component';
+import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { TableComponent } from '../../components/table/table.component';
     WalletBalanceCardComponent,
     WalletAccountDetailsComponent,
     WalletAccountTransactionsComponent,
+    AnalyticsCardComponent,
   ],
   imports: [
     CommonModule,

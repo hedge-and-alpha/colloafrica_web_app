@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
     :host {
       display: block;
       background-color: #fff;
-      border-radius: 8px;
     }
   `,
 })

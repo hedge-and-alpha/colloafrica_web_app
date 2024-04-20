@@ -1,0 +1,23 @@
+:host .ca-modal {
+  background: #0f0f0f99;
+}
+
+:host .ca-modal .ca-modal-content {
+  width: 95%;
+  max-width: 41.75rem;
+  max-height: 550px;
+  padding-block: 44px 54px;
+  border-radius: 12px;
+  transition: max-width 450ms;
+}
+
+:host .ca-modal .ca-modal-content.small {
+  max-width: 31.625rem;
+}
+
+:host .ca-modal .ca-modal-content.large {
+  max-width: 60rem;
+  min-height: 495px;
+  max-height: 72vh;
+  overflow-y: scroll;
+}

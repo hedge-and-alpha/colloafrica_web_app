@@ -1,43 +1,45 @@
-<div class="ca-table overflow-x-scroll no-scrollbar">
-  <table class="w-full mb-[22px]">
-    <thead>
-      <tr>
-        @for (th of tableHeading; track $index; let isLast = $last; let isFirst
-        = $first) {
-        <th class="font-medium whitespace-nowrap py-3 text-start px-6">
-          {{ th.label }}
-        </th>
-        }
-      </tr>
-    </thead>
+<div class="ca-table">
+  <div class="mb-[22px] overflow-x-scroll no-scrollbar">
+    <table class="w-full">
+      <thead>
+        <tr>
+          @for (th of tableHeading; track $index; let isLast = $last; let
+          isFirst = $first) {
+          <th class="font-medium whitespace-nowrap py-3 text-start px-6">
+            {{ th.label }}
+          </th>
+          }
+        </tr>
+      </thead>
 
-    <tbody>
-      @if (!loading) {
-      <!-- Iterate through table data -->
-      @for (item of tableData; track $index) {
-      <tr class="h-[53px] lg:h-16">
-        <ng-container
-          *ngTemplateOutlet="
-            tableRow;
-            context: { $implicit: item, idx: $index }
-          "
-        />
-      </tr>
-      } @empty {
-      <tr class="h-[53px] lg:h-16">
-        <td [colSpan]="tableHeading.length">
-          <div class="text-center">No records found.</div>
-        </td>
-      </tr>
-      } } @else {
-      <tr class="h-[53px] lg:h-16">
-        <td [colSpan]="tableHeading.length">
-          <div class="text-center">Loading...</div>
-        </td>
-      </tr>
-      }
-    </tbody>
-  </table>
+      <tbody>
+        @if (!loading) {
+        <!-- Iterate through table data -->
+        @for (item of tableData; track $index) {
+        <tr class="h-[53px] lg:h-16">
+          <ng-container
+            *ngTemplateOutlet="
+              tableRow;
+              context: { $implicit: item, idx: $index }
+            "
+          />
+        </tr>
+        } @empty {
+        <tr class="h-[53px] lg:h-16">
+          <td [colSpan]="tableHeading.length">
+            <div class="text-center">No records found.</div>
+          </td>
+        </tr>
+        } } @else {
+        <tr class="h-[53px] lg:h-16">
+          <td [colSpan]="tableHeading.length">
+            <div class="text-center">Loading...</div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 
   <!-- Paginator -->
   @if (tableData.length) {
