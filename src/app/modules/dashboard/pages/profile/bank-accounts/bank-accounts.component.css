@@ -3,3 +3,7 @@
   ca-bank-account-info-item-column:not(:last-of-type) {
   min-width: 112px;
 }
+
+:host h2 {
+  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
+}
