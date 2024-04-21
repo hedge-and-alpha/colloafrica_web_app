@@ -12,14 +12,9 @@
         class="rounded-full object-cover"
       />
       <span class="font-medium hidden sm:inline">Akinyemi Joshua</span>
-      <i class="ca-caret-down-fill text-xs"></i>
+      <!-- <i class="ca-caret-down-fill text-xs"></i> -->
     </button>
-    <button
-      class="btn btn-sm bg-purple-main text-white font-bold ms-2 menu-btn"
-      (click)="toggleChange.emit((isNavOpen = !isNavOpen))"
-    >
-      <i class="ca-list"></i>
-    </button>
+    <ng-content select=".menu-btn" />
   </div>
 </header>
 

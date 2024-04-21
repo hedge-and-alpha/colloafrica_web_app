@@ -1,3 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 :host .divider {
   background-color: #f3f5f5;
   height: 2px;

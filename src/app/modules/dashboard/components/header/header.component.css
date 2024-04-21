@@ -10,8 +10,7 @@
 }
 
 @media screen and (min-width: 56rem) {
-  :host header > img,
-  :host header .menu-btn {
+  :host header > img {
     display: none;
   }
 }

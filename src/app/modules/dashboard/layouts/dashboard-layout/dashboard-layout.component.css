@@ -4,6 +4,19 @@
   transition: left 450ms;
 }
 
+@media (orientation: landscape) {
+  :host .ca-dashboard > nav {
+    overflow-y: scroll;
+    padding-block-end: 1.125rem;
+  }
+}
+
+@media (min-height: 650px) {
+  :host .ca-dashboard > nav {
+    padding-block-end: 2rem;
+  }
+}
+
 :host .ca-dashboard .main-content {
   min-height: 100vh;
 }
@@ -24,6 +37,10 @@
   :host .ca-dashboard > nav {
     position: static;
     left: 0;
+  }
+
+  :host .menu-btn {
+    display: none;
   }
 }
 
