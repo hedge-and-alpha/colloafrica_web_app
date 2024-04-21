@@ -10,17 +10,17 @@
   margin-block-end: 18px;
 }
 
-:host ul li a {
+:host menu li a {
   color: #7d7f85;
   width: 100%;
 }
 
-:host ul li a:is(.active, :hover) {
+:host menu li a:is(.active, :hover) {
   color: var(--purple);
   transition: color 350ms;
 }
 
-:host ul li a::after {
+:host menu li a::after {
   content: "\e92a";
   font-family: "ColloAfrica" !important;
   margin-inline-start: auto;
@@ -28,8 +28,8 @@
   opacity: 0;
 }
 
-:host ul li:hover a::after,
-:host ul li a.active::after {
+:host menu li:hover a::after,
+:host menu li a.active::after {
   opacity: 1;
   transition: opacity 450ms;
 }
