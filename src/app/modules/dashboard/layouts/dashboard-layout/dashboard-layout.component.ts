@@ -36,9 +36,7 @@ export class DashboardLayoutComponent {
   }
 
   toggleNav(e: Event) {
-    if (!this.showNav()) {
-      e.stopPropagation();
-    }
+    e.stopPropagation();
     this.showNav.set(!this.showNav());
   }
 
