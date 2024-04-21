@@ -19,7 +19,7 @@ export class WalletAccountTransactionsComponent {
       id: '83456721',
       amount: '1500',
       date: '2024-04-20T01:56:59.492Z',
-      type: 'crebit',
+      type: 'credit',
     },
   ];
 }
