@@ -19,4 +19,6 @@ import { Component } from '@angular/core';
 })
 export class AccountInfoCardComponent {
   isComplete = false;
+
+  ngOnInit() {}
 }
