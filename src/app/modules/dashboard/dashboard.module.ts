@@ -34,6 +34,11 @@ import { ReferralLinkComponent } from './components/referral-link/referral-link.
 import { ButtonPrimaryDirective } from '../../directives/button-primary/button-primary.directive';
 import { StartPlanCardComponent } from './components/start-plan-card/start-plan-card.component';
 import { AccountInfoCardComponent } from './components/account-info-card/account-info-card.component';
+import { FormFieldComponent } from '../../components/form-field/form-field.component';
+import { IMaskModule } from 'angular-imask';
+import { SavingsLayoutComponent } from './layouts/savings-layout/savings-layout.component';
+import { SavingsDetailComponent } from './components/savings-detail/savings-detail.component';
+import { SavingsPlanFormComponent } from './components/savings-plan-form/savings-plan-form.component';
 
 @NgModule({
   declarations: [
@@ -65,12 +70,17 @@ import { AccountInfoCardComponent } from './components/account-info-card/account
     ReferralLinkComponent,
     StartPlanCardComponent,
     AccountInfoCardComponent,
+    SavingsLayoutComponent,
+    SavingsDetailComponent,
+    SavingsPlanFormComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    IMaskModule,
     ButtonPrimaryDirective,
     CardComponent,
+    FormFieldComponent,
     ModalComponent,
     TableComponent,
   ],

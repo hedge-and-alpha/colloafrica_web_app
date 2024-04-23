@@ -1,0 +1,44 @@
+<div class="h-full bg-[#f5f5f5] p-6 rounded-[10px] mb-10">
+  <h2 class="font-bold mb-6 text-xl">Savings Details</h2>
+
+  <div class="flex flex-col gap-[18px]">
+    <div class="row flex items-center">
+      <div>Start Date:</div>
+      <div class="font-medium ms-auto">16 April 2024</div>
+    </div>
+
+    <div class="row flex items-center">
+      <div>Duration:</div>
+      <div class="font-medium ms-auto">6 Months</div>
+    </div>
+
+    <div class="row flex items-center">
+      <div>Period:</div>
+      <div class="font-medium ms-auto">Monthly</div>
+    </div>
+
+    <div class="row flex items-center">
+      <div>Withdrawal Date:</div>
+      <div class="font-medium ms-auto">16 October 2024</div>
+    </div>
+
+    <div class="row flex items-center">
+      <div class="inline-flex items-center gap-2">
+        <i class="ca-info text-[#006dca]"></i> Penalty Fee:
+      </div>
+      <div class="font-medium ms-auto">2% of the savings</div>
+    </div>
+
+    <div class="row flex items-center">
+      <div>Currency:</div>
+      <div class="font-medium ms-auto">NGN</div>
+    </div>
+
+    <div class="row flex items-center">
+      <div>Units:</div>
+      <div class="font-medium ms-auto">{{ 3 | number : "1.2-2" }}</div>
+    </div>
+  </div>
+</div>
+
+<button class="w-full" ca-button-primary>Proceed to pay</button>

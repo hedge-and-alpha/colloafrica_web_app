@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReferralLinkComponent } from './referral-link.component';
+import { CardComponent } from '../card/card.component';
 
 describe('ReferralLinkComponent', () => {
   let component: ReferralLinkComponent;
@@ -8,10 +9,10 @@ describe('ReferralLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ReferralLinkComponent]
-    })
-    .compileComponents();
-    
+      declarations: [ReferralLinkComponent],
+      imports: [CardComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ReferralLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

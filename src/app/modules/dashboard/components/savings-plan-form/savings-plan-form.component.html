@@ -1,0 +1,31 @@
+<form>
+  <ca-form-field
+    label="Monthly Contribution Amount"
+    labelFor="amount"
+    class="block mb-6"
+    [isRequired]="true"
+  >
+    <i class="ca-coins text-[#5c5c5c]"></i>
+    <input type="number" id="amount" />
+  </ca-form-field>
+
+  <ca-form-field
+    label="Start Date"
+    labelFor="date"
+    class="block mb-6"
+    [isRequired]="true"
+  >
+    <i class="ca-calendar text-[#5c5c5c]"></i>
+    <!-- <input type="date" id="date" /> -->
+  </ca-form-field>
+
+  <ca-form-field
+    label="Duration"
+    class="block mb-10"
+    [isRequired]="true"
+  ></ca-form-field>
+
+  <div class="mb-12">
+    <button class="w-full" ca-button-primary>Next</button>
+  </div>
+</form>

@@ -1,1 +1,62 @@
-<p>savings works!</p>
+@if (!hasSavings) {
+<div class="flex items-center justify-center h-full">
+  <div class="max-w-[33.5rem] text-center">
+    <img src="assets/images/empty-folder.svg" alt="" class="inline-block" />
+    <p class="text-xl text-[#5c5c5c] mt-12 mb-9">
+      You do not have any savings plan. Click the button below to start a saving
+      plan
+    </p>
+    <button ca-button-primary (click)="hasSavings = true">Start saving</button>
+  </div>
+</div>
+} @else {
+<ca-h1 class="mb-[14px] mt-[18px]" style="text-transform: none">
+  Create a savings plan
+</ca-h1>
+
+<ca-savings-layout>
+  <div col-1>
+    <ca-card class="rounded-[15px] p-4 sm:p-7 mb-5">
+      <h2 class="text-lg font-semibold mb-[14px]">About savings plan</h2>
+
+      <p class="mb-4">
+        Whether you're seeking guidance on investment strategies, exploring
+        innovative savings options, or looking to connect with potential
+        business partners, our platform is your gateway to a network of
+        like-minded individuals who share your aspirations.
+      </p>
+
+      <p>
+        Engage in meaningful discussions, access expert insights, and gain
+        valuable perspectives from fellow users and industry leaders, all within
+        a secure and user-friendly interface.
+      </p>
+    </ca-card>
+
+    <ca-card class="rounded-[15px] p-4 sm:p-7">
+      <h2 class="text-lg font-semibold mb-[14px]">Terms and conditions</h2>
+
+      <p>
+        Whether you're seeking guidance on investment strategies, exploring
+        innovative savings options, or looking to connect with potential
+        business partners, our platform is your gateway to a network of
+        like-minded individuals who share your aspirations.
+      </p>
+    </ca-card>
+  </div>
+
+  <ca-card col-2 class="rounded-[15px] p-4 sm:p-7">
+    <div class="flex items-center gap-4 lg:gap-6 mb-[30px]">
+      <img src="assets/images/dollar-coin.png" alt="" class="dollar-coin" />
+
+      <div class="font-semibold unit-price">
+        Unit price: {{ 1000 | currency : "NGN" : "symbol-narrow" }}/unit
+      </div>
+    </div>
+
+    <!-- <ca-savings-plan-form /> -->
+    <ca-savings-detail />
+  </ca-card>
+</ca-savings-layout>
+
+}

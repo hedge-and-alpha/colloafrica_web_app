@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WalletAccountTransactionsComponent } from './wallet-account-transactions.component';
+import { CardComponent } from '../card/card.component';
+import { TableComponent } from '../../../../components/table/table.component';
 
 describe('WalletAccountTransactionsComponent', () => {
   let component: WalletAccountTransactionsComponent;
@@ -8,10 +10,10 @@ describe('WalletAccountTransactionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WalletAccountTransactionsComponent]
-    })
-    .compileComponents();
-    
+      declarations: [WalletAccountTransactionsComponent],
+      imports: [CardComponent, TableComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(WalletAccountTransactionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

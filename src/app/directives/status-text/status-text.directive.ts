@@ -19,12 +19,10 @@ export class StatusTextDirective {
   }
 
   ngOnInit() {
-    console.log('status:', this.color);
     this.renderer.setStyle(
       this.elRef.nativeElement,
       'color',
       this.colors.get(this.color)
     );
-    // this.elRef.nativeElement.style.color = '#049F0A';
   }
 }

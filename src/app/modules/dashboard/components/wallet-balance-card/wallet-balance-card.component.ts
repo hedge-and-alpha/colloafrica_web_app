@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './wallet-balance-card.component.css',
 })
 export class WalletBalanceCardComponent {
+  balance = 0;
   show = false;
 }
