@@ -2,61 +2,56 @@
 <div class="flex items-center justify-center h-full">
   <div class="max-w-[33.5rem] text-center">
     <img src="assets/images/empty-folder.svg" alt="" class="inline-block" />
-    <p class="text-xl text-[#5c5c5c] mt-12 mb-9">
+    <p
+      class="text-xl text-[#5c5c5c] mt-12 mb-9"
+      style="font-size: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem)"
+    >
       You do not have any savings plan. Click the button below to start a saving
       plan
     </p>
-    <button ca-button-primary (click)="hasSavings = true">Start saving</button>
+    <a routerLink="./create" class="btn primary">Start saving</a>
   </div>
 </div>
 } @else {
 <ca-h1 class="mb-[14px] mt-[18px]" style="text-transform: none">
-  Create a savings plan
+  Savings plan overview
 </ca-h1>
 
-<ca-savings-layout>
-  <div col-1>
-    <ca-card class="rounded-[15px] p-4 sm:p-7 mb-5">
-      <h2 class="text-lg font-semibold mb-[14px]">About savings plan</h2>
-
-      <p class="mb-4">
-        Whether you're seeking guidance on investment strategies, exploring
-        innovative savings options, or looking to connect with potential
-        business partners, our platform is your gateway to a network of
-        like-minded individuals who share your aspirations.
-      </p>
-
-      <p>
-        Engage in meaningful discussions, access expert insights, and gain
-        valuable perspectives from fellow users and industry leaders, all within
-        a secure and user-friendly interface.
-      </p>
-    </ca-card>
-
-    <ca-card class="rounded-[15px] p-4 sm:p-7">
-      <h2 class="text-lg font-semibold mb-[14px]">Terms and conditions</h2>
-
-      <p>
-        Whether you're seeking guidance on investment strategies, exploring
-        innovative savings options, or looking to connect with potential
-        business partners, our platform is your gateway to a network of
-        like-minded individuals who share your aspirations.
-      </p>
-    </ca-card>
-  </div>
-
-  <ca-card col-2 class="rounded-[15px] p-4 sm:p-7">
-    <div class="flex items-center gap-4 lg:gap-6 mb-[30px]">
+<div class="sp-card p-5 text-white mb-5 lg:mb-6">
+  <div class="">
+    <div class="flex items-center gap-4">
       <img src="assets/images/dollar-coin.png" alt="" class="dollar-coin" />
-
-      <div class="font-semibold unit-price">
-        Unit price: {{ 1000 | currency : "NGN" : "symbol-narrow" }}/unit
+      <div class="capitalize">
+        <div class="plan-name font-semibold">Savings name</div>
+        <div class="text-sm font-medium">monthly</div>
       </div>
+      <button class="ms-auto self-start">
+        <i class="ca-three-dots-fill font-bold"></i>
+      </button>
     </div>
+  </div>
+</div>
 
-    <!-- <ca-savings-plan-form /> -->
-    <ca-savings-detail />
-  </ca-card>
-</ca-savings-layout>
-
+<ca-card class="py-7 px-5 rounded-xl mb-10">
+  <ca-table [tableHeading]="tableHeading" [tableData]="tableData">
+    <ng-template #tableBody let-item>
+      <td class="whitespace-nowrap">
+        {{ item.amount | currency : "NGN" : "symbol-narrow" }}
+      </td>
+      <td class="whitespace-nowrap">{{ item.units }}</td>
+      <td class="whitespace-nowrap">
+        <span
+          class="badge capitalize rounded-md text-white text-sm"
+          [attr.data-status]="item.status"
+        >
+          {{ item.status }}
+        </span>
+      </td>
+      <td class="whitespace-nowrap">
+        {{ item.date | date : "d MMM YYYY, hh:mm a" }}
+      </td>
+      <td class="whitespace-nowrap capitalize">{{ item.active }}</td>
+    </ng-template>
+  </ca-table>
+</ca-card>
 }

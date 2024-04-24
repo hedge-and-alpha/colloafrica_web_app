@@ -1,0 +1,8 @@
+:host .dollar-coin {
+  width: clamp(2.25rem, 1.7708rem + 2.1296vw, 3.6875rem);
+  aspect-ratio: 1;
+}
+
+:host .unit-price {
+  font-size: clamp(1rem, 0.6667rem + 1.4815vw, 2rem);
+}

@@ -39,6 +39,7 @@ import { IMaskModule } from 'angular-imask';
 import { SavingsLayoutComponent } from './layouts/savings-layout/savings-layout.component';
 import { SavingsDetailComponent } from './components/savings-detail/savings-detail.component';
 import { SavingsPlanFormComponent } from './components/savings-plan-form/savings-plan-form.component';
+import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { SavingsPlanFormComponent } from './components/savings-plan-form/savings
     SavingsLayoutComponent,
     SavingsDetailComponent,
     SavingsPlanFormComponent,
+    CreateSavingsPlanComponent,
   ],
   imports: [
     CommonModule,

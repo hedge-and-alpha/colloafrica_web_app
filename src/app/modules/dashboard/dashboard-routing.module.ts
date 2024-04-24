@@ -9,6 +9,7 @@ import { InvestmentsComponent } from './pages/investments/investments.component'
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
 
 const routes: Routes = [
   {
@@ -72,14 +73,19 @@ const routes: Routes = [
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
       },
-      { path: 'mgr', component: MgrComponent, title: 'Merry Go Round' },
+      { path: 'mgr', component: MgrComponent, title: 'Merry go round' },
       { path: 'wallet', component: AccountWalletComponent, title: 'Wallet' },
       {
         path: 'investments',
         component: InvestmentsComponent,
         title: 'Investments',
       },
-      { path: 'savings', component: SavingsComponent, title: 'My Savings' },
+      { path: 'savings', component: SavingsComponent, title: 'My savings' },
+      {
+        path: 'savings/create',
+        component: CreateSavingsPlanComponent,
+        title: 'Create savings plan',
+      },
       {
         path: 'transactions',
         component: TransactionsComponent,

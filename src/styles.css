@@ -189,6 +189,29 @@ table td {
 }
 /* Table */
 
+/* Badge */
+
+.badge {
+  height: 30px;
+  width: 88px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-status="success"] {
+  background: #17b890;
+}
+
+[data-status="pending"] {
+  background: #e29700;
+}
+
+[data-status="failed"] {
+  background: #d92121;
+}
+/* Badge */
+
 /* Utils */
 .no-scrollbar {
   scrollbar-width: 0;
