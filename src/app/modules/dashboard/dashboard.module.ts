@@ -38,7 +38,6 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { InvestmentCardComponent } from './components/investment-card/investment-card.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +71,6 @@ import { InvestmentCardComponent } from './components/investment-card/investment
     SavingsDetailComponent,
     SavingsPlanFormComponent,
     CreateSavingsPlanComponent,
-    InvestmentCardComponent,
   ],
   imports: [
     CommonModule,

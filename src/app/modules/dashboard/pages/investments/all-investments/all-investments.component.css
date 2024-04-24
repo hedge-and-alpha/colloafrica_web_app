@@ -1,0 +1,10 @@
+:host .ca-investments {
+  max-width: 36.25rem;
+  display: grid;
+}
+
+@media (min-width: 33.75rem) {
+  :host .ca-investments {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

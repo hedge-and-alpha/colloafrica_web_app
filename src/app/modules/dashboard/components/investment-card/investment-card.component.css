@@ -1,0 +1,9 @@
+:host a {
+  font-size: 0.625rem;
+}
+
+:host a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}

@@ -10,6 +10,7 @@ import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
+import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,7 @@ const routes: Routes = [
           { path: '', redirectTo: 'all', pathMatch: 'full' },
         ],
       },
+      { path: 'investment/:name/:id', component: InvestmentDetailsComponent },
       { path: 'savings', component: SavingsComponent, title: 'My savings' },
       {
         path: 'savings/create',
