@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AsideCardComponent } from '../../components/aside-card/aside-card.component';
 
 @Component({
@@ -8,4 +8,6 @@ import { AsideCardComponent } from '../../components/aside-card/aside-card.compo
   styleUrl: './content-sidebar.component.css',
   imports: [AsideCardComponent],
 })
-export class ContentSidebarComponent {}
+export class ContentSidebarComponent {
+  @Input() showBorderBottom = true;
+}

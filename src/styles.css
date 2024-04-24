@@ -197,6 +197,10 @@ table td {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  text-transform: capitalize;
+  font-size: 0.875rem;
+  color: #fff;
+  border-radius: 6px;
 }
 
 [data-status="success"] {

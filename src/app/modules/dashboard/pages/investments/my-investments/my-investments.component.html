@@ -1,1 +1,44 @@
-<p>my-investments works!</p>
+<ca-card class="rounded-xl px-5 py-7 mt-9 mb-10">
+  <ca-table [tableHeading]="tableHeading" [tableData]="tableData">
+    <ng-template #tableBody let-item>
+      <td class="whitespace-nowrap capitalize">
+        {{ item.category }}
+      </td>
+      <td class="whitespace-nowrap capitalize">
+        {{ item.title }}
+      </td>
+      <td class="whitespace-nowrap">
+        {{ item.date | date : "d MMM, YYYY" }}
+      </td>
+      <td class="whitespace-nowrap text-danger">
+        {{ item.amount | currency : "NGN" : "symbol-narrow" }}
+      </td>
+      <td class="whitespace-nowrap text-[#17B890]">{{ item.returns }}%</td>
+      <td class="whitespace-nowrap capitalize">
+        <span
+          class="badge"
+          [attr.data-status]="
+            item.status.toLowerCase() === 'completed'
+              ? 'success'
+              : item.status.toLowerCase() === 'ongoing'
+              ? 'pending'
+              : ''
+          "
+          >{{ item.status }}</span
+        >
+      </td>
+      <td class="whitespace-nowrap text-center">
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          download
+          class="inline-flex items-end gap-1"
+        >
+          <i class="ca-file-arrow-down text-xl"></i>
+          <span class="">PDF</span>
+        </a>
+      </td>
+    </ng-template>
+  </ca-table>
+</ca-card>

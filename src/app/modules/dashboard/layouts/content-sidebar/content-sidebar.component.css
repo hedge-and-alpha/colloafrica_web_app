@@ -26,8 +26,10 @@
   :host .ca-content-sidebar {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    border-block-start: 1px solid #d8d8d8;
     padding-block: 9px;
+  }
+  :host .ca-content-sidebar.bbs {
+    border-block-start: 1px solid #d8d8d8;
   }
   :host .ca-content-sidebar aside {
     padding-inline-start: 1.5rem;

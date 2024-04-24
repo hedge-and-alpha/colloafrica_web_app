@@ -1,5 +1,5 @@
 :host nav {
-  border-block-start: 1px solid #dddddd;
+  border-block: 1px solid #dddddd;
 }
 
 :host nav a {
