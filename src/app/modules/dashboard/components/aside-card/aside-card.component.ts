@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ca-aside-card',
+  standalone: true,
   templateUrl: './aside-card.component.html',
   styleUrl: './aside-card.component.css',
 })

@@ -10,7 +10,6 @@ import { AccountInfoCardComponent } from './components/account-info-card/account
 import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
 import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
-import { AsideCardComponent } from './components/aside-card/aside-card.component';
 import { CardComponent } from './components/card/card.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { H1Component } from './components/h1/h1.component';
@@ -56,8 +55,6 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     ErrorPageComponent,
     HeaderComponent,
     H1Component,
-    ContentSidebarComponent,
-    AsideCardComponent,
     AdvertsSliderComponent,
     WalletBalanceCardComponent,
     WalletAccountDetailsComponent,
@@ -78,6 +75,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     IMaskModule,
     ButtonPrimaryDirective,
     CardComponent,
+    ContentSidebarComponent,
     FormFieldComponent,
     ModalComponent,
     TableComponent,
