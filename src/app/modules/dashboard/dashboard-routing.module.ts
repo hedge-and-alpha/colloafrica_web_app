@@ -79,6 +79,25 @@ const routes: Routes = [
         path: 'investments',
         component: InvestmentsComponent,
         title: 'Investments',
+        children: [
+          {
+            path: 'all',
+            loadComponent: () =>
+              import(
+                './pages/investments/all-investments/all-investments.component'
+              ).then((c) => c.AllInvestmentsComponent),
+            title: 'All investments | Investments',
+          },
+          {
+            path: 'my-investments',
+            loadComponent: () =>
+              import(
+                './pages/investments/my-investments/my-investments.component'
+              ).then((c) => c.MyInvestmentsComponent),
+            title: 'My investments | Investments',
+          },
+          { path: '', redirectTo: 'all', pathMatch: 'full' },
+        ],
       },
       { path: 'savings', component: SavingsComponent, title: 'My savings' },
       {

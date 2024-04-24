@@ -1,1 +1,8 @@
-<p>investments works!</p>
+<nav class="flex items-center flex-nowrap gap-5 sm:gap-7 md:gap-9 py-5">
+  <a routerLink="./all" routerLinkActive="active">Investments</a>
+  <a routerLink="./my-investments" routerLinkActive="active">My investments</a>
+</nav>
+
+<ca-content-sidebar>
+  <router-outlet />
+</ca-content-sidebar>

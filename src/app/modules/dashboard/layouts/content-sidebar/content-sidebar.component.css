@@ -26,12 +26,12 @@
   :host .ca-content-sidebar {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    border-block-start: 2px solid #d8d8d8;
+    border-block-start: 1px solid #d8d8d8;
     padding-block: 9px;
   }
   :host .ca-content-sidebar aside {
     padding-inline-start: 1.5rem;
-    border-inline-start: 2px solid #d8d8d8;
+    border-inline-start: 1px solid #d8d8d8;
     margin-block: 0;
     padding-block-start: 40px;
   }
