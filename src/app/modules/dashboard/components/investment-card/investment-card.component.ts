@@ -11,14 +11,20 @@ import { RouterLink } from '@angular/router';
   imports: [PercentPipe, RouterLink, CardComponent],
 })
 export class InvestmentCardComponent {
+  slug = '';
+
   @Input() name = '';
+  @Input() id = '';
   @Input() scheme = '';
   @Input() period = '';
-  @Input() path = '';
-  @Input({
-    transform: (value: number) => {
-      return value / 100;
-    },
-  })
+  @Input({ transform: transformPercentage })
   percentageReturn = 0;
+
+  ngOnInit() {
+    this.slug = this.name.toLowerCase().split(' ').join('-');
+  }
+}
+
+function transformPercentage(value: number) {
+  return value / 100;
 }
