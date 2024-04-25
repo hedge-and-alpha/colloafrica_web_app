@@ -1,0 +1,45 @@
+:host nav {
+  border-block: 1px solid #dddddd;
+}
+
+:host nav a {
+  flex-shrink: 0;
+  position: relative;
+  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
+}
+
+:host ca-card {
+  box-shadow: 0.5px 0.5px 12px 0 #6f6f6f26;
+}
+
+:host:is(h1, h2) {
+  font-size: clamp(1rem, 0.8333rem + 0.7407vw, 1.5rem);
+}
+:host .inv-type {
+  font-size: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem);
+}
+
+:host button {
+  font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
+  font-weight: 500;
+}
+
+:host .inv-amount {
+  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);
+}
+:host :is(.inv-min-amount, .value) {
+  font-size: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem);
+  color: #5c5c5c;
+}
+:host .inv-about {
+  font-size: clamp(0.75rem, 0.7083rem + 0.1852vw, 0.875rem);
+}
+
+:host .details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+:host .detail {
+  border: 1px solid #abadb2;
+}

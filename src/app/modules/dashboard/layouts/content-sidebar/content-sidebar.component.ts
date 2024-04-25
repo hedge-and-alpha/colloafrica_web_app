@@ -9,5 +9,5 @@ import { AsideCardComponent } from '../../components/aside-card/aside-card.compo
   imports: [AsideCardComponent],
 })
 export class ContentSidebarComponent {
-  @Input() showBorderBottom = true;
+  @Input() showBorderTop = true;
 }

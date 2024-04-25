@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { NgStyle, PercentPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { UtilsService } from '../../../../services/utils/utils.service';
 
 @Component({
   selector: 'ca-investment-card',
@@ -12,6 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class InvestmentCardComponent {
   slug = '';
+  util = inject(UtilsService);
 
   @Input() name = '';
   @Input() id = '';
@@ -21,7 +23,7 @@ export class InvestmentCardComponent {
   percentageReturn = 0;
 
   ngOnInit() {
-    this.slug = this.name.toLowerCase().split(' ').join('-');
+    this.slug = this.util.createSlugFromText(this.name);
   }
 }
 
