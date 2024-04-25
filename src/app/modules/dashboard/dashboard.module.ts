@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { IMaskModule } from 'angular-imask';
@@ -79,6 +79,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     FormFieldComponent,
     ModalComponent,
     TableComponent,
+    NgOptimizedImage,
   ],
 })
 export class DashboardModule {}

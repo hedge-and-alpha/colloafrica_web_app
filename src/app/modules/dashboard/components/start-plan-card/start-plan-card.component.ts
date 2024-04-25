@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
         class="h-full flex items-center justify-center gap-5 px-4 md:px-2 xl:px-10"
       >
         <img
-          src="assets/images/ajo-group.png"
+          src="assets/images/ajo-group.webp"
           alt="Ajo group"
           width="131"
           height="140"
@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
           <p class="mb-4">Save with Ajo, Adashe, or Esusu group</p>
           <a
             routerLink="/mgr"
-            class="inline-flex items-center btn-xs text-white rounded-md bg-warning px-2 sm:px-4 md:px-2 lg:px-4"
+            class="inline-flex items-center btn-xs rounded-md bg-warning px-2 sm:px-4 md:px-2 lg:px-4"
           >
             Start a plan now
           </a>

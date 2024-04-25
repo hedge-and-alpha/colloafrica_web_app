@@ -1,11 +1,13 @@
 <header class="flex h-[102px]">
-  <img src="assets/images/logo.svg" alt="" width="75" />
+  <img src="assets/images/logo.svg" alt="" width="75" height="25" />
 
   <div class="ms-auto flex items-center">
-    <a routerLink="/notifications"><i class="ca-notification"></i></a>
+    <a routerLink="/notifications" aria-label="Navigate to notifications page">
+      <i class="ca-notification"></i>
+    </a>
     <button class="ms-6 text-[#171717] inline-flex items-center gap-2">
       <img
-        src="assets/images/profile-photo.jpg"
+        ngSrc="assets/images/profile-photo.jpg"
         alt="Avatar"
         width="30"
         height="30"
