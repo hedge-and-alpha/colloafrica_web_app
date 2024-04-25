@@ -17,17 +17,54 @@
   Savings plan overview
 </ca-h1>
 
-<div class="sp-card p-5 text-white mb-5 lg:mb-6">
+<div class="sp-card p-5 text-white mb-5 lg:mb-6 relative">
   <div class="">
-    <div class="flex items-center gap-4">
-      <img src="assets/images/dollar-coin.png" alt="" class="dollar-coin" />
-      <div class="capitalize">
-        <div class="plan-name font-semibold">Savings name</div>
-        <div class="text-sm font-medium">monthly</div>
+    <div class="sm:flex items-center border-b-[0.5px] sm:pb-7 sm:pt-2">
+      <div class="flex items-center gap-4">
+        <img src="assets/images/dollar-coin.png" alt="" class="dollar-coin" />
+        <div class="capitalize">
+          <div class="plan-name font-semibold">Savings name</div>
+          <div class="text-sm font-medium">monthly</div>
+        </div>
       </div>
-      <button class="ms-auto self-start">
+
+      <div class="text-center my-[30px] sm:m-0 sm:ms-auto">
+        <div class="sp-amount font-semibold mb-[6px]">
+          {{ 50000 | currency : "NGN" : "symbol-narrow" }}
+        </div>
+        <div class="text-xs">Total Units: {{ 50 | number : "1.2-2" }}</div>
+      </div>
+      <button class="absolute right-4 top-2">
         <i class="ca-three-dots-fill font-bold"></i>
       </button>
+    </div>
+
+    <div class="py-7 grid gap-3 sm:grid-cols-2 md:gap-x-8 lg:gap-x-14">
+      <div class="flex text-sm">
+        <div class="font-medium capitalize">Duration:</div>
+        <div class="ms-auto">10 Months</div>
+      </div>
+
+      <div class="flex text-sm">
+        <div class="font-medium capitalize">withdrawal date:</div>
+        <div class="ms-auto">
+          {{ "2024-04-25T20:59:09.199Z" | date : "d MMM, YYYY" }}
+        </div>
+      </div>
+
+      <div class="flex text-sm">
+        <div class="font-medium capitalize">next savings amount:</div>
+        <div class="ms-auto">
+          {{ 10000 | currency : "NGN" : "symbol-narrow" }}
+        </div>
+      </div>
+
+      <div class="flex text-sm">
+        <div class="font-medium capitalize">next due date:</div>
+        <div class="ms-auto">
+          {{ "2024-04-25T20:59:09.199Z" | date : "d MMM, YYYY" }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

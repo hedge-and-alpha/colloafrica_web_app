@@ -10,3 +10,7 @@
 :host .plan-name {
   font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);
 }
+
+:host .sp-amount {
+  font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);
+}
