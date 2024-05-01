@@ -11,11 +11,13 @@ import { AuthComponent } from './auth.component';
 import { SigninFormComponent } from './components/signin-form/signin-form.component';
 import { AuthFormLayoutComponent } from './layouts/auth-form-layout/auth-form-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SigninFormComponent, AuthLayoutComponent, AuthComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AuthRoutingModule,
     AuthFormLayoutComponent,
     ButtonPrimaryDirective,

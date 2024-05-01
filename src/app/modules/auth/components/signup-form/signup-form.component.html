@@ -1,6 +1,6 @@
 <h1 class="font-semibold leading-1.2 mb-8">Sign Up</h1>
 
-<form>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <ca-cols-field-2 class="mb-6">
     <ca-form-field
       label="First Name"
@@ -9,7 +9,7 @@
       col-1
     >
       <i class="ca-user-circle"></i>
-      <input id="first_name" type="text" />
+      <input id="first_name" type="text" formControlName="first_name" />
     </ca-form-field>
 
     <ca-form-field
@@ -19,45 +19,51 @@
       col-2
     >
       <i class="ca-user-circle"></i>
-      <input id="last_name" type="text" />
+      <input id="last_name" type="text" formControlName="last_name" />
     </ca-form-field>
   </ca-cols-field-2>
 
   <div class="mb-6">
     <ca-form-field label="Email" labelFor="email" [isRequired]="true">
-      <i class="ca-at"></i> <input id="email" type="email" />
+      <i class="ca-at"></i>
+      <input id="email" type="email" formControlName="email" />
     </ca-form-field>
   </div>
 
   <div class="mb-6">
     <ca-form-field label="Phone Number" labelFor="phone" [isRequired]="true">
-      <i class="ca-phone"></i> <input id="phone" type="tel" />
+      <i class="ca-phone"></i>
+      <input id="phone" type="tel" formControlName="phone_number" />
     </ca-form-field>
   </div>
 
   <ca-cols-field-2 class="mb-6">
     <ca-form-field
+      col-1
       label="Password"
       labelFor="password"
       [isRequired]="true"
-      col-1
     >
-      <input type="password" id="password" />
+      <input type="password" id="password" formControlName="password" />
     </ca-form-field>
 
     <ca-form-field
+      col-2
       label="Confirm Password"
       labelFor="confirm_password"
       [isRequired]="true"
-      col-2
     >
-      <input type="password" id="confirm_password" />
+      <input
+        type="password"
+        id="confirm_password"
+        formControlName="password_confirmation"
+      />
     </ca-form-field>
   </ca-cols-field-2>
 
   <div class="mb-6">
     <ca-form-field label="Referral Code (optional)" labelFor="referral">
-      <input type="text" id="referral" />
+      <input type="text" id="referral" formControlName="referral_code" />
     </ca-form-field>
   </div>
 
@@ -69,7 +75,7 @@
     </label>
   </div>
 
-  <button ca-button-primary class="w-full">Sign up</button>
+  <button type="submit" class="w-full" ca-button-primary>Sign up</button>
 
   <p class="mt-6 mb-10 text-center text-sm font-medium">
     Already have an account?
