@@ -1,5 +1,13 @@
 <div class="flex justify-between">
   @for (input of inputs; track $index) {
-  <input type="number" maxlength="1" class="rounded text-center" />
+  <input
+    #input
+    type="number"
+    maxlength="1"
+    max="9"
+    class="rounded text-center"
+    (input)="handleInput($event, $index)"
+    (keyup)="handleKeyUp($event)"
+  />
   }
 </div>
