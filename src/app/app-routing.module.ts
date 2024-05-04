@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ShowcaseComponent } from './showcase/showcase.component';
+// import { ShowcaseComponent } from './showcase/showcase.component';
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: 'showcase', component: ShowcaseComponent },
+  // { path: 'showcase', component: ShowcaseComponent },
   {
     path: '**',
     component: PageNotFoundComponent,
