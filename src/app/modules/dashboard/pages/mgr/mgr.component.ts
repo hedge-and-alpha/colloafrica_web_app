@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './mgr.component.css',
 })
 export class MgrComponent implements OnInit, OnDestroy {
-  view: 'intro' | 'create' = 'intro';
+  view: 'intro' | 'new' | 'join' = 'intro';
 
   paramSub!: Subscription;
 
@@ -17,7 +17,7 @@ export class MgrComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap.subscribe((param) => {
       const p = param.get('view');
-      this.view = p as 'intro' | 'create';
+      this.view = p as 'intro' | 'new' | 'join';
     });
   }
 
