@@ -1,0 +1,69 @@
+<ca-h1 class="mb-8 mt-[18px]">Merry Go Round(MGR) Plans</ca-h1>
+
+<div class="w-full max-w-[42.1875rem] mx-auto h-full text-center mb-10">
+  <div class="mb-24">
+    <p class="mb-9">
+      Create and manage your
+      <span class="text-purple-main">Ajo, Adashe, or Esusu</span> contribution
+      group with ease and security via Merry-Go-Round. Enjoy features like
+      automated contribution reminders, same day collections, and instant
+      payouts.
+    </p>
+
+    <a
+      routerLink="../create"
+      class="btn btn-sm bg-purple-main text-white"
+      style="font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem)"
+    >
+      <i class="ca-plus"></i> Start your Ajo-Adashe-Esusu Plan NOW
+    </a>
+  </div>
+
+  <p class="max-w-[36.5rem] mx-auto mb-7">
+    Need help creating a contribution plan? Watch the video below or read our
+    <a
+      href="http://www.example.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-purple-main underline"
+      >GUIDE</a
+    >
+    to see how it works.
+  </p>
+
+  <div class="aspect-video relative">
+    <video
+      #video
+      class="rounded-[10px] w-full h-full"
+      src="https://videos.pexels.com/video-files/3209828/3209828-sd_640_360_25fps.mp4"
+      (pause)="showOverlay = true"
+      (ended)="showOverlay = true"
+      (error)="onError($event)"
+      [controls]="!showOverlay"
+    ></video>
+
+    @if (showOverlay) {
+    <div
+      class="absolute inset-0 overlay rounded-[10px] flex items-center justify-center"
+    >
+      <button
+        class="rounded-full inline-flex items-center justify-center play-btn"
+        (click)="onPlayClick()"
+      >
+        <svg
+          width="31"
+          height="36"
+          viewBox="0 0 31 36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M30.25 18.0009C30.2511 18.4677 30.1314 18.9269 29.9025 19.3338C29.6736 19.7407 29.3433 20.0815 28.9437 20.3229L4.18 35.472C3.76249 35.7276 3.2843 35.8672 2.79482 35.8762C2.30534 35.8853 1.82231 35.7635 1.39563 35.5235C0.973001 35.2872 0.620944 34.9426 0.375657 34.5251C0.13037 34.1077 0.000706162 33.6324 0 33.1482V2.85351C0.000706162 2.36932 0.13037 1.89405 0.375657 1.47657C0.620944 1.0591 0.973001 0.7145 1.39563 0.478202C1.82231 0.238176 2.30534 0.116407 2.79482 0.125472C3.2843 0.134536 3.76249 0.274105 4.18 0.529764L28.9437 15.6788C29.3433 15.9203 29.6736 16.261 29.9025 16.6679C30.1314 17.0748 30.2511 17.534 30.25 18.0009Z"
+            fill="white"
+          />
+        </svg>
+      </button>
+    </div>
+    }
+  </div>
+</div>

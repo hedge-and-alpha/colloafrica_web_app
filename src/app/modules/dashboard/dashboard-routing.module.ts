@@ -74,7 +74,7 @@ const routes: Routes = [
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
       },
-      { path: 'mgr', component: MgrComponent, title: 'Merry go round' },
+      { path: 'mgr/:view', component: MgrComponent, title: 'Merry go round' },
       { path: 'wallet', component: AccountWalletComponent, title: 'Wallet' },
       {
         path: 'investments',

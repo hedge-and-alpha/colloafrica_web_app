@@ -37,6 +37,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { MgrIntroComponent } from './pages/mgr/mgr-intro/mgr-intro.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     SavingsDetailComponent,
     SavingsPlanFormComponent,
     CreateSavingsPlanComponent,
+    MgrIntroComponent,
   ],
   imports: [
     CommonModule,
