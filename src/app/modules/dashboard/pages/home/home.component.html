@@ -15,7 +15,6 @@
 <ca-card class="rounded-xl p-4 mb-6 lg:mb-10">
   <ca-table [tableHeading]="tableHeading" [tableData]="tableData">
     <ng-template let-item #tableBody>
-      <td class="whitespace-nowrap text-center">{{ item.sn }}</td>
       <td class="whitespace-nowrap text-center">{{ item.id }}</td>
       <td class="whitespace-nowrap text-center">
         #{{ item.amount | number : "1.2-2" }}

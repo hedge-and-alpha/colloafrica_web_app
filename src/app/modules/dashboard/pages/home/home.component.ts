@@ -10,7 +10,6 @@ export class HomeComponent {
   tableHeading = TABLE_HEADING;
   tableData = [
     {
-      sn: 1,
       id: '83456721',
       amount: '500',
       date: '2024-04-20T01:56:59.492Z',
@@ -18,7 +17,6 @@ export class HomeComponent {
       status: 'success',
     },
     {
-      sn: 2,
       id: '83456721',
       amount: '1500',
       date: '2024-04-20T01:56:59.492Z',
@@ -26,7 +24,6 @@ export class HomeComponent {
       status: 'pending',
     },
     {
-      sn: 3,
       id: '83456721',
       amount: '1500',
       date: '2024-04-20T01:56:59.492Z',
@@ -37,10 +34,9 @@ export class HomeComponent {
 }
 
 const TABLE_HEADING: TableHeading[] = [
-  { label: 'S/N' },
   { label: 'Transaction ID' },
   { label: 'Amount' },
   { label: 'Status' },
   { label: 'Trans. Date' },
-  { label: 'Debit/Credit' },
+  { label: 'Type' },
 ];

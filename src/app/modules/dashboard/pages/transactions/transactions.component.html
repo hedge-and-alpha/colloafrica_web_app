@@ -1,1 +1,41 @@
-<p>transactions works!</p>
+<ca-h1 class="mb-6 mt-[18px]">transaction history</ca-h1>
+
+<ca-card class="rounded-xl p-4 mb-6 lg:mb-10">
+  <ca-table [tableHeading]="tableHeading" [tableData]="tableData">
+    <ng-template let-item #tableBody>
+      <td class="whitespace-nowrap text-center">{{ item.id }}</td>
+      <td class="whitespace-nowrap text-center">
+        #{{ item.amount | number : "1.2-2" }}
+      </td>
+      <td class="whitespace-nowrap text-center">
+        {{ item.date | date : "dd MMM, yyyy" }}
+      </td>
+      <td
+        class="whitespace-nowrap text-center capitalize"
+        [ngClass]="{
+          'text-success': item.status === 'success',
+          'text-warning': item.status === 'pending',
+          'text-danger': item.status === 'failed'
+        }"
+      >
+        {{ item.status }}
+      </td>
+      <td class="whitespace-nowrap text-center">
+        <div class="h-full flex items-center justify-center gap-2">
+          @if (item.type === 'debit') {
+          <i class="ca-x-circle text-[#D92121]"></i>
+          } @else {
+          <i class="ca-check-circle text-[#049F0A]"></i>
+          }
+          {{ item.type | titlecase }}
+        </div>
+      </td>
+      <td>
+        {{ item.debitedFrom | titlecase }}
+      </td>
+      <td class="whitespace-nowrap">
+        {{ item.comment }}
+      </td>
+    </ng-template>
+  </ca-table>
+</ca-card>
