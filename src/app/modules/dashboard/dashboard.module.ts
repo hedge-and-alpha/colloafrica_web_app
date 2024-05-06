@@ -38,6 +38,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { MgrIntroComponent } from './pages/mgr/mgr-intro/mgr-intro.component';
+import { MgrCreateComponent } from './pages/mgr/mgr-create/mgr-create.component';
+import { MgrPlanFormComponent } from './components/mgr-plan-form/mgr-plan-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { JoinMgrPlanFormComponent } from './components/join-mgr-plan-form/join-mgr-plan-form.component';
 
 @NgModule({
   declarations: [
@@ -70,11 +74,15 @@ import { MgrIntroComponent } from './pages/mgr/mgr-intro/mgr-intro.component';
     SavingsPlanFormComponent,
     CreateSavingsPlanComponent,
     MgrIntroComponent,
+    MgrCreateComponent,
+    MgrPlanFormComponent,
+    JoinMgrPlanFormComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     IMaskModule,
+    NgSelectModule,
     ButtonPrimaryDirective,
     CardComponent,
     ContentSidebarComponent,

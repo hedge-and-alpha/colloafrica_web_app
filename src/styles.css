@@ -224,3 +224,31 @@ table td {
   display: none;
 }
 /* Utils */
+
+/* NG Select */
+.ng-select .ng-select-container {
+  color: #333;
+  border-radius: 0;
+  border: none;
+}
+.ng-select .ng-select-container:hover {
+  box-shadow: none;
+}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  padding-inline: 1rem;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-option.ng-option-selected.ng-option-marked,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: var(--purple);
+  color: #fff;
+}
+.ng-dropdown-panel.ng-select-bottom {
+  padding: 0;
+  border: none;
+  box-shadow: 2px 2px 8px 0 #6f6f6f40;
+}
+/* NG Select */

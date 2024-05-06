@@ -1,0 +1,140 @@
+<form>
+  <ca-form-field
+    label="Plan name"
+    labelFor="name"
+    class="block mb-6"
+    [isRequired]="true"
+  >
+    <input type="text" id="name" />
+  </ca-form-field>
+
+  <ca-form-field
+    label="Short description"
+    labelFor="desc"
+    class="block mb-6"
+    [isRequired]="true"
+  >
+    <input type="text" id="desc" />
+  </ca-form-field>
+
+  <!-- 2 cols -->
+  <div class="xl:grid grid-cols-2 gap-4">
+    <ca-form-field
+      label="Duration"
+      labelFor="duration"
+      class="block mb-6"
+      [isRequired]="true"
+    >
+      <div class="-mx-5 grow">
+        <ng-select
+          class="px-2"
+          [clearOnBackspace]="false"
+          labelForId="duration"
+        >
+          @for (duration of durations; track $index) {
+          <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
+          }
+        </ng-select>
+      </div>
+    </ca-form-field>
+
+    <ca-form-field
+      label="Number of members"
+      labelFor="num-members"
+      class="block mb-6"
+      [isRequired]="true"
+    >
+      <input type="number" id="num-members" />
+    </ca-form-field>
+  </div>
+  <!-- 2 cols -->
+
+  <ca-form-field
+    label="Amount"
+    labelFor="amount"
+    class="block mb-6"
+    [isRequired]="true"
+  >
+    <input type="number" id="amount" />
+    <div class="border-s border-[#7D7F85] ps-3" style="color: #77777e">NGN</div>
+  </ca-form-field>
+
+  <ca-form-field
+    label="Join date deadline"
+    labelFor="date"
+    class="block mb-6"
+    [isRequired]="true"
+  >
+    <div class="grow"></div>
+    <!-- <input type="date" id="date" /> -->
+    <i class="ca-calendar text-[#5c5c5c]"></i>
+  </ca-form-field>
+
+  <!-- 2 cols -->
+  <div class="xl:grid grid-cols-2 gap-4">
+    <ca-form-field
+      label="Contribution start date"
+      labelFor="start-date"
+      class="block mb-6"
+      [isRequired]="true"
+    >
+      <div class="grow"></div>
+      <!-- <input type="date" id="date" /> -->
+      <div class="grow"></div>
+      <i class="ca-calendar text-[#5c5c5c]"></i>
+    </ca-form-field>
+
+    <ca-form-field
+      label="Allocation date"
+      labelFor="allocation-date"
+      class="block mb-6"
+      [isRequired]="true"
+    >
+      <div class="grow"></div>
+      <!-- <input type="date" id="date" /> -->
+      <div class="grow"></div>
+      <i class="ca-calendar text-[#5c5c5c]"></i>
+    </ca-form-field>
+  </div>
+  <!-- 2 cols -->
+
+  <div class="mt-7 mb-6">
+    <div class="flex items-center justify-center">
+      <div class="shrink-0">
+        <div class="font-medium mb-2">Choose theme color</div>
+        <div class="flex gap-2 xl:gap-3">
+          @for (theme of themes; track $index) {
+          <div
+            class="w-6 h-6 rounded-full cursor-pointer"
+            [attr.data-theme]="$index"
+            (click)="selectTheme(theme)"
+          ></div>
+          }
+        </div>
+      </div>
+      <button
+        class="btn bg-purple-main text-white ms-auto shrink-0"
+        type="button"
+        style="
+          font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
+          height: 36px;
+        "
+      >
+        Select allotment type
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-12 flex items-start gap-3">
+    <input type="checkbox" id="subscribe" />
+    <label class="text-sm" for="subscribe">
+      I agree to Collo Africa MGR terms and conditions.
+    </label>
+  </div>
+
+  <div class="mb-4">
+    <button class="w-full btn bg-purple-main text-white" type="submit">
+      Submit
+    </button>
+  </div>
+</form>
