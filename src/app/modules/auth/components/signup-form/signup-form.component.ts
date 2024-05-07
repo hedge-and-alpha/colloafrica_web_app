@@ -10,6 +10,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
+import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
+import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ca-signup-form',
@@ -19,26 +23,68 @@ import {
   imports: [
     ReactiveFormsModule,
     RouterLink,
+    NgClass,
     ButtonPrimaryDirective,
     ColsField2Component,
+    FormErrorComponent,
     FormFieldComponent,
   ],
 })
 export class SignupFormComponent {
-  form: FormGroup<SignupForm> = this.fb.group({
-    first_name: [null, [Validators.required]],
-    last_name: [null, [Validators.required]],
-    email: [null, [Validators.required]],
-    password: [null, [Validators.required]],
-    password_confirmation: [null, [Validators.required]],
-    phone_number: [null, [Validators.required]],
-    referral_code: [null],
-  });
+  isSubmitted = false;
+
+  form = this.fb.group(
+    {
+      first_name: [null, [Validators.required, emptyFieldValidator()]],
+      last_name: [null, [Validators.required, emptyFieldValidator()]],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
+          emptyFieldValidator(),
+        ],
+      ],
+      password: [null, [Validators.required, emptyFieldValidator()]],
+      password_confirmation: [
+        null,
+        [Validators.required, emptyFieldValidator()],
+      ],
+      phone_number: [null, [Validators.required, emptyFieldValidator()]],
+      referral_code: [null, [emptyFieldValidator()]],
+    },
+    { validators: [matchPasswordValidator], updateOn: 'submit' }
+  );
 
   constructor(private fb: FormBuilder) {}
 
+  get firstName() {
+    return this.form.get('first_name');
+  }
+  get lastName() {
+    return this.form.get('last_name');
+  }
+  get email() {
+    return this.form.get('email');
+  }
+  get password() {
+    return this.form.get('password');
+  }
+  get passwordConfirmation() {
+    return this.form.get('password_confirmation');
+  }
+  get phoneNumber() {
+    return this.form.get('phone_number');
+  }
+  get referralCode() {
+    return this.form.get('referral_code');
+  }
+
   handleSubmit() {
-    console.log(this.form.value);
+    if (this.form.invalid) return;
+
+    this.isSubmitted = true;
+    console.log(this.form);
   }
 }
 

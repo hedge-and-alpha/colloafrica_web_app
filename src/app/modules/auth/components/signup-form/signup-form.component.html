@@ -2,69 +2,131 @@
 
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <ca-cols-field-2 class="mb-6">
-    <ca-form-field
-      label="First Name"
-      labelFor="first_name"
-      [isRequired]="true"
-      col-1
-    >
-      <i class="ca-user-circle"></i>
-      <input id="first_name" type="text" formControlName="first_name" />
-    </ca-form-field>
+    <div col-1>
+      <ca-form-field
+        label="First Name"
+        labelFor="first_name"
+        [isRequired]="true"
+      >
+        <i class="ca-user-circle"></i>
+        <input
+          id="first_name"
+          type="text"
+          formControlName="first_name"
+          [ngClass]="{
+            'ng-dirty ng-touched':
+              isSubmitted && (firstName?.dirty || firstName?.invalid)
+          }"
+        />
+      </ca-form-field>
+      @if (isSubmitted && (firstName?.dirty || firstName?.invalid)) {
+      <ca-form-error [errors]="firstName?.errors" />
+      }
+    </div>
 
-    <ca-form-field
-      label="Last Name"
-      labelFor="last_name"
-      [isRequired]="true"
-      col-2
-    >
-      <i class="ca-user-circle"></i>
-      <input id="last_name" type="text" formControlName="last_name" />
-    </ca-form-field>
+    <div col-2>
+      <ca-form-field label="Last Name" labelFor="last_name" [isRequired]="true">
+        <i class="ca-user-circle"></i>
+        <input
+          id="last_name"
+          type="text"
+          formControlName="last_name"
+          [ngClass]="{
+            'ng-dirty ng-touched':
+              isSubmitted && (lastName?.dirty || lastName?.invalid)
+          }"
+        />
+      </ca-form-field>
+      @if (isSubmitted && (lastName?.dirty || lastName?.invalid)) {
+      <ca-form-error [errors]="lastName?.errors" />
+      }
+    </div>
   </ca-cols-field-2>
 
   <div class="mb-6">
     <ca-form-field label="Email" labelFor="email" [isRequired]="true">
       <i class="ca-at"></i>
-      <input id="email" type="email" formControlName="email" />
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        [ngClass]="{
+          'ng-dirty ng-touched': isSubmitted && (email?.dirty || email?.invalid)
+        }"
+      />
     </ca-form-field>
+    @if (isSubmitted && (email?.dirty || email?.invalid)) {
+    <ca-form-error [errors]="email?.errors" />
+    }
   </div>
 
   <div class="mb-6">
     <ca-form-field label="Phone Number" labelFor="phone" [isRequired]="true">
       <i class="ca-phone"></i>
-      <input id="phone" type="tel" formControlName="phone_number" />
+      <input
+        id="phone"
+        type="tel"
+        formControlName="phone_number"
+        [ngClass]="{
+          'ng-dirty ng-touched':
+            isSubmitted && (phoneNumber?.dirty || phoneNumber?.invalid)
+        }"
+      />
     </ca-form-field>
+    @if (isSubmitted && (phoneNumber?.dirty || phoneNumber?.invalid)) {
+    <ca-form-error [errors]="phoneNumber?.errors" />
+    }
   </div>
 
   <ca-cols-field-2 class="mb-6">
-    <ca-form-field
-      col-1
-      label="Password"
-      labelFor="password"
-      [isRequired]="true"
-    >
-      <input type="password" id="password" formControlName="password" />
-    </ca-form-field>
+    <div col-1>
+      <ca-form-field label="Password" labelFor="password" [isRequired]="true">
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          [ngClass]="{
+            'ng-dirty ng-touched':
+              isSubmitted && (password?.dirty || password?.invalid)
+          }"
+        />
+      </ca-form-field>
+      @if (isSubmitted && (password?.dirty || password?.invalid)) {
+      <ca-form-error [errors]="password?.errors" />
+      }
+    </div>
 
-    <ca-form-field
-      col-2
-      label="Confirm Password"
-      labelFor="confirm_password"
-      [isRequired]="true"
-    >
-      <input
-        type="password"
-        id="confirm_password"
-        formControlName="password_confirmation"
-      />
-    </ca-form-field>
+    <div col-2>
+      <ca-form-field
+        label="Confirm Password"
+        labelFor="confirm_password"
+        [isRequired]="true"
+      >
+        <input
+          type="password"
+          id="confirm_password"
+          formControlName="password_confirmation"
+          [ngClass]="{
+            'ng-dirty ng-touched':
+              isSubmitted &&
+              (passwordConfirmation?.dirty || passwordConfirmation?.invalid)
+          }"
+        />
+      </ca-form-field>
+      @if (isSubmitted && (passwordConfirmation?.dirty ||
+      passwordConfirmation?.invalid)) {
+      <ca-form-error [errors]="form.errors" />
+      }
+    </div>
   </ca-cols-field-2>
 
   <div class="mb-6">
     <ca-form-field label="Referral Code (optional)" labelFor="referral">
       <input type="text" id="referral" formControlName="referral_code" />
     </ca-form-field>
+    @if (isSubmitted && (referralCode?.dirty || referralCode?.invalid)) {
+    <ca-form-error [errors]="referralCode?.errors" />
+    }
   </div>
 
   <div class="mb-12 flex items-start gap-3">
