@@ -4,9 +4,16 @@
   <div class="mb-6">
     <ca-form-field label="Email" labelFor="email" [isRequired]="true">
       <i class="ca-at"></i>
-      <input id="email" type="email" formControlName="email" />
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        [ngClass]="{
+          'ng-dirty ng-touched': isSubmitted && (email?.dirty || email?.invalid)
+        }"
+      />
     </ca-form-field>
-    @if (isSubmitted && email?.dirty) {
+    @if (isSubmitted && (email?.dirty || email?.invalid)) {
     <ca-form-error [errors]="email?.errors" />
     }
   </div>
@@ -18,6 +25,10 @@
         type="password"
         id="password"
         formControlName="password"
+        [ngClass]="{
+          'ng-dirty ng-touched':
+            isSubmitted && (password?.dirty || password?.invalid)
+        }"
       />
       <i
         (click)="
@@ -31,7 +42,7 @@
         }"
       ></i>
     </ca-form-field>
-    @if (isSubmitted && password?.dirty) {
+    @if (isSubmitted && (password?.dirty || password?.invalid)) {
     <ca-form-error [errors]="form.get('password')?.errors" />
     }
   </div>
