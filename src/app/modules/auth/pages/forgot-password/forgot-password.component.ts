@@ -10,6 +10,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ca-forgot-password',
@@ -19,19 +21,33 @@ import {
   imports: [
     ReactiveFormsModule,
     RouterLink,
+    NgClass,
     AuthFormLayoutComponent,
     ButtonPrimaryDirective,
+    FormErrorComponent,
     FormFieldComponent,
   ],
 })
 export class ForgotPasswordComponent {
-  form: FormGroup<{ email: FormControl<null> }> = this.fb.group({
-    email: [null, [Validators.required]],
-  });
+  isSubmitted = false;
+
+  form: FormGroup<{ email: FormControl<null> }> = this.fb.group(
+    {
+      email: [null, [Validators.required]],
+    },
+    { updateOn: 'submit' }
+  );
 
   constructor(private fb: FormBuilder) {}
 
+  get email() {
+    return this.form.get('email');
+  }
+
   handleSubmit() {
+    this.isSubmitted = true;
+    if (this.form.invalid) return;
+
     console.log(this.form.value);
   }
 }
