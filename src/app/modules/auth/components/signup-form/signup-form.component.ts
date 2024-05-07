@@ -87,13 +87,3 @@ export class SignupFormComponent {
     console.log(this.form);
   }
 }
-
-type SignupForm = {
-  first_name: FormControl<null>;
-  last_name: FormControl<null>;
-  email: FormControl<null>;
-  phone_number: FormControl<null>;
-  password: FormControl<null>;
-  password_confirmation: FormControl<null>;
-  referral_code: FormControl<null>;
-};

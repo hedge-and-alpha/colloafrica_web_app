@@ -9,6 +9,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
+import { NgClass } from '@angular/common';
+import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
+import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
 
 @Component({
   selector: 'ca-reset-password',
@@ -17,21 +21,53 @@ import {
   styleUrl: './reset-password.component.css',
   imports: [
     ReactiveFormsModule,
+    NgClass,
     AuthFormLayoutComponent,
     ButtonPrimaryDirective,
+    FormErrorComponent,
     FormFieldComponent,
   ],
 })
 export class ResetPasswordComponent {
-  form: ResetPasswordForm = this.fb.group({
-    otp: [null, [Validators.required]],
-    password: [null, [Validators.required]],
-    password_confirmation: [null, [Validators.required]],
-  });
+  isSubmitted = false;
+
+  form: ResetPasswordForm = this.fb.group(
+    {
+      otp: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(/\d{6}/),
+          Validators.max(999999),
+        ],
+      ],
+      password: [null, [Validators.required, emptyFieldValidator()]],
+      password_confirmation: [
+        null,
+        [Validators.required, emptyFieldValidator()],
+      ],
+    },
+    { validators: [matchPasswordValidator], updateOn: 'submit' }
+  );
 
   constructor(private fb: FormBuilder) {}
 
+  get otp() {
+    return this.form.get('otp');
+  }
+  get password() {
+    return this.form.get('password');
+  }
+  get passwordConfirmation() {
+    return this.form.get('password_confirmation');
+  }
+
   handleSubmit() {
+    this.isSubmitted = true;
+
+    console.log(this.form);
+    if (this.form.invalid) return;
+
     console.log(this.form.value);
   }
 }
