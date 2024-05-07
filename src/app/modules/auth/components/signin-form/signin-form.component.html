@@ -6,6 +6,9 @@
       <i class="ca-at"></i>
       <input id="email" type="email" formControlName="email" />
     </ca-form-field>
+    @if (isSubmitted && email?.dirty) {
+    <ca-form-error [errors]="email?.errors" />
+    }
   </div>
 
   <div class="mb-6">
@@ -28,6 +31,9 @@
         }"
       ></i>
     </ca-form-field>
+    @if (isSubmitted && password?.dirty) {
+    <ca-form-error [errors]="form.get('password')?.errors" />
+    }
   </div>
 
   <p class="text-purple-main mb-8 font-medium">

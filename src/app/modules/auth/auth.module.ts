@@ -12,6 +12,7 @@ import { SigninFormComponent } from './components/signin-form/signin-form.compon
 import { AuthFormLayoutComponent } from './layouts/auth-form-layout/auth-form-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormErrorComponent } from '../../components/form-error/form-error.component';
 
 @NgModule({
   declarations: [SigninFormComponent, AuthLayoutComponent, AuthComponent],
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthFormLayoutComponent,
     ButtonPrimaryDirective,
     ColsField2Component,
+    FormErrorComponent,
     FormFieldComponent,
     LogoComponent,
     OtpComponent,

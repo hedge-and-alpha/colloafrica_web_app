@@ -1,1 +1,3 @@
-<p>form-error works!</p>
+@for (error of errors | keyvalue; track $index) {
+<small class="text-danger font-medium">{{ errorsMap[error.key] }}</small>
+}

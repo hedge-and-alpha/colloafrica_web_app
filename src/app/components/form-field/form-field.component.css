@@ -7,6 +7,10 @@
   border-color: var(--purple);
 }
 
+:host .ca-form-control:has(.ng-invalid.ng-dirty.ng-touched) {
+  border-color: #d92121;
+}
+
 :host .ca-form-control label {
   top: -40%;
   transform: translateY(25%);
