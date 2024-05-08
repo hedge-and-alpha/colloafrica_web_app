@@ -38,7 +38,6 @@ export class OtpComponent {
     const next = elem.nextElementSibling;
 
     if (elem.value.length > 1) {
-      event.preventDefault();
       return;
     }
 

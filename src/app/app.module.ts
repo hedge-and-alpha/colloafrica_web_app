@@ -11,11 +11,13 @@ import { ButtonSecondaryDirective } from './directives/button-secondary/button-s
 import { TitleStrategy } from '@angular/router';
 import { PageTitleStrategyService } from './services/page-title-strategy.service';
 import { ModalComponent } from './components/modal/modal.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ButtonPrimaryDirective,
     ButtonSecondaryDirective,

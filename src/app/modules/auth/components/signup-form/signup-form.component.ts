@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormFieldComponent } from '../../../../components/form-field/form-field.component';
 import { ColsField2Component } from '../../../../components/cols-field-2/cols-field-2.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
 import {
   FormBuilder,
@@ -14,6 +14,8 @@ import { FormErrorComponent } from '../../../../components/form-error/form-error
 import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { NgClass } from '@angular/common';
+import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'ca-signup-form',
@@ -28,10 +30,12 @@ import { NgClass } from '@angular/common';
     ColsField2Component,
     FormErrorComponent,
     FormFieldComponent,
+    SpinnerComponent,
   ],
 })
 export class SignupFormComponent {
   isSubmitted = false;
+  loading = false;
 
   form = this.fb.group(
     {
@@ -52,11 +56,16 @@ export class SignupFormComponent {
       ],
       phone_number: [null, [Validators.required, emptyFieldValidator()]],
       referral_code: [null, [emptyFieldValidator()]],
+      subscription: [false, [Validators.requiredTrue]],
     },
     { validators: [matchPasswordValidator], updateOn: 'submit' }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private api: AuthService
+  ) {}
 
   get firstName() {
     return this.form.get('first_name');
@@ -81,9 +90,24 @@ export class SignupFormComponent {
   }
 
   handleSubmit() {
+    this.isSubmitted = true;
+
     if (this.form.invalid) return;
 
-    this.isSubmitted = true;
-    console.log(this.form);
+    this.loading = true;
+
+    const data = { ...this.form.value };
+    delete data.subscription;
+
+    this.api.registerUser(data).subscribe({
+      next: () => {
+        // this.loading = false;
+        this.form.reset();
+        this.router.navigate(['/auth/verify-email']);
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
   }
 }

@@ -14,13 +14,14 @@ const routes: Routes = [
         path: '',
         component: AuthLayoutComponent,
         children: [
-          { path: 'sign-in', component: SigninFormComponent },
+          { path: 'sign-in', component: SigninFormComponent, title: 'Sign in' },
           {
             path: 'sign-up',
             loadComponent: () =>
               import('./components/signup-form/signup-form.component').then(
                 (c) => c.SignupFormComponent
               ),
+            title: 'Sign up',
           },
           { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
         ],

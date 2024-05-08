@@ -129,15 +129,26 @@
     }
   </div>
 
-  <div class="mb-12 flex items-start gap-3">
-    <input type="checkbox" id="subscribe" />
-    <label class="text-sm" for="subscribe">
-      By submitting this form, I acknowledge that I am subscribing to emails
-      related to ColloAfrica
-    </label>
+  <div class="mb-12">
+    <div class="flex items-start gap-3">
+      <input type="checkbox" id="subscribe" formControlName="subscription" />
+      <label class="text-sm" for="subscribe">
+        By submitting this form, I acknowledge that I am subscribing to emails
+        related to ColloAfrica
+      </label>
+    </div>
+    @if (isSubmitted && form.get('subscription')?.errors) {
+    <ca-form-error [errors]="form.get('subscription')?.errors" />
+    }
   </div>
 
+  @if (!loading) {
   <button type="submit" class="w-full" ca-button-primary>Sign up</button>
+  }@else {
+  <button type="button" class="w-full" ca-button-primary>
+    <ca-spinner />
+  </button>
+  }
 
   <p class="mt-6 mb-10 text-center text-sm font-medium">
     Already have an account?

@@ -93,5 +93,6 @@ import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
     TableComponent,
     NgOptimizedImage,
   ],
+  providers: [],
 })
 export class DashboardModule {}
