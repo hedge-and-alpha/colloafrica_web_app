@@ -43,6 +43,7 @@ import { MgrPlanFormComponent } from './components/mgr-plan-form/mgr-plan-form.c
 import { NgSelectModule } from '@ng-select/ng-select';
 import { JoinMgrPlanFormComponent } from './components/join-mgr-plan-form/join-mgr-plan-form.component';
 import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
+import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
     MgrPlanFormComponent,
     JoinMgrPlanFormComponent,
     MgrPlanComponent,
+    NotificationItemComponent,
   ],
   imports: [
     CommonModule,

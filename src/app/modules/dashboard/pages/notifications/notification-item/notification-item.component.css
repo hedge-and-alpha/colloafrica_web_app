@@ -1,0 +1,38 @@
+:host .icon-ctr {
+  width: clamp(2rem, 1.7708rem + 1.0185vw, 2.6875rem);
+  aspect-ratio: 1;
+  font-size: clamp(1.125rem, 0.9583rem + 0.7407vw, 1.625rem);
+}
+
+:host time {
+  font-size: 0.625rem;
+  line-height: 1.4;
+}
+
+:host [data-type="request"],
+:host [data-type="fund"] {
+  background: #e5fff9;
+  color: #17b890;
+}
+
+:host [data-type="withdraw"] {
+  background: #ffebec;
+  color: #dc4952;
+}
+
+:host button {
+  height: 30px;
+  width: 4.75rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host button.confirm {
+  background-color: #17b890;
+}
+
+:host button.reject {
+  background-color: #dc4952;
+}

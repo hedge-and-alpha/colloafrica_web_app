@@ -1,0 +1,30 @@
+<ca-card class="ps-3 py-4 pe-[18px] rounded-md max-w-[50rem]">
+  <div class="flex gap-2 items-start">
+    <div class="icon-ctr rounded-full flex shrink-0" [attr.data-type]="type">
+      @if (type === 'fund') {
+      <i class="ca-dollar-send-circle m-auto rotate-180"></i>
+      } @else if (type === 'withdraw') {
+      <i class="ca-dollar-send-circle m-auto"></i>
+      } @else {
+      <i class="ca-atom m-auto"></i>
+      }
+    </div>
+
+    <div class="sm:flex items-center grow">
+      <div class="max-w-[28.75rem]">
+        <h2 class="text-sm font-semibold">{{ notificationTitle }}</h2>
+        <p class="my-1 text-sm">{{ message }}</p>
+        <time [attr.datetime]="datetime" class="font-medium">
+          {{ datetime | date : "MMMM d, YYYY, hh:mm a" }}
+        </time>
+      </div>
+
+      @if (type === 'request') {
+      <div class="mt-4 sm:mt-0 flex gap-3 sm:ms-auto">
+        <button class="confirm text-xs text-white leading-4">Confirm</button>
+        <button class="reject text-xs text-white leading-4">Reject</button>
+      </div>
+      }
+    </div>
+  </div>
+</ca-card>
