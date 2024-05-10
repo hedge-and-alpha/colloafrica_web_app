@@ -1,0 +1,9 @@
+:host p {
+  font-size: clamp(1rem, 0.6667rem + 1.4815vw, 2rem);
+}
+
+:host a {
+  background: linear-gradient(90deg, #470b96 0%, #e29700 100%);
+  display: inline-block;
+  border-radius: 4px;
+}
