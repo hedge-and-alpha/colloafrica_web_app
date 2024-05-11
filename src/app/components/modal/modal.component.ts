@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Renderer2,
+  computed,
+  effect,
+} from '@angular/core';
+import { ModalConfig, ModalService } from './modal.service';
 
 @Component({
   selector: 'ca-modal',
@@ -9,5 +17,34 @@ import { Component, Input } from '@angular/core';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent {
-  @Input() size: '' | 'small' | 'large' = '';
+  isOpen = computed(() => this.modalService.isOpen());
+  componentClass = computed(() => this.modalService.componentClass());
+  componentInputs = computed(() => this.modalService.componentInputs());
+
+  config!: ModalConfig;
+
+  constructor(
+    private modalService: ModalService,
+    private renderer: Renderer2,
+    private elementRef: ElementRef
+  ) {
+    effect(() => {
+      const mainContent = document.querySelector('.main-content');
+      if (this.isOpen()) {
+        this.config = this.modalService.config;
+        this.renderer.appendChild(document.body, this.elementRef.nativeElement);
+        this.renderer.addClass(document.body, 'overflow-hidden');
+        this.renderer.setStyle(mainContent, 'overflow-y', 'hidden');
+      } else {
+        this.renderer.removeClass(document.body, 'overflow-hidden');
+        this.renderer.setStyle(mainContent, 'overflow-y', 'scroll');
+      }
+    });
+  }
+
+  ngOnInit() {}
+
+  closeModal() {
+    this.modalService.close();
+  }
 }

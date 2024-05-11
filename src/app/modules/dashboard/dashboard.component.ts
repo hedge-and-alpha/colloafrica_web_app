@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { Observable, fromEvent, map, startWith } from 'rxjs';
 import { NetworkService } from '../../services/network.service';
+import { ModalService } from '../../components/modal/modal.service';
 
 @Component({
   selector: 'ca-dashboard',

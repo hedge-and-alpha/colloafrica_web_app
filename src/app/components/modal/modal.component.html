@@ -1,13 +1,34 @@
-<div class="ca-modal fixed inset-0">
+@if (isOpen()) {
+<div class="ca-modal fixed inset-0 z-20" [class.hidden]>
   <div class="h-full w-full flex items-center justify-center">
     <div
-      class="ca-modal-content bg-white px-4 sm:px-8 md:px-11 relative"
+      class="ca-modal-content bg-white px-4 pt-4 pb-8 sm:p-8 md:p-11 relative"
       [ngClass]="{
-        'large no-scrollbar': size === 'large',
-        small: size === 'small'
+        'large no-scrollbar': config.size === 'large',
+        small: config.size === 'small'
       }"
     >
-      <ng-content />
+      @if (config.showHeading) {
+      <div class="flex items-center">
+        <h2 class="font-medium text-[#171717] text-2xl">
+          {{ config.headingText }}
+        </h2>
+        @if (config.closable) {
+
+        <button
+          class="w-8 h-8 rounded-full ms-auto"
+          aria-label="Close modal"
+          (click)="closeModal()"
+        >
+          <i class="ca-x-circle-fill text-3xl text-[#b5b5b5]"></i>
+        </button>
+        }
+      </div>
+      }
+      <ng-container
+        *ngComponentOutlet="componentClass(); inputs: componentInputs()"
+      />
     </div>
   </div>
 </div>
+}
