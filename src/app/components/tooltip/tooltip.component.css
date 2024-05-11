@@ -1,0 +1,16 @@
+:host .tooltip {
+  display: block;
+  position: fixed;
+  width: clamp(18rem, 14.6667rem + 14.8148vw, 28rem);
+}
+
+:host .tooltip::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -8px;
+  left: 8px;
+  border-inline: 8px solid transparent;
+  border-block-end: 8px solid #fff;
+}

@@ -29,15 +29,11 @@ export class ModalComponent {
     private elementRef: ElementRef
   ) {
     effect(() => {
-      const mainContent = document.querySelector('.main-content');
       if (this.isOpen()) {
-        // this.config = this.modalService.config;
         this.renderer.appendChild(document.body, this.elementRef.nativeElement);
         this.renderer.addClass(document.body, 'overflow-hidden');
-        this.renderer.setStyle(mainContent, 'overflow-y', 'hidden');
       } else {
         this.renderer.removeClass(document.body, 'overflow-hidden');
-        this.renderer.setStyle(mainContent, 'overflow-y', 'scroll');
       }
     });
   }

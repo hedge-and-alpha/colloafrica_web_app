@@ -48,6 +48,7 @@ import { PaymentCardFormComponent } from './components/payment-card-form/payment
 import { ColsField2Component } from '../../components/cols-field-2/cols-field-2.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BankAccountFormComponent } from './components/bank-account-form/bank-account-form.component';
+import { TooltipDirective } from '../../directives/tooltip/tooltip.directive';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { BankAccountFormComponent } from './components/bank-account-form/bank-ac
     FormFieldComponent,
     ModalComponent,
     TableComponent,
+    TooltipDirective,
     NgOptimizedImage,
   ],
   providers: [],
