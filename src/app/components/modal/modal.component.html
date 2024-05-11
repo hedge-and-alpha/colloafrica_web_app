@@ -4,16 +4,16 @@
     <div
       class="ca-modal-content bg-white px-4 pt-4 pb-8 sm:p-8 md:p-11 relative"
       [ngClass]="{
-        'large no-scrollbar': config.size === 'large',
-        small: config.size === 'small'
+        'large no-scrollbar': size() === 'large',
+        small: size() === 'small'
       }"
     >
-      @if (config.showHeading) {
+      @if (config().showHeading) {
       <div class="flex items-center">
         <h2 class="font-medium text-[#171717] text-2xl">
-          {{ config.headingText }}
+          {{ config().headingText }}
         </h2>
-        @if (config.closable) {
+        @if (config().closable) {
 
         <button
           class="w-8 h-8 rounded-full ms-auto"

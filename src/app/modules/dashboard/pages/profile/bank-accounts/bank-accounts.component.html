@@ -3,7 +3,10 @@
     <div class="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center">
       <h2 class="text-purple-main font-medium">Bank Accounts Info</h2>
 
-      <button class="btn btn-xs bg-purple-main text-white sm:ms-auto h-8">
+      <button
+        class="btn btn-xs bg-purple-main text-white sm:ms-auto h-8"
+        (click)="openModal()"
+      >
         <i class="ca-plus"></i> Add new bank account
       </button>
     </div>

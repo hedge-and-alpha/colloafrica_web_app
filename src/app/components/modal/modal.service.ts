@@ -1,8 +1,7 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
 
-type ModalSize = '' | 'small' | 'large';
+type ModalSize = 'regular' | 'small' | 'large';
 export type ModalConfig = {
-  size: ModalSize;
   closable?: boolean;
   showHeading?: boolean;
   headingText?: string;
@@ -14,15 +13,18 @@ export type ModalConfig = {
 })
 export class ModalService {
   private _isOpen: WritableSignal<boolean> = signal(false);
+  private _size: WritableSignal<ModalSize> = signal('regular');
   private _componentClass: WritableSignal<any | null> = signal(null);
   private _componentInputs: WritableSignal<Record<string, any>> = signal({});
 
-  private _config: ModalConfig = {
-    size: 'small',
-  };
+  private _config: WritableSignal<ModalConfig> = signal({});
 
   get config() {
     return this._config;
+  }
+
+  get size() {
+    return this._size;
   }
 
   get isOpen() {
@@ -37,11 +39,29 @@ export class ModalService {
     return this._componentInputs;
   }
 
-  open(component: any, config: ModalConfig, inputs: Record<string, any> = {}) {
+  open(
+    component: any,
+    size: ModalSize,
+    config: ModalConfig,
+    inputs: Record<string, any> = {}
+  ) {
     this._componentClass.set(component);
     this._componentInputs.set(inputs);
-    this._config = config;
+    this._size.set(size);
+    this._config.update((v) => ({ ...v, ...config }));
     this._isOpen.set(true);
+  }
+
+  update(
+    component: any,
+    size: ModalSize,
+    config: ModalConfig,
+    inputs: Record<string, any> = {}
+  ) {
+    this._componentClass.set(component);
+    this._componentInputs.set(inputs);
+    this._size.set(size);
+    this._config.update((v) => ({ ...v, ...config }));
   }
 
   close() {

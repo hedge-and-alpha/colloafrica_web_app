@@ -1,0 +1,33 @@
+<form class="mt-8" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="mb-6">
+    <ca-form-field
+      label="Account Number"
+      labelFor="account-number"
+      [isRequired]="true"
+    >
+      <input type="number" id="account-number" placeholder="0123456789" />
+    </ca-form-field>
+  </div>
+
+  <div>
+    <ca-form-field label="Select Bank" labelFor="bank" [isRequired]="true">
+      <div class="-mx-5 grow">
+        <ng-select
+          class="px-2"
+          placeholder="Select bank"
+          labelForId="bank"
+          notFoundText="No banks found"
+        >
+          <!-- <ng-option>Guaranty trust</ng-option>
+          <ng-option>Sterling</ng-option>
+          <ng-option>The alternative bank</ng-option>
+          <ng-option>Unity bank</ng-option> -->
+        </ng-select>
+      </div>
+    </ca-form-field>
+  </div>
+
+  <div class="mt-11 text-end">
+    <button ca-button-primary class="w-52" type="submit">Proceed</button>
+  </div>
+</form>

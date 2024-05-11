@@ -44,6 +44,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { JoinMgrPlanFormComponent } from './components/join-mgr-plan-form/join-mgr-plan-form.component';
 import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
+import { PaymentCardFormComponent } from './components/payment-card-form/payment-card-form.component';
+import { ColsField2Component } from '../../components/cols-field-2/cols-field-2.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BankAccountFormComponent } from './components/bank-account-form/bank-account-form.component';
 
 @NgModule({
   declarations: [
@@ -81,14 +85,18 @@ import { NotificationItemComponent } from './pages/notifications/notification-it
     JoinMgrPlanFormComponent,
     MgrPlanComponent,
     NotificationItemComponent,
+    PaymentCardFormComponent,
+    BankAccountFormComponent,
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    ReactiveFormsModule,
     IMaskModule,
     NgSelectModule,
+    DashboardRoutingModule,
     ButtonPrimaryDirective,
     CardComponent,
+    ColsField2Component,
     ContentSidebarComponent,
     FormFieldComponent,
     ModalComponent,

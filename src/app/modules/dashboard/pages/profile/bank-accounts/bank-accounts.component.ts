@@ -4,6 +4,8 @@ import { BankAccountInfoItemComponent } from '../../../components/bank-account-i
 import { BankAccountInfoItemColumnComponent } from '../../../components/bank-account-info-item-column/bank-account-info-item-column.component';
 import { SwitchComponent } from '../../../../../components/switch/switch.component';
 import { StatusTextDirective } from '../../../../../directives/status-text/status-text.directive';
+import { ModalService } from '../../../../../components/modal/modal.service';
+import { BankAccountFormComponent } from '../../../components/bank-account-form/bank-account-form.component';
 
 @Component({
   selector: 'ca-bank-accounts',
@@ -18,4 +20,14 @@ import { StatusTextDirective } from '../../../../../directives/status-text/statu
     StatusTextDirective,
   ],
 })
-export class BankAccountsComponent {}
+export class BankAccountsComponent {
+  constructor(private modalService: ModalService) {}
+
+  openModal() {
+    this.modalService.open(BankAccountFormComponent, 'regular', {
+      closable: true,
+      showHeading: true,
+      headingText: 'Enter bank details',
+    });
+  }
+}

@@ -13,8 +13,8 @@ export class AccountWalletComponent {
   openModal() {
     this.modalService.open(
       ModalStatusComponent,
+      'small',
       {
-        size: 'small',
         closable: true,
         showHeading: true,
       },

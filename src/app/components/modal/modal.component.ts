@@ -18,10 +18,10 @@ import { ModalConfig, ModalService } from './modal.service';
 })
 export class ModalComponent {
   isOpen = computed(() => this.modalService.isOpen());
+  size = computed(() => this.modalService.size());
   componentClass = computed(() => this.modalService.componentClass());
   componentInputs = computed(() => this.modalService.componentInputs());
-
-  config!: ModalConfig;
+  config = computed(() => this.modalService.config());
 
   constructor(
     private modalService: ModalService,
@@ -31,7 +31,7 @@ export class ModalComponent {
     effect(() => {
       const mainContent = document.querySelector('.main-content');
       if (this.isOpen()) {
-        this.config = this.modalService.config;
+        // this.config = this.modalService.config;
         this.renderer.appendChild(document.body, this.elementRef.nativeElement);
         this.renderer.addClass(document.body, 'overflow-hidden');
         this.renderer.setStyle(mainContent, 'overflow-y', 'hidden');
