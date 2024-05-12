@@ -1,0 +1,93 @@
+@if (step === 'amount') {
+<form class="mt-7" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <ca-form-field>
+    <input
+      class="h-full"
+      type="number"
+      formControlName="amount"
+      placeholder="Enter amount, e.g 1000"
+    />
+  </ca-form-field>
+
+  <p class="text-sm font-semibold text-[#5c5c5c] mt-4">
+    Minimum Amount: {{ 1000 | currency : "NGN" : "symbol-narrow" }}
+  </p>
+
+  <ca-form-error [errors]="amount?.errors" />
+
+  <div class="mt-7 text-end">
+    <button class="w-52" ca-button-primary>Next</button>
+  </div>
+</form>
+} @else if (step === 'method') {
+<p class="mt-2 mb-10 text-[#171717]">Select your mode of payment</p>
+
+<div role="menu" class="list-none flex flex-col mb-12">
+  <div class="mb-5" role="menuitem">
+    <label class="flex items-center gap-[9.65px] h-full px-4">
+      <input
+        type="radio"
+        value="transfer"
+        name="payment-method"
+        (change)="selectPaymentMethod($any($event.target).value)"
+      />
+      <span class="grow">Bank Transfer</span>
+    </label>
+  </div>
+
+  <!-- Transfer payment details -->
+  <div class="no-scrollbar transfer">
+    <p
+      class="mb-4"
+      style="font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem)"
+    >
+      Simply transfer the desired amount from your bank account or POS to the
+      provided account number below, and your wallet will be credited
+      accordingly.
+    </p>
+
+    <div class="account-details rounded-lg py-4 px-4 sm:px-10">
+      <div class="h-[19px] mb-5 flex items-center">
+        <div class="text-sm">Bank Name:</div>
+        <div class="text-[#171717] ms-auto font-medium">
+          VFD Microfinance Bank
+        </div>
+      </div>
+
+      <div class="h-[19px] mb-5 flex items-center">
+        <div class="text-sm">Account Number:</div>
+        <div
+          class="ms-auto text-xl font-semibold text-purple-main inline-flex gap-1"
+        >
+          <span>1234567890</span>
+          <button caCopyText="1234567890">
+            <i class="ca-copy font-medium"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="h-[19px] flex items-center">
+        <div class="text-sm">Account Name:</div>
+        <div class="text-[#171717] ms-auto font-medium">Akinyemi Olushola</div>
+      </div>
+    </div>
+  </div>
+  <!-- Transfer payment details end -->
+
+  <div role="menuitem">
+    <label class="flex items-center gap-[9.65px] h-full px-4">
+      <input
+        type="radio"
+        value="card"
+        name="payment-method"
+        (change)="selectPaymentMethod($any($event.target).value)"
+      />
+      <span class="grow">Card</span>
+    </label>
+  </div>
+</div>
+
+<div class="text-end">
+  <button class="w-52" ca-button-primary>Proceed</button>
+</div>
+}

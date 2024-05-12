@@ -8,13 +8,12 @@
         small: size() === 'small'
       }"
     >
+      <!-- Header -->
       @if (config().showHeading) {
-      <div class="flex items-center">
-        <h2 class="font-medium text-[#171717] text-2xl">
-          {{ config().headingText }}
-        </h2>
-        @if (config().closable) {
+      <div class="flex items-start">
+        <h2 class="font-medium text-[#171717]">{{ config().headingText }}</h2>
 
+        @if (config().closable) {
         <button
           class="w-8 h-8 rounded-full ms-auto"
           aria-label="Close modal"
@@ -25,9 +24,13 @@
         }
       </div>
       }
-      <ng-container
-        *ngComponentOutlet="componentClass(); inputs: componentInputs()"
-      />
+
+      <!-- Body -->
+      <div class="grow overflow-y-scroll no-scrollbar">
+        <ng-container
+          *ngComponentOutlet="componentClass(); inputs: componentInputs()"
+        />
+      </div>
     </div>
   </div>
 </div>

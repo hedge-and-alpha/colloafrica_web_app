@@ -54,6 +54,9 @@ import { DropdownMenuComponent } from '../../components/dropdown-menu/dropdown-m
 import { DropdownMenuItemComponent } from '../../components/dropdown-menu/dropdown-menu-item/dropdown-menu-item.component';
 import { DropdownMenuTriggerDirective } from '../../components/dropdown-menu/dropdown-menu-trigger.directive';
 import { ClickOutsideCloseDirective } from '../../directives/click-outside-close/click-outside-close.directive';
+import { TopUpComponent } from './pages/account-wallet/top-up/top-up.component';
+import { FormErrorComponent } from '../../components/form-error/form-error.component';
+import { CopyTextDirective } from '../../directives/copy-text/copy-text.directive';
 
 @NgModule({
   declarations: [
@@ -93,6 +96,7 @@ import { ClickOutsideCloseDirective } from '../../directives/click-outside-close
     NotificationItemComponent,
     PaymentCardFormComponent,
     BankAccountFormComponent,
+    TopUpComponent,
   ],
   imports: [
     CommonModule,
@@ -107,11 +111,13 @@ import { ClickOutsideCloseDirective } from '../../directives/click-outside-close
     DropdownComponent,
     DropdownMenuComponent,
     DropdownMenuItemComponent,
+    FormErrorComponent,
     FormFieldComponent,
     ModalComponent,
     TableComponent,
     NgOptimizedImage,
     ClickOutsideCloseDirective,
+    CopyTextDirective,
     DropdownMenuTriggerDirective,
     TooltipDirective,
   ],

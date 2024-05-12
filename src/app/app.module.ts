@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 import { TitleStrategy } from '@angular/router';
@@ -15,6 +16,7 @@ import { PageTitleStrategyService } from './services/page-title-strategy.service
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

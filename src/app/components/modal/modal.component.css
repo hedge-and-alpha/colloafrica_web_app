@@ -8,6 +8,8 @@
   max-height: 550px;
   border-radius: 12px;
   transition: max-width 450ms;
+  display: flex;
+  flex-direction: column;
 }
 
 :host .ca-modal .ca-modal-content.small {
@@ -19,4 +21,8 @@
   min-height: 495px;
   max-height: 72vh;
   overflow-y: scroll;
+}
+
+:host h2 {
+  font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);
 }
