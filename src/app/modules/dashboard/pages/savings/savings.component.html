@@ -34,9 +34,23 @@
         </div>
         <div class="text-xs">Total Units: {{ 50 | number : "1.2-2" }}</div>
       </div>
-      <button class="absolute right-4 top-2">
-        <i class="ca-three-dots-fill font-bold"></i>
-      </button>
+      <div class="absolute right-4 top-2">
+        <ca-dropdown>
+          <button caDropdownMenuTrigger>
+            <i class="ca-three-dots-fill font-bold"></i>
+          </button>
+          <ca-dropdown-menu caClickOutsideCloseDirective="open">
+            <ca-dropdown-menu-item
+              >Increase monthly amount</ca-dropdown-menu-item
+            >
+            <ca-dropdown-menu-item>
+              Add funds to current Savings
+            </ca-dropdown-menu-item>
+            <ca-dropdown-menu-item>Withdraw</ca-dropdown-menu-item>
+            <ca-dropdown-menu-item>Request to Cancel</ca-dropdown-menu-item>
+          </ca-dropdown-menu>
+        </ca-dropdown>
+      </div>
     </div>
 
     <div

@@ -49,6 +49,11 @@ import { ColsField2Component } from '../../components/cols-field-2/cols-field-2.
 import { ReactiveFormsModule } from '@angular/forms';
 import { BankAccountFormComponent } from './components/bank-account-form/bank-account-form.component';
 import { TooltipDirective } from '../../directives/tooltip/tooltip.directive';
+import { DropdownComponent } from '../../components/dropdown/dropdown/dropdown.component';
+import { DropdownMenuComponent } from '../../components/dropdown-menu/dropdown-menu.component';
+import { DropdownMenuItemComponent } from '../../components/dropdown-menu/dropdown-menu-item/dropdown-menu-item.component';
+import { DropdownMenuTriggerDirective } from '../../components/dropdown-menu/dropdown-menu-trigger.directive';
+import { ClickOutsideCloseDirective } from '../../directives/click-outside-close/click-outside-close.directive';
 
 @NgModule({
   declarations: [
@@ -99,11 +104,16 @@ import { TooltipDirective } from '../../directives/tooltip/tooltip.directive';
     CardComponent,
     ColsField2Component,
     ContentSidebarComponent,
+    DropdownComponent,
+    DropdownMenuComponent,
+    DropdownMenuItemComponent,
     FormFieldComponent,
     ModalComponent,
     TableComponent,
-    TooltipDirective,
     NgOptimizedImage,
+    ClickOutsideCloseDirective,
+    DropdownMenuTriggerDirective,
+    TooltipDirective,
   ],
   providers: [],
 })

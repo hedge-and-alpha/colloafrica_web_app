@@ -1,0 +1,21 @@
+:host {
+  box-shadow: 2px 2px 8px 0 #6f6f6f40;
+  border-radius: 4px;
+  width: fit-content;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 8px;
+  width: 17.5rem;
+  transform: scale(0);
+  transform-origin: 100% 0;
+  opacity: 0;
+  transition: transform 100ms 70ms, opacity 70ms;
+  display: block;
+  padding-block: 2px;
+  background-color: #fff;
+}
+
+:host.open {
+  transform: scale(1);
+  opacity: 1;
+}

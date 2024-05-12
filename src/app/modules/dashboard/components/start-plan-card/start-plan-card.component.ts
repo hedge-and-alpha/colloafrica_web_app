@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
         <div>
           <p class="mb-4">Save with Ajo, Adashe, or Esusu group</p>
           <a
-            routerLink="/mgr"
+            routerLink="/mgr/new"
             class="inline-flex items-center btn-xs rounded-md bg-warning px-2 sm:px-4 md:px-2 lg:px-4"
           >
             Start a plan now
