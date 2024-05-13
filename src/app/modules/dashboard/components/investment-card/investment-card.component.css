@@ -1,3 +1,14 @@
+:host {
+  max-width: 16.675rem;
+  min-height: 280px;
+  height: 100%;
+}
+
+:host ca-card {
+  display: flex;
+  flex-direction: column;
+}
+
 :host a {
   font-size: 0.625rem;
 }

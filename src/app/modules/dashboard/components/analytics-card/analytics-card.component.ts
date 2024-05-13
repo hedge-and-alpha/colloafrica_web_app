@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './analytics-card.component.css',
 })
 export class AnalyticsCardComponent {
-  @Input() title = '';
+  @Input() name = '';
   @Input() amount = 0;
 }
