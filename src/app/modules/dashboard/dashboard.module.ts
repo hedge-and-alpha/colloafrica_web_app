@@ -57,6 +57,10 @@ import { ClickOutsideCloseDirective } from '../../directives/click-outside-close
 import { TopUpComponent } from './pages/account-wallet/top-up/top-up.component';
 import { FormErrorComponent } from '../../components/form-error/form-error.component';
 import { CopyTextDirective } from '../../directives/copy-text/copy-text.directive';
+import { WithdrawComponent } from './pages/account-wallet/withdraw/withdraw.component';
+import { PaperPlaneIconComponent } from '../../icons/paper-plane-icon.component';
+import { ButtonSecondaryDirective } from '../../directives/button-secondary/button-secondary.directive';
+import { OtpComponent } from '../../components/otp/otp.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +101,7 @@ import { CopyTextDirective } from '../../directives/copy-text/copy-text.directiv
     PaymentCardFormComponent,
     BankAccountFormComponent,
     TopUpComponent,
+    WithdrawComponent,
   ],
   imports: [
     CommonModule,
@@ -104,7 +109,6 @@ import { CopyTextDirective } from '../../directives/copy-text/copy-text.directiv
     IMaskModule,
     NgSelectModule,
     DashboardRoutingModule,
-    ButtonPrimaryDirective,
     CardComponent,
     ColsField2Component,
     ContentSidebarComponent,
@@ -114,8 +118,12 @@ import { CopyTextDirective } from '../../directives/copy-text/copy-text.directiv
     FormErrorComponent,
     FormFieldComponent,
     ModalComponent,
+    OtpComponent,
+    PaperPlaneIconComponent,
     TableComponent,
     NgOptimizedImage,
+    ButtonPrimaryDirective,
+    ButtonSecondaryDirective,
     ClickOutsideCloseDirective,
     CopyTextDirective,
     DropdownMenuTriggerDirective,

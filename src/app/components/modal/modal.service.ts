@@ -60,12 +60,13 @@ export class ModalService {
   ) {
     this._componentClass.set(component);
     this._componentInputs.set(inputs);
+    this._config.update((v) => ({ ...v, ...config }));
     this._size.set(size);
-    this.updateConfig(config);
   }
 
-  updateConfig(config: ModalConfig) {
+  updateConfig(config: ModalConfig, size: ModalSize = 'regular') {
     this._config.update((v) => ({ ...v, ...config }));
+    this._size.set(size);
   }
 
   close() {

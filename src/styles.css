@@ -103,10 +103,10 @@ hgroup p {
   cursor: not-allowed;
 }
 
-::placeholder {
-  color: #5c5c5c;
+::placeholder,
+.ca-form-control input::placeholder {
+  color: #7d7f85;
 }
-
 .ca-form-control input,
 .ca-form-control input:focus-visible,
 .ca-form-control input:focus {
@@ -250,5 +250,10 @@ table td {
   padding: 0;
   border: none;
   box-shadow: 2px 2px 8px 0 #6f6f6f40;
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+  color: #7d7f85;
+  font-weight: 500;
 }
 /* NG Select */

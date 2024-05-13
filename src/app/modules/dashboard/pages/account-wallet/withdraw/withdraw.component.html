@@ -1,0 +1,114 @@
+@if (step === 'bank-details-form') {
+<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="mt-7">
+  <div class="mb-6">
+    <ca-form-field [isRequired]="true">
+      <div class="grow -mx-5">
+        <ng-select
+          class="px-2"
+          placeholder="Select a bank"
+          notFoundText="No bank(s) found."
+          formControlName="bank"
+        ></ng-select>
+      </div>
+    </ca-form-field>
+  </div>
+
+  <div class="mb-6">
+    <ca-form-field [isRequired]="true">
+      <input
+        class="h-full"
+        type="number"
+        formControlName="account_number"
+        placeholder="0123456789"
+      />
+    </ca-form-field>
+    <p class="text-end text-purple-main mt-2 leading-1.2">
+      Chika Esther Bamidale
+    </p>
+  </div>
+
+  <div class="mb-5">
+    <ca-form-field [isRequired]="true">
+      <input
+        class="h-full"
+        type="number"
+        formControlName="amount"
+        placeholder="Enter amount, e.g 1000"
+    /></ca-form-field>
+  </div>
+
+  <div class="mb-12 flex text-sm leading-1.2">
+    <p class="text-[#7d7f85]">Processing Fee</p>
+    <p class="text-[#5c5c5c] ms-auto">
+      {{ 300 | currency : "NGN" : "symbol-narrow" : "1.0-0" }}
+    </p>
+  </div>
+
+  <div class="text-end">
+    <button class="w-52" ca-button-primary type="submit">Next</button>
+  </div>
+</form>
+} @else if (step === 'confirm') {
+<div class="max-w-[29.25rem] mx-auto text-center">
+  <ca-paper-plane-icon />
+  <hgroup class="mt-7 mb-11">
+    <h2
+      class="font-medium mb-4 leading-1.2"
+      style="font-size: clamp(1.25rem, 1rem + 1.1111vw, 2rem)"
+    >
+      Withdrawal Request
+    </h2>
+    <p class="max-w-[22.75rem] mx-auto leading-[1.375] text-[#171717]">
+      You are about to send
+      {{ 1000000 | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to 2209287747
+      Zenith Bank.
+    </p>
+  </hgroup>
+
+  <div class="flex gap-4 sm:gap-7">
+    <button
+      class="w-full"
+      ca-button-secondary
+      type="button"
+      (click)="cancelWithdrawalRequest()"
+    >
+      Cancel
+    </button>
+    <button
+      class="w-full"
+      ca-button-primary
+      type="button"
+      (click)="moveToOtp()"
+    >
+      Continue
+    </button>
+  </div>
+</div>
+} @else {
+<div class="text-center mt-2 mx-auto max-w-[26.625rem]">
+  <hgroup class="mb-8">
+    <h2 class="mt-2 mb-3 font-medium text-2xl">OTP Verification</h2>
+    <p>
+      please enter the 4-digit verification code sent to your email address
+      akinyemi&#64;gmail.com to proceed
+    </p>
+  </hgroup>
+
+  <div class="mx-auto max-w-[18.5rem]">
+    <ca-otp [size]="4" />
+  </div>
+
+  <div class="mt-11 mb-8">
+    <button type="button" class="w-full" ca-button-primary (click)="complete()">
+      Confirm
+    </button>
+  </div>
+
+  <p class="text-[#171717]">
+    Haven't received the OTP?
+    <button type="button" class="text-purple-main font-medium">
+      Resend OTP
+    </button>
+  </p>
+</div>
+}

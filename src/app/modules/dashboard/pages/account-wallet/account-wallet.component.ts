@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../../../../components/modal/modal.service';
 import { TopUpComponent } from './top-up/top-up.component';
+import { WithdrawComponent } from './withdraw/withdraw.component';
 
 @Component({
   selector: 'ca-account-wallet',
@@ -10,11 +11,19 @@ import { TopUpComponent } from './top-up/top-up.component';
 export class AccountWalletComponent {
   constructor(private modalService: ModalService) {}
 
-  openModal() {
-    this.modalService.open(TopUpComponent, 'regular', {
-      closable: true,
-      showHeading: true,
-      headingText: 'Enter the desired amount',
-    });
+  openModal(target: 'top-up' | 'withdraw') {
+    if (target === 'top-up') {
+      this.modalService.open(TopUpComponent, 'regular', {
+        closable: true,
+        showHeading: true,
+        headingText: 'Enter the desired amount',
+      });
+    } else {
+      this.modalService.open(WithdrawComponent, 'regular', {
+        closable: true,
+        showHeading: true,
+        headingText: 'Enter bank details',
+      });
+    }
   }
 }

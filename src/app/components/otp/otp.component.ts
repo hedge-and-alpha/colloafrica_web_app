@@ -1,7 +1,9 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
+  OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
@@ -13,12 +15,16 @@ import {
   templateUrl: './otp.component.html',
   styleUrl: './otp.component.css',
 })
-export class OtpComponent {
+export class OtpComponent implements OnInit, AfterViewInit {
+  inputs = [];
+
   @Input() size = 6;
   @ViewChildren('input', { read: ElementRef })
   inputRefs!: QueryList<ElementRef>;
 
-  inputs = Array.from({ length: this.size });
+  ngOnInit() {
+    this.inputs = Array.from({ length: this.size });
+  }
 
   ngAfterViewInit() {
     console.log('[inputs]:', this.inputRefs);
@@ -38,6 +44,7 @@ export class OtpComponent {
     const next = elem.nextElementSibling;
 
     if (elem.value.length > 1) {
+      elem.value = elem.value.charAt(0);
       return;
     }
 

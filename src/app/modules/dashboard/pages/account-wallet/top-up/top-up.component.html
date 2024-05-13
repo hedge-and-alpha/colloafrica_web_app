@@ -16,7 +16,7 @@
   <ca-form-error [errors]="amount?.errors" />
 
   <div class="mt-7 text-end">
-    <button class="w-52" ca-button-primary>Next</button>
+    <button class="w-52" ca-button-primary type="submit">Next</button>
   </div>
 </form>
 } @else if (step === 'method') {
@@ -88,6 +88,6 @@
 </div>
 
 <div class="text-end">
-  <button class="w-52" ca-button-primary>Proceed</button>
+  <button class="w-52" ca-button-primary type="button">Proceed</button>
 </div>
 }
