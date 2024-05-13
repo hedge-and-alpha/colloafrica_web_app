@@ -5,12 +5,15 @@
 
 @font-face {
   font-family: "KreditBack-Regular";
-  src: url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.woff2"),
-    url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.woff"),
-    url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.ttf");
+  src: url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.woff2")
+      format("woff2"),
+    url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.woff") format("woff"),
+    url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0058, U+0030-0039;
 }
 
 :root {
