@@ -13,6 +13,7 @@
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       class="flex items-center gap-4 font-medium"
+      accesskey="h"
     >
       <i class="ca-grid text-lg"></i><span>Dashboard</span>
     </a>
@@ -23,6 +24,7 @@
       routerLink="/profile"
       routerLinkActive="active"
       class="flex items-center gap-4 font-medium"
+      accesskey="p"
     >
       <i class="ca-user-circle text-lg"></i><span>My Profile</span>
     </a>
@@ -33,6 +35,7 @@
       routerLink="/mgr-plan"
       routerLinkActive="active"
       class="flex items-center gap-4 font-medium"
+      accesskey="m"
     >
       <i class="ca-atom text-lg"></i><span>Merry Go Round</span>
     </a>
@@ -43,6 +46,7 @@
       routerLink="/wallet"
       routerLinkActive="active"
       class="flex items-center gap-4 font-medium"
+      accesskey="w"
     >
       <i class="ca-wallet text-lg"></i><span>Account Wallet</span>
     </a>
@@ -53,6 +57,7 @@
       routerLink="/investments"
       routerLinkActive="active"
       class="flex items-center gap-4 font-medium"
+      accesskey="i"
     >
       <i class="ca-currency-circle-dollar text-lg"></i><span>Investment</span>
     </a>
@@ -63,6 +68,7 @@
       routerLink="/savings"
       routerLinkActive="active"
       class="flex items-center gap-4 font-medium"
+      accesskey="s"
     >
       <i class="ca-hand-coin text-lg"></i><span>My Savings</span>
     </a>
@@ -73,6 +79,7 @@
       routerLink="/transactions"
       routerLinkActive="active"
       class="flex items-center gap-4 font-medium"
+      accesskey="t"
     >
       <i class="ca-clipboard text-lg"></i><span>Transaction History</span>
     </a>
@@ -81,6 +88,7 @@
 
 <button
   class="mt-auto text-start flex items-center gap-4 font-medium text-danger py-2"
+  accesskey="l"
   (click)="handleLogout()"
 >
   <i class="ca-logout text-lg"></i> <span>Logout</span>
