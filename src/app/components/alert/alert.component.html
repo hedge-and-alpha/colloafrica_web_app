@@ -1,0 +1,22 @@
+<div
+  class="ca-alert py-3 px-4 gap-3 sm:gap-4"
+  [ngClass]="{
+    warning: variant === 'warning',
+    danger: variant === 'danger'
+  }"
+>
+  <i class="ca-info font-semibold"></i>
+
+  <div class="ca-alert-content">
+    <div class="font-semibold text-lg leading-1.2">
+      Complete your MGR process
+    </div>
+    <p class="text-sm">
+      Fund your wallet before the plan starts to avoid being removed.
+    </p>
+  </div>
+
+  <button type="button" class="text-[10px]">
+    <i class="ca-x font-semibold"></i>
+  </button>
+</div>
