@@ -1,8 +1,14 @@
-<header class="flex h-[102px]">
-  <img src="assets/images/logo.svg" alt="" width="75" height="25" />
+<header class="flex items-center h-[102px]">
+  <a routerLink="/" aria-label="Navigate to home page">
+    <img src="assets/images/logo.svg" alt="" width="75" height="25" />
+  </a>
 
   <div class="ms-auto flex items-center">
-    <a routerLink="/notifications" aria-label="Navigate to notifications page">
+    <a
+      routerLink="/notifications"
+      aria-label="Navigate to notifications page"
+      class="notification"
+    >
       <i class="ca-notification"></i>
     </a>
     <button class="ms-6 text-[#171717] inline-flex items-center gap-2">

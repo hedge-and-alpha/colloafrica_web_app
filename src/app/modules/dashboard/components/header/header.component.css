@@ -1,4 +1,4 @@
-:host header a {
+:host header .notification {
   width: 34px;
   aspect-ratio: 1;
   display: inline-flex;
