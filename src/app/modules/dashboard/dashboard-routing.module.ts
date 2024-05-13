@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './dashboard.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { MgrComponent } from './pages/mgr/mgr.component';
 import { AccountWalletComponent } from './pages/account-wallet/account-wallet.component';
-import { InvestmentsComponent } from './pages/investments/investments.component';
-import { SavingsComponent } from './pages/savings/savings.component';
-import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
+import { HomeComponent } from './pages/home/home.component';
 import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
+import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
+import { MgrComponent } from './pages/mgr/mgr.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { SavingsComponent } from './pages/savings/savings.component';
 
 const routes: Routes = [
   {
@@ -111,12 +109,18 @@ const routes: Routes = [
       },
       {
         path: 'transactions',
-        component: TransactionsComponent,
+        loadComponent: () =>
+          import('./pages/transactions/transactions.component').then(
+            (c) => c.TransactionsComponent
+          ),
         title: 'Transactions',
       },
       {
         path: 'notifications',
-        component: NotificationsComponent,
+        loadComponent: () =>
+          import('./pages/notifications/notifications.component').then(
+            (c) => c.NotificationsComponent
+          ),
         title: 'Notifications',
       },
     ],

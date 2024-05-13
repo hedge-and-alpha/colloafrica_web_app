@@ -1,6 +1,7 @@
 :host .ca-investments {
   max-width: 36.25rem;
   display: grid;
+  justify-items: center;
 }
 
 @media (min-width: 33.75rem) {

@@ -26,9 +26,16 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
+    async function loadBvn() {
+      return (await import('./components/verify-bvn/verify-bvn.component'))
+        .VerifyBvnComponent;
+    }
+
     if (!this.isBvnVerified) {
-      this.modalService.open(VerifyBvnComponent, 'regular', {
-        showHeading: false,
+      loadBvn().then((bvnComponent) => {
+        this.modalService.open(bvnComponent, 'regular', {
+          showHeading: false,
+        });
       });
     }
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ca-h1',
+  standalone: true,
   template: `
     <h1 class="text-purple-main font-medium capitalize leading-1.2">
       <ng-content />
