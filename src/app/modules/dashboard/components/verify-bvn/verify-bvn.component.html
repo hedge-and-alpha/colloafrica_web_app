@@ -1,0 +1,42 @@
+<h2 class="text-2xl font-semibold mb-5">Verify your identity</h2>
+<p class="mb-7">
+  To enhance security and protect your account, we require your BVN for
+  verification. Rest assured, your information is handled with the utmost
+  confidentiality.
+  <strong class="font-medium"
+    >Please ensure that the name on your profile matches the name on your BVN to
+    prevent any errors.</strong
+  >
+</p>
+
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="">
+    <label for="bvn" class="font-medium inline-block mb-2"
+      >Bank Verification Number</label
+    >
+    <ca-form-field [isRequired]="true">
+      <input
+        type="number"
+        class="h-full"
+        formControlName="bvn"
+        id="bvn"
+        placeholder="Enter your 11 digit BVN number"
+      />
+    </ca-form-field>
+    <ca-form-error [errors]="bvn?.errors" />
+  </div>
+
+  <div class="mt-14 flex justify-end gap-4 sm:gap-7">
+    <button
+      type="button"
+      class="w-full max-w-52"
+      ca-button-secondary
+      (click)="skipVerification()"
+    >
+      Skip for now
+    </button>
+    <button type="submit" class="w-full max-w-52" ca-button-primary>
+      Continue
+    </button>
+  </div>
+</form>

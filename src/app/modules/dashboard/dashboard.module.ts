@@ -61,6 +61,7 @@ import { WithdrawComponent } from './pages/account-wallet/withdraw/withdraw.comp
 import { PaperPlaneIconComponent } from '../../icons/paper-plane-icon.component';
 import { ButtonSecondaryDirective } from '../../directives/button-secondary/button-secondary.directive';
 import { OtpComponent } from '../../components/otp/otp.component';
+import { VerifyBvnComponent } from './components/verify-bvn/verify-bvn.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { OtpComponent } from '../../components/otp/otp.component';
     BankAccountFormComponent,
     TopUpComponent,
     WithdrawComponent,
+    VerifyBvnComponent,
   ],
   imports: [
     CommonModule,

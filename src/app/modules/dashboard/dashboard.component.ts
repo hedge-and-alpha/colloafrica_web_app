@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { Observable, fromEvent, map, startWith } from 'rxjs';
 import { NetworkService } from '../../services/network.service';
 import { ModalService } from '../../components/modal/modal.service';
+import { VerifyBvnComponent } from './components/verify-bvn/verify-bvn.component';
 
 @Component({
   selector: 'ca-dashboard',
@@ -10,8 +11,12 @@ import { ModalService } from '../../components/modal/modal.service';
 })
 export class DashboardComponent {
   online = true;
+  isBvnVerified = false;
 
-  constructor(private networkService: NetworkService) {
+  constructor(
+    private networkService: NetworkService,
+    private modalService: ModalService
+  ) {
     // this.networkService.isOnline$.subscribe((v) => {
     //   this.online = v;
     // });
@@ -20,7 +25,13 @@ export class DashboardComponent {
     // });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (!this.isBvnVerified) {
+      this.modalService.open(VerifyBvnComponent, 'regular', {
+        showHeading: false,
+      });
+    }
+  }
 
   checkOnlineStatus() {
     console.log('checking online status...');
