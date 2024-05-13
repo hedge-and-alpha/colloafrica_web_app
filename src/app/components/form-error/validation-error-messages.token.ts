@@ -10,7 +10,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   max: 'The value is too large',
   min: 'The value is too small',
   maxLength: 'The value is too long',
-  mainLength: 'The value is too short',
+  minLength: 'The value is too short',
 };
 
 export const VALIDATION_ERROR_MESSAGES = new InjectionToken(

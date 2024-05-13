@@ -7,11 +7,16 @@
       <p>Enter the 6-digit code sent to your email address</p>
     </hgroup>
 
-    <ca-otp class="mt-11 mb-14 max-w-[28.75rem] mx-auto" />
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <div class="mt-11 mb-14 max-w-[28.75rem] mx-auto">
+        <ca-otp formControlName="otp" [size]="6" />
+        <ca-form-error [errors]="form.get('otp')?.errors" />
+      </div>
 
-    <div class="max-w-[25rem] mx-auto">
-      <button ca-button-primary class="w-full">Continue</button>
-    </div>
+      <div class="max-w-[25rem] mx-auto">
+        <button type="submit" ca-button-primary class="w-full">Continue</button>
+      </div>
+    </form>
 
     <p class="text-center my-8 lg:mb-12">
       Didn't receive OTP?

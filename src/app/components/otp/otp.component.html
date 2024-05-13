@@ -1,13 +1,17 @@
 <div class="flex justify-between">
-  @for (input of inputs; track $index) {
+  @for (input of inputs.controls; track $index) {
   <input
     #input
     type="number"
     maxlength="1"
     max="9"
+    inputmode="numeric"
     class="rounded text-center"
-    (input)="handleInput($event, $index)"
+    [formControl]="$any(input)"
+    [attr.autocomplete]="$index === 0 ? 'one-time-password' : null"
+    (input)="handleInput($event)"
     (keyup)="handleKeyUp($event)"
+    (paste)="handlePaste($event, $index)"
   />
   }
 </div>
