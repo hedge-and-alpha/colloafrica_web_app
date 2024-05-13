@@ -3,6 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "KreditBack-Regular";
+  src: url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.woff2"),
+    url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.woff"),
+    url("./assets/fonts/cf2e806bbe04d069f73338882068f7de.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --purple: #470b96;
   --body-text-1: #333;
