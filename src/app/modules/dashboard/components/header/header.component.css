@@ -10,7 +10,7 @@
 }
 
 @media screen and (min-width: 56rem) {
-  :host header > img {
+  :host header > a {
     display: none;
   }
 }

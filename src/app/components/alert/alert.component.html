@@ -1,22 +1,36 @@
+@if (show()) { @if (variant() !== 'plain') {
 <div
   class="ca-alert py-3 px-4 gap-3 sm:gap-4"
   [ngClass]="{
-    warning: variant === 'warning',
-    danger: variant === 'danger'
+    warning: variant() === 'warning',
+    danger: variant() === 'danger',
+    success: variant() === 'success'
   }"
 >
   <i class="ca-info font-semibold"></i>
 
-  <div class="ca-alert-content">
+  <div class="ca-alert-content grow">
+    @if (config().summary) {
     <div class="font-semibold text-lg leading-1.2">
-      Complete your MGR process
+      {{ config().summary }}
     </div>
+
+    <!-- Details -->
+    } @if (config().details) {
     <p class="text-sm">
-      Fund your wallet before the plan starts to avoid being removed.
+      {{ config().details }}
     </p>
+    }
   </div>
 
-  <button type="button" class="text-[10px]">
+  <button type="button" class="text-[10px] ms-auto" (click)="close()">
     <i class="ca-x font-semibold"></i>
   </button>
 </div>
+} @else {
+<div class="ca-alert plain py-2 px-6">
+  <div class="ca-alert-content grow text-center">
+    <p class="text-sm font-medium">Copied successfully!</p>
+  </div>
+</div>
+} }

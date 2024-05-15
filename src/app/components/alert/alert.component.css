@@ -1,10 +1,27 @@
 :host .ca-alert {
+  min-width: 20rem;
   max-width: 36rem;
-  width: 100%;
+  width: 95%;
   border: 1px solid;
   display: flex;
   align-items: flex-start;
   border-radius: 5px;
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+:host .ca-alert.plain {
+  width: fit-content;
+  background-color: #fff;
+  border: 1px solid #5c5c5c;
+  min-width: max-content;
+}
+
+:host .ca-alert.success {
+  background: #e2fae3;
+  border: 1px solid #049f0a;
 }
 
 :host .ca-alert.warning {

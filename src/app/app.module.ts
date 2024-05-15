@@ -12,9 +12,10 @@ import { ButtonSecondaryDirective } from './directives/button-secondary/button-s
 import { ButtonSmDirective } from './directives/button-sm/button-sm.directive';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PageTitleStrategyService } from './services/page-title-strategy.service';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
-  declarations: [AppComponent, PageNotFoundComponent],
+  declarations: [AppComponent, AlertComponent, PageNotFoundComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
