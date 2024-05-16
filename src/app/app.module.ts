@@ -13,6 +13,7 @@ import { ButtonSmDirective } from './directives/button-sm/button-sm.directive';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PageTitleStrategyService } from './services/page-title-strategy.service';
 import { AlertComponent } from './components/alert/alert.component';
+import { CapitalizeFirstPipe } from './pipes/capitalize-first/capitalize-first.pipe';
 
 @NgModule({
   declarations: [AppComponent, AlertComponent, PageNotFoundComponent],
@@ -24,6 +25,7 @@ import { AlertComponent } from './components/alert/alert.component';
     ButtonPrimaryDirective,
     ButtonSecondaryDirective,
     ButtonSmDirective,
+    CapitalizeFirstPipe,
     ModalComponent,
   ],
   providers: [{ provide: TitleStrategy, useClass: PageTitleStrategyService }],

@@ -19,6 +19,7 @@ import { AuthApiService } from '../../../../services/auth/auth-api.service';
 import { AlertService } from '../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'ca-signup-form',
@@ -69,6 +70,7 @@ export class SignupFormComponent {
     private fb: FormBuilder,
     private router: Router,
     private api: AuthApiService,
+    private auth: AuthService,
     private alertService: AlertService
   ) {}
 
@@ -105,15 +107,20 @@ export class SignupFormComponent {
 
     const data = { ...this.form.value };
     delete data.subscription;
+    this.auth.email = data.email;
 
     this.api.registerUser(data).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
         this.form.reset();
-        this.alertService.open('success', {
-          summary: status,
-          details: message,
-        });
+        this.alertService.open(
+          'success',
+          {
+            summary: status,
+            details: message,
+          },
+          10000
+        );
         this.router.navigate(['/auth/verify-email']);
       },
       error: (error: HttpErrorResponse) => {

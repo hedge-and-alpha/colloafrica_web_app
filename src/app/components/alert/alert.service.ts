@@ -23,7 +23,7 @@ export class AlertService {
 
   constructor() {}
 
-  open(type: Variant, config: Config = {}) {
+  open(type: Variant, config: Config = {}, duration = 5000) {
     let alert: Alert = {
       variant: type,
       id: crypto.randomUUID(),
@@ -35,7 +35,7 @@ export class AlertService {
 
       setTimeout(() => {
         this.#alerts.set([]);
-      }, 5000);
+      }, duration);
       return;
     }
 
@@ -43,7 +43,7 @@ export class AlertService {
 
     setTimeout(() => {
       this.close(alert.id);
-    }, 5000);
+    }, duration);
   }
 
   close(id: string) {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AlertService } from './components/alert/alert.service';
 
 @Component({
   selector: 'ca-root',
