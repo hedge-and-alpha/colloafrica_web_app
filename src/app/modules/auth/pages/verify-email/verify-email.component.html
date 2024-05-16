@@ -10,17 +10,33 @@
     <form [formGroup]="form" (ngSubmit)="handleSubmit()">
       <div class="mt-11 mb-14 max-w-[28.75rem] mx-auto">
         <ca-otp formControlName="otp" [size]="6" />
+
+        @if (isSubmitted && form.get('otp')?.errors) {
         <ca-form-error [errors]="form.get('otp')?.errors" />
+        }
       </div>
 
       <div class="max-w-[25rem] mx-auto">
-        <button type="submit" ca-button-primary class="w-full">Continue</button>
+        <button
+          type="submit"
+          class="w-full"
+          ca-button-primary
+          [loading]="loading"
+        >
+          Continue
+        </button>
       </div>
     </form>
 
-    <p class="text-center my-8 lg:mb-12">
+    <p class="text-center my-8 lg:mb-12 inline-flex gap-2">
       Didn't receive OTP?
-      <button class="text-purple-main border-0 font-medium">Resend OTP</button>
+      <button
+        class="text-purple-main border-0 font-medium"
+        [loading]="resending"
+        (click)="resendVerificationCode()"
+      >
+        Resend OTP
+      </button>
     </p>
   </div>
 </ca-auth-form-layout>
