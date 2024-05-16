@@ -2,34 +2,38 @@
   min-width: 20rem;
   max-width: 36rem;
   width: 95%;
-  border: 1px solid;
-  display: flex;
-  align-items: flex-start;
-  border-radius: 5px;
   position: fixed;
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
 }
 
-:host .ca-alert.plain {
+:host .ca-alert-item {
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+:host .ca-alert-item.plain {
   width: fit-content;
   background-color: #fff;
   border: 1px solid #5c5c5c;
   min-width: max-content;
+  margin-inline: auto;
 }
 
-:host .ca-alert.success {
+:host .ca-alert-item.success {
   background: #e2fae3;
   border: 1px solid #049f0a;
 }
 
-:host .ca-alert.warning {
+:host .ca-alert-item.warning {
   background: #fff3dc;
   border: 1px solid #e29700;
 }
 
-:host .ca-alert.danger {
+:host .ca-alert-item.danger {
   background: #ffe8e9;
   border-color: #dc4952;
 }

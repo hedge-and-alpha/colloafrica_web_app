@@ -6,8 +6,8 @@ import {
   Renderer2,
   computed,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AlertService } from './alert.service';
-import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'ca-alert',
@@ -15,9 +15,7 @@ import { Subscription, timer } from 'rxjs';
   styleUrl: './alert.component.css',
 })
 export class AlertComponent implements OnInit, OnDestroy {
-  show = computed(() => this.alertService.show());
-  variant = computed(() => this.alertService.type());
-  config = computed(() => this.alertService.config());
+  alerts = computed(() => this.alertService.alerts());
 
   timerSub!: Subscription;
 
@@ -26,22 +24,19 @@ export class AlertComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private elementRef: ElementRef<HTMLElement>
   ) {
-    if (this.show()) {
+    if (this.alerts()) {
       this.renderer.appendChild(document.body, this.elementRef.nativeElement);
     }
   }
 
-  ngOnInit() {
-    this.timerSub = timer(5000).subscribe(() => this.close());
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
-    console.log('alert destroyed');
     this.timerSub?.unsubscribe();
   }
 
-  close() {
-    this.alertService.close();
-    this.renderer.removeChild(document.body, this.elementRef.nativeElement);
+  close(id: string) {
+    this.alertService.close(id);
+    // this.renderer.removeChild(document.body, this.elementRef.nativeElement);
   }
 }

@@ -1,36 +1,43 @@
-@if (show()) { @if (variant() !== 'plain') {
-<div
-  class="ca-alert py-3 px-4 gap-3 sm:gap-4"
-  [ngClass]="{
-    warning: variant() === 'warning',
-    danger: variant() === 'danger',
-    success: variant() === 'success'
-  }"
->
-  <i class="ca-info font-semibold"></i>
+<div class="ca-alert">
+  @for (alert of alerts(); track alert.id; let isLast = $last) {
+  <!-- Other variants, not plain -->
+  @if (alert.variant !== 'plain') {
+  <div
+    class="ca-alert-item py-3 px-4 gap-3 sm:gap-4"
+    [ngClass]="{
+      warning: alert.variant === 'warning',
+      danger: alert.variant === 'danger',
+      success: alert.variant === 'success',
+      'mb-3': !isLast
+    }"
+  >
+    <i class="ca-info font-semibold text-xl"></i>
 
-  <div class="ca-alert-content grow">
-    @if (config().summary) {
-    <div class="font-semibold text-lg leading-1.2">
-      {{ config().summary }}
+    <div class="ca-alert-content grow">
+      @if (alert.config.summary) {
+      <div class="font-semibold text-lg leading-1.2">
+        {{ alert.config.summary | capitalizeFirst }}
+      </div>
+
+      <!-- Details -->
+      } @if (alert.config.details) {
+      <p class="text-sm">
+        {{ alert.config.details | capitalizeFirst }}
+      </p>
+      }
     </div>
 
-    <!-- Details -->
-    } @if (config().details) {
-    <p class="text-sm">
-      {{ config().details }}
-    </p>
-    }
+    <button type="button" class="text-sm ms-auto" (click)="close(alert.id)">
+      <i class="ca-x font-semibold"></i>
+    </button>
   </div>
-
-  <button type="button" class="text-[10px] ms-auto" (click)="close()">
-    <i class="ca-x font-semibold"></i>
-  </button>
-</div>
-} @else {
-<div class="ca-alert plain py-2 px-6">
-  <div class="ca-alert-content grow text-center">
-    <p class="text-sm font-medium">Copied successfully!</p>
+  } @else {
+  <div class="ca-alert-item plain py-2 px-6">
+    <div class="ca-alert-content grow text-center">
+      <p class="text-sm font-medium">
+        {{ alert.config.details! | capitalizeFirst }}
+      </p>
+    </div>
   </div>
+  } }
 </div>
-} }

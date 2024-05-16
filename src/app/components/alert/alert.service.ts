@@ -5,36 +5,49 @@ type Config = {
   summary?: string;
   details?: string;
 };
+type Alert = {
+  variant: Variant;
+  id: string;
+  config: Config;
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlertService {
-  #show: WritableSignal<boolean> = signal(true);
-  #type: WritableSignal<Variant> = signal('danger');
-  #config: WritableSignal<Config> = signal({});
+  #alerts: WritableSignal<Alert[]> = signal([]);
 
-  get show() {
-    return this.#show;
-  }
-
-  get type() {
-    return this.#type;
-  }
-
-  get config() {
-    return this.#config;
+  get alerts() {
+    return this.#alerts;
   }
 
   constructor() {}
 
   open(type: Variant, config: Config = {}) {
-    this.#type.set(type);
-    this.#config.update((c) => ({ ...c, ...config }));
-    this.#show.set(true);
+    let alert: Alert = {
+      variant: type,
+      id: crypto.randomUUID(),
+      config,
+    };
+
+    if (type === 'plain' && this.#alerts().length >= 1) {
+      this.#alerts.set([alert]);
+
+      setTimeout(() => {
+        this.#alerts.set([]);
+      }, 5000);
+      return;
+    }
+
+    this.#alerts.update((alerts) => [alert, ...alerts]);
+
+    setTimeout(() => {
+      this.close(alert.id);
+    }, 5000);
   }
 
-  close() {
-    this.#show.set(false);
+  close(id: string) {
+    let filtered = this.#alerts().filter((alert) => alert.id !== id);
+    this.#alerts.update(() => filtered);
   }
 }
