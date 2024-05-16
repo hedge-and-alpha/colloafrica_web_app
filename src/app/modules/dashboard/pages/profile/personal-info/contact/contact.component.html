@@ -1,0 +1,69 @@
+<ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5 rounded-lg">
+  <form [formGroup]="form">
+    <h2 class="text-purple-main mb-10 font-medium">Contact Info</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field
+        label="Phone Number"
+        labelFor="phone"
+        [isRequired]="true"
+        col-1
+      >
+        <input id="phone" type="tel" />
+      </ca-form-field>
+
+      <ca-form-field
+        label="Email Address"
+        labelFor="email"
+        [isRequired]="true"
+        col-2
+      >
+        <input id="email" type="email" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 class="mb-6" col1Span="col-span-2">
+      <ca-form-field
+        label="Address"
+        labelFor="address"
+        [isRequired]="true"
+        col-1
+      >
+        <input id="address" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field label="Nearest Landmark" labelFor="landmark" col-1>
+        <input id="landmark" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="LGA" labelFor="lga" col-2>
+        <input id="lga" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Home Town" labelFor="home-town" col-3>
+        <input id="home-town" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3>
+      <ca-form-field label="State" labelFor="state" col-1>
+        <input id="state" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Nationality" labelFor="nationality" col-2>
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <div class="mt-10">
+      <button
+        type="submit"
+        class="btn bg-purple-main h-[44px] text-white"
+        [loading]="loading"
+      >
+        Save & update
+      </button>
+    </div>
+  </form>
+</ca-card>

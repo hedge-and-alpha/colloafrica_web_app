@@ -1,0 +1,118 @@
+<ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5 rounded-lg">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <h2 class="text-purple-main mb-10 font-medium">Basic Info</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <div col-1>
+        <ca-form-field
+          label="First Name"
+          labelFor="first_name"
+          [isRequired]="true"
+        >
+          <input
+            id="first_name"
+            type="text"
+            formControlName="first_name"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (firstName?.dirty || firstName?.invalid)
+            }"
+          />
+        </ca-form-field>
+
+        @if (isSubmitted && (firstName?.dirty || firstName?.invalid)) {
+        <ca-form-error [errors]="firstName?.errors" />
+        }
+      </div>
+
+      <div col-2>
+        <ca-form-field
+          label="Last Name"
+          labelFor="last_name"
+          [isRequired]="true"
+        >
+          <input
+            id="last_name"
+            type="text"
+            formControlName="last_name"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (lastName?.dirty || lastName?.invalid)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (lastName?.dirty || lastName?.invalid)) {
+        <ca-form-error [errors]="lastName?.errors" />
+        }
+      </div>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 class="mb-6">
+      <div col-1>
+        <ca-form-field label="Date of Birth" labelFor="dob" [isRequired]="true">
+          <input
+            id="dob"
+            type="text"
+            formControlName="dob"
+            bsDatepicker
+            readonly
+            [bsConfig]="{ isAnimated: true }"
+            [ngClass]="{
+              'ng-dirty ng-touched': isSubmitted && (dob?.dirty || dob?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (dob?.dirty || dob?.touched)) {
+        <ca-form-error [errors]="dob?.errors" />
+        }
+      </div>
+
+      <div col-2>
+        <ca-form-field label="Marital Status" labelFor="marital-status" col-2>
+          <div class="grow -mx-5">
+            <ng-select
+              class="px-2"
+              formControlName="marital_status"
+              [ngClass]="{
+                'ng-dirty ng-touched': isSubmitted && maritalStatus?.invalid
+              }"
+            >
+              <ng-option [value]="'single'">Single</ng-option>
+              <ng-option [value]="'married'">Married</ng-option>
+            </ng-select>
+          </div>
+        </ca-form-field>
+        @if (isSubmitted && (maritalStatus?.invalid)) {
+        <ca-form-error [errors]="maritalStatus?.errors" />
+        }
+      </div>
+    </ca-cols-field-3>
+
+    <div>
+      <p for="gender" class="mb-3 font-medium text-xl block">Gender*</p>
+      <div class="inline-flex gap-10">
+        <label class="inline-flex items-center gap-3">
+          Male
+          <input type="radio" value="male" formControlName="gender" />
+        </label>
+        <label class="inline-flex items-center gap-3">
+          Female
+          <input type="radio" value="female" formControlName="gender" />
+        </label>
+      </div>
+      @if (isSubmitted && (gender?.invalid)) {
+      <ca-form-error class="block" [errors]="gender?.errors" />
+      }
+    </div>
+
+    <div class="mt-10">
+      <button
+        type="submit"
+        class="btn bg-purple-main h-[44px] text-white"
+        [loading]="loading"
+      >
+        Save & update
+      </button>
+    </div>
+  </form>
+</ca-card>

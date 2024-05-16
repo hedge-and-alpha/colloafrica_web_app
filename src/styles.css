@@ -270,3 +270,27 @@ table td {
   font-weight: 500;
 }
 /* NG Select */
+
+/* Bootstrap datepicker */
+.theme-green .bs-datepicker-head {
+  background-color: var(--purple);
+}
+.theme-green .bs-datepicker-body table td.week span {
+  color: var(--purple);
+}
+.theme-green .bs-datepicker-body table td span.selected {
+  background-color: var(--purple);
+}
+.bs-datepicker-body table td,
+.bs-datepicker-body table th {
+  color: var(--body-text-1);
+}
+
+.bs-datepicker-body table th {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.bs-datepicker-body table td {
+  font-size: 1rem;
+}

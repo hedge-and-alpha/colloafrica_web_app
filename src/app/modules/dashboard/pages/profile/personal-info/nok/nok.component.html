@@ -1,0 +1,38 @@
+<ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8 rounded-lg">
+  <form [formGroup]="form">
+    <h2 class="text-purple-main mb-10 font-medium">Next of Kin</h2>
+
+    <ca-cols-field-3 class="mb-6">
+      <ca-form-field label="Full Name" labelFor="full-name" col-1>
+        <input id="full-name" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Phone Number" labelFor="nok-phone" col-2>
+        <input id="nok-phone" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Email" labelFor="nok-email" col-3>
+        <input id="nok-email" type="email" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <ca-cols-field-3 col2Span="col-span-2">
+      <ca-form-field label="Relationship" labelFor="relationship" col-1>
+        <input id="relationship" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Address" labelFor="nok-address" col-2>
+        <input id="nok-address" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <div class="mt-10">
+      <button
+        class="btn bg-purple-main h-[44px] text-white"
+        [loading]="loading"
+      >
+        Save & update
+      </button>
+    </div>
+  </form>
+</ca-card>

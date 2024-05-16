@@ -1,0 +1,29 @@
+<ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5 rounded-lg">
+  <form [formGroup]="form">
+    <h2 class="text-purple-main mb-10 font-medium">Employment Info</h2>
+
+    <ca-cols-field-3>
+      <ca-form-field label="Occupation" labelFor="occupation" col-1>
+        <input id="occupation" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Employer Name" labelFor="employer" col-2>
+        <input id="employer" type="text" />
+      </ca-form-field>
+
+      <ca-form-field label="Employer Address" labelFor="emp-address" col-3>
+        <input id="emp-address" type="text" />
+      </ca-form-field>
+    </ca-cols-field-3>
+
+    <div class="mt-10">
+      <button
+        type="submit"
+        class="btn bg-purple-main h-[44px] text-white"
+        [loading]="loading"
+      >
+        Save & update
+      </button>
+    </div>
+  </form>
+</ca-card>
