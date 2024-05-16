@@ -142,13 +142,9 @@
     }
   </div>
 
-  @if (!loading) {
-  <button type="submit" class="w-full" ca-button-primary>Sign up</button>
-  }@else {
-  <button type="button" class="w-full" ca-button-primary>
-    <ca-spinner />
+  <button type="submit" class="w-full" ca-button-primary [loading]="loading">
+    Sign up
   </button>
-  }
 
   <p class="mt-6 mb-10 text-center text-sm font-medium">
     Already have an account?

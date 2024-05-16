@@ -15,7 +15,10 @@ import { matchPasswordValidator } from '../../../../validators/matchPassword.val
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { NgClass } from '@angular/common';
 import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
-import { AuthService } from '../../../../services/auth/auth.service';
+import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AlertService } from '../../../../components/alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
 
 @Component({
   selector: 'ca-signup-form',
@@ -27,6 +30,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
     RouterLink,
     NgClass,
     ButtonPrimaryDirective,
+    ButtonLoadingDirective,
     ColsField2Component,
     FormErrorComponent,
     FormFieldComponent,
@@ -64,8 +68,11 @@ export class SignupFormComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private api: AuthService
+    private api: AuthApiService,
+    private alertService: AlertService
   ) {}
+
+  ngOnInit() {}
 
   get firstName() {
     return this.form.get('first_name');
@@ -100,13 +107,21 @@ export class SignupFormComponent {
     delete data.subscription;
 
     this.api.registerUser(data).subscribe({
-      next: () => {
-        // this.loading = false;
+      next: ({ message, status }) => {
+        this.loading = false;
         this.form.reset();
+        this.alertService.open('success', {
+          summary: status,
+          details: message,
+        });
         this.router.navigate(['/auth/verify-email']);
       },
-      error: () => {
+      error: (error: HttpErrorResponse) => {
         this.loading = false;
+        this.alertService.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
       },
     });
   }
