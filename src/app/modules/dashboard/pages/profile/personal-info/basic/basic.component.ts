@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CardComponent } from '../../../../components/card/card.component';
 import { ColsField3Component } from '../../../../../../components/cols-field-3/cols-field-3.component';
 import { FormFieldComponent } from '../../../../../../components/form-field/form-field.component';
@@ -9,6 +14,7 @@ import { NgClass } from '@angular/common';
 import { ButtonLoadingDirective } from '../../../../../../directives/button-loading/button-loading.directive';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-basic',
@@ -27,24 +33,34 @@ import { NgSelectModule } from '@ng-select/ng-select';
   templateUrl: './basic.component.html',
   styles: ``,
 })
-export class BasicComponent {
+export class BasicComponent implements OnInit {
   isSubmitted = false;
   loading = false;
 
   initialDate = new Date();
+  form: FormGroup = new FormGroup({});
 
-  form = this.fb.group(
-    {
-      first_name: [null, [Validators.required, emptyFieldValidator()]],
-      last_name: [null, [Validators.required, emptyFieldValidator()]],
-      dob: [new Date(), [Validators.required]],
-      marital_status: [null, [Validators.required]],
-      gender: [null, [Validators.required]],
-    },
-    { updateOn: 'submit' }
-  );
+  constructor(private fb: FormBuilder, private userStore: UserStoreService) {}
 
-  constructor(private fb: FormBuilder) {}
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    const { first_name, last_name, dob, marital_status, gender } =
+      this.userStore.user!;
+
+    this.form = this.fb.group(
+      {
+        first_name: [first_name, [Validators.required, emptyFieldValidator()]],
+        last_name: [last_name, [Validators.required, emptyFieldValidator()]],
+        dob: [dob ?? new Date(), [Validators.required]],
+        marital_status: [marital_status, [Validators.required]],
+        gender: [gender, [Validators.required]],
+      },
+      { updateOn: 'submit' }
+    );
+  }
 
   get firstName() {
     return this.form.get('first_name');

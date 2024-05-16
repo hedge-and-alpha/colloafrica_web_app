@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CardComponent } from '../../../components/card/card.component';
-import { ProfileCardComponent } from '../../../components/profile-card/profile-card.component';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { BasicComponent } from './basic/basic.component';
 import { ContactComponent } from './contact/contact.component';
 import { EmploymentComponent } from './employment/employment.component';

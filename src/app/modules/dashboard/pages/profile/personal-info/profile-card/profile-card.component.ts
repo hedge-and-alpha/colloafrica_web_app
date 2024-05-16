@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-profile-card',
@@ -15,4 +16,7 @@ import { Component } from '@angular/core';
     }
   `,
 })
-export class ProfileCardComponent {}
+export class ProfileCardComponent {
+  userStore = inject(UserStoreService);
+  user = computed(() => this.userStore.user);
+}

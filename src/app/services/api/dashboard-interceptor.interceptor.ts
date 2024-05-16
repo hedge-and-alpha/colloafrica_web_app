@@ -23,7 +23,7 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
 
     console.log('interceptor:', req.url);
     return next.handle(modifiedRequest).pipe(
-      catchError((error: any) => {
+      catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this.#router.navigate(['/auth']);
         }

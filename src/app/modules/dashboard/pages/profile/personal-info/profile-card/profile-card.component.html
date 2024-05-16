@@ -8,7 +8,9 @@
   />
 
   <div class="details">
-    <p class="mb-5 font-medium name">Akinyemi Olushola</p>
+    <p class="mb-5 font-medium name">
+      {{ user()?.first_name }} {{ user()?.last_name }}
+    </p>
     <label class="btn bg-purple-main h-[44px] text-white cursor-pointer">
       Upload profile picture
       <input type="file" class="sr-only" name="" id="" />

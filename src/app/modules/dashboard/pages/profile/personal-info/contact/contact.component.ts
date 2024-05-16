@@ -1,12 +1,18 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonLoadingDirective } from '../../../../../../directives/button-loading/button-loading.directive';
 import { FormErrorComponent } from '../../../../../../components/form-error/form-error.component';
 import { FormFieldComponent } from '../../../../../../components/form-field/form-field.component';
 import { CardComponent } from '../../../../components/card/card.component';
 import { ColsField3Component } from '../../../../../../components/cols-field-3/cols-field-3.component';
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-contact',
@@ -23,22 +29,50 @@ import { emptyFieldValidator } from '../../../../../../validators/emptyField.val
   templateUrl: './contact.component.html',
   styles: ``,
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   isSubmitted = false;
   loading = false;
 
-  form = this.fb.group({
-    email: [null, [Validators.required, Validators.email, emptyFieldValidator]],
-    phone_number: [null, [Validators.required, emptyFieldValidator]],
-    address: [null, [Validators.required, emptyFieldValidator]],
-    nearest_landmark: [null, [Validators.required, emptyFieldValidator]],
-    lga: [null, [Validators.required, emptyFieldValidator]],
-    state: [null, [Validators.required, emptyFieldValidator]],
-    nationality: [null, [Validators.required, emptyFieldValidator]],
-    home_town: [null, [Validators.required, emptyFieldValidator]],
-  });
+  form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userStore: UserStoreService) {}
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    const {
+      email,
+      phone_number,
+      address,
+      nearest_landmark,
+      lga,
+      state,
+      nationality,
+      home_town,
+    } = this.userStore.user!;
+
+    this.form = this.fb.group(
+      {
+        email: [
+          email,
+          [Validators.required, Validators.email, emptyFieldValidator()],
+        ],
+        phone_number: [
+          phone_number,
+          [Validators.required, emptyFieldValidator()],
+        ],
+        address: [address, [emptyFieldValidator()]],
+        nearest_landmark: [nearest_landmark, [emptyFieldValidator()]],
+        lga: [lga, [emptyFieldValidator()]],
+        state: [state, [emptyFieldValidator()]],
+        nationality: [nationality, [emptyFieldValidator()]],
+        home_town: [home_town, [emptyFieldValidator()]],
+      },
+      { updateOn: 'submit' }
+    );
+  }
 
   get email() {
     return this.form.get('email');
@@ -63,5 +97,10 @@ export class ContactComponent {
   }
   get homeTown() {
     return this.form.get('home_town');
+  }
+
+  handleSubmit() {
+    this.isSubmitted = true;
+    console.log(this.form.value);
   }
 }

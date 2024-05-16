@@ -1,59 +1,156 @@
 <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-5 rounded-lg">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <h2 class="text-purple-main mb-10 font-medium">Contact Info</h2>
 
     <ca-cols-field-3 class="mb-6">
-      <ca-form-field
-        label="Phone Number"
-        labelFor="phone"
-        [isRequired]="true"
-        col-1
-      >
-        <input id="phone" type="tel" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field
+          label="Phone Number"
+          labelFor="phone"
+          [isRequired]="true"
+        >
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone_number"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (phone?.dirty || phone?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (phone?.dirty || phone?.touched)) {
+        <ca-form-error [errors]="phone?.errors" />
+        }
+      </div>
 
-      <ca-form-field
-        label="Email Address"
-        labelFor="email"
-        [isRequired]="true"
-        col-2
-      >
-        <input id="email" type="email" />
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field
+          label="Email Address"
+          labelFor="email"
+          [isRequired]="true"
+        >
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (email?.dirty || email?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (email?.dirty || email?.touched)) {
+        <ca-form-error [errors]="email?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
 
     <ca-cols-field-3 class="mb-6" col1Span="col-span-2">
-      <ca-form-field
-        label="Address"
-        labelFor="address"
-        [isRequired]="true"
-        col-1
-      >
-        <input id="address" type="text" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="Address" labelFor="address">
+          <input
+            id="address"
+            type="text"
+            formControlName="address"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (address?.dirty || address?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (address?.dirty || address?.touched)) {
+        <ca-form-error [errors]="address?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
 
     <ca-cols-field-3 class="mb-6">
-      <ca-form-field label="Nearest Landmark" labelFor="landmark" col-1>
-        <input id="landmark" type="text" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="Nearest Landmark" labelFor="landmark">
+          <input
+            id="landmark"
+            type="text"
+            formControlName="nearest_landmark"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (landmark?.dirty || landmark?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (landmark?.dirty || landmark?.touched)) {
+        <ca-form-error [errors]="landmark?.errors" />
+        }
+      </div>
 
-      <ca-form-field label="LGA" labelFor="lga" col-2>
-        <input id="lga" type="text" />
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field label="LGA" labelFor="lga">
+          <input
+            id="lga"
+            type="text"
+            formControlName="lga"
+            [ngClass]="{
+              'ng-dirty ng-touched': isSubmitted && (lga?.dirty || lga?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (lga?.dirty || lga?.touched)) {
+        <ca-form-error [errors]="lga?.errors" />
+        }
+      </div>
 
-      <ca-form-field label="Home Town" labelFor="home-town" col-3>
-        <input id="home-town" type="text" />
-      </ca-form-field>
+      <div col-3>
+        <ca-form-field label="Home Town" labelFor="home-town">
+          <input
+            id="home-town"
+            type="text"
+            formControlName="home_town"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (homeTown?.dirty || homeTown?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (homeTown?.dirty || homeTown?.touched)) {
+        <ca-form-error [errors]="homeTown?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
 
     <ca-cols-field-3>
-      <ca-form-field label="State" labelFor="state" col-1>
-        <input id="state" type="text" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="State" labelFor="state">
+          <input
+            id="state"
+            type="text"
+            formControlName="state"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (state?.dirty || state?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (state?.dirty || state?.touched)) {
+        <ca-form-error [errors]="state?.errors" />
+        }
+      </div>
 
-      <ca-form-field label="Nationality" labelFor="nationality" col-2>
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field label="Nationality" labelFor="nationality">
+          <input
+            id="state"
+            type="text"
+            formControlName="nationality"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (nationality?.dirty || nationality?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (nationality?.dirty || nationality?.touched)) {
+        <ca-form-error [errors]="nationality?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
 
     <div class="mt-10">

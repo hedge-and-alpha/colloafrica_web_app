@@ -1,33 +1,99 @@
 <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8 rounded-lg">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <h2 class="text-purple-main mb-10 font-medium">Next of Kin</h2>
 
     <ca-cols-field-3 class="mb-6">
-      <ca-form-field label="Full Name" labelFor="full-name" col-1>
-        <input id="full-name" type="text" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="Full Name" labelFor="full-name">
+          <input
+            id="full-name"
+            type="text"
+            formControlName="nok_name"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (name?.dirty || name?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (name?.dirty || name?.touched)) {
+        <ca-form-error [errors]="name?.errors" />
+        }
+      </div>
 
-      <ca-form-field label="Phone Number" labelFor="nok-phone" col-2>
-        <input id="nok-phone" type="text" />
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field label="Phone Number" labelFor="nok-phone">
+          <input
+            id="nok-phone"
+            type="text"
+            formControlName="nok_phone_number"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (phone?.dirty || phone?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (phone?.dirty || phone?.touched)) {
+        <ca-form-error [errors]="phone?.errors" />
+        }
+      </div>
 
-      <ca-form-field label="Email" labelFor="nok-email" col-3>
-        <input id="nok-email" type="email" />
-      </ca-form-field>
+      <div col-3>
+        <ca-form-field label="Email" labelFor="nok-email">
+          <input
+            id="nok-email"
+            type="email"
+            formControlName="nok_email"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (email?.dirty || email?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (email?.dirty || email?.touched)) {
+        <ca-form-error [errors]="email?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
 
     <ca-cols-field-3 col2Span="col-span-2">
-      <ca-form-field label="Relationship" labelFor="relationship" col-1>
-        <input id="relationship" type="text" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="Relationship" labelFor="relationship">
+          <input
+            id="relationship"
+            type="text"
+            formControlName="nok_relationship"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (relationship?.dirty || relationship?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (relationship?.dirty || relationship?.touched)) {
+        <ca-form-error [errors]="relationship?.errors" />
+        }
+      </div>
 
-      <ca-form-field label="Address" labelFor="nok-address" col-2>
-        <input id="nok-address" type="text" />
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field label="Address" labelFor="nok-address">
+          <input
+            id="nok-address"
+            type="text"
+            formControlName="nok_address"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (address?.dirty || address?.touched)
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (address?.dirty || address?.touched)) {
+        <ca-form-error [errors]="address?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
 
     <div class="mt-10">
       <button
+        type="submit"
         class="btn bg-purple-main h-[44px] text-white"
         [loading]="loading"
       >
