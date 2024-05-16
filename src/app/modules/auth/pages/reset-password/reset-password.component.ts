@@ -13,6 +13,11 @@ import { emptyFieldValidator } from '../../../../validators/emptyField.validator
 import { NgClass } from '@angular/common';
 import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
 import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
+import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AlertService } from '../../../../components/alert/alert.service';
+import { AuthApiService } from '../../../../services/auth/auth-api.service';
 
 @Component({
   selector: 'ca-reset-password',
@@ -23,6 +28,7 @@ import { matchPasswordValidator } from '../../../../validators/matchPassword.val
     ReactiveFormsModule,
     NgClass,
     AuthFormLayoutComponent,
+    ButtonLoadingDirective,
     ButtonPrimaryDirective,
     FormErrorComponent,
     FormFieldComponent,
@@ -30,6 +36,7 @@ import { matchPasswordValidator } from '../../../../validators/matchPassword.val
 })
 export class ResetPasswordComponent {
   isSubmitted = false;
+  loading = false;
 
   form: ResetPasswordForm = this.fb.group(
     {
@@ -50,7 +57,12 @@ export class ResetPasswordComponent {
     { validators: [matchPasswordValidator], updateOn: 'submit' }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private api: AuthApiService,
+    private alertService: AlertService
+  ) {}
 
   get otp() {
     return this.form.get('otp');
@@ -65,10 +77,31 @@ export class ResetPasswordComponent {
   handleSubmit() {
     this.isSubmitted = true;
 
-    console.log(this.form);
     if (this.form.invalid) return;
 
-    console.log(this.form.value);
+    this.loading = true;
+
+    const { otp, password, password_confirmation } = this.form.value;
+    const data = { password, password_confirmation, otp: `${otp}` };
+
+    this.api.resetPassword(data).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.form.reset();
+        this.alertService.open('success', {
+          summary: status,
+          details: message,
+        });
+        this.router.navigate(['/', 'auth']);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.alertService.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
+      },
+    });
   }
 }
 

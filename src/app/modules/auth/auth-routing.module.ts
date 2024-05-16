@@ -33,24 +33,29 @@ const routes: Routes = [
             (c) => c.VerifyEmailComponent
           ),
       },
+    ],
+  },
+  {
+    path: 'forgot-password',
+    children: [
       {
-        path: 'forgot-password/email',
+        path: '',
+        redirectTo: 'email',
+        pathMatch: 'full',
+      },
+      {
+        path: 'email',
         loadComponent: () =>
           import('./pages/forgot-password/forgot-password.component').then(
             (c) => c.ForgotPasswordComponent
           ),
       },
       {
-        path: 'forgot-password/reset',
+        path: 'reset',
         loadComponent: () =>
           import('./pages/reset-password/reset-password.component').then(
             (c) => c.ResetPasswordComponent
           ),
-      },
-      {
-        path: 'forgot-password',
-        redirectTo: 'forgot-password/email',
-        pathMatch: 'full',
       },
     ],
   },

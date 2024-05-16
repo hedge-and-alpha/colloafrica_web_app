@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthFormLayoutComponent } from '../../layouts/auth-form-layout/auth-form-layout.component';
 import { FormFieldComponent } from '../../../../components/form-field/form-field.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
 import {
   FormBuilder,
@@ -12,6 +12,10 @@ import {
 } from '@angular/forms';
 import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
 import { NgClass } from '@angular/common';
+import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from '../../../../components/alert/alert.service';
+import { AuthApiService } from '../../../../services/auth/auth-api.service';
 
 @Component({
   selector: 'ca-forgot-password',
@@ -23,6 +27,7 @@ import { NgClass } from '@angular/common';
     RouterLink,
     NgClass,
     AuthFormLayoutComponent,
+    ButtonLoadingDirective,
     ButtonPrimaryDirective,
     FormErrorComponent,
     FormFieldComponent,
@@ -30,6 +35,7 @@ import { NgClass } from '@angular/common';
 })
 export class ForgotPasswordComponent {
   isSubmitted = false;
+  loading = false;
 
   form: FormGroup<{ email: FormControl<null> }> = this.fb.group(
     {
@@ -38,7 +44,12 @@ export class ForgotPasswordComponent {
     { updateOn: 'submit' }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private api: AuthApiService,
+    private alertService: AlertService
+  ) {}
 
   get email() {
     return this.form.get('email');
@@ -46,8 +57,28 @@ export class ForgotPasswordComponent {
 
   handleSubmit() {
     this.isSubmitted = true;
+
     if (this.form.invalid) return;
 
-    console.log(this.form.value);
+    this.loading = true;
+
+    this.api.forgotPassword(this.form.value.email!).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.form.reset();
+        this.alertService.open('success', {
+          summary: status,
+          details: message,
+        });
+        this.router.navigate(['/', 'auth', 'forgot-password', 'reset']);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.alertService.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
+      },
+    });
   }
 }
