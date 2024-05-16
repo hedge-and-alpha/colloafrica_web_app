@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AlertService } from '../../../../components/alert/alert.service';
+import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'ca-signin-form',
@@ -10,6 +15,7 @@ import { emptyFieldValidator } from '../../../../validators/emptyField.validator
 export class SigninFormComponent implements OnInit {
   inputType: 'password' | 'text' = 'password';
   isSubmitted = false;
+  loading = false;
 
   form = this.fb.group(
     {
@@ -22,7 +28,13 @@ export class SigninFormComponent implements OnInit {
     { updateOn: 'submit' }
   );
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private api: AuthApiService,
+    private auth: AuthService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {}
 
@@ -36,6 +48,32 @@ export class SigninFormComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+
+    if (this.form.invalid) return;
+
+    this.loading = true;
+
+    this.api.login(this.form.value).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.form.reset();
+        // this.alertService.open('success', {
+        //   summary: status,
+        //   details: message,
+        // });
+        if (this.auth.url) {
+          this.router.navigateByUrl(this.auth.url);
+        } else {
+          this.router.navigate(['/']);
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.alertService.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
+      },
+    });
   }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'ca-sidebar',
@@ -7,9 +9,14 @@ import { AuthApiService } from '../../../../services/auth/auth-api.service';
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
-  constructor(private authService: AuthApiService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private api: AuthApiService
+  ) {}
 
   handleLogout() {
-    this.authService.logoutUser().subscribe();
+    this.auth.url = this.router.url;
+    this.api.logoutUser().subscribe();
   }
 }

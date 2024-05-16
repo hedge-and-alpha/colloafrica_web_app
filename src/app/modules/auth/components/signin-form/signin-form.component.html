@@ -51,7 +51,9 @@
     <a routerLink="/auth/forgot-password">Forgot Password?</a>
   </p>
 
-  <button ca-button-primary class="w-full" type="submit">Login</button>
+  <button class="w-full" type="submit" ca-button-primary [loading]="loading">
+    Login
+  </button>
 
   <p class="mt-6 mb-10 text-center text-sm font-medium">
     Don't have an account?

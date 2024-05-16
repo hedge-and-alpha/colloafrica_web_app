@@ -4,6 +4,8 @@ import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../../interfaces/api-response';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../../interfaces/user';
+import { UserStoreService } from '../../stores+/user.store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,11 @@ export class AuthApiService {
   private AUTH_TOKEN = localStorage.getItem('AUTH_TOKEN');
   private readonly baseUrl = environment.API_BASE_URL;
 
-  constructor(private readonly http: HttpClient, private router: Router) {}
+  constructor(
+    private readonly http: HttpClient,
+    private router: Router,
+    private userStore: UserStoreService
+  ) {}
 
   registerUser(data: object) {
     return this.http.post<ApiResponse>(`${this.baseUrl}/auth/register`, data);
@@ -32,7 +38,17 @@ export class AuthApiService {
   }
 
   login(data: object) {
-    return this.http.post<ApiResponse>(`${this.baseUrl}/auth/login`, data);
+    return this.http
+      .post<ApiResponse & { data: { user: User; token: string } }>(
+        `${this.baseUrl}/auth/login`,
+        data
+      )
+      .pipe(
+        tap(({ data: { user, token } }) => {
+          this.userStore.user = user;
+          localStorage.setItem('AUTH_TOKEN', token);
+        })
+      );
   }
 
   forgotPassword(email: string) {

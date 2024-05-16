@@ -13,6 +13,7 @@ import { AuthFormLayoutComponent } from './layouts/auth-form-layout/auth-form-la
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormErrorComponent } from '../../components/form-error/form-error.component';
+import { ButtonLoadingDirective } from '../../directives/button-loading/button-loading.directive';
 
 @NgModule({
   declarations: [SigninFormComponent, AuthLayoutComponent, AuthComponent],
@@ -21,6 +22,7 @@ import { FormErrorComponent } from '../../components/form-error/form-error.compo
     ReactiveFormsModule,
     AuthRoutingModule,
     AuthFormLayoutComponent,
+    ButtonLoadingDirective,
     ButtonPrimaryDirective,
     ColsField2Component,
     FormErrorComponent,
