@@ -4,7 +4,7 @@ import { emptyFieldValidator } from '../../../../validators/emptyField.validator
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../../components/alert/alert.service';
-import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
@@ -56,7 +56,6 @@ export class SigninFormComponent implements OnInit {
     this.api.login(this.form.value).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
-        this.form.reset();
         // this.alertService.open('success', {
         //   summary: status,
         //   details: message,

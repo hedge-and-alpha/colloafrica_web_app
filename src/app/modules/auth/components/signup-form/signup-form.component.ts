@@ -15,7 +15,7 @@ import { matchPasswordValidator } from '../../../../validators/matchPassword.val
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { NgClass } from '@angular/common';
 import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
-import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { AlertService } from '../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';

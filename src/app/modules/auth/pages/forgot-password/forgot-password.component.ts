@@ -15,7 +15,7 @@ import { NgClass } from '@angular/common';
 import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertService } from '../../../../components/alert/alert.service';
-import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AuthApiService } from '../../../../services/api/auth-api.service';
 
 @Component({
   selector: 'ca-forgot-password',

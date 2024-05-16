@@ -25,4 +25,6 @@ export interface User {
   nok_relationship: string | null;
   referral_code: string | null;
   kyc_status: number;
+  nin_verification_status: 0 | 1;
+  bvn_verification_status: 0 | 1;
 }

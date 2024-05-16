@@ -17,7 +17,7 @@ import { ButtonLoadingDirective } from '../../../../directives/button-loading/bu
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../../components/alert/alert.service';
-import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AuthApiService } from '../../../../services/api/auth-api.service';
 
 @Component({
   selector: 'ca-reset-password',

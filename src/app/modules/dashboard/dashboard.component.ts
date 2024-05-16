@@ -3,6 +3,7 @@ import { Observable, fromEvent, map, startWith } from 'rxjs';
 import { NetworkService } from '../../services/network.service';
 import { ModalService } from '../../components/modal/modal.service';
 import { VerifyBvnComponent } from './components/verify-bvn/verify-bvn.component';
+import { UserStoreService } from '../../stores+/user.store';
 
 @Component({
   selector: 'ca-dashboard',
@@ -15,7 +16,8 @@ export class DashboardComponent {
 
   constructor(
     private networkService: NetworkService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private userStore: UserStoreService
   ) {
     // this.networkService.isOnline$.subscribe((v) => {
     //   this.online = v;
@@ -26,6 +28,8 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
+    this.isBvnVerified = !!this.userStore.user?.bvn_verification_status;
+
     async function loadBvn() {
       return (await import('./components/verify-bvn/verify-bvn.component'))
         .VerifyBvnComponent;

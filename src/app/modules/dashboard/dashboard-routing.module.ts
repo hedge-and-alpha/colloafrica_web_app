@@ -10,11 +10,13 @@ import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
 import { MgrComponent } from './pages/mgr/mgr.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
+import { dashboardResolverResolver } from '../../services/api/dashboard-resolver.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    resolve: [dashboardResolverResolver],
     children: [
       { path: '', component: HomeComponent, title: 'Home' },
       {

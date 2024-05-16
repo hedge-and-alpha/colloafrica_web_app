@@ -5,7 +5,7 @@ import { AuthFormLayoutComponent } from '../../layouts/auth-form-layout/auth-for
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
-import { AuthApiService } from '../../../../services/auth/auth-api.service';
+import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { Router } from '@angular/router';
 import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
 import { HttpErrorResponse } from '@angular/common/http';

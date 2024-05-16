@@ -19,8 +19,9 @@
         height="30"
         class="rounded-full object-cover"
       />
-      <span class="font-medium hidden sm:inline">Akinyemi Joshua</span>
-      <!-- <i class="ca-caret-down-fill text-xs"></i> -->
+      <span class="font-medium hidden sm:inline">
+        {{ user()?.first_name }} {{ user()?.last_name }}
+      </span>
     </button>
     <ng-content select=".menu-btn" />
   </div>

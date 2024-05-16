@@ -60,6 +60,9 @@ import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { dashboardInterceptorInterceptor } from '../../services/api/dashboard-interceptor.interceptor';
+import { DashboardApiService } from '../../services/api/dashboard-api.service';
 
 @NgModule({
   declarations: [
@@ -101,6 +104,7 @@ import { SavingsComponent } from './pages/savings/savings.component';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     IMaskModule,
     NgSelectModule,
@@ -127,6 +131,13 @@ import { SavingsComponent } from './pages/savings/savings.component';
     DropdownMenuTriggerDirective,
     TooltipDirective,
   ],
-  providers: [],
+  providers: [
+    DashboardApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: dashboardInterceptorInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class DashboardModule {}
