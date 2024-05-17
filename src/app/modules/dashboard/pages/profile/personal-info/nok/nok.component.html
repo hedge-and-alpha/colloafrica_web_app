@@ -4,35 +4,43 @@
 
     <ca-cols-field-3 class="mb-6">
       <div col-1>
-        <ca-form-field label="Full Name" labelFor="full-name">
+        <ca-form-field
+          label="Full Name"
+          labelFor="full-name"
+          [isRequired]="true"
+        >
           <input
             id="full-name"
             type="text"
             formControlName="nok_name"
             [ngClass]="{
               'ng-dirty ng-touched':
-                isSubmitted && (name?.dirty || name?.touched)
+                isSubmitted && (name?.dirty || name?.invalid)
             }"
           />
         </ca-form-field>
-        @if (isSubmitted && (name?.dirty || name?.touched)) {
+        @if (isSubmitted && (name?.dirty || name?.invalid)) {
         <ca-form-error [errors]="name?.errors" />
         }
       </div>
 
       <div col-2>
-        <ca-form-field label="Phone Number" labelFor="nok-phone">
+        <ca-form-field
+          label="Phone Number"
+          labelFor="nok-phone"
+          [isRequired]="true"
+        >
           <input
             id="nok-phone"
             type="text"
             formControlName="nok_phone_number"
             [ngClass]="{
               'ng-dirty ng-touched':
-                isSubmitted && (phone?.dirty || phone?.touched)
+                isSubmitted && (phone?.dirty || phone?.invalid)
             }"
           />
         </ca-form-field>
-        @if (isSubmitted && (phone?.dirty || phone?.touched)) {
+        @if (isSubmitted && (phone?.dirty || phone?.invalid)) {
         <ca-form-error [errors]="phone?.errors" />
         }
       </div>
@@ -57,18 +65,22 @@
 
     <ca-cols-field-3 col2Span="col-span-2">
       <div col-1>
-        <ca-form-field label="Relationship" labelFor="relationship">
+        <ca-form-field
+          label="Relationship"
+          labelFor="relationship"
+          [isRequired]="true"
+        >
           <input
             id="relationship"
             type="text"
             formControlName="nok_relationship"
             [ngClass]="{
               'ng-dirty ng-touched':
-                isSubmitted && (relationship?.dirty || relationship?.touched)
+                isSubmitted && (relationship?.dirty || relationship?.invalid)
             }"
           />
         </ca-form-field>
-        @if (isSubmitted && (relationship?.dirty || relationship?.touched)) {
+        @if (isSubmitted && (relationship?.dirty || relationship?.invalid)) {
         <ca-form-error [errors]="relationship?.errors" />
         }
       </div>
@@ -94,7 +106,8 @@
     <div class="mt-10">
       <button
         type="submit"
-        class="btn bg-purple-main h-[44px] text-white"
+        class="btn bg-purple-main h-[44px] w-[152px] text-white"
+        loadingColour="#fff"
         [loading]="loading"
       >
         Save & update

@@ -13,6 +13,9 @@ import { FormFieldComponent } from '../../../../../../components/form-field/form
 import { ButtonLoadingDirective } from '../../../../../../directives/button-loading/button-loading.directive';
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 import { UserStoreService } from '../../../../../../stores+/user.store';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 
 @Component({
   selector: 'ca-nok',
@@ -35,7 +38,12 @@ export class NokComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private userStore: UserStoreService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userStore: UserStoreService,
+    private api: DashboardApiService,
+    private alert: AlertService
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -52,7 +60,7 @@ export class NokComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        nok_name: [nok_name, [emptyFieldValidator()]],
+        nok_name: [nok_name, [Validators.required, emptyFieldValidator()]],
         nok_address: [nok_address, [emptyFieldValidator()]],
         nok_email: [
           nok_email,
@@ -61,8 +69,14 @@ export class NokComponent implements OnInit {
             emptyFieldValidator(),
           ],
         ],
-        nok_phone_number: [nok_phone_number, [emptyFieldValidator()]],
-        nok_relationship: [nok_relationship, [emptyFieldValidator()]],
+        nok_phone_number: [
+          nok_phone_number,
+          [Validators.required, emptyFieldValidator()],
+        ],
+        nok_relationship: [
+          nok_relationship,
+          [Validators.required, emptyFieldValidator()],
+        ],
       },
       { updateOn: 'submit' }
     );
@@ -86,6 +100,23 @@ export class NokComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+
+    if (this.form.invalid) return;
+
+    this.loading = true;
+
+    this.api.updatePersonalNokInfo(this.form.value).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.alert.open('success', { details: message, summary: status });
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.alert.open('danger', {
+          details: error.error.message,
+          summary: error.error.status + ' ' + error.status,
+        });
+      },
+    });
   }
 }
