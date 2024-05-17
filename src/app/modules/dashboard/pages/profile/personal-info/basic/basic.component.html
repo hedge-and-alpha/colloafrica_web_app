@@ -56,7 +56,7 @@
             formControlName="dob"
             bsDatepicker
             readonly
-            [bsConfig]="{ isAnimated: true }"
+            [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
             [ngClass]="{
               'ng-dirty ng-touched': isSubmitted && (dob?.dirty || dob?.touched)
             }"
@@ -109,7 +109,7 @@
     <div class="mt-10">
       <button
         type="submit"
-        class="btn bg-purple-main h-[44px] text-white"
+        class="btn bg-purple-main h-[44px] w-[152px] text-white"
         [loading]="loading"
       >
         Save & update

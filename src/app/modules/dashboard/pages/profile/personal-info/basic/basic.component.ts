@@ -15,6 +15,10 @@ import { ButtonLoadingDirective } from '../../../../../../directives/button-load
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { UserStoreService } from '../../../../../../stores+/user.store';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UtilsService } from '../../../../../../services/utils/utils.service';
 
 @Component({
   selector: 'ca-basic',
@@ -40,7 +44,13 @@ export class BasicComponent implements OnInit {
   initialDate = new Date();
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private userStore: UserStoreService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userStore: UserStoreService,
+    private api: DashboardApiService,
+    private alert: AlertService,
+    private utils: UtilsService
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -54,7 +64,7 @@ export class BasicComponent implements OnInit {
       {
         first_name: [first_name, [Validators.required, emptyFieldValidator()]],
         last_name: [last_name, [Validators.required, emptyFieldValidator()]],
-        dob: [dob ?? new Date(), [Validators.required]],
+        dob: [dob ? new Date(dob) : new Date(), [Validators.required]],
         marital_status: [marital_status, [Validators.required]],
         gender: [gender, [Validators.required]],
       },
@@ -80,6 +90,29 @@ export class BasicComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+
+    if (this.form.invalid) return;
+
+    this.loading = true;
+
+    const data = {
+      ...this.form.value,
+      dob: this.utils.transformDate(this.form.value.dob),
+    };
+
+    this.api.updatePersonalInfo(data).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.alert.open('success', { details: message, summary: status });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        this.loading = false;
+        this.alert.open('success', {
+          details: error.error.message,
+          summary: error.error.status + ' ' + error.status,
+        });
+      },
+    });
   }
 }

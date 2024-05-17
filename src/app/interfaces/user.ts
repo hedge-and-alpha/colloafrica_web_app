@@ -28,3 +28,36 @@ export interface User {
   nin_verification_status: 0 | 1;
   bvn_verification_status: 0 | 1;
 }
+
+export type BasicInfo = Pick<
+  User,
+  'first_name' | 'last_name' | 'gender' | 'dob' | 'marital_status'
+>;
+
+export type ContactInfo = Pick<
+  User,
+  | 'address'
+  | 'email'
+  | 'home_town'
+  | 'lga'
+  | 'phone_number'
+  | 'state'
+  | 'nationality'
+  | 'nearest_landmark'
+>;
+
+export type EmploymentInfo = Pick<
+  User,
+  'employer' | 'employer_address' | 'occupation'
+>;
+
+export type NextOfKinInfo = Pick<
+  User,
+  | 'nok_address'
+  | 'nok_email'
+  | 'nok_name'
+  | 'nok_phone_number'
+  | 'nok_relationship'
+>;
+
+export type IDCard = Pick<User, 'id_number' | 'id_type'>;

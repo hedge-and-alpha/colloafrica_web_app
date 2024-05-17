@@ -17,4 +17,9 @@ export class UtilsService {
   capitalizeFirstLetterOfWord(text: string) {
     return text[0].toUpperCase() + text.slice(1);
   }
+
+  transformDate(date: Date | string) {
+    let isoDate = new Date(date).toISOString();
+    return isoDate.slice(0, isoDate.indexOf('T'));
+  }
 }

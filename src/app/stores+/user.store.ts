@@ -14,4 +14,8 @@ export class UserStoreService {
   set user(user: User | null) {
     this.#user.update(() => user);
   }
+
+  updateUser(user: User) {
+    this.#user.update((u) => ({ ...u, ...user }));
+  }
 }
