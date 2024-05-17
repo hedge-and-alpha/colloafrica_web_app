@@ -106,7 +106,6 @@ export class BasicComponent implements OnInit {
         this.alert.open('success', { details: message, summary: status });
       },
       error: (error: HttpErrorResponse) => {
-        console.log(error);
         this.loading = false;
         this.alert.open('success', {
           details: error.error.message,

@@ -1,4 +1,5 @@
 import { NgClass } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,13 +7,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ButtonLoadingDirective } from '../../../../../../directives/button-loading/button-loading.directive';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { ColsField3Component } from '../../../../../../components/cols-field-3/cols-field-3.component';
 import { FormErrorComponent } from '../../../../../../components/form-error/form-error.component';
 import { FormFieldComponent } from '../../../../../../components/form-field/form-field.component';
-import { CardComponent } from '../../../../components/card/card.component';
-import { ColsField3Component } from '../../../../../../components/cols-field-3/cols-field-3.component';
-import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
+import { ButtonLoadingDirective } from '../../../../../../directives/button-loading/button-loading.directive';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { UserStoreService } from '../../../../../../stores+/user.store';
+import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
+import { CardComponent } from '../../../../components/card/card.component';
 
 @Component({
   selector: 'ca-contact',
@@ -35,7 +38,12 @@ export class ContactComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private userStore: UserStoreService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userStore: UserStoreService,
+    private alert: AlertService,
+    private api: DashboardApiService
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -101,6 +109,23 @@ export class ContactComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+
+    if (this.form.invalid) return;
+
+    this.loading = true;
+
+    this.api.updatePersonalContactInfo(this.form.value).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.alert.open('success', { details: message, summary: status });
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.alert.open('success', {
+          details: error.error.message,
+          summary: error.error.status + ' ' + error.status,
+        });
+      },
+    });
   }
 }

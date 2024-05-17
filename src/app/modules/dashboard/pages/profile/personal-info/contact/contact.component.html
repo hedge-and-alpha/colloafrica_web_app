@@ -48,7 +48,7 @@
 
     <ca-cols-field-3 class="mb-6" col1Span="col-span-2">
       <div col-1>
-        <ca-form-field label="Address" labelFor="address">
+        <ca-form-field label="Address" labelFor="address" [isRequired]="true">
           <input
             id="address"
             type="text"
@@ -156,7 +156,7 @@
     <div class="mt-10">
       <button
         type="submit"
-        class="btn bg-purple-main h-[44px] text-white"
+        class="btn bg-purple-main h-[44px] w-[152px] text-white"
         [loading]="loading"
       >
         Save & update
