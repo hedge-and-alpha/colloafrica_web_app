@@ -54,9 +54,12 @@ export class EmploymentComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        occupation: [occupation, [emptyFieldValidator()]],
-        employer: [employer, [emptyFieldValidator()]],
-        employer_address: [employer_address, [emptyFieldValidator()]],
+        occupation: [occupation, [Validators.required, emptyFieldValidator()]],
+        employer: [employer, [Validators.required, emptyFieldValidator()]],
+        employer_address: [
+          employer_address,
+          [Validators.required, emptyFieldValidator()],
+        ],
       },
       { updateOn: 'submit' }
     );

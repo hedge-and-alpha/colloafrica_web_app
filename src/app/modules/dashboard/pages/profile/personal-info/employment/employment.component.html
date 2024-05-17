@@ -4,41 +4,53 @@
 
     <ca-cols-field-3>
       <div col-1>
-        <ca-form-field label="Occupation" labelFor="occupation">
+        <ca-form-field
+          label="Occupation"
+          labelFor="occupation"
+          [isRequired]="true"
+        >
           <input
             id="occupation"
             type="text"
             formControlName="occupation"
             [ngClass]="{
               'ng-dirty ng-touched':
-                isSubmitted && (occupation?.dirty || occupation?.touched)
+                isSubmitted && (occupation?.dirty || occupation?.invalid)
             }"
           />
         </ca-form-field>
-        @if (isSubmitted && (occupation?.dirty || occupation?.touched)) {
+        @if (isSubmitted && (occupation?.dirty || occupation?.invalid)) {
         <ca-form-error [errors]="occupation?.errors" />
         }
       </div>
 
       <div col-2>
-        <ca-form-field label="Employer Name" labelFor="employer">
+        <ca-form-field
+          label="Employer Name"
+          labelFor="employer"
+          [isRequired]="true"
+        >
           <input
             id="employer"
             type="text"
             formControlName="employer"
             [ngClass]="{
               'ng-dirty ng-touched':
-                isSubmitted && (employer?.dirty || employer?.touched)
+                isSubmitted && (employer?.dirty || employer?.invalid)
             }"
           />
         </ca-form-field>
-        @if (isSubmitted && (employer?.dirty || employer?.touched)) {
+        @if (isSubmitted && (employer?.dirty || employer?.invalid)) {
         <ca-form-error [errors]="employer?.errors" />
         }
       </div>
 
       <div col-3>
-        <ca-form-field label="Employer Address" labelFor="emp-address">
+        <ca-form-field
+          label="Employer Address"
+          labelFor="emp-address"
+          [isRequired]="true"
+        >
           <input
             id="emp-address"
             type="text"
@@ -46,12 +58,12 @@
             [ngClass]="{
               'ng-dirty ng-touched':
                 isSubmitted &&
-                (employerAddress?.dirty || employerAddress?.touched)
+                (employerAddress?.dirty || employerAddress?.invalid)
             }"
           />
         </ca-form-field>
         @if (isSubmitted && (employerAddress?.dirty ||
-        employerAddress?.touched)) {
+        employerAddress?.invalid)) {
         <ca-form-error [errors]="employerAddress?.errors" />
         }
       </div>
