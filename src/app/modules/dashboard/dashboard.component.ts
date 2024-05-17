@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, isDevMode, signal } from '@angular/core';
 import { Observable, fromEvent, map, startWith } from 'rxjs';
 import { NetworkService } from '../../services/network.service';
 import { ModalService } from '../../components/modal/modal.service';
@@ -28,7 +28,10 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
-    this.isBvnVerified = !!this.userStore.user?.bvn_verification_status;
+    // this.isBvnVerified = !!this.userStore.user?.bvn_verification_status;
+    this.isBvnVerified = isDevMode()
+      ? true
+      : !!this.userStore.user?.bvn_verification_status;
 
     async function loadBvn() {
       return (await import('./components/verify-bvn/verify-bvn.component'))

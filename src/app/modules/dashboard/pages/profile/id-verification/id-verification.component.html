@@ -1,30 +1,64 @@
-<form class="mt-8">
+<form class="mt-8" [formGroup]="form" (ngSubmit)="handleSubmit()">
   <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8 rounded-lg">
     <h2 class="text-purple-main mb-10 font-medium">ID Card Details</h2>
 
     <ca-cols-field-3>
-      <ca-form-field
-        label="ID Type"
-        labelFor="id_type"
-        [isRequired]="true"
-        col-1
-      >
-        <!-- <input id="first_name" type="text" /> -->
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="ID Type" labelFor="id_type" [isRequired]="true">
+          <div class="grow -mx-5">
+            <ng-select
+              class="px-2"
+              formControlName="id_type"
+              labelForId="id_type"
+              placeholder="Select ID type"
+              (change)="handleIdTypeChange($event)"
+              [ngClass]="{
+                'ng-dirty ng-touched': isSubmitted && idType?.invalid
+              }"
+            >
+              <ng-option [value]="'driving_license'" [disabled]="true">
+                Driving license
+              </ng-option>
+              <ng-option [value]="'national_id'">National ID</ng-option>
+              <ng-option [value]="'international_passport'" [disabled]="true">
+                International passport
+              </ng-option>
+            </ng-select>
+          </div>
+        </ca-form-field>
+        @if (isSubmitted && (idType?.invalid)) {
+        <ca-form-error [errors]="idType?.errors" />
+        }
+      </div>
 
-      <ca-form-field
-        label="ID Number"
-        labelFor="id_number"
-        [isRequired]="true"
-        col-2
-      >
-        <input id="id_number" type="number" />
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field
+          label="ID Number"
+          labelFor="id_number"
+          [isRequired]="true"
+        >
+          <input
+            id="id_number"
+            type="text"
+            formControlName="id_number"
+            [ngClass]="{
+              'ng-dirty ng-touched': isSubmitted && idNumber?.invalid
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && (idNumber?.invalid)) {
+        <ca-form-error [errors]="idNumber?.errors" />
+        }
+      </div>
     </ca-cols-field-3>
   </ca-card>
 
   <div class="mb-10">
-    <button class="btn bg-purple-main h-[44px] text-white">
+    <button
+      class="btn bg-purple-main h-[44px] w-[152px] text-white"
+      loadingColour="#fff"
+      [loading]="loading"
+    >
       Save & update
     </button>
   </div>
