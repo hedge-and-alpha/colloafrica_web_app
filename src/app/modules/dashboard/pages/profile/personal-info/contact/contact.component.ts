@@ -121,7 +121,7 @@ export class ContactComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
-        this.alert.open('success', {
+        this.alert.open('danger', {
           details: error.error.message,
           summary: error.error.status + ' ' + error.status,
         });

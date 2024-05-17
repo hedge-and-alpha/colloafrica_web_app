@@ -23,6 +23,7 @@ export class ButtonLoadingDirective implements OnChanges, OnDestroy {
   elRefContent = '';
 
   @Input() loading = false;
+  @Input() loadingColour: '#171717' | '#fff' = '#171717';
 
   constructor(
     private vcr: ViewContainerRef,
@@ -36,6 +37,7 @@ export class ButtonLoadingDirective implements OnChanges, OnDestroy {
 
     if (isFirstChange) {
       this.spinnerRef = this.vcr.createComponent(SpinnerComponent);
+      this.spinnerRef.instance.colour = this.loadingColour;
       this.domElement = (this.spinnerRef.hostView as EmbeddedViewRef<any>)
         .rootNodes[0] as HTMLElement;
       this.elRefContent = this.elRef.nativeElement.innerHTML;

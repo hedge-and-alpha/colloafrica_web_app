@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <span
       class="loader"
-      [style.border]="'4px solid ' + color"
+      [style.border]="'4px solid ' + colour"
       [style.borderBlockEndColor]="'transparent'"
     ></span>
   `,
@@ -37,5 +37,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class SpinnerComponent {
-  @Input() color = '#171717';
+  @Input() colour: '#171717' | '#fff' = '#171717';
 }
