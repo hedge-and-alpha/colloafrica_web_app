@@ -30,16 +30,13 @@ export class DashboardApiService {
       );
   }
 
-  uploadProfilePicture(data: object) {
+  uploadProfilePicture(data: FormData) {
     return this.http
       .post<ApiResponse & { data: Pick<User, 'profile_picture'> }>(
         `${this.#baseUrl}/user/upload/profile-pic`,
         data
       )
-      .pipe(
-        map(({ data }) => data),
-        tap((user) => this.userStore.updateUser(user as User))
-      );
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
   }
 
   updatePersonalInfo(data: object) {

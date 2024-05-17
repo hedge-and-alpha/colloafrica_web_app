@@ -21,7 +21,7 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
       headers: req.headers.set('Authorization', `Bearer ${this.#token}`),
     });
 
-    console.log('interceptor:', req.url);
+    // console.log('interceptor:', req.url);
     return next.handle(modifiedRequest).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {

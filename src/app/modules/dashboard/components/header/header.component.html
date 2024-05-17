@@ -13,7 +13,7 @@
     </a>
     <button class="ms-6 text-[#171717] inline-flex items-center gap-2">
       <img
-        ngSrc="assets/images/profile-photo.jpg"
+        [ngSrc]="user()?.profile_picture || 'assets/images/profile-photo.jpg'"
         alt="Avatar"
         width="30"
         height="30"
