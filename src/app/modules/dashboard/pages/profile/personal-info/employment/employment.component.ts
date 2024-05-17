@@ -13,6 +13,9 @@ import { ButtonLoadingDirective } from '../../../../../../directives/button-load
 import { ColsField3Component } from '../../../../../../components/cols-field-3/cols-field-3.component';
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 import { UserStoreService } from '../../../../../../stores+/user.store';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ca-employment',
@@ -35,7 +38,12 @@ export class EmploymentComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private userStore: UserStoreService) {}
+  constructor(
+    private fb: FormBuilder,
+    private userStore: UserStoreService,
+    private api: DashboardApiService,
+    private alert: AlertService
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -66,6 +74,23 @@ export class EmploymentComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-    console.log(this.form.value);
+
+    if (this.form.invalid) return;
+
+    this.loading = true;
+
+    this.api.updatePersonalEmploymentInfo(this.form.value).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.alert.open('success', { details: message, summary: status });
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.alert.open('danger', {
+          details: error.error.message,
+          summary: error.error.status + ' ' + error.status,
+        });
+      },
+    });
   }
 }
