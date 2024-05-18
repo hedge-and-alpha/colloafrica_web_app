@@ -23,19 +23,22 @@ export class BankAccountFormComponent implements OnInit {
 
   banks$!: Observable<BankInfo[]>;
 
-  form = this.fb.group({
-    account_number: [
-      null,
-      [
-        Validators.required,
-        Validators.minLength(10),
-        Validators.pattern(/^[0-9]{10}$/),
+  form = this.fb.group(
+    {
+      account_number: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.pattern(/^[0-9]{10}$/),
+        ],
       ],
-    ],
-    bank_name: [null, [Validators.required]],
-    bank_code: [null, [Validators.required]],
-    transfer_type: ['inter'],
-  });
+      bank_name: [null, [Validators.required]],
+      bank_code: [null, [Validators.required]],
+      transfer_type: ['inter'],
+    },
+    { updateOn: 'submit' }
+  );
 
   constructor(
     private fb: FormBuilder,

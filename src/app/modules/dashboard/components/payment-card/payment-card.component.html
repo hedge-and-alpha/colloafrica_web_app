@@ -24,8 +24,7 @@
   </div>
 
   <p class="card-number leading-1.2">
-    <!-- <span>xxxx</span> <span>xxxx</span> <span>xxxx</span> <span>2158</span> -->
-    <span>{{ card.card_number_decrypted }}</span>
+    <span>{{ card.card_number_decrypted | creditCardNumber }}</span>
   </p>
 
   <div class="inline-flex items-center gap-1 text-[#fefefe]">

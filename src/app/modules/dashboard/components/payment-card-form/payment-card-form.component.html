@@ -2,29 +2,71 @@
   <div class="mb-6">
     <ca-form-field label="Card Number" labelFor="card-number">
       <input
+        ccNumber
         type="text"
         id="card-number"
         placeholder="0000 0000 0000 0000"
-        [imask]
+        autocomplete="cc-number"
+        formControlName="card_number"
+        [ngClass]="{
+          'ng-dirty ng-touched': isSubmitted && cardNumber?.invalid
+        }"
       />
     </ca-form-field>
+    @if (isSubmitted && (cardNumber?.invalid)) {
+    <ca-form-error [errors]="cardNumber?.errors" />
+    }
   </div>
 
   <ca-cols-field-2>
     <div col-1>
       <ca-form-field label="Card expiry" labelFor="expiry">
-        <input type="text" id="expiry" placeholder="MM/YY" />
+        <input
+          ccExp
+          type="text"
+          id="expiry"
+          placeholder="MM/YY"
+          autocomplete="cc-exp"
+          formControlName="card_expiry"
+          [ngClass]="{
+            'ng-dirty ng-touched': isSubmitted && cardExpiry?.invalid
+          }"
+        />
       </ca-form-field>
+      @if (isSubmitted && (cardExpiry?.invalid)) {
+      <ca-form-error [errors]="cardExpiry?.errors" />
+      }
     </div>
 
     <div col-2>
       <ca-form-field label="CVV" labelFor="cvv">
-        <input type="text" id="cvv" placeholder="123" />
+        <input
+          ccCVC
+          type="text"
+          id="cvv"
+          placeholder="123"
+          autocomplete="cc-csc"
+          formControlName="cvv"
+          [ngClass]="{
+            'ng-dirty ng-touched': isSubmitted && cvv?.invalid
+          }"
+        />
       </ca-form-field>
+      @if (isSubmitted && (cvv?.invalid)) {
+      <ca-form-error [errors]="cvv?.errors" />
+      }
     </div>
   </ca-cols-field-2>
 
   <div class="mt-11 text-end">
-    <button ca-button-primary class="w-52" type="submit">Proceed</button>
+    <button
+      ca-button-primary
+      class="w-52"
+      type="submit"
+      loadingColour="#fff"
+      [loading]="loading"
+    >
+      Proceed
+    </button>
   </div>
 </form>

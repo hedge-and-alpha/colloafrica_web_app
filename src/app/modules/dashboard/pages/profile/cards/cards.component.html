@@ -10,23 +10,23 @@
     </button>
   </div>
 
-  <div class="mt-9 flex flex-col items-center">
-    <img
-      src="assets/images/no-card.svg"
-      alt=""
-      width="157.27"
-      height="153.32"
-    />
-    <p class="mt-1 font-medium">No cards added yet</p>
-    <p class="mt-[6px] text-xs text-[#5c5c5c]">
-      Seems like you've not added a card
-    </p>
-  </div>
-
   @if (cards()) {
   <div class="ca-payment-cards mt-6">
     @for (card of cards(); track card.id) {
     <ca-payment-card col-1 cardProvider="visa" [card]="card" />
+    } @empty {
+    <div class="mt-9 flex flex-col items-center">
+      <img
+        src="assets/images/no-card.svg"
+        alt=""
+        width="157.27"
+        height="153.32"
+      />
+      <p class="mt-1 font-medium">No cards added yet</p>
+      <p class="mt-[6px] text-xs text-[#5c5c5c]">
+        Seems like you've not added a card
+      </p>
+    </div>
     }
   </div>
   }
