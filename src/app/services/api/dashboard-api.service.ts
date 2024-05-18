@@ -160,7 +160,7 @@ export class DashboardApiService {
   }
 
   deleteBankCard(id: string) {
-    return this.http.delete<ApiResponse>(`${this.#baseUrl}/card/delete/${id}`);
+    return this.http.delete(`${this.#baseUrl}/card/delete/${id}`);
   }
 
   changePassword(data: object) {

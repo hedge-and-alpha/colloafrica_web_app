@@ -20,6 +20,6 @@ export interface Card {
   user_id: number;
   card_name: string;
   card_expiry: string;
-  card_number_decrypted: string;
-  cvv_decrypted: string;
+  card_number: string;
+  cvv: string;
 }

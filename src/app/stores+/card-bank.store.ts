@@ -34,4 +34,9 @@ export class CardAndBankStoreService {
   addBankCard(card: Card) {
     this.#cards.update((cards) => [...cards!, card]);
   }
+
+  deleteBankCard(cardId: number) {
+    let filtered = this.#cards()!.filter((c) => c.id !== cardId);
+    this.setBankCards(filtered);
+  }
 }
