@@ -15,7 +15,6 @@ import { UserStoreService } from '../../stores+/user.store';
   selector: 'ca-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
   online = true;

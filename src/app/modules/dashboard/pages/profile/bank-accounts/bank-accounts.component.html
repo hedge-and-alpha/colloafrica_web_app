@@ -13,7 +13,10 @@
   @if (bankAccounts()) {
   <div class="ca-bank-accounts mt-4">
     @for (account of bankAccounts(); track account.id) {
-    <ca-bank-account-info-item class="mb-4">
+    <ca-bank-account-info-item
+      class="mb-4 relative"
+      [showOverlay]="greyOutAccountItem(account.id)"
+    >
       <ca-bank-account-info-item-column columnTitle="Bank Name">
         <p class="font-medium">{{ account.bank_name }}</p>
       </ca-bank-account-info-item-column>
@@ -23,7 +26,10 @@
       </ca-bank-account-info-item-column>
 
       <ca-bank-account-info-item-column columnTitle="Primary">
-        <ca-switch [checked]="!!account.primary" />
+        <ca-switch
+          [checked]="!!account.primary"
+          (checkedChange)="togglePrimary(account.id)"
+        />
       </ca-bank-account-info-item-column>
 
       <ca-bank-account-info-item-column columnTitle="Status">
@@ -36,7 +42,9 @@
       </ca-bank-account-info-item-column>
 
       <ca-bank-account-info-item-column class="sticky right-0 top-0 bottom-0">
-        <button class="text-purple-main"><i class="ca-trash-solid"></i></button>
+        <button class="text-purple-main" (click)="handleDelete(account.id)">
+          <i class="ca-trash-solid"></i>
+        </button>
       </ca-bank-account-info-item-column>
     </ca-bank-account-info-item>
     } @empty {

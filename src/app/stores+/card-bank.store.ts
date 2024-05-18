@@ -32,12 +32,11 @@ export class CardAndBankStoreService {
     this.setBankAccounts(filtered);
   }
 
-  togglePrimaryAccount(accountId: number) {
-    let idx = this.bankAccounts()!.findIndex((acc) => acc.id === accountId);
-    let prevState = this.#bankAccounts()![idx].primary;
+  togglePrimaryAccount(account: BankAccount) {
+    let idx = this.bankAccounts()!.findIndex((acc) => acc.id === account.id);
 
     if (idx >= 0) {
-      this.#bankAccounts()![idx].primary = prevState === 1 ? 0 : 1;
+      this.#bankAccounts()![idx] = account;
     }
   }
 

@@ -132,12 +132,10 @@ export class DashboardApiService {
   }
 
   primaryBankAccount(id: number) {
-    return this.http
-      .post<ApiResponse & { data: BankAccount }>(
-        `${this.#baseUrl}/bank/primary/${id}`,
-        null
-      )
-      .pipe(map((res) => res.data));
+    return this.http.post<ApiResponse & { data: BankAccount }>(
+      `${this.#baseUrl}/bank/primary/${id}`,
+      null
+    );
   }
 
   deleteBankAccount(id: number) {

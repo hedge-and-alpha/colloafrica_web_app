@@ -1,3 +1,10 @@
-<div class="no-scrollbar">
+<div class="no-scrollbar relative">
+  <!-- Overlay -->
+  @if (showOverlay) {
+  <div
+    class="absolute inset-0 bg-white opacity-65 z-20 no-scrollbar transition-opacity duration-700"
+  ></div>
+  }
+  <!-- Overlay -->
   <ng-content select="ca-bank-account-info-item-column" />
 </div>

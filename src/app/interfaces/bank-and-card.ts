@@ -12,7 +12,7 @@ export interface BankAccount {
   account_number: string;
   transfer_type: 'inter' | 'intra';
   status: 0 | 1;
-  primary: 0 | 1;
+  primary: 0 | 1 | boolean;
 }
 
 export interface Card {

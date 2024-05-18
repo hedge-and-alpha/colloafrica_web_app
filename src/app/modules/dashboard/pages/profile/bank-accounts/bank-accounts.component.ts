@@ -1,5 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, computed } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+} from '@angular/core';
 import { AlertService } from '../../../../../components/alert/alert.service';
 import { ModalService } from '../../../../../components/modal/modal.service';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
@@ -13,6 +18,8 @@ import { BankAccountFormComponent } from '../../../components/bank-account-form/
 })
 export class BankAccountsComponent implements OnInit {
   loading = false;
+  toDeleteIds: number[] = [];
+
   bankAccounts = computed(() => this.cardAndBankStore.bankAccounts());
 
   constructor(
@@ -42,6 +49,53 @@ export class BankAccountsComponent implements OnInit {
           details: error.error.message,
         });
         this.loading = false;
+      },
+    });
+  }
+
+  greyOutAccountItem(id: number) {
+    return this.toDeleteIds.includes(id);
+  }
+
+  unGreyOutDeletedItem(id: number) {
+    this.toDeleteIds = this.toDeleteIds.filter((item) => item !== id);
+  }
+
+  handleDelete(id: number) {
+    this.toDeleteIds.push(id);
+
+    this.api.deleteBankAccount(id).subscribe({
+      next: () => {
+        this.alert.open('success', {
+          summary: 'Success!',
+          details: 'Bank account deleted successfully',
+        });
+        this.cardAndBankStore.deleteBankAccount(id);
+        this.unGreyOutDeletedItem(id);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alert.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
+      },
+    });
+  }
+
+  togglePrimary(id: number) {
+    this.api.primaryBankAccount(id).subscribe({
+      next: ({ message, status, data }) => {
+        this.alert.open('success', {
+          summary: status,
+          details: message,
+        });
+        this.cardAndBankStore.togglePrimaryAccount(data);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alert.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
       },
     });
   }
