@@ -34,9 +34,11 @@ export class CardAndBankStoreService {
 
   togglePrimaryAccount(account: BankAccount) {
     let idx = this.bankAccounts()!.findIndex((acc) => acc.id === account.id);
+    let all = this.bankAccounts()!.map((ba) => ({ ...ba, primary: false }));
 
     if (idx >= 0) {
-      this.#bankAccounts()![idx] = account;
+      all[idx] = { ...account, primary: true };
+      this.#bankAccounts.set(all);
     }
   }
 

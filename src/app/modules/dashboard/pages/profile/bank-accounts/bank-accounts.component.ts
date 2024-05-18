@@ -87,7 +87,7 @@ export class BankAccountsComponent implements OnInit {
       next: ({ message, status, data }) => {
         this.alert.open('success', {
           summary: status,
-          details: message,
+          details: `${data.bank_name} ${message.toLowerCase()}`,
         });
         this.cardAndBankStore.togglePrimaryAccount(data);
       },
