@@ -1,6 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IMaskModule } from 'angular-imask';
@@ -20,6 +21,9 @@ import { ClickOutsideCloseDirective } from '../../directives/click-outside-close
 import { CopyTextDirective } from '../../directives/copy-text/copy-text.directive';
 import { TooltipDirective } from '../../directives/tooltip/tooltip.directive';
 import { PaperPlaneIconComponent } from '../../icons/paper-plane-icon.component';
+import { DashboardApiService } from '../../services/api/dashboard-api.service';
+import { dashboardInterceptorInterceptor } from '../../services/api/dashboard-interceptor.interceptor';
+import { CardAndBankStoreService } from '../../stores+/card-bank.store';
 import { AccountInfoCardComponent } from './components/account-info-card/account-info-card.component';
 import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
 import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
@@ -60,9 +64,7 @@ import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { dashboardInterceptorInterceptor } from '../../services/api/dashboard-interceptor.interceptor';
-import { DashboardApiService } from '../../services/api/dashboard-api.service';
+import { ButtonLoadingDirective } from '../../directives/button-loading/button-loading.directive';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,6 @@ import { DashboardApiService } from '../../services/api/dashboard-api.service';
     DashboardComponent,
     DashboardLayoutComponent,
     SidebarComponent,
-    ErrorPageComponent,
     HeaderComponent,
     AdvertsSliderComponent,
     WalletBalanceCardComponent,
@@ -109,12 +110,14 @@ import { DashboardApiService } from '../../services/api/dashboard-api.service';
     IMaskModule,
     NgSelectModule,
     DashboardRoutingModule,
+    ButtonLoadingDirective,
     CardComponent,
     ColsField2Component,
     ContentSidebarComponent,
     DropdownComponent,
     DropdownMenuComponent,
     DropdownMenuItemComponent,
+    ErrorPageComponent,
     FormErrorComponent,
     FormFieldComponent,
     H1Component,
@@ -133,6 +136,7 @@ import { DashboardApiService } from '../../services/api/dashboard-api.service';
   ],
   providers: [
     DashboardApiService,
+    CardAndBankStoreService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: dashboardInterceptorInterceptor,

@@ -5,8 +5,19 @@
       labelFor="account-number"
       [isRequired]="true"
     >
-      <input type="number" id="account-number" placeholder="0123456789" />
+      <input
+        type="text"
+        id="account-number"
+        placeholder="0123456789"
+        formControlName="account_number"
+        [ngClass]="{
+          'ng-dirty ng-touched': isSubmitted && accountNumber?.invalid
+        }"
+      />
     </ca-form-field>
+    @if (isSubmitted && (accountNumber?.invalid)) {
+    <ca-form-error [errors]="accountNumber?.errors" />
+    }
   </div>
 
   <div>
@@ -17,17 +28,32 @@
           placeholder="Select bank"
           labelForId="bank"
           notFoundText="No banks found"
+          bindLabel="bank_name"
+          bindValue="bank_name"
+          formControlName="bank_name"
+          [items]="banks$ | async"
+          [ngClass]="{
+            'ng-dirty ng-touched': isSubmitted && bankName?.invalid
+          }"
+          (change)="handleSelectBank($event)"
         >
-          <!-- <ng-option>Guaranty trust</ng-option>
-          <ng-option>Sterling</ng-option>
-          <ng-option>The alternative bank</ng-option>
-          <ng-option>Unity bank</ng-option> -->
         </ng-select>
       </div>
     </ca-form-field>
+    @if (isSubmitted && (bankName?.invalid)) {
+    <ca-form-error [errors]="bankName?.errors" />
+    }
   </div>
 
   <div class="mt-11 text-end">
-    <button ca-button-primary class="w-52" type="submit">Proceed</button>
+    <button
+      class="w-52"
+      type="submit"
+      ca-button-primary
+      loadingColour="#fff"
+      [loading]="loading"
+    >
+      Proceed
+    </button>
   </div>
 </form>
