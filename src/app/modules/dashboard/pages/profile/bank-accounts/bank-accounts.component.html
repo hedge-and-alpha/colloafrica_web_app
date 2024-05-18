@@ -17,7 +17,10 @@
       class="mb-4 relative"
       [showOverlay]="greyOutAccountItem(account.id)"
     >
-      <ca-bank-account-info-item-column columnTitle="Bank Name">
+      <ca-bank-account-info-item-column
+        columnTitle="Bank Name"
+        class="whitespace-nowrap grow shrink-0"
+      >
         <p class="font-medium">{{ account.bank_name }}</p>
       </ca-bank-account-info-item-column>
 
