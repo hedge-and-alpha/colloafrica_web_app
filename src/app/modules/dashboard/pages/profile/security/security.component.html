@@ -1,39 +1,78 @@
-<form class="mt-8">
+<form class="mt-8" [formGroup]="form" (ngSubmit)="handleSubmit()">
   <ca-card class="px-6 pt-4 pb-6 sm:pb-12 mb-8 rounded-lg">
     <h2 class="text-purple-main mb-10 font-medium">Change Password</h2>
 
     <ca-cols-field-3>
-      <ca-form-field
-        label="Old Password"
-        labelFor="old"
-        [isRequired]="true"
-        col-1
-      >
-        <input id="old" type="password" autocomplete="current-password" />
-      </ca-form-field>
+      <div col-1>
+        <ca-form-field label="Old Password" labelFor="old" [isRequired]="true">
+          <input
+            id="old"
+            type="password"
+            autocomplete="current-password"
+            formControlName="current_password"
+            [ngClass]="{
+              'ng-dirty ng-touched': isSubmitted && currentPassword?.invalid
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && currentPassword?.invalid) {
+        <ca-form-error
+          [errors]="currentPassword?.errors"
+          class="block text-start"
+        />
+        }
+      </div>
 
-      <ca-form-field
-        label="New password"
-        labelFor="new"
-        [isRequired]="true"
-        col-2
-      >
-        <input id="new" type="password" autocomplete="new-password" />
-      </ca-form-field>
+      <div col-2>
+        <ca-form-field label="New password" labelFor="new" [isRequired]="true">
+          <input
+            id="new"
+            type="password"
+            autocomplete="new-password"
+            formControlName="new_password"
+            [ngClass]="{
+              'ng-dirty ng-touched': isSubmitted && newPassword?.invalid
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && newPassword?.invalid) {
+        <ca-form-error
+          [errors]="newPassword?.errors"
+          class="block text-start"
+        />
+        }
+      </div>
 
-      <ca-form-field
-        label="Confirm password"
-        labelFor="confirm"
-        [isRequired]="true"
-        col-3
-      >
-        <input id="confirm" type="password" autocomplete="new-password" />
-      </ca-form-field>
+      <div col-3>
+        <ca-form-field
+          label="Confirm password"
+          labelFor="confirm"
+          [isRequired]="true"
+        >
+          <input
+            id="confirm"
+            type="password"
+            autocomplete="new-password"
+            formControlName="new_password_confirmation"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && newPasswordConfirmation?.invalid
+            }"
+          />
+        </ca-form-field>
+        @if (isSubmitted && newPasswordConfirmation?.invalid) {
+        <ca-form-error [errors]="form.errors" class="block text-start" />
+        }
+      </div>
     </ca-cols-field-3>
   </ca-card>
 
   <div class="mb-10">
-    <button class="btn bg-purple-main h-[44px] text-white">
+    <button
+      class="btn bg-purple-main h-[44px] w-[152px] text-white"
+      loadingColour="#fff"
+      [loading]="loading"
+    >
       Save & update
     </button>
   </div>
