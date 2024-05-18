@@ -116,7 +116,9 @@ export class DashboardApiService {
       )
       .pipe(
         map((res) => res.data.accounts),
-        tap((res) => this.cardBankStore.setBankAccounts(res))
+        tap((res) => {
+          this.cardBankStore.setBankAccounts(res);
+        })
       );
   }
 
@@ -145,7 +147,10 @@ export class DashboardApiService {
   getBankCards() {
     return this.http
       .get<ApiResponse & { data: { cards: Card[] } }>(`${this.#baseUrl}/card`)
-      .pipe(map((res) => res.data.cards));
+      .pipe(
+        map((res) => res.data.cards),
+        tap((cards) => this.cardBankStore.setBankCards(cards))
+      );
   }
 
   addBankCard(data: object) {

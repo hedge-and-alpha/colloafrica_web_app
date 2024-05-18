@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Card } from '../../../../interfaces/bank-and-card';
 
 @Component({
   selector: 'ca-payment-card',
@@ -9,5 +10,6 @@ import { Component, Input } from '@angular/core';
   imports: [NgClass],
 })
 export class PaymentCardComponent {
-  @Input() cardProvider: 'visa' | 'verve' | 'master' = 'verve';
+  @Input() cardProvider: 'visa' | 'verve' | 'mastercards' = 'verve';
+  @Input() card!: Card;
 }

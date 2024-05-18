@@ -46,7 +46,7 @@ export class BankAccountsComponent implements OnInit {
   }
 
   getBankAccounts() {
-    if (this.cardAndBankStore.bankAccounts().length) {
+    if (this.cardAndBankStore.bankAccounts()) {
       return;
     }
 

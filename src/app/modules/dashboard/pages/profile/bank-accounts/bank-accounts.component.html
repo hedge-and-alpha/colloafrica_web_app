@@ -12,7 +12,7 @@
 
   @if (bankAccounts()) {
   <div class="ca-bank-accounts mt-4">
-    @for (account of bankAccounts(); track $index) {
+    @for (account of bankAccounts(); track account.id) {
     <ca-bank-account-info-item class="mb-4">
       <ca-bank-account-info-item-column
         columnTitle="Bank Name"

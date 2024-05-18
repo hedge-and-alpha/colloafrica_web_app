@@ -8,13 +8,8 @@ interface State<T> {
 
 @Injectable()
 export class CardAndBankStoreService {
-  #cards: WritableSignal<State<Card[]>> = signal({
-    data: null,
-    loading: false,
-  });
-  #bankAccounts: WritableSignal<BankAccount[]> = signal([]);
-
-  constructor() {}
+  #cards: WritableSignal<Card[] | null> = signal(null);
+  #bankAccounts: WritableSignal<BankAccount[] | null> = signal(null);
 
   get bankAccounts() {
     return this.#bankAccounts;
@@ -25,29 +20,18 @@ export class CardAndBankStoreService {
   }
 
   setBankAccounts(accounts: BankAccount[]) {
-    this.#bankAccounts.update((ba) => [...ba, ...accounts]);
+    this.#bankAccounts.set(accounts);
   }
 
   addBankAccount(account: BankAccount) {
     this.#bankAccounts.update((ba) => [...ba!, account]);
   }
 
-  getCards() {
-    if (this.#cards().data) {
-      return;
-    }
+  setBankCards(cards: Card[]) {
+    this.#cards.set(cards);
+  }
 
-    // this.#cards.update((ba) => ({ ...ba, loading: true }));
-    // this.api.getBankCards().subscribe({
-    //   next: (res) => {
-    //     this.#cards.update((cards) => ({ ...cards, data: res }));
-    //   },
-    //   error: (error: HttpErrorResponse) => {
-    //     this.#cards.update((cards) => ({ ...cards, error }));
-    //   },
-    //   complete: () => {
-    //     this.#cards.update((ba) => ({ ...ba, loading: false }));
-    //   },
-    // });
+  addBankCard(card: Card) {
+    this.#cards.update((cards) => [...cards!, card]);
   }
 }

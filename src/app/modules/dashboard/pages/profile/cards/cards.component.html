@@ -23,9 +23,18 @@
     </p>
   </div>
 
+  @if (cards()) {
   <div class="ca-payment-cards mt-6">
-    <ca-payment-card col-1 cardProvider="visa" />
-    <ca-payment-card col-2 cardProvider="master" />
-    <ca-payment-card col-3 cardProvider="verve" />
+    @for (card of cards(); track card.id) {
+    <ca-payment-card col-1 cardProvider="visa" [card]="card" />
+    }
   </div>
+  }
+
+  <!-- Handle loading -->
+  @if (loading) {
+  <div class="flex items-center justify-center h-full mt-8">
+    <ca-loader />
+  </div>
+  }
 </ca-card>

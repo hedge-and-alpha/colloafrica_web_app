@@ -1,9 +1,9 @@
 <div
   class="ca-payment-card ps-6 pe-4 pt-4 rounded-xl w-full overflow-clip relative select-none"
   [ngClass]="{
-    visa: cardProvider === 'visa',
-    verve: cardProvider === 'verve',
-    master: cardProvider === 'master'
+    visa: card.card_name.toLowerCase() === 'visa',
+    verve: card.card_name.toLowerCase() === 'verve',
+    master: card.card_name.toLowerCase() === 'mastercards'
   }"
 >
   <div class="flex items-center h-9">
@@ -16,20 +16,21 @@
     />
 
     <img
-      [src]="'assets/images/card-logo-' + cardProvider + '.svg'"
-      [alt]="cardProvider"
+      [src]="'assets/images/card-logo-' + card.card_name.toLowerCase() + '.svg'"
+      [alt]="card.card_name"
       class="ms-auto logo"
       [width]=""
     />
   </div>
 
   <p class="card-number leading-1.2">
-    <span>xxxx</span> <span>xxxx</span> <span>xxxx</span> <span>2158</span>
+    <!-- <span>xxxx</span> <span>xxxx</span> <span>xxxx</span> <span>2158</span> -->
+    <span>{{ card.card_number_decrypted }}</span>
   </p>
 
   <div class="inline-flex items-center gap-1 text-[#fefefe]">
     <span class="expires" style="font-size: 0.5rem">EXPIRES</span>
-    <div class="text-sm font-medium">12/28</div>
+    <div class="text-sm font-medium">{{ card.card_expiry }}</div>
   </div>
 
   <button
