@@ -131,7 +131,7 @@ export class DashboardApiService {
       .pipe(map((res) => res.data));
   }
 
-  primaryBankAccount(id: string) {
+  primaryBankAccount(id: number) {
     return this.http
       .post<ApiResponse & { data: BankAccount }>(
         `${this.#baseUrl}/bank/primary/${id}`,
@@ -140,7 +140,7 @@ export class DashboardApiService {
       .pipe(map((res) => res.data));
   }
 
-  deleteBankAccount(id: string) {
+  deleteBankAccount(id: number) {
     return this.http.delete<ApiResponse>(`${this.#baseUrl}/bank/delete/${id}`);
   }
 

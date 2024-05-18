@@ -27,6 +27,20 @@ export class CardAndBankStoreService {
     this.#bankAccounts.update((ba) => [...ba!, account]);
   }
 
+  deleteBankAccount(accountId: number) {
+    let filtered = this.#bankAccounts()!.filter((c) => c.id !== accountId);
+    this.setBankAccounts(filtered);
+  }
+
+  togglePrimaryAccount(accountId: number) {
+    let idx = this.bankAccounts()!.findIndex((acc) => acc.id === accountId);
+    let prevState = this.#bankAccounts()![idx].primary;
+
+    if (idx >= 0) {
+      this.#bankAccounts()![idx].primary = prevState === 1 ? 0 : 1;
+    }
+  }
+
   setBankCards(cards: Card[]) {
     this.#cards.set(cards);
   }

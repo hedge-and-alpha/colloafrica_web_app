@@ -31,6 +31,7 @@ export class CardsComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this.api.getBankCards().subscribe({
       next: () => {
         this.loading = false;
