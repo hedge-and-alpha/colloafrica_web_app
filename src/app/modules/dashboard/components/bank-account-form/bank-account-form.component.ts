@@ -60,9 +60,18 @@ export class BankAccountFormComponent implements OnInit {
   get bankCode() {
     return this.form.get('bank_code') as FormControl<null | string>;
   }
+  get transferType() {
+    return this.form.get('transfer_type');
+  }
 
   handleSelectBank(event: BankInfo) {
     this.bankCode?.setValue(event.bank_code);
+
+    if (event.bank_code === '999999') {
+      this.transferType?.setValue('intra');
+    } else {
+      this.transferType?.setValue('inter');
+    }
   }
 
   handleSubmit() {
