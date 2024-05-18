@@ -31,6 +31,7 @@ export class BankAccountsComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
     this.api.getBankAccounts().subscribe({
       next: () => {
         this.loading = false;

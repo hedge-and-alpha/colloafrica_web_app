@@ -35,7 +35,7 @@ export class BankAccountFormComponent implements OnInit {
       ],
       bank_name: [null, [Validators.required]],
       bank_code: [null, [Validators.required]],
-      transfer_type: ['inter'],
+      transfer_type: ['intra'],
     },
     { updateOn: 'submit' }
   );

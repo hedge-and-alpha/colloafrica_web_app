@@ -80,6 +80,7 @@ import { AllInvestmentsComponent } from './pages/investments/all-investments/all
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { StatusTextDirective } from '../../directives/status-text/status-text.directive';
 
 @NgModule({
   declarations: [
@@ -162,6 +163,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
     ClickOutsideCloseDirective,
     CopyTextDirective,
     DropdownMenuTriggerDirective,
+    StatusTextDirective,
     TooltipDirective,
   ],
   providers: [

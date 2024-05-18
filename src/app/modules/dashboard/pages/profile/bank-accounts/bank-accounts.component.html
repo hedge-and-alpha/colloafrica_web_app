@@ -14,10 +14,7 @@
   <div class="ca-bank-accounts mt-4">
     @for (account of bankAccounts(); track account.id) {
     <ca-bank-account-info-item class="mb-4">
-      <ca-bank-account-info-item-column
-        columnTitle="Bank Name"
-        class="sticky left-0 top-0 bottom-0"
-      >
+      <ca-bank-account-info-item-column columnTitle="Bank Name">
         <p class="font-medium">{{ account.bank_name }}</p>
       </ca-bank-account-info-item-column>
 
@@ -30,8 +27,11 @@
       </ca-bank-account-info-item-column>
 
       <ca-bank-account-info-item-column columnTitle="Status">
-        <p class="font-medium" ca-status-text="verified">
-          {{ account.status }}
+        <p
+          class="font-medium"
+          [ca-status-text]="account.status ? 'verified' : 'unverified'"
+        >
+          {{ account.status ? "Verified" : "Unverified" }}
         </p>
       </ca-bank-account-info-item-column>
 
