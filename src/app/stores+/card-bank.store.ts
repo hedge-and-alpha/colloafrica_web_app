@@ -1,12 +1,8 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import { Bank, BankAccount, Card } from '../interfaces/bank-and-card';
-import { DashboardApiService } from '../services/api/dashboard-api.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { AlertService } from '../components/alert/alert.service';
+import { BankAccount, Card } from '../interfaces/bank-and-card';
 
 interface State<T> {
   data: T | null;
-  error: null | HttpErrorResponse;
   loading: boolean;
 }
 
@@ -14,16 +10,11 @@ interface State<T> {
 export class CardAndBankStoreService {
   #cards: WritableSignal<State<Card[]>> = signal({
     data: null,
-    error: null,
     loading: false,
   });
-  #bankAccounts: WritableSignal<State<BankAccount[]>> = signal({
-    data: null,
-    error: null,
-    loading: false,
-  });
+  #bankAccounts: WritableSignal<BankAccount[]> = signal([]);
 
-  constructor(private api: DashboardApiService, private alert: AlertService) {}
+  constructor() {}
 
   get bankAccounts() {
     return this.#bankAccounts;
@@ -33,23 +24,12 @@ export class CardAndBankStoreService {
     return this.#cards;
   }
 
-  getBankAccounts() {
-    if (this.#bankAccounts().data) {
-      return;
-    }
+  setBankAccounts(accounts: BankAccount[]) {
+    this.#bankAccounts.update((ba) => [...ba, ...accounts]);
+  }
 
-    this.#bankAccounts.update((ba) => ({ ...ba, loading: true }));
-    this.api.getBankAccounts().subscribe({
-      next: (res) => {
-        this.#bankAccounts.update((ba) => ({ ...ba, data: res }));
-      },
-      error: (error: HttpErrorResponse) => {
-        this.#bankAccounts.update((ba) => ({ ...ba, error }));
-      },
-      complete: () => {
-        this.#bankAccounts.update((ba) => ({ ...ba, loading: false }));
-      },
-    });
+  addBankAccount(account: BankAccount) {
+    this.#bankAccounts.update((ba) => [...ba!, account]);
   }
 
   getCards() {
@@ -57,17 +37,17 @@ export class CardAndBankStoreService {
       return;
     }
 
-    this.#cards.update((ba) => ({ ...ba, loading: true }));
-    this.api.getBankCards().subscribe({
-      next: (res) => {
-        this.#cards.update((cards) => ({ ...cards, data: res }));
-      },
-      error: (error: HttpErrorResponse) => {
-        this.#cards.update((cards) => ({ ...cards, error }));
-      },
-      complete: () => {
-        this.#cards.update((ba) => ({ ...ba, loading: false }));
-      },
-    });
+    // this.#cards.update((ba) => ({ ...ba, loading: true }));
+    // this.api.getBankCards().subscribe({
+    //   next: (res) => {
+    //     this.#cards.update((cards) => ({ ...cards, data: res }));
+    //   },
+    //   error: (error: HttpErrorResponse) => {
+    //     this.#cards.update((cards) => ({ ...cards, error }));
+    //   },
+    //   complete: () => {
+    //     this.#cards.update((ba) => ({ ...ba, loading: false }));
+    //   },
+    // });
   }
 }

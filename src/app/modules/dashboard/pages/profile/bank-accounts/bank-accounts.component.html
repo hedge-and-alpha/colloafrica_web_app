@@ -10,9 +10,9 @@
     </button>
   </div>
 
-  @if (res().data) {
+  @if (bankAccounts()) {
   <div class="ca-bank-accounts mt-4">
-    @for (account of res().data; track $index) {
+    @for (account of bankAccounts(); track $index) {
     <ca-bank-account-info-item class="mb-4">
       <ca-bank-account-info-item-column
         columnTitle="Bank Name"
@@ -57,7 +57,7 @@
   }
 
   <!-- Handle loading -->
-  @if (res().loading) {
+  @if (loading) {
   <div class="flex items-center justify-center h-full mt-8">
     <ca-loader />
   </div>

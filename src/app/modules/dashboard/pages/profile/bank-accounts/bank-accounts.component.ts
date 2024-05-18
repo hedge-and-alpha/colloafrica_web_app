@@ -11,6 +11,9 @@ import { BankAccountFormComponent } from '../../../components/bank-account-form/
 import { BankAccountInfoItemColumnComponent } from '../../../components/bank-account-info-item-column/bank-account-info-item-column.component';
 import { BankAccountInfoItemComponent } from '../../../components/bank-account-info-item/bank-account-info-item.component';
 import { CardComponent } from '../../../components/card/card.component';
+import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
+import { AlertService } from '../../../../../components/alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ca-bank-accounts',
@@ -28,16 +31,37 @@ import { CardComponent } from '../../../components/card/card.component';
   ],
 })
 export class BankAccountsComponent implements OnInit {
-  bankAccounts$!: Observable<BankAccount[]>;
-  res = computed(() => this.cardAndBankStore.bankAccounts());
+  loading = false;
+  bankAccounts = computed(() => this.cardAndBankStore.bankAccounts());
 
   constructor(
     private modalService: ModalService,
-    private cardAndBankStore: CardAndBankStoreService
+    private api: DashboardApiService,
+    private cardAndBankStore: CardAndBankStoreService,
+    private alert: AlertService
   ) {}
 
   ngOnInit() {
-    this.cardAndBankStore.getBankAccounts();
+    this.getBankAccounts();
+  }
+
+  getBankAccounts() {
+    if (this.cardAndBankStore.bankAccounts().length) {
+      return;
+    }
+
+    this.api.getBankAccounts().subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.alert.open('danger', {
+          summary: error.error.status + ' ' + error.status,
+          details: error.error.message,
+        });
+        this.loading = false;
+      },
+    });
   }
 
   openModal() {

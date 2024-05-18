@@ -12,12 +12,18 @@ import {
 import { UserStoreService } from '../../stores+/user.store';
 import { map, tap } from 'rxjs';
 import { ApiResponse } from '../../interfaces/api-response';
+import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
+import { CardAndBankStoreService } from '../../stores+/card-bank.store';
 
 @Injectable()
 export class DashboardApiService {
   #baseUrl = environment.API_BASE_URL;
 
-  constructor(private http: HttpClient, private userStore: UserStoreService) {}
+  constructor(
+    private http: HttpClient,
+    private userStore: UserStoreService,
+    private cardBankStore: CardAndBankStoreService
+  ) {}
 
   getUser() {
     return this.http
@@ -30,6 +36,7 @@ export class DashboardApiService {
       );
   }
 
+  /********************** Profile **********************/
   uploadProfilePicture(data: FormData) {
     return this.http
       .post<ApiResponse & { data: Pick<User, 'profile_picture'> }>(
@@ -84,15 +91,78 @@ export class DashboardApiService {
       .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
   }
 
-  // updateIdCardDetails(data: object) {
-  //   return this.http
-  //     .post<ApiResponse & { data: IDCard }>(
-  //       `${this.#baseUrl}/user/update/id-verification`,
-  //       data
-  //     )
-  //     .pipe(
-  //       map(({ data }) => data),
-  //       tap((user) => this.userStore.updateUser(user as User))
-  //     );
-  // }
+  getBanks() {
+    return this.http
+      .get<{ data: { bank: Bank[] } }>(
+        'https://api-apps.vfdbank.systems/vtech-wallet/api/v1/wallet2/bank'
+      )
+      .pipe(
+        map((res) => {
+          const transformed = res.data.bank.map((b) => {
+            return {
+              bank_name: b.name,
+              bank_code: b.code,
+            };
+          });
+          return transformed;
+        })
+      );
+  }
+
+  getBankAccounts() {
+    return this.http
+      .get<ApiResponse & { data: { accounts: BankAccount[] } }>(
+        `${this.#baseUrl}/bank`
+      )
+      .pipe(
+        map((res) => res.data.accounts),
+        tap((res) => this.cardBankStore.setBankAccounts(res))
+      );
+  }
+
+  addBankAccount(data: object) {
+    return this.http
+      .post<ApiResponse & { data: BankAccount }>(
+        `${this.#baseUrl}/bank/add`,
+        data
+      )
+      .pipe(map((res) => res.data));
+  }
+
+  primaryBankAccount(id: string) {
+    return this.http
+      .post<ApiResponse & { data: BankAccount }>(
+        `${this.#baseUrl}/bank/primary/${id}`,
+        null
+      )
+      .pipe(map((res) => res.data));
+  }
+
+  deleteBankAccount(id: string) {
+    return this.http.delete<ApiResponse>(`${this.#baseUrl}/bank/delete/${id}`);
+  }
+
+  getBankCards() {
+    return this.http
+      .get<ApiResponse & { data: { cards: Card[] } }>(`${this.#baseUrl}/card`)
+      .pipe(map((res) => res.data.cards));
+  }
+
+  addBankCard(data: object) {
+    return this.http
+      .post<ApiResponse & { data: Card }>(`${this.#baseUrl}/card/add`, data)
+      .pipe(map((res) => res.data));
+  }
+
+  deleteBankCard(id: string) {
+    return this.http.delete<ApiResponse>(`${this.#baseUrl}/card/delete/${id}`);
+  }
+
+  changePassword(data: object) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/user/change-password`,
+      data
+    );
+  }
+  /********************** Profile end **********************/
 }
