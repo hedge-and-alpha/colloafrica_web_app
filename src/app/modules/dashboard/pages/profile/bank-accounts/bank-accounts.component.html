@@ -1,16 +1,45 @@
 <ca-card class="px-4 sm:px-6 pt-4 pb-6 sm:pb-12 mb-8 rounded-lg">
-  <div class="">
-    <div class="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center">
-      <h2 class="text-purple-main font-medium">Bank Accounts Info</h2>
+  <div class="flex flex-col sm:flex-row gap-6 sm:gap-0 items-center">
+    <h2 class="text-purple-main font-medium">Bank Accounts Info</h2>
 
-      <button
-        class="btn btn-xs bg-purple-main text-white sm:ms-auto h-8"
-        (click)="openModal()"
+    <button
+      class="btn btn-xs bg-purple-main text-white sm:ms-auto h-8"
+      (click)="openModal()"
+    >
+      <i class="ca-plus"></i> Add new bank account
+    </button>
+  </div>
+
+  @if (res().data) {
+  <div class="ca-bank-accounts mt-4">
+    @for (account of res().data; track $index) {
+    <ca-bank-account-info-item class="mb-4">
+      <ca-bank-account-info-item-column
+        columnTitle="Bank Name"
+        class="sticky left-0 top-0 bottom-0"
       >
-        <i class="ca-plus"></i> Add new bank account
-      </button>
-    </div>
+        <p class="font-medium">{{ account.bank_name }}</p>
+      </ca-bank-account-info-item-column>
 
+      <ca-bank-account-info-item-column columnTitle="Account Number">
+        <p class="font-medium">{{ account.account_number }}</p>
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column columnTitle="Primary">
+        <ca-switch [checked]="!!account.primary" />
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column columnTitle="Status">
+        <p class="font-medium" ca-status-text="verified">
+          {{ account.status }}
+        </p>
+      </ca-bank-account-info-item-column>
+
+      <ca-bank-account-info-item-column class="sticky right-0 top-0 bottom-0">
+        <button class="text-purple-main"><i class="ca-trash-solid"></i></button>
+      </ca-bank-account-info-item-column>
+    </ca-bank-account-info-item>
+    } @empty {
     <div class="mt-9 flex flex-col items-center">
       <img
         src="assets/images/empty-folder.svg"
@@ -23,82 +52,14 @@
         Seems like you've not added a bank account
       </p>
     </div>
+    }
   </div>
+  }
 
-  <div class="ca-bank-accounts mt-4">
-    <ca-bank-account-info-item class="mb-4">
-      <ca-bank-account-info-item-column
-        columnTitle="Bank Name"
-        class="sticky left-0 top-0 bottom-0"
-      >
-        <p class="font-medium">Access bank</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Account Number">
-        <p class="font-medium">0030918456</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Primary">
-        <ca-switch />
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Status">
-        <p class="font-medium" ca-status-text="verified">Verified</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column class="sticky right-0 top-0 bottom-0">
-        <button class="text-purple-main"><i class="ca-trash-solid"></i></button>
-      </ca-bank-account-info-item-column>
-    </ca-bank-account-info-item>
-
-    <ca-bank-account-info-item class="mb-4">
-      <ca-bank-account-info-item-column
-        columnTitle="Bank Name"
-        class="sticky left-0 top-0 bottom-0"
-      >
-        <p class="font-medium">Access bank</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Account Number">
-        <p class="font-medium">0030918456</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Primary">
-        <ca-switch />
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Status">
-        <p class="font-medium" ca-status-text="pending">Pending</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column class="sticky right-0 top-0 bottom-0">
-        <button class="text-purple-main"><i class="ca-trash-solid"></i></button>
-      </ca-bank-account-info-item-column>
-    </ca-bank-account-info-item>
-
-    <ca-bank-account-info-item>
-      <ca-bank-account-info-item-column
-        columnTitle="Bank Name"
-        class="sticky left-0 top-0 bottom-0"
-      >
-        <p class="font-medium">Access bank</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Account Number">
-        <p class="font-medium">0030918456</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Primary">
-        <ca-switch />
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column columnTitle="Status">
-        <p class="font-medium" ca-status-text="unverified">Unverified</p>
-      </ca-bank-account-info-item-column>
-
-      <ca-bank-account-info-item-column class="sticky right-0 top-0 bottom-0">
-        <button class="text-purple-main"><i class="ca-trash-solid"></i></button>
-      </ca-bank-account-info-item-column>
-    </ca-bank-account-info-item>
+  <!-- Handle loading -->
+  @if (res().loading) {
+  <div class="flex items-center justify-center h-full mt-8">
+    <ca-loader />
   </div>
+  }
 </ca-card>
