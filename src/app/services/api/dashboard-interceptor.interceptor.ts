@@ -20,6 +20,13 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
     const modifiedRequest = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${this.#token}`),
     });
+    const ignoredUrls = [
+      'https://api-apps.vfdbank.systems/vtech-wallet/api/v1/wallet2/bank',
+    ];
+
+    if (ignoredUrls.includes(req.url)) {
+      return next.handle(req);
+    }
 
     // console.log('interceptor:', req.url);
     return next.handle(modifiedRequest).pipe(
