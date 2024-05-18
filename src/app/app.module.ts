@@ -6,14 +6,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { TitleStrategy } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ButtonPrimaryDirective } from './directives/button-primary/button-primary.directive';
 import { ButtonSecondaryDirective } from './directives/button-secondary/button-secondary.directive';
 import { ButtonSmDirective } from './directives/button-sm/button-sm.directive';
+import { ErrorPageComponent } from './modules/dashboard/components/error-page/error-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PageTitleStrategyService } from './services/page-title-strategy.service';
-import { AlertComponent } from './components/alert/alert.component';
 import { CapitalizeFirstPipe } from './pipes/capitalize-first/capitalize-first.pipe';
+import { PageTitleStrategyService } from './services/page-title-strategy.service';
 
 @NgModule({
   declarations: [AppComponent, AlertComponent, PageNotFoundComponent],
@@ -25,10 +27,15 @@ import { CapitalizeFirstPipe } from './pipes/capitalize-first/capitalize-first.p
     ButtonPrimaryDirective,
     ButtonSecondaryDirective,
     ButtonSmDirective,
-    CapitalizeFirstPipe,
+    ErrorPageComponent,
+    LoaderComponent,
     ModalComponent,
+    CapitalizeFirstPipe,
   ],
-  providers: [{ provide: TitleStrategy, useClass: PageTitleStrategyService }],
+  providers: [
+    { provide: TitleStrategy, useClass: PageTitleStrategyService },
+    // { provide: ErrorHandler, useClass: DashboardErrorHandlerService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

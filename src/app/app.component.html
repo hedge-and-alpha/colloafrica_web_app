@@ -1,2 +1,8 @@
+@if (!loading) {
 <router-outlet></router-outlet>
 <ca-alert />
+} @else {
+<div class="h-screen flex items-center justify-center">
+  <ca-loader />
+</div>
+}

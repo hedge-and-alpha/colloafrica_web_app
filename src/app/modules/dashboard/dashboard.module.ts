@@ -15,6 +15,7 @@ import { FormFieldComponent } from '../../components/form-field/form-field.compo
 import { ModalComponent } from '../../components/modal/modal.component';
 import { OtpComponent } from '../../components/otp/otp.component';
 import { TableComponent } from '../../components/table/table.component';
+import { ButtonLoadingDirective } from '../../directives/button-loading/button-loading.directive';
 import { ButtonPrimaryDirective } from '../../directives/button-primary/button-primary.directive';
 import { ButtonSecondaryDirective } from '../../directives/button-secondary/button-secondary.directive';
 import { ClickOutsideCloseDirective } from '../../directives/click-outside-close/click-outside-close.directive';
@@ -35,7 +36,6 @@ import { H1Component } from './components/h1/h1.component';
 import { HeaderComponent } from './components/header/header.component';
 import { JoinMgrPlanFormComponent } from './components/join-mgr-plan-form/join-mgr-plan-form.component';
 import { MgrPlanFormComponent } from './components/mgr-plan-form/mgr-plan-form.component';
-import { PaymentCardFormComponent } from './components/payment-card-form/payment-card-form.component';
 import { ReferralLinkComponent } from './components/referral-link/referral-link.component';
 import { SavingsDetailComponent } from './components/savings-detail/savings-detail.component';
 import { SavingsPlanFormComponent } from './components/savings-plan-form/savings-plan-form.component';
@@ -64,7 +64,6 @@ import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
-import { ButtonLoadingDirective } from '../../directives/button-loading/button-loading.directive';
 
 @NgModule({
   declarations: [
@@ -97,7 +96,6 @@ import { ButtonLoadingDirective } from '../../directives/button-loading/button-l
     MgrPlanFormComponent,
     JoinMgrPlanFormComponent,
     MgrPlanComponent,
-    PaymentCardFormComponent,
     BankAccountFormComponent,
     TopUpComponent,
     WithdrawComponent,
