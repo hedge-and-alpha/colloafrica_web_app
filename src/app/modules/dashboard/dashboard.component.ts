@@ -1,4 +1,10 @@
-import { Component, computed, isDevMode, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  isDevMode,
+  signal,
+} from '@angular/core';
 import { Observable, fromEvent, map, startWith } from 'rxjs';
 import { NetworkService } from '../../services/network.service';
 import { ModalService } from '../../components/modal/modal.service';
@@ -9,6 +15,7 @@ import { UserStoreService } from '../../stores+/user.store';
   selector: 'ca-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
   online = true;

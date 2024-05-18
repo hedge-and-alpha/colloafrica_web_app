@@ -22,6 +22,7 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
     });
     const ignoredUrls = [
       'https://api-apps.vfdbank.systems/vtech-wallet/api/v1/wallet2/bank',
+      'auth',
     ];
 
     if (ignoredUrls.includes(req.url)) {

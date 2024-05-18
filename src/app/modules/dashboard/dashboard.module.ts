@@ -64,42 +64,67 @@ import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
+import { ColsField3Component } from '../../components/cols-field-3/cols-field-3.component';
+import { IdVerificationComponent } from './pages/profile/id-verification/id-verification.component';
+import { CardsComponent } from './pages/profile/cards/cards.component';
+import { PaymentCardComponent } from './components/payment-card/payment-card.component';
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { BankAccountInfoItemComponent } from './components/bank-account-info-item/bank-account-info-item.component';
+import { BankAccountInfoItemColumnComponent } from './components/bank-account-info-item-column/bank-account-info-item-column.component';
+import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
+import { SwitchComponent } from '../../components/switch/switch.component';
+import { SecurityComponent } from './pages/profile/security/security.component';
+import { BvnComponent } from './pages/profile/bvn/bvn.component';
+import { InvestmentCardComponent } from './components/investment-card/investment-card.component';
+import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
+import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    ProfileComponent,
-    MgrComponent,
+    AccountInfoCardComponent,
     AccountWalletComponent,
-    InvestmentsComponent,
-    SavingsComponent,
-    InvestmentDetailsComponent,
+    AdvertsSliderComponent,
+    AllInvestmentsComponent,
+    AnalyticsCardComponent,
+    AnalyticsComponent,
+    BankAccountsComponent,
+    BankAccountFormComponent,
+    BvnComponent,
+    CardsComponent,
+    CreateSavingsPlanComponent,
     DashboardComponent,
     DashboardLayoutComponent,
-    SidebarComponent,
     HeaderComponent,
-    AdvertsSliderComponent,
+    HomeComponent,
+    IdVerificationComponent,
+    InvestmentDetailsComponent,
+    InvestmentsComponent,
+    JoinMgrPlanFormComponent,
+    MgrComponent,
+    MgrCreateComponent,
+    MgrIntroComponent,
+    MgrPlanComponent,
+    MgrPlanFormComponent,
+    MyInvestmentsComponent,
+    NotificationsComponent,
+    ProfileComponent,
+    ReferralLinkComponent,
+    SavingsComponent,
+    SavingsDetailComponent,
+    SavingsLayoutComponent,
+    SavingsPlanFormComponent,
+    SecurityComponent,
+    SidebarComponent,
+    StartPlanCardComponent,
+    TopUpComponent,
+    TransactionsComponent,
+    VerifyBvnComponent,
     WalletBalanceCardComponent,
     WalletAccountDetailsComponent,
     WalletAccountTransactionsComponent,
-    AnalyticsCardComponent,
-    AnalyticsComponent,
-    ReferralLinkComponent,
-    StartPlanCardComponent,
-    AccountInfoCardComponent,
-    SavingsLayoutComponent,
-    SavingsDetailComponent,
-    SavingsPlanFormComponent,
-    CreateSavingsPlanComponent,
-    MgrIntroComponent,
-    MgrCreateComponent,
-    MgrPlanFormComponent,
-    JoinMgrPlanFormComponent,
-    MgrPlanComponent,
-    BankAccountFormComponent,
-    TopUpComponent,
     WithdrawComponent,
-    VerifyBvnComponent,
   ],
   imports: [
     CommonModule,
@@ -108,9 +133,12 @@ import { SavingsComponent } from './pages/savings/savings.component';
     IMaskModule,
     NgSelectModule,
     DashboardRoutingModule,
+    BankAccountInfoItemComponent,
+    BankAccountInfoItemColumnComponent,
     ButtonLoadingDirective,
     CardComponent,
     ColsField2Component,
+    ColsField3Component,
     ContentSidebarComponent,
     DropdownComponent,
     DropdownMenuComponent,
@@ -119,10 +147,14 @@ import { SavingsComponent } from './pages/savings/savings.component';
     FormErrorComponent,
     FormFieldComponent,
     H1Component,
+    InvestmentCardComponent,
+    LoaderComponent,
     ModalComponent,
     NotificationItemComponent,
     OtpComponent,
     PaperPlaneIconComponent,
+    PaymentCardComponent,
+    SwitchComponent,
     TableComponent,
     NgOptimizedImage,
     ButtonPrimaryDirective,

@@ -1,39 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { ColsField3Component } from '../../../../../components/cols-field-3/cols-field-3.component';
-import { FormFieldComponent } from '../../../../../components/form-field/form-field.component';
-import { CardComponent } from '../../../components/card/card.component';
-import { ProfileCardComponent } from '../personal-info/profile-card/profile-card.component';
-import { FormErrorComponent } from '../../../../../components/form-error/form-error.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { UserStoreService } from '../../../../../stores+/user.store';
-import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
-import { AlertService } from '../../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ButtonLoadingDirective } from '../../../../../directives/button-loading/button-loading.directive';
-import { NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../../../../components/alert/alert.service';
+import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
+import { UserStoreService } from '../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-id-verification',
-  standalone: true,
   templateUrl: './id-verification.component.html',
   styleUrl: './id-verification.component.css',
-  imports: [
-    ReactiveFormsModule,
-    NgClass,
-    NgSelectModule,
-    ButtonLoadingDirective,
-    CardComponent,
-    ColsField3Component,
-    FormErrorComponent,
-    FormFieldComponent,
-    ProfileCardComponent,
-  ],
 })
 export class IdVerificationComponent implements OnInit {
   isSubmitted = false;

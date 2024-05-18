@@ -1,22 +1,8 @@
 import { Component } from '@angular/core';
 import { TableHeading } from '../../../../interfaces/table-heading';
-import { DatePipe, DecimalPipe, NgClass, TitleCasePipe } from '@angular/common';
-import { TableComponent } from '../../../../components/table/table.component';
-import { CardComponent } from '../../components/card/card.component';
-import { H1Component } from '../../components/h1/h1.component';
 
 @Component({
   selector: 'ca-transactions',
-  standalone: true,
-  imports: [
-    NgClass,
-    DatePipe,
-    DecimalPipe,
-    TitleCasePipe,
-    CardComponent,
-    H1Component,
-    TableComponent,
-  ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })

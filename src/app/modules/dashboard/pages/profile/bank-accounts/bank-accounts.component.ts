@@ -1,34 +1,15 @@
-import { AsyncPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, computed } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LoaderComponent } from '../../../../../components/loader/loader.component';
+import { AlertService } from '../../../../../components/alert/alert.service';
 import { ModalService } from '../../../../../components/modal/modal.service';
-import { SwitchComponent } from '../../../../../components/switch/switch.component';
-import { StatusTextDirective } from '../../../../../directives/status-text/status-text.directive';
-import { BankAccount } from '../../../../../interfaces/bank-and-card';
+import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
 import { CardAndBankStoreService } from '../../../../../stores+/card-bank.store';
 import { BankAccountFormComponent } from '../../../components/bank-account-form/bank-account-form.component';
-import { BankAccountInfoItemColumnComponent } from '../../../components/bank-account-info-item-column/bank-account-info-item-column.component';
-import { BankAccountInfoItemComponent } from '../../../components/bank-account-info-item/bank-account-info-item.component';
-import { CardComponent } from '../../../components/card/card.component';
-import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
-import { AlertService } from '../../../../../components/alert/alert.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ca-bank-accounts',
-  standalone: true,
   templateUrl: './bank-accounts.component.html',
   styleUrl: './bank-accounts.component.css',
-  imports: [
-    AsyncPipe,
-    BankAccountInfoItemComponent,
-    BankAccountInfoItemColumnComponent,
-    CardComponent,
-    LoaderComponent,
-    SwitchComponent,
-    StatusTextDirective,
-  ],
 })
 export class BankAccountsComponent implements OnInit {
   loading = false;

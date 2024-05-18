@@ -10,13 +10,12 @@ export const dashboardResolverResolver: ResolveFn<User> | null = (
 ) => {
   const router = inject(Router);
 
-  return inject(DashboardApiService)
-    .getUser()
-    .pipe(
-      catchError((error) => {
-        console.log('resolve error', error);
-        // router.navigate(['/error']);
-        return of(error);
-      })
-    );
+  return inject(DashboardApiService).getUser();
+  // .pipe(
+  //   catchError((error) => {
+  //     console.log('resolve error', error);
+  //     // router.navigate(['/error']);
+  //     return of(error);
+  //   })
+  // );
 };

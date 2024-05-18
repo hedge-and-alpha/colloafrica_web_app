@@ -6,6 +6,11 @@
     master: card.card_name.toLowerCase() === 'mastercards'
   }"
 >
+  <!-- Overlay -->
+  @if (loading) {
+  <div class="absolute inset-0 bg-white opacity-65 z-20"></div>
+  }
+
   <div class="flex items-center h-9">
     <img
       src="assets/images/card-sim.png"
@@ -34,6 +39,7 @@
 
   <button
     class="absolute right-[-7px] bottom-[-7px] z-10 h-12 w-12 rounded-full text-center bg-white"
+    (click)="handleDelete(card.id)"
   >
     <i class="ca-trash-solid text-[#D92121]"></i>
   </button>

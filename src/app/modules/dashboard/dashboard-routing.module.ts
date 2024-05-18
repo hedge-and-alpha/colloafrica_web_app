@@ -11,6 +11,16 @@ import { MgrComponent } from './pages/mgr/mgr.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { dashboardResolverResolver } from '../../services/api/dashboard-resolver.resolver';
+import { PersonalInfoComponent } from './pages/profile/personal-info/personal-info.component';
+import { IdVerificationComponent } from './pages/profile/id-verification/id-verification.component';
+import { CardsComponent } from './pages/profile/cards/cards.component';
+import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
+import { SecurityComponent } from './pages/profile/security/security.component';
+import { BvnComponent } from './pages/profile/bvn/bvn.component';
+import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
+import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -27,50 +37,32 @@ const routes: Routes = [
           {
             path: 'personal-info',
             title: 'Personal info | Profile',
-            loadComponent: () =>
-              import(
-                './pages/profile/personal-info/personal-info.component'
-              ).then((c) => c.PersonalInfoComponent),
+            component: PersonalInfoComponent,
           },
           {
             path: 'id-verification',
             title: 'ID verification | Profile',
-            loadComponent: () =>
-              import(
-                './pages/profile/id-verification/id-verification.component'
-              ).then((c) => c.IdVerificationComponent),
+            component: IdVerificationComponent,
           },
           {
             path: 'cards',
             title: 'Cards | Profile',
-            loadComponent: () =>
-              import('./pages/profile/cards/cards.component').then(
-                (c) => c.CardsComponent
-              ),
+            component: CardsComponent,
           },
           {
             path: 'bank-accounts',
             title: 'Bank accounts | Profile',
-            loadComponent: () =>
-              import(
-                './pages/profile/bank-accounts/bank-accounts.component'
-              ).then((c) => c.BankAccountsComponent),
+            component: BankAccountsComponent,
           },
           {
             path: 'security',
             title: 'Security | Profile',
-            loadComponent: () =>
-              import('./pages/profile/security/security.component').then(
-                (c) => c.SecurityComponent
-              ),
+            component: SecurityComponent,
           },
           {
             path: 'bvn',
             title: 'BVN | Profile',
-            loadComponent: () =>
-              import('./pages/profile/bvn/bvn.component').then(
-                (c) => c.BvnComponent
-              ),
+            component: BvnComponent,
           },
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
@@ -85,18 +77,12 @@ const routes: Routes = [
         children: [
           {
             path: 'all',
-            loadComponent: () =>
-              import(
-                './pages/investments/all-investments/all-investments.component'
-              ).then((c) => c.AllInvestmentsComponent),
+            component: AllInvestmentsComponent,
             title: 'All investments | Investments',
           },
           {
             path: 'my-investments',
-            loadComponent: () =>
-              import(
-                './pages/investments/my-investments/my-investments.component'
-              ).then((c) => c.MyInvestmentsComponent),
+            component: MyInvestmentsComponent,
             title: 'My investments | Investments',
           },
           { path: '', redirectTo: 'all', pathMatch: 'full' },
@@ -111,18 +97,12 @@ const routes: Routes = [
       },
       {
         path: 'transactions',
-        loadComponent: () =>
-          import('./pages/transactions/transactions.component').then(
-            (c) => c.TransactionsComponent
-          ),
+        component: TransactionsComponent,
         title: 'Transactions',
       },
       {
         path: 'notifications',
-        loadComponent: () =>
-          import('./pages/notifications/notifications.component').then(
-            (c) => c.NotificationsComponent
-          ),
+        component: NotificationsComponent,
         title: 'Notifications',
       },
     ],

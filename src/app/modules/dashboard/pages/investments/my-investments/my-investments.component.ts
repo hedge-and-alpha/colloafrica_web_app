@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
-import { CardComponent } from '../../../components/card/card.component';
-import { TableComponent } from '../../../../../components/table/table.component';
 import { TableHeading } from '../../../../../interfaces/table-heading';
-import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'ca-my-investments',
-  standalone: true,
   templateUrl: './my-investments.component.html',
   styleUrl: './my-investments.component.css',
-  imports: [CurrencyPipe, DatePipe, CardComponent, TableComponent],
 })
 export class MyInvestmentsComponent {
   tableHeading = TABLE_HEADING;
