@@ -16,6 +16,7 @@ import { DashboardApiService } from '../../../../../../services/api/dashboard-ap
 import { UserStoreService } from '../../../../../../stores+/user.store';
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 import { CardComponent } from '../../../../components/card/card.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'ca-contact',
@@ -23,6 +24,7 @@ import { CardComponent } from '../../../../components/card/card.component';
   imports: [
     ReactiveFormsModule,
     NgClass,
+    NgSelectModule,
     ButtonLoadingDirective,
     CardComponent,
     ColsField3Component,

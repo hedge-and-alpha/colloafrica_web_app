@@ -137,15 +137,20 @@
 
       <div col-2>
         <ca-form-field label="Nationality" labelFor="nationality">
-          <input
-            id="state"
-            type="text"
-            formControlName="nationality"
-            [ngClass]="{
-              'ng-dirty ng-touched':
-                isSubmitted && (nationality?.dirty || nationality?.touched)
-            }"
-          />
+          <div class="-mx-5 grow">
+            <ng-select
+              class="px-2"
+              placeholder="Select nationality"
+              labelForId="nationality"
+              formControlName="nationality"
+              [ngClass]="{
+                'ng-dirty ng-touched':
+                  isSubmitted && (nationality?.dirty || nationality?.touched)
+              }"
+            >
+              <ng-option>Nigeria</ng-option>
+            </ng-select>
+          </div>
         </ca-form-field>
         @if (isSubmitted && (nationality?.dirty || nationality?.touched)) {
         <ca-form-error [errors]="nationality?.errors" />
