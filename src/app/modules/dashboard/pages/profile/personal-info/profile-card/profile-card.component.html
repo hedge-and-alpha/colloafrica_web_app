@@ -15,7 +15,9 @@
   </div>
 
   <div class="details">
-    <p class="mb-5 font-medium name text-center sm:text-start">
+    <p
+      class="mb-5 font-medium name text-center sm:text-start max-w-64 text-ellipsis overflow-hidden whitespace-nowrap"
+    >
       {{ user()?.first_name }} {{ user()?.last_name }}
     </p>
     <label class="btn bg-purple-main h-[44px] text-white cursor-pointer">

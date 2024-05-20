@@ -19,7 +19,9 @@
         height="30"
         class="rounded-full object-cover"
       />
-      <span class="font-medium hidden sm:inline">
+      <span
+        class="font-medium hidden sm:inline-block max-w-40 overflow-hidden text-ellipsis whitespace-nowrap"
+      >
         {{ user()?.first_name }} {{ user()?.last_name }}
       </span>
     </button>
