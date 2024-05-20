@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ModalService } from '../../../../components/modal/modal.service';
 import { ModalStatusComponent } from '../../../../components/modal-status/modal-status.component';
+import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
+import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ca-verify-bvn',
@@ -10,37 +13,68 @@ import { ModalStatusComponent } from '../../../../components/modal-status/modal-
 })
 export class VerifyBvnComponent {
   isSubmitted = false;
+  loading = false;
 
-  form = this.fb.group({
-    bvn: [null],
-  });
+  form = this.fb.group(
+    {
+      bvn: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(/^\d{11}$/),
+          emptyFieldValidator(),
+        ],
+      ],
+    },
+    { updateOn: 'submit' }
+  );
 
-  constructor(private fb: FormBuilder, private modalService: ModalService) {}
+  constructor(
+    private fb: FormBuilder,
+    private modalService: ModalService,
+    private api: DashboardApiService
+  ) {}
 
   get bvn() {
     return this.form.get('bvn');
   }
 
   handleSubmit() {
-    this.modalService.update(
-      ModalStatusComponent,
-      'small',
-      {},
-      {
-        success: true,
-        status: 'verification successful',
-        message:
-          'Congratulations!, your identity has been successfully verified \
-           and your account is now secure. Your new account number for \
-           transactions is 3096827890.',
-        // success: false,
-        // status: 'verification failed',
-        // message:
-        //   'The name on your profile does not match the name on your BVN. \
-        //   Please ensure that the information provided is accurate \
-        //   and corresponds to your official records',
-      }
-    );
+    this.isSubmitted = true;
+
+    if (this.form.invalid) return;
+
+    this.loading = true;
+    this.api.verifyBvn(this.form.value).subscribe({
+      next: ({ data }) => {
+        this.loading = false;
+        this.modalService.update(
+          ModalStatusComponent,
+          'small',
+          {},
+          {
+            success: true,
+            status: 'verification successful',
+            message: `Congratulations! Your identity has been successfully verified
+               and your account is now secure. Your new account number for
+               transactions is ${data.account_number}.`,
+          }
+        );
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.modalService.update(
+          ModalStatusComponent,
+          'small',
+          {},
+          {
+            success: false,
+            status: 'verification failed',
+            message: error.error.message,
+          }
+        );
+      },
+    });
   }
 
   skipVerification() {

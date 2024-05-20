@@ -1,14 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  isDevMode,
-  signal,
-} from '@angular/core';
-import { Observable, fromEvent, map, startWith } from 'rxjs';
-import { NetworkService } from '../../services/network.service';
+import { Component, isDevMode } from '@angular/core';
 import { ModalService } from '../../components/modal/modal.service';
-import { VerifyBvnComponent } from './components/verify-bvn/verify-bvn.component';
+import { NetworkService } from '../../services/network.service';
 import { UserStoreService } from '../../stores+/user.store';
 
 @Component({
@@ -34,10 +26,10 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
-    // this.isBvnVerified = !!this.userStore.user?.bvn_verification_status;
-    this.isBvnVerified = isDevMode()
-      ? true
-      : !!this.userStore.user?.bvn_verification_status;
+    this.isBvnVerified = !!this.userStore.user?.bvn_verification_status;
+    // this.isBvnVerified = isDevMode()
+    //   ? true
+    //   : !!this.userStore.user?.bvn_verification_status;
 
     async function loadBvn() {
       return (await import('./components/verify-bvn/verify-bvn.component'))

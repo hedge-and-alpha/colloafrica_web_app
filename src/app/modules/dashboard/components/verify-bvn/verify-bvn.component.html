@@ -16,14 +16,17 @@
     >
     <ca-form-field [isRequired]="true">
       <input
-        type="number"
+        type="text"
         class="h-full"
         formControlName="bvn"
         id="bvn"
         placeholder="Enter your 11 digit BVN number"
+        [ngClass]="{ 'ng-invalid ng-touched': isSubmitted && bvn?.invalid }"
       />
     </ca-form-field>
+    @if (isSubmitted && bvn?.invalid) {
     <ca-form-error [errors]="bvn?.errors" />
+    }
   </div>
 
   <div class="mt-14 flex justify-end gap-4 sm:gap-7">
@@ -35,7 +38,12 @@
     >
       Skip for now
     </button>
-    <button type="submit" class="w-full max-w-52" ca-button-primary>
+    <button
+      type="submit"
+      class="w-full max-w-52"
+      ca-button-primary
+      [loading]="loading"
+    >
       Continue
     </button>
   </div>

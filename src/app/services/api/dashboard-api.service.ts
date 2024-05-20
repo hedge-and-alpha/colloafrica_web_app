@@ -14,6 +14,7 @@ import { map, tap } from 'rxjs';
 import { ApiResponse } from '../../interfaces/api-response';
 import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
+import { Account } from '../../interfaces/account';
 
 @Injectable()
 export class DashboardApiService {
@@ -168,4 +169,13 @@ export class DashboardApiService {
     );
   }
   /********************** Profile end **********************/
+
+  /********************** Account **********************/
+  verifyBvn(data: object) {
+    return this.http.post<{ data: Account }>(
+      `${this.#baseUrl}/virtual-account/create`,
+      data
+    );
+  }
+  /********************** Account end **********************/
 }
