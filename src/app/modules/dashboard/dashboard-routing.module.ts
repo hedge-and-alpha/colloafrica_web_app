@@ -59,11 +59,11 @@ const routes: Routes = [
             title: 'Security | Profile',
             component: SecurityComponent,
           },
-          {
-            path: 'bvn',
-            title: 'BVN | Profile',
-            component: BvnComponent,
-          },
+          // {
+          //   path: 'bvn',
+          //   title: 'BVN | Profile',
+          //   component: BvnComponent,
+          // },
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
       },
