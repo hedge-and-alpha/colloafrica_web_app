@@ -76,6 +76,7 @@ export class AuthApiService {
         tap(() => {
           localStorage.removeItem('AUTH_TOKEN');
           this.router.navigate(['/auth']);
+          location.reload();
         })
       );
   }

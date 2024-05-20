@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../../../components/alert/alert.service';
+import { AuthApiService } from '../../../../../services/api/auth-api.service';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
 import { emptyFieldValidator } from '../../../../../validators/emptyField.validator';
 import { matchPasswordValidator } from '../../../../../validators/matchPassword.validator';
@@ -32,7 +33,8 @@ export class SecurityComponent {
     private fb: FormBuilder,
     private router: Router,
     private api: DashboardApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authApiService: AuthApiService
   ) {}
 
   get currentPassword() {
@@ -59,6 +61,9 @@ export class SecurityComponent {
           summary: status,
           details: message,
         });
+        setTimeout(() => {
+          this.authApiService.logoutUser();
+        }, 2000);
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
