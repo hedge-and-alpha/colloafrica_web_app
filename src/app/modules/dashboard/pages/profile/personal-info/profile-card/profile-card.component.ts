@@ -22,7 +22,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ProfileCardComponent {
   loading = false;
-  placeHolderImage = 'assets/images/profile-photo.jpg';
+  placeHolderImage = 'assets/images/profile-photo.webp';
   imgUrl: string | null = '';
 
   user = computed(() => this.userStore.user);
