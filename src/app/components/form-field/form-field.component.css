@@ -7,6 +7,10 @@
   border-color: var(--purple);
 }
 
+:host .ca-form-control:has([disabled]):hover {
+  border-color: #e5e7eb;
+}
+
 :host .ca-form-control:has(.ng-invalid.ng-dirty.ng-touched) {
   border-color: #d92121;
 }

@@ -66,11 +66,11 @@ export class ContactComponent implements OnInit {
     this.form = this.fb.group(
       {
         email: [
-          email,
+          { value: email, disabled: true },
           [Validators.required, Validators.email, emptyFieldValidator()],
         ],
         phone_number: [
-          phone_number,
+          { value: phone_number, disabled: true },
           [Validators.required, emptyFieldValidator()],
         ],
         address: [address, [emptyFieldValidator()]],

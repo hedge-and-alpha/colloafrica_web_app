@@ -129,6 +129,10 @@ hgroup p {
   width: 100%;
 }
 
+.ca-form-control:has([disabled]) {
+  background-color: #efefef4d;
+}
+
 label:has(input[type="radio"]) {
   cursor: pointer;
 }

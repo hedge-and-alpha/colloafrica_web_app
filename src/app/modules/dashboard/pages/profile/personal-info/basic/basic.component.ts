@@ -62,8 +62,14 @@ export class BasicComponent implements OnInit {
 
     this.form = this.fb.group(
       {
-        first_name: [first_name, [Validators.required, emptyFieldValidator()]],
-        last_name: [last_name, [Validators.required, emptyFieldValidator()]],
+        first_name: [
+          { value: first_name, disabled: true },
+          [Validators.required, emptyFieldValidator()],
+        ],
+        last_name: [
+          { value: last_name, disabled: true },
+          [Validators.required, emptyFieldValidator()],
+        ],
         dob: [dob ? new Date(dob) : new Date(), [Validators.required]],
         marital_status: [marital_status, [Validators.required]],
         gender: [gender, [Validators.required]],

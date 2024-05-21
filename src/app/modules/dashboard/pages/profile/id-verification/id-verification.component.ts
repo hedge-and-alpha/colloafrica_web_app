@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../components/alert/alert.service';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
@@ -28,12 +28,18 @@ export class IdVerificationComponent implements OnInit {
   }
 
   createForm() {
-    const { id_number, id_type } = this.userStore.user!;
+    let { id_number, id_type } = this.userStore.user!;
 
     this.form = this.fb.group(
       {
-        id_number: [id_number, [Validators.required]],
-        id_type: [id_type, [Validators.required]],
+        id_number: [
+          { value: id_number, disabled: !!id_number },
+          [Validators.required],
+        ],
+        id_type: [
+          { value: id_type, disabled: !!id_type },
+          [Validators.required],
+        ],
       },
       { updateOn: 'submit' }
     );
