@@ -3,23 +3,23 @@
 >
   <div class="h-[19px] mb-2 lg:mb-0 lg:h-9 flex items-center">
     <div class="text-sm">Account Name:</div>
-    <div class="value ms-auto font-medium">John Doe</div>
+    <div class="value ms-auto font-medium">********</div>
   </div>
 
   <div class="h-[19px] mb-2 lg:mb-0 lg:h-9 flex items-center">
     <div class="text-sm">Bank:</div>
-    <div class="value ms-auto font-medium">VFD Bank</div>
+    <div class="value ms-auto font-medium">********</div>
   </div>
 
   <div class="h-[19px] mb-2 lg:mb-5 lg:h-9 flex items-center">
     <div class="text-sm">Account No:</div>
-    <div class="value-acct ms-auto font-medium text-purple-main">
-      1234567890
-    </div>
+    <div class="value-acct ms-auto font-medium text-purple-main">********</div>
   </div>
 
-  <button class="inline-flex items-center gap-2" caCopyText="1234567890">
+  @if (user().bvn_verification_status) {
+  <!-- <button class="inline-flex items-center gap-2" caCopyText="1234567890">
     <i class="ca-copy"></i>
     <span class="text-xs">Copy to clipboard</span>
-  </button>
+  </button> -->
+  }
 </div>
