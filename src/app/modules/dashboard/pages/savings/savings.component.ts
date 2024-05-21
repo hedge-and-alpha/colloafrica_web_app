@@ -9,7 +9,7 @@ import { TableHeading } from '../../../../interfaces/table-heading';
 export class SavingsComponent {
   hasSavings = true;
   tableHeading = TABLE_HEADING;
-  tableData = TABLE_DATA;
+  tableData = [];
 }
 
 const TABLE_HEADING: TableHeading[] = [
@@ -18,28 +18,4 @@ const TABLE_HEADING: TableHeading[] = [
   { label: 'Payment Status' },
   { label: 'Date' },
   { label: 'Active Plan Txn?' },
-];
-
-const TABLE_DATA = [
-  {
-    amount: 10000,
-    units: 10,
-    status: 'success',
-    date: new Date().toISOString(),
-    active: 'Yes',
-  },
-  {
-    amount: 10000,
-    units: 10,
-    status: 'pending',
-    date: new Date().toISOString(),
-    active: 'No',
-  },
-  {
-    amount: 10000,
-    units: 10,
-    status: 'failed',
-    date: new Date().toISOString(),
-    active: 'Yes',
-  },
 ];

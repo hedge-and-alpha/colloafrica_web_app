@@ -8,35 +8,7 @@ import { TableHeading } from '../../../../interfaces/table-heading';
 })
 export class TransactionsComponent {
   tableHeading = TABLE_HEADING;
-  tableData = [
-    {
-      id: '83456721',
-      amount: '500',
-      date: '2024-04-20T01:56:59.492Z',
-      type: 'debit',
-      status: 'success',
-      debitedFrom: 'Card',
-      comment: '₦5,00.00 added to MGR',
-    },
-    {
-      id: '83456721',
-      amount: '1500',
-      date: '2024-04-20T01:56:59.492Z',
-      type: 'credit',
-      status: 'pending',
-      debitedFrom: 'Card',
-      comment: 'Transaction failed',
-    },
-    {
-      id: '83456721',
-      amount: '1500',
-      date: '2024-04-20T01:56:59.492Z',
-      type: 'credit',
-      status: 'failed',
-      debitedFrom: 'Card',
-      comment: '₦5,00.00 added to MGR',
-    },
-  ];
+  tableData = [];
 }
 
 const TABLE_HEADING: TableHeading[] = [

@@ -8,7 +8,7 @@ import { TableHeading } from '../../../../../interfaces/table-heading';
 })
 export class MyInvestmentsComponent {
   tableHeading = TABLE_HEADING;
-  tableData = TABLE_DATA;
+  tableData = [];
 }
 
 const TABLE_HEADING: TableHeading[] = [
@@ -19,25 +19,4 @@ const TABLE_HEADING: TableHeading[] = [
   { label: 'Returns' },
   { label: 'Status' },
   { label: 'Certificate Investment' },
-];
-
-const TABLE_DATA = [
-  {
-    category: 'real estate',
-    title: 'terra villa',
-    date: new Date().toISOString(),
-    amount: 30000,
-    returns: 30,
-    status: 'completed',
-    certificate: '',
-  },
-  {
-    category: 'real estate',
-    title: 'terra villa',
-    date: new Date().toISOString(),
-    amount: 30000,
-    returns: 30,
-    status: 'ongoing',
-    certificate: '',
-  },
 ];
