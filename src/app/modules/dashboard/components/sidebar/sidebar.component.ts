@@ -17,6 +17,12 @@ export class SidebarComponent {
 
   handleLogout() {
     this.auth.url = this.router.url;
-    this.api.logoutUser().subscribe();
+    this.api.logoutUser().subscribe({
+      next: () => {
+        localStorage.removeItem('AUTH_TOKEN');
+        this.router.navigate(['/auth']);
+        location.reload();
+      },
+    });
   }
 }

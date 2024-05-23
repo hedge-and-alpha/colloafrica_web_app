@@ -65,19 +65,11 @@ export class AuthApiService {
   }
 
   logoutUser() {
-    return this.http
-      .post<ApiResponse>(`${this.baseUrl}/auth/logout`, null, {
-        headers: new HttpHeaders().append(
-          'Authorization',
-          `Bearer ${this.AUTH_TOKEN}`
-        ),
-      })
-      .pipe(
-        tap(() => {
-          localStorage.removeItem('AUTH_TOKEN');
-          this.router.navigate(['/auth']);
-          location.reload();
-        })
-      );
+    return this.http.post<ApiResponse>(`${this.baseUrl}/auth/logout`, null, {
+      headers: new HttpHeaders().append(
+        'Authorization',
+        `Bearer ${this.AUTH_TOKEN}`
+      ),
+    });
   }
 }
