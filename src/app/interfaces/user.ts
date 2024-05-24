@@ -27,6 +27,14 @@ export interface User {
   kyc_status: number;
   nin_verification_status: 0 | 1;
   bvn_verification_status: 0 | 1;
+  bvn: {
+    bvn: string;
+  };
+  virtual_account: null | {
+    account_number: string;
+    account_first_name: string;
+    account_last_name: string;
+  };
 }
 
 export type BasicInfo = Pick<

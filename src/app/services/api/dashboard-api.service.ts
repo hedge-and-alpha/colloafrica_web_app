@@ -28,9 +28,9 @@ export class DashboardApiService {
 
   getUser() {
     return this.http
-      .get<{ data: { users: User } }>(`${this.#baseUrl}/user`)
+      .get<{ data: { user: User } }>(`${this.#baseUrl}/user`)
       .pipe(
-        map(({ data }) => data.users),
+        map(({ data }) => data.user),
         tap((user) => {
           this.userStore.user = user;
         })

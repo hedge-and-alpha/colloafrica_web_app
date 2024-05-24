@@ -1,4 +1,5 @@
 import { Directive, Input } from '@angular/core';
+import { AlertService } from '../../components/alert/alert.service';
 
 @Directive({
   selector: '[caCopyText]',
@@ -10,7 +11,7 @@ import { Directive, Input } from '@angular/core';
 export class CopyTextDirective {
   @Input({ required: true }) caCopyText = '';
 
-  constructor() {}
+  constructor(private alert: AlertService) {}
 
   handleClick() {
     if (!('clipboard' in navigator)) {
@@ -22,10 +23,7 @@ export class CopyTextDirective {
 
     navigator.clipboard.writeText(this.caCopyText).then(
       () => {
-        /**
-         * !TODO: Show alert
-         */
-        console.log('wrote to clipboard');
+        this.alert.open('plain', { details: 'Copied to clipboard' });
       },
       () => {
         /**
