@@ -5,10 +5,20 @@
       <div class="grow -mx-5">
         <ng-select
           class="px-2"
-          placeholder="Select a bank"
-          notFoundText="No bank(s) found."
-          formControlName="bank"
-        ></ng-select>
+          placeholder="Select bank"
+          labelForId="bank"
+          notFoundText="No banks found"
+          bindLabel="bank_name"
+          bindValue="bank_name"
+          appendTo="body"
+          [items]="banks$ | async"
+          [ngClass]="{
+            'ng-dirty ng-touched': isSubmitted && bankName?.invalid
+          }"
+          (change)="handleSelectBank($event)"
+        >
+          <!-- formControlName="bank_name" -->
+        </ng-select>
       </div>
     </ca-form-field>
   </div>
@@ -60,8 +70,8 @@
     </h2>
     <p class="max-w-[22.75rem] mx-auto leading-[1.375] text-[#171717]">
       You are about to send
-      {{ 1000000 | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to 2209287747
-      Zenith Bank.
+      {{ amount?.value | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to
+      {{ selectedBank.account_number }} {{ selectedBank.bank_name }}.
     </p>
   </hgroup>
 

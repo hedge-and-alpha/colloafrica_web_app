@@ -26,8 +26,7 @@ export class AlertService {
   open(type: Variant, config: Config = {}, duration = 5000) {
     let alert: Alert = {
       variant: type,
-      // id: crypto.randomUUID(),
-      id: Math.random().toString(36).slice(2),
+      id: Date.now().toString(),
       config,
     };
 

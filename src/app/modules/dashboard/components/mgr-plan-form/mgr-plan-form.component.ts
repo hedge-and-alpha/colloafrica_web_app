@@ -15,10 +15,9 @@ export class MgrPlanFormComponent {
 }
 
 const DURATIONS: Duration[] = [
-  { id: 1, name: '3 Months' },
-  { id: 2, name: '6 Months' },
-  { id: 3, name: '9 Months' },
-  { id: 4, name: '1 Year' },
+  { id: 'daily', name: 'Daily' },
+  { id: 'weekly', name: 'Weekly' },
+  { id: 'monthly', name: 'Monthly' },
 ];
 
 const THEME_COLOURS: Theme[] = [
@@ -49,4 +48,4 @@ const THEME_COLOURS: Theme[] = [
 ];
 
 type Theme = { from: string; to: string };
-type Duration = { id: number; name: string };
+type Duration = { id: string; name: string };

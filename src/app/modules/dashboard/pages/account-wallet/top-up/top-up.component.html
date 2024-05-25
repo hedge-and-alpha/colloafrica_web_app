@@ -6,6 +6,7 @@
       type="number"
       formControlName="amount"
       placeholder="Enter amount (e.g 1000)"
+      [ngClass]="{ 'ng-touched ng-dirty': isSubmitted && amount?.invalid }"
     />
   </ca-form-field>
 
@@ -13,7 +14,9 @@
     Minimum Amount: {{ 1000 | currency : "NGN" : "symbol-narrow" }}
   </p>
 
+  @if (isSubmitted && amount?.invalid) {
   <ca-form-error [errors]="amount?.errors" />
+  }
 
   <div class="mt-7 text-end">
     <button class="w-52" ca-button-primary type="submit">Next</button>
@@ -59,8 +62,8 @@
         <div
           class="ms-auto text-xl font-semibold text-purple-main inline-flex gap-1"
         >
-          <span>1234567890</span>
-          <button caCopyText="1234567890">
+          <span>{{ account()?.account_number }}</span>
+          <button [caCopyText]="account()!.account_number">
             <i class="ca-copy font-medium"></i>
           </button>
         </div>
@@ -68,7 +71,9 @@
 
       <div class="h-[19px] flex items-center">
         <div class="text-sm">Account Name:</div>
-        <div class="text-[#171717] ms-auto font-medium">Akinyemi Olushola</div>
+        <div class="text-[#171717] ms-auto font-medium">
+          {{ account()?.account_first_name }} {{ account()?.account_last_name }}
+        </div>
       </div>
     </div>
   </div>

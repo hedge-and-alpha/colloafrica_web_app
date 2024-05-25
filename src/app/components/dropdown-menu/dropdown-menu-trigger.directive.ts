@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Output } from '@angular/core';
 
 @Directive({
   selector: '[caDropdownMenuTrigger]',
@@ -8,6 +8,8 @@ import { Directive, ElementRef } from '@angular/core';
   },
 })
 export class DropdownMenuTriggerDirective {
+  @Output() onClick = new EventEmitter();
+
   constructor(private elementRef: ElementRef<HTMLElement>) {}
 
   toggleDropdownMenu(event: Event) {

@@ -28,9 +28,6 @@ export class DashboardComponent {
   ngOnInit() {
     this.isBvnVerified =
       this.userStore.user?.bvn_verification_status === 1 ? true : false;
-    // this.isBvnVerified = isDevMode()
-    //   ? true
-    //   : !!this.userStore.user?.bvn_verification_status;
 
     async function loadBvn() {
       return (await import('./components/verify-bvn/verify-bvn.component'))
