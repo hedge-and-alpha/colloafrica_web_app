@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { TableHeading } from '../../../../interfaces/table-heading';
+import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
+import { Transaction } from '../../../../interfaces/account';
+import { TablePagination } from '../../../../interfaces/api-response';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ca-transactions',
@@ -7,8 +11,53 @@ import { TableHeading } from '../../../../interfaces/table-heading';
   styleUrl: './transactions.component.css',
 })
 export class TransactionsComponent {
+  currentPage = 1;
   tableHeading = TABLE_HEADING;
-  tableData = [];
+  tableData: Transaction[] = [];
+  pagination!: TablePagination;
+
+  constructor(
+    private api: DashboardApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.getTransactions(this.currentPage);
+  }
+
+  getTransactions(page: number) {
+    this.api.getTransactions(page).subscribe({
+      next: ({ data }) => {
+        this.tableData = data.transactions;
+        let pagination: TablePagination = {
+          current_page: data.current_page,
+          last_page: data.last_page,
+          next_page_url: data.next_page_url,
+          per_page: data.per_page,
+          prev_page_url: data.prev_page_url,
+          total: data.total,
+        };
+        this.pagination = pagination;
+      },
+    });
+  }
+
+  handlePrevPageClick() {
+    this.currentPage--;
+  }
+
+  handleNextPageClick() {
+    this.currentPage++;
+    this.tableData = [];
+    this.getTransactions(this.currentPage);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.currentPage,
+      },
+    });
+  }
 }
 
 const TABLE_HEADING: TableHeading[] = [

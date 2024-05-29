@@ -21,6 +21,9 @@
 :host .ca-table .paginator button {
   font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
 }
+:host .ca-table .paginator button:disabled {
+  opacity: 0.5;
+}
 :host .ca-table .paginator span {
   font-size: clamp(0.625rem, 0.5rem + 0.5556vw, 1rem);
   width: 30px;

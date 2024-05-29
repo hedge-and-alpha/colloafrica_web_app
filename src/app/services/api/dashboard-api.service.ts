@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Account, Transaction } from '../../interfaces/account';
+import { ApiResponse, TablePagination } from '../../interfaces/api-response';
+import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
 import {
   BasicInfo,
   ContactInfo,
@@ -9,12 +13,8 @@ import {
   NextOfKinInfo,
   User,
 } from '../../interfaces/user';
-import { UserStoreService } from '../../stores+/user.store';
-import { map, tap } from 'rxjs';
-import { ApiResponse } from '../../interfaces/api-response';
-import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
-import { Account, Transaction } from '../../interfaces/account';
+import { UserStoreService } from '../../stores+/user.store';
 
 @Injectable()
 export class DashboardApiService {
@@ -178,10 +178,12 @@ export class DashboardApiService {
     );
   }
 
-  getTransactions() {
+  getTransactions(page = 1, perPage = 10) {
     return this.http.get<
-      ApiResponse & { data: { transactions: Transaction[] } }
-    >(`${this.#baseUrl}/transaction`);
+      ApiResponse & {
+        data: { transactions: Transaction[] } & TablePagination;
+      }
+    >(`${this.#baseUrl}/transaction?page=${page}&per_page=${perPage}`);
   }
 
   requestOtp() {

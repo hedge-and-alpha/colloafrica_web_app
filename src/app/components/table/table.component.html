@@ -45,16 +45,27 @@
   @if (tableData.length) {
   <div class="flex items-center font-medium text-[#5c5c5c]">
     <p class="hidden sm:block">
-      Showing {{ currentPage }} to 4 of {{ tableData.length }} Entries
+      Showing {{ paginationData.current_page }} to
+      {{ paginationData.per_page }} of {{ paginationData.total }} Entries
     </p>
 
     <div class="paginator sm:ms-auto flex items-center gap-2">
-      <button>Previous</button>
+      <button
+        [disabled]="!paginationData.prev_page_url"
+        (click)="onPrevClick.emit()"
+      >
+        Previous
+      </button>
       <span
         class="bg-purple-main text-white inline-flex items-center justify-center font-semibold"
-        >1</span
+        >{{ paginationData.current_page }}</span
       >
-      <button>Next</button>
+      <button
+        [disabled]="!paginationData.next_page_url"
+        (click)="onNextClick.emit()"
+      >
+        Next
+      </button>
     </div>
   </div>
   }

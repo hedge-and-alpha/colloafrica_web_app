@@ -20,6 +20,7 @@
 
       <a
         [routerLink]="['/', 'investment', slug, id]"
+        [state]="{ investmentId: id }"
         class="text-purple-main inline-flex items-center gap-1 font-medium ms-auto sm:ms-0 sm:mt-[14px]"
       >
         <i class="ca-arrow-right"></i> <span>View Details</span>

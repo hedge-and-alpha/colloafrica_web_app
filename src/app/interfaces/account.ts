@@ -15,7 +15,7 @@ export interface Transaction {
   amount: string;
   processing_fee: number;
   total_amount: string;
-  flow: string;
+  flow: 'in' | 'out';
   remark: string;
   description: string;
   source: string;
