@@ -179,9 +179,9 @@ export class DashboardApiService {
   }
 
   getTransactions() {
-    return this.http.get<ApiResponse & { data: Transaction[] }>(
-      `${this.#baseUrl}/transaction`
-    );
+    return this.http.get<
+      ApiResponse & { data: { transactions: Transaction[] } }
+    >(`${this.#baseUrl}/transaction`);
   }
 
   requestOtp() {

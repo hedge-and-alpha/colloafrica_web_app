@@ -5,7 +5,9 @@
     <ng-template let-item #tableBody>
       <td class="whitespace-nowrap">{{ item.id }}</td>
       <td class="whitespace-nowrap">#{{ item.amount | number : "1.2-2" }}</td>
-      <td class="whitespace-nowrap">{{ item.date | date : "dd MMM, yyyy" }}</td>
+      <td class="whitespace-nowrap">
+        {{ item.created_at | date : "dd MMM, yyyy" }}
+      </td>
       <td class="whitespace-nowrap">
         <div class="h-full flex items-center justify-center gap-2">
           @if (item.type === 'debit') {

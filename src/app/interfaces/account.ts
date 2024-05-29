@@ -24,4 +24,5 @@ export interface Transaction {
   destination_id: string;
   provider: string;
   provider_status: string;
+  created_at: string;
 }
