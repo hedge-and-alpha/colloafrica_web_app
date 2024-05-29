@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, computed } from '@angular/core';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ModalService } from '../../../../../components/modal/modal.service';
 import { ModalStatusComponent } from '../../../../../components/modal-status/modal-status.component';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
 import { Observable } from 'rxjs';
 import { BankAccount } from '../../../../../interfaces/bank-and-card';
+import { UserStoreService } from '../../../../../stores+/user.store';
+import { AlertService } from '../../../../../components/alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { emptyFieldValidator } from '../../../../../validators/emptyField.validator';
 
 type WithdrawStep = 'bank-details-form' | 'confirm' | 'otp';
 
@@ -15,92 +19,150 @@ type WithdrawStep = 'bank-details-form' | 'confirm' | 'otp';
 })
 export class WithdrawComponent implements OnInit {
   step: WithdrawStep = 'bank-details-form';
+  holderName = '';
   isSubmitted = false;
-  selectedBank!: BankAccount;
+  loading = false;
+  selectedBank: BankAccount | null = null;
   banks$!: Observable<BankAccount[]>;
+  user = computed(() => this.userStore.user);
 
   form = this.fb.group(
     {
-      bank: [null, [Validators.required]],
+      bank_account_id: [null, [Validators.required]],
       account_number: [null, [Validators.required]],
       amount: [null, [Validators.required, Validators.min(1000)]],
     },
     { updateOn: 'submit' }
   );
 
+  otpForm = this.fb.group({
+    otp: [
+      '',
+      [Validators.required, Validators.maxLength(4), emptyFieldValidator],
+    ],
+  });
+
   constructor(
     private fb: FormBuilder,
     private modalService: ModalService,
-    private api: DashboardApiService
+    private api: DashboardApiService,
+    private userStore: UserStoreService,
+    private alert: AlertService
   ) {}
 
   ngOnInit() {
     this.banks$ = this.api.getBankAccounts();
   }
 
-  get bankName() {
-    return this.form.get('bank_name');
+  get bankAccountId() {
+    return this.form.get('bank_account_id');
+  }
+  get accountNumber() {
+    return this.form.get('account_number');
   }
   get amount() {
     return this.form.get('amount');
   }
+  get otp() {
+    return this.otpForm.get('otp');
+  }
 
-  handleSelectBank(event: BankAccount) {
-    console.log(event);
+  handleSelectBank(event: BankAccount | undefined) {
+    if (!event) {
+      this.selectedBank = null;
+      this.holderName = '';
+      this.accountNumber?.patchValue(null);
+      return;
+    }
     this.selectedBank = event;
-    // this.bankCode?.setValue(event.bank_code);
-    // if (event.bank_code === '999999') {
-    //   this.transferType?.setValue('intra');
-    // } else {
-    //   this.transferType?.setValue('inter');
-    // }
+    this.holderName = event.holder_name;
+    this.accountNumber?.setValue(event.account_number as any);
   }
 
   handleSubmit() {
-    console.log(this.form.value);
     this.isSubmitted = true;
 
-    // if (this.form.invalid) return
-
+    if (this.form.invalid) return;
+    this.step = 'confirm';
     this.modalService.updateConfig({
       closable: false,
       showHeading: false,
     });
-    this.step = 'confirm';
+    this.isSubmitted = false;
   }
 
   moveToOtp() {
-    this.modalService;
-    this.modalService.updateConfig(
-      {
-        closable: true,
-        showHeading: true,
-        headingText: '',
+    this.loading = true;
+    this.api.requestOtp().subscribe({
+      next: ({ message, status }) => {
+        this.alert.open('success', { details: message, summary: status });
+        this.loading = false;
+        this.modalService.updateConfig(
+          {
+            closable: true,
+            showHeading: true,
+            headingText: '',
+          },
+          'small'
+        );
+        this.step = 'otp';
       },
-      'small'
-    );
-    this.step = 'otp';
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+        this.loading = false;
+      },
+    });
   }
 
   cancelWithdrawalRequest() {
     this.modalService.close();
   }
 
-  complete() {
-    this.modalService.update(
-      ModalStatusComponent,
-      'small',
-      {
-        closable: false,
-        showHeading: false,
+  completeWithdrawal() {
+    this.isSubmitted = true;
+
+    if (this.otpForm.invalid) return;
+    this.loading = true;
+
+    const data = {
+      bank_account_id: `${this.bankAccountId!.value}`,
+      amount: `${this.amount!.value}`,
+      otp: this.otp!.value,
+    };
+
+    this.api.initiateWithdrawal(data).subscribe({
+      next: ({ message, status }) => {
+        this.modalService.update(
+          ModalStatusComponent,
+          'small',
+          {
+            closable: false,
+            showHeading: false,
+          },
+          {
+            success: true,
+            status: status,
+          }
+        );
+        this.loading = false;
       },
-      {
-        success: true,
-        // success: false,
-        status: 'Transfer successful',
-        // status: 'Transfer failed',
-        // message: 'Your transfer failed due to insufficient funds',
-      }
-    );
+      error: (error: HttpErrorResponse) => {
+        console.log('initiate error:', error);
+        this.loading = false;
+        this.modalService.update(
+          ModalStatusComponent,
+          'small',
+          {
+            closable: false,
+            showHeading: false,
+          },
+          {
+            success: false,
+            status: 'Transfer failed',
+            message: error.error.message,
+          }
+        );
+      },
+    });
   }
 }

@@ -8,7 +8,7 @@
     <div class="inline-flex items-center">
       <i class="ca-naira text-lg"></i>
       <span class="amount font-semibold">
-        {{ balance | number : "1.2-2" }}
+        {{ balance() | number : "1.2-2" }}
       </span>
     </div>
     } @else {

@@ -9,18 +9,21 @@
           labelForId="bank"
           notFoundText="No banks found"
           bindLabel="bank_name"
-          bindValue="bank_name"
+          bindValue="id"
           appendTo="body"
+          formControlName="bank_account_id"
           [items]="banks$ | async"
           [ngClass]="{
-            'ng-dirty ng-touched': isSubmitted && bankName?.invalid
+            'ng-dirty ng-touched': isSubmitted && bankAccountId?.invalid
           }"
           (change)="handleSelectBank($event)"
         >
-          <!-- formControlName="bank_name" -->
         </ng-select>
       </div>
     </ca-form-field>
+    @if (isSubmitted && bankAccountId?.invalid) {
+    <ca-form-error [errors]="bankAccountId?.errors" />
+    }
   </div>
 
   <div class="mb-6">
@@ -30,11 +33,14 @@
         type="number"
         formControlName="account_number"
         placeholder="0123456789"
+        readonly
       />
     </ca-form-field>
+    @if (holderName.length) {
     <p class="text-end text-purple-main mt-2 leading-1.2">
-      Chika Esther Bamidale
+      {{ holderName | titlecase }}
     </p>
+    }
   </div>
 
   <div class="mb-5">
@@ -44,7 +50,12 @@
         type="number"
         formControlName="amount"
         placeholder="Enter amount, e.g 1000"
+        [ngClass]="{ 'ng-dirty ng-touched': isSubmitted && amount?.invalid }"
     /></ca-form-field>
+
+    @if (isSubmitted && amount?.invalid) {
+    <ca-form-error [errors]="amount?.errors" />
+    }
   </div>
 
   <div class="mb-12 flex text-sm leading-1.2">
@@ -71,7 +82,7 @@
     <p class="max-w-[22.75rem] mx-auto leading-[1.375] text-[#171717]">
       You are about to send
       {{ amount?.value | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to
-      {{ selectedBank.account_number }} {{ selectedBank.bank_name }}.
+      {{ selectedBank?.account_number }} {{ selectedBank?.bank_name }}.
     </p>
   </hgroup>
 
@@ -88,6 +99,7 @@
       class="w-full"
       ca-button-primary
       type="button"
+      [loading]="loading"
       (click)="moveToOtp()"
     >
       Continue
@@ -100,19 +112,30 @@
     <h2 class="mt-2 mb-3 font-medium text-2xl">OTP Verification</h2>
     <p>
       please enter the 4-digit verification code sent to your email address
-      akinyemi&#64;gmail.com to proceed
+      {{ user()!.email }} to proceed
     </p>
   </hgroup>
 
-  <div class="mx-auto max-w-[18.5rem]">
-    <ca-otp [size]="4" />
-  </div>
+  <form [formGroup]="otpForm" (ngSubmit)="completeWithdrawal()">
+    <div class="mx-auto max-w-[18.5rem]">
+      <ca-otp [size]="4" formControlName="otp" />
 
-  <div class="mt-11 mb-8">
-    <button type="button" class="w-full" ca-button-primary (click)="complete()">
-      Confirm
-    </button>
-  </div>
+      @if (isSubmitted && otp?.errors) {
+      <ca-form-error [errors]="otp?.errors" />
+      }
+    </div>
+
+    <div class="mt-11 mb-8">
+      <button
+        type="submit"
+        class="w-full"
+        ca-button-primary
+        [loading]="loading"
+      >
+        Confirm
+      </button>
+    </div>
+  </form>
 
   <p class="text-[#171717]">
     Haven't received the OTP?

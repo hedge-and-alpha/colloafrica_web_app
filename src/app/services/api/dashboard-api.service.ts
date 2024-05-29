@@ -14,7 +14,7 @@ import { map, tap } from 'rxjs';
 import { ApiResponse } from '../../interfaces/api-response';
 import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
-import { Account } from '../../interfaces/account';
+import { Account, Transaction } from '../../interfaces/account';
 
 @Injectable()
 export class DashboardApiService {
@@ -174,6 +174,25 @@ export class DashboardApiService {
   verifyBvn(data: object) {
     return this.http.post<{ data: Account }>(
       `${this.#baseUrl}/virtual-account/create`,
+      data
+    );
+  }
+
+  getTransactions() {
+    return this.http.get<ApiResponse & { data: Transaction[] }>(
+      `${this.#baseUrl}/transaction`
+    );
+  }
+
+  requestOtp() {
+    return this.http.get<ApiResponse>(
+      `${this.#baseUrl}/transaction/request-otp`
+    );
+  }
+
+  initiateWithdrawal(data: object) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/transaction/transfer`,
       data
     );
   }

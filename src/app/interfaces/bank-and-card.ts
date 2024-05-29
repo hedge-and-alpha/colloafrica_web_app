@@ -9,6 +9,7 @@ export interface BankAccount {
   user_id: number;
   bank_name: string;
   bank_code: string;
+  holder_name: string;
   account_number: string;
   transfer_type: 'inter' | 'intra';
   status: 0 | 1;

@@ -35,6 +35,22 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           this.#router.navigate(['/auth']);
         }
+
+        let errorMessage = '';
+
+        if (error.status === 0) {
+          errorMessage +=
+            'An error occurred: Unable to complete the request. This might be due to network issues, server downtime, or CORS restrictions. Please check your internet connection and try again.';
+        }
+
+        console.log('error:', error);
+
+        // if (error.status === 0) {
+        //   return throwError(() => ({
+        //     ...error,
+        //     error: { ...error.error, message: errorMessage },
+        //   }));
+        // }
         return throwError(() => error);
       })
     );

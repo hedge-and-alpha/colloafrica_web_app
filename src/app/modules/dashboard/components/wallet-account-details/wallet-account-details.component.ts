@@ -16,7 +16,7 @@ export class WalletAccountDetailsComponent implements OnInit {
     this.accountDetails = `Account Name: ${
       this.account()?.account_first_name
     } ${this.account()?.account_last_name}
-    Bank: VFD Bank
+    Bank: ${this.account()?.bank_name}
     Account Number: ${this.account()?.account_number}`;
   }
 }
