@@ -30,14 +30,16 @@ export interface User {
   bvn: {
     bvn: string;
   };
-  virtual_account: null | {
-    account_number: string;
-    account_first_name: string;
-    account_last_name: string;
-    bank_name: string;
-    account_balance: string;
-  };
+  virtual_account: null | VirtualAccount;
 }
+
+export type VirtualAccount = {
+  account_number: string;
+  account_first_name: string;
+  account_last_name: string;
+  bank_name: string;
+  account_balance: string;
+};
 
 export type BasicInfo = Pick<
   User,

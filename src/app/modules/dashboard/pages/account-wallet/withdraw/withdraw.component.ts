@@ -144,6 +144,7 @@ export class WithdrawComponent implements OnInit {
             status: status,
           }
         );
+        this.userStore.updateWalletBalance('withdraw', +this.amount!.value!);
         this.loading = false;
       },
       error: (error: HttpErrorResponse) => {

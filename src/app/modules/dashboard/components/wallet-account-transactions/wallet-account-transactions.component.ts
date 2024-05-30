@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TableHeading } from '../../../../interfaces/table-heading';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { Transaction } from '../../../../interfaces/account';
+import { TablePagination } from '../../../../interfaces/api-response';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ca-wallet-account-transactions',
@@ -9,19 +11,58 @@ import { Transaction } from '../../../../interfaces/account';
   styleUrl: './wallet-account-transactions.component.css',
 })
 export class WalletAccountTransactionsComponent implements OnInit {
+  currentPage = 1;
   tableHeading = TABLE_HEADING;
+  pagination!: TablePagination;
   tableData: Transaction[] = [];
 
-  constructor(private api: DashboardApiService) {}
+  constructor(
+    private api: DashboardApiService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.getTransactions();
+    this.getTransactions(this.currentPage);
   }
 
-  getTransactions() {
-    this.api.getTransactions().subscribe({
+  getTransactions(page: number) {
+    this.api.getTransactions(page).subscribe({
       next: ({ data }) => {
         this.tableData = data.transactions;
+        let pagination: TablePagination = {
+          current_page: data.current_page,
+          last_page: data.last_page,
+          next_page_url: data.next_page_url,
+          per_page: data.per_page,
+          prev_page_url: data.prev_page_url,
+          total: data.total,
+        };
+        this.pagination = pagination;
+      },
+    });
+  }
+
+  handlePrevPageClick() {
+    this.currentPage--;
+    this.tableData = [];
+    this.getTransactions(this.currentPage);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.currentPage,
+      },
+    });
+  }
+
+  handleNextPageClick() {
+    this.currentPage++;
+    this.tableData = [];
+    this.getTransactions(this.currentPage);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.currentPage,
       },
     });
   }

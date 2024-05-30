@@ -45,6 +45,14 @@ export class TransactionsComponent {
 
   handlePrevPageClick() {
     this.currentPage--;
+    this.tableData = [];
+    this.getTransactions(this.currentPage);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        page: this.currentPage,
+      },
+    });
   }
 
   handleNextPageClick() {
