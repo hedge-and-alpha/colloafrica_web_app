@@ -5,6 +5,7 @@ import { ModalStatusComponent } from '../../../../components/modal-status/modal-
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UserStoreService } from '../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-verify-bvn',
@@ -32,7 +33,8 @@ export class VerifyBvnComponent {
   constructor(
     private fb: FormBuilder,
     private modalService: ModalService,
-    private api: DashboardApiService
+    private api: DashboardApiService,
+    private userStore: UserStoreService
   ) {}
 
   get bvn() {
@@ -60,6 +62,7 @@ export class VerifyBvnComponent {
                transactions is ${data.account_number}.`,
           }
         );
+        this.userStore.updateBvnStatus(1);
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;

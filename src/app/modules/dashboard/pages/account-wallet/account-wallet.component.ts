@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { ModalService } from '../../../../components/modal/modal.service';
 import { TopUpComponent } from './top-up/top-up.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { UserStoreService } from '../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-account-wallet',
@@ -9,7 +10,25 @@ import { WithdrawComponent } from './withdraw/withdraw.component';
   styleUrl: './account-wallet.component.css',
 })
 export class AccountWalletComponent {
-  constructor(private modalService: ModalService) {}
+  bvnVerified = computed(() => this.userStore.user!.bvn_verification_status);
+
+  constructor(
+    private modalService: ModalService,
+    private userStore: UserStoreService
+  ) {}
+
+  verifyBvn() {
+    async function loadBvn() {
+      return (await import('../../components/verify-bvn/verify-bvn.component'))
+        .VerifyBvnComponent;
+    }
+
+    loadBvn().then((bvnComponent) => {
+      this.modalService.open(bvnComponent, 'regular', {
+        showHeading: false,
+      });
+    });
+  }
 
   openModal(target: 'top-up' | 'withdraw') {
     if (target === 'top-up') {

@@ -19,6 +19,13 @@ export class UserStoreService {
     this.#user.update((u) => ({ ...u, ...user }));
   }
 
+  updateBvnStatus(status: 0 | 1) {
+    this.#user.update((user) => ({
+      ...user!,
+      bvn_verification_status: status,
+    }));
+  }
+
   updateWalletBalance(amount: number) {
     this.#user.update((user) => ({
       ...user!,
