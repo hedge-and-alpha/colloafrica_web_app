@@ -3,7 +3,7 @@
 <ca-card class="rounded-xl p-4 mb-6 lg:mb-10">
   <ca-table
     [tableHeading]="tableHeading"
-    [tableData]="tableData"
+    [tableData]="tableData()"
     [paginationData]="pagination"
     (onNextClick)="handleNextPageClick()"
     (onPrevClick)="handlePrevPageClick()"

@@ -15,6 +15,7 @@ import {
 } from '../../interfaces/user';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
 import { UserStoreService } from '../../stores+/user.store';
+import { TransactionStoreService } from '../../stores+/transaction.store';
 
 @Injectable()
 export class DashboardApiService {
@@ -23,7 +24,8 @@ export class DashboardApiService {
   constructor(
     private http: HttpClient,
     private userStore: UserStoreService,
-    private cardBankStore: CardAndBankStoreService
+    private cardBankStore: CardAndBankStoreService,
+    private transactionStore: TransactionStoreService
   ) {}
 
   getUser() {
@@ -179,11 +181,17 @@ export class DashboardApiService {
   }
 
   getTransactions(page = 1, perPage = 10) {
-    return this.http.get<
-      ApiResponse & {
-        data: { transactions: Transaction[] } & TablePagination;
-      }
-    >(`${this.#baseUrl}/transaction?page=${page}&per_page=${perPage}`);
+    return this.http
+      .get<
+        ApiResponse & {
+          data: { transactions: Transaction[] } & TablePagination;
+        }
+      >(`${this.#baseUrl}/transaction?page=${page}&per_page=${perPage}`)
+      .pipe(
+        tap(({ data }) =>
+          this.transactionStore.setTransactions(data.transactions)
+        )
+      );
   }
 
   requestOtp() {
@@ -193,10 +201,11 @@ export class DashboardApiService {
   }
 
   initiateWithdrawal(data: object) {
-    return this.http.post<ApiResponse>(
-      `${this.#baseUrl}/transaction/transfer`,
-      data
-    );
+    return this.http.post<
+      ApiResponse & {
+        data: { transaction: Transaction; current_balance: number };
+      }
+    >(`${this.#baseUrl}/transaction/transfer`, data);
   }
   /********************** Account end **********************/
 }

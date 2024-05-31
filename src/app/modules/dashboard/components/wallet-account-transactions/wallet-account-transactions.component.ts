@@ -23,6 +23,8 @@ export class WalletAccountTransactionsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const page = this.route.snapshot.queryParamMap.get('page');
+    this.currentPage = page ? +page : 1;
     this.getTransactions(this.currentPage);
   }
 

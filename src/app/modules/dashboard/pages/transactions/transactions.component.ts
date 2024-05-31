@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { TableHeading } from '../../../../interfaces/table-heading';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { Transaction } from '../../../../interfaces/account';
 import { TablePagination } from '../../../../interfaces/api-response';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TransactionStoreService } from '../../../../stores+/transaction.store';
 
 @Component({
   selector: 'ca-transactions',
@@ -13,23 +14,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TransactionsComponent {
   currentPage = 1;
   tableHeading = TABLE_HEADING;
-  tableData: Transaction[] = [];
+  tableData = computed(() => this.transactionStore.transactions());
   pagination!: TablePagination;
 
   constructor(
     private api: DashboardApiService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private transactionStore: TransactionStoreService
   ) {}
 
   ngOnInit() {
+    const page = this.route.snapshot.queryParamMap.get('page');
+    this.currentPage = page ? +page : 1;
     this.getTransactions(this.currentPage);
   }
 
   getTransactions(page: number) {
     this.api.getTransactions(page).subscribe({
       next: ({ data }) => {
-        this.tableData = data.transactions;
         let pagination: TablePagination = {
           current_page: data.current_page,
           last_page: data.last_page,
@@ -45,7 +48,6 @@ export class TransactionsComponent {
 
   handlePrevPageClick() {
     this.currentPage--;
-    this.tableData = [];
     this.getTransactions(this.currentPage);
     this.router.navigate([], {
       relativeTo: this.route,
@@ -57,7 +59,6 @@ export class TransactionsComponent {
 
   handleNextPageClick() {
     this.currentPage++;
-    this.tableData = [];
     this.getTransactions(this.currentPage);
     this.router.navigate([], {
       relativeTo: this.route,

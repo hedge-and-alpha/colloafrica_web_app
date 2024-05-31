@@ -9,6 +9,7 @@ import { UserStoreService } from '../../../../../stores+/user.store';
 import { AlertService } from '../../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { emptyFieldValidator } from '../../../../../validators/emptyField.validator';
+import { TransactionStoreService } from '../../../../../stores+/transaction.store';
 
 type WithdrawStep = 'bank-details-form' | 'confirm' | 'otp';
 
@@ -47,7 +48,8 @@ export class WithdrawComponent implements OnInit {
     private modalService: ModalService,
     private api: DashboardApiService,
     private userStore: UserStoreService,
-    private alert: AlertService
+    private alert: AlertService,
+    private transactionStore: TransactionStoreService
   ) {}
 
   ngOnInit() {
@@ -131,7 +133,7 @@ export class WithdrawComponent implements OnInit {
     };
 
     this.api.initiateWithdrawal(data).subscribe({
-      next: ({ message, status }) => {
+      next: ({ data, status }) => {
         this.modalService.update(
           ModalStatusComponent,
           'small',
@@ -144,11 +146,11 @@ export class WithdrawComponent implements OnInit {
             status: status,
           }
         );
-        this.userStore.updateWalletBalance('withdraw', +this.amount!.value!);
+        this.userStore.updateWalletBalance(data.current_balance);
+        this.transactionStore.updateTransactions(data.transaction);
         this.loading = false;
       },
       error: (error: HttpErrorResponse) => {
-        console.log('initiate error:', error);
         this.loading = false;
         this.modalService.update(
           ModalStatusComponent,
@@ -159,7 +161,7 @@ export class WithdrawComponent implements OnInit {
           },
           {
             success: false,
-            status: 'Transfer failed',
+            status: error.status + ': Transfer failed',
             message: error.error.message,
           }
         );

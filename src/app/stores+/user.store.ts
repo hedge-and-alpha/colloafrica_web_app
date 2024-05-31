@@ -19,16 +19,12 @@ export class UserStoreService {
     this.#user.update((u) => ({ ...u, ...user }));
   }
 
-  updateWalletBalance(type: 'withdraw' | 'topUp', amount: number) {
-    let currentBalance = Number(this.user!.virtual_account!.account_balance);
-    let newBalance =
-      type === 'withdraw' ? currentBalance - amount : currentBalance + amount;
-
+  updateWalletBalance(amount: number) {
     this.#user.update((user) => ({
       ...user!,
       virtual_account: {
         ...this.user!.virtual_account!,
-        account_balance: newBalance.toString(),
+        account_balance: amount.toString(),
       },
     }));
   }
