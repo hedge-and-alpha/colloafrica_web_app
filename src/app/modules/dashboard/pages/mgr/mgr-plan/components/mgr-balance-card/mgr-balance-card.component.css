@@ -1,0 +1,22 @@
+:host ca-card {
+  background: linear-gradient(58.91deg, #470b96 9.35%, #6b1bd3 91.36%);
+  border-radius: 15px;
+}
+
+:host #coin {
+  width: clamp(3.625rem, 3.5rem + 0.5556vw, 4rem);
+  aspect-ratio: 1;
+}
+
+:host .date {
+  color: #7d7f85;
+  border-radius: 4px;
+  padding: 8px 0.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+:host .divider {
+  height: 0.5px;
+  background-color: #dadada;
+}

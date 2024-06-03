@@ -1,0 +1,59 @@
+<ca-card class="p-5 text-white">
+  <div class="top-half flex items-start sm:items-center gap-4">
+    <img src="assets/images/naira-coin.webp" alt="" id="coin" />
+    <div class="grow flex flex-col sm:flex-row gap-6">
+      <div>
+        <p
+          class="font-semibold"
+          style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
+        >
+          {{ 10000000000 | currency : "NGN" : "symbol-narrow" : "1.0-0" }}
+        </p>
+        <p class="text-sm sm:hidden">Recurring Amount</p>
+        <p class="hidden sm:block sm:text-[0.625rem]">
+          Recurring Amount (Auto debit)
+        </p>
+      </div>
+
+      <div class="font-medium sm:ms-auto">
+        <div class="date bg-white text-xs mb-4 sm:mb-2 -ms-[6px] sm:ms-0">
+          Starts&nbsp;
+          <time datetime="26 October, 2023">26 October, 2023</time>
+        </div>
+        <p class="text-[0.625rem] leading-[1.4]">
+          Allotment Mode : Auto Position
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider mt-6 mb-5"></div>
+
+  <div class="bottom-half text-sm sm:text-xs flex flex-col sm:flex-row gap-3">
+    <div class="flex flex-col gap-3 grow">
+      <div class="flex items-center">
+        <div class="font-medium">Interval Type:</div>
+        <div class="ms-auto">Monthly</div>
+      </div>
+
+      <div class="flex items-center">
+        <div class="font-medium">Duration:</div>
+        <div class="ms-auto">10 Months</div>
+      </div>
+    </div>
+
+    <div class="hidden sm:block h-[50px] w-[0.5px] mx-4 bg-[#b0b0b0]"></div>
+
+    <div class="flex flex-col gap-3 grow">
+      <div class="flex items-center">
+        <div class="font-medium">Contribution Date:</div>
+        <div class="ms-auto">Monthly</div>
+      </div>
+
+      <div class="flex items-center">
+        <div class="font-medium">Last Date to Join:</div>
+        <div class="ms-auto">Monthly</div>
+      </div>
+    </div>
+  </div>
+</ca-card>

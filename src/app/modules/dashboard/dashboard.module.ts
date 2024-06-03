@@ -81,6 +81,8 @@ import { WithdrawComponent } from './pages/account-wallet/components/withdraw/wi
 import { InvestmentCardComponent } from './pages/investments/components/investment-card/investment-card.component';
 import { ReferralLinkComponent } from './pages/home/components/referral-link/referral-link.component';
 import { WalletBalanceCardComponent } from './pages/account-wallet/components/wallet-balance-card/wallet-balance-card.component';
+import { MgrBalanceCardComponent } from './pages/mgr/mgr-plan/components/mgr-balance-card/mgr-balance-card.component';
+import { ButtonIconDirective } from '../../directives/button-icon/button-icon.directive';
 
 @NgModule({
   declarations: [
@@ -126,6 +128,7 @@ import { WalletBalanceCardComponent } from './pages/account-wallet/components/wa
     WalletAccountTransactionsComponent,
     WalletBalanceCardComponent,
     WithdrawComponent,
+    MgrBalanceCardComponent,
   ],
   imports: [
     CommonModule,
@@ -158,6 +161,7 @@ import { WalletBalanceCardComponent } from './pages/account-wallet/components/wa
     SwitchComponent,
     TableComponent,
     NgOptimizedImage,
+    ButtonIconDirective,
     ButtonPrimaryDirective,
     ButtonSecondaryDirective,
     ClickOutsideCloseDirective,
