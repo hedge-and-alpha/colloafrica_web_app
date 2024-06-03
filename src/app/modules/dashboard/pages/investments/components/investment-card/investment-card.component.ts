@@ -1,8 +1,8 @@
+import { PercentPipe } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
-import { CardComponent } from '../card/card.component';
-import { NgStyle, PercentPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { UtilsService } from '../../../../services/utils/utils.service';
+import { UtilsService } from '../../../../../../services/utils/utils.service';
+import { CardComponent } from '../../../../components/card/card.component';
 
 @Component({
   selector: 'ca-investment-card',

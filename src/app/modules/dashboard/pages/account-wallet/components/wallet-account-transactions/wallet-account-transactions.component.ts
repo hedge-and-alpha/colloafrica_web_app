@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TableHeading } from '../../../../interfaces/table-heading';
-import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
-import { Transaction } from '../../../../interfaces/account';
-import { TablePagination } from '../../../../interfaces/api-response';
+import { TableHeading } from '../../../../../../interfaces/table-heading';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { Transaction } from '../../../../../../interfaces/account';
+import { TablePagination } from '../../../../../../interfaces/api-response';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

@@ -1,15 +1,15 @@
-import { Component, OnInit, computed } from '@angular/core';
-import { Validators, FormBuilder, FormControl } from '@angular/forms';
-import { ModalService } from '../../../../../components/modal/modal.service';
-import { ModalStatusComponent } from '../../../../../components/modal-status/modal-status.component';
-import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
-import { Observable } from 'rxjs';
-import { BankAccount } from '../../../../../interfaces/bank-and-card';
-import { UserStoreService } from '../../../../../stores+/user.store';
-import { AlertService } from '../../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { emptyFieldValidator } from '../../../../../validators/emptyField.validator';
-import { TransactionStoreService } from '../../../../../stores+/transaction.store';
+import { Component, OnInit, computed } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
+import { ModalService } from '../../../../../../components/modal/modal.service';
+import { BankAccount } from '../../../../../../interfaces/bank-and-card';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { TransactionStoreService } from '../../../../../../stores+/transaction.store';
+import { UserStoreService } from '../../../../../../stores+/user.store';
+import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 
 type WithdrawStep = 'bank-details-form' | 'confirm' | 'otp';
 

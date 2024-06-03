@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WalletAccountTransactionsComponent } from './wallet-account-transactions.component';
-import { CardComponent } from '../card/card.component';
-import { TableComponent } from '../../../../components/table/table.component';
+import { CardComponent } from '../../../../components/card/card.component';
+import { TableComponent } from '../../../../../../components/table/table.component';
 
 describe('WalletAccountTransactionsComponent', () => {
   let component: WalletAccountTransactionsComponent;

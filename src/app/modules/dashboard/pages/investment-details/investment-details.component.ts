@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UtilsService } from '../../../../../services/utils/utils.service';
+import { UtilsService } from '../../../../services/utils/utils.service';
 
 @Component({
   selector: 'ca-investment-details',

@@ -9,7 +9,7 @@ import { AlertService } from '../../../../../components/alert/alert.service';
 import { ModalService } from '../../../../../components/modal/modal.service';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
 import { CardAndBankStoreService } from '../../../../../stores+/card-bank.store';
-import { BankAccountFormComponent } from '../../../components/bank-account-form/bank-account-form.component';
+import { BankAccountFormComponent } from '../components/bank-account-form/bank-account-form.component';
 
 @Component({
   selector: 'ca-bank-accounts',

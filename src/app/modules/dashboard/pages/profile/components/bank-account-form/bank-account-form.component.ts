@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ModalStatusComponent } from '../../../../components/modal-status/modal-status.component';
-import { ModalService } from '../../../../components/modal/modal.service';
-import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
+import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
+import { ModalService } from '../../../../../../components/modal/modal.service';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CardAndBankStoreService } from '../../../../stores+/card-bank.store';
+import { CardAndBankStoreService } from '../../../../../../stores+/card-bank.store';
 
 type BankInfo = {
   bank_name: string;

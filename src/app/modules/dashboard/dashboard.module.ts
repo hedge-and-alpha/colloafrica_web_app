@@ -25,37 +25,34 @@ import { PaperPlaneIconComponent } from '../../icons/paper-plane-icon.component'
 import { DashboardApiService } from '../../services/api/dashboard-api.service';
 import { dashboardInterceptorInterceptor } from '../../services/api/dashboard-interceptor.interceptor';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
-import { AccountInfoCardComponent } from './components/account-info-card/account-info-card.component';
+import { AccountInfoCardComponent } from './pages/home/components/account-info-card/account-info-card.component';
 import { AdvertsSliderComponent } from './components/adverts-slider/adverts-slider.component';
-import { AnalyticsCardComponent } from './components/analytics-card/analytics-card.component';
-import { AnalyticsComponent } from './components/analytics/analytics.component';
-import { BankAccountFormComponent } from './components/bank-account-form/bank-account-form.component';
+import { AnalyticsCardComponent } from './pages/home/components/analytics-card/analytics-card.component';
+import { AnalyticsComponent } from './pages/home/components/analytics/analytics.component';
+import { BankAccountFormComponent } from './pages/profile/components/bank-account-form/bank-account-form.component';
 import { CardComponent } from './components/card/card.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { H1Component } from './components/h1/h1.component';
 import { HeaderComponent } from './components/header/header.component';
-import { JoinMgrPlanFormComponent } from './components/join-mgr-plan-form/join-mgr-plan-form.component';
-import { MgrPlanFormComponent } from './components/mgr-plan-form/mgr-plan-form.component';
-import { ReferralLinkComponent } from './components/referral-link/referral-link.component';
-import { SavingsDetailComponent } from './components/savings-detail/savings-detail.component';
-import { SavingsPlanFormComponent } from './components/savings-plan-form/savings-plan-form.component';
+import { JoinMgrPlanFormComponent } from './pages/mgr/components/join-mgr-plan-form/join-mgr-plan-form.component';
+import { MgrPlanFormComponent } from './pages/mgr/components/mgr-plan-form/mgr-plan-form.component';
+import { SavingsDetailComponent } from './pages/savings-detail/savings-detail.component';
+import { SavingsPlanFormComponent } from './pages/savings/components/savings-plan-form/savings-plan-form.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { StartPlanCardComponent } from './components/start-plan-card/start-plan-card.component';
+import { StartPlanCardComponent } from './pages/home/components/start-plan-card/start-plan-card.component';
 import { VerifyBvnComponent } from './components/verify-bvn/verify-bvn.component';
-import { WalletAccountDetailsComponent } from './components/wallet-account-details/wallet-account-details.component';
-import { WalletAccountTransactionsComponent } from './components/wallet-account-transactions/wallet-account-transactions.component';
-import { WalletBalanceCardComponent } from './components/wallet-balance-card/wallet-balance-card.component';
+import { WalletAccountDetailsComponent } from './pages/account-wallet/components/wallet-account-details/wallet-account-details.component';
+import { WalletAccountTransactionsComponent } from './pages/account-wallet/components/wallet-account-transactions/wallet-account-transactions.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ContentSidebarComponent } from './layouts/content-sidebar/content-sidebar.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { SavingsLayoutComponent } from './layouts/savings-layout/savings-layout.component';
 import { AccountWalletComponent } from './pages/account-wallet/account-wallet.component';
-import { TopUpComponent } from './pages/account-wallet/top-up/top-up.component';
-import { WithdrawComponent } from './pages/account-wallet/withdraw/withdraw.component';
+import { TopUpComponent } from './pages/account-wallet/components/top-up/top-up.component';
 import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
 import { HomeComponent } from './pages/home/home.component';
-import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
+import { InvestmentDetailsComponent } from './pages/investment-details/investment-details.component';
 import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MgrCreateComponent } from './pages/mgr/mgr-create/mgr-create.component';
 import { MgrIntroComponent } from './pages/mgr/mgr-intro/mgr-intro.component';
@@ -67,20 +64,23 @@ import { SavingsComponent } from './pages/savings/savings.component';
 import { ColsField3Component } from '../../components/cols-field-3/cols-field-3.component';
 import { IdVerificationComponent } from './pages/profile/id-verification/id-verification.component';
 import { CardsComponent } from './pages/profile/cards/cards.component';
-import { PaymentCardComponent } from './components/payment-card/payment-card.component';
+import { PaymentCardComponent } from './pages/profile/components/payment-card/payment-card.component';
 import { LoaderComponent } from '../../components/loader/loader.component';
-import { BankAccountInfoItemComponent } from './components/bank-account-info-item/bank-account-info-item.component';
-import { BankAccountInfoItemColumnComponent } from './components/bank-account-info-item-column/bank-account-info-item-column.component';
+import { BankAccountInfoItemComponent } from './pages/profile/components/bank-account-info-item/bank-account-info-item.component';
+import { BankAccountInfoItemColumnComponent } from './pages/profile/components/bank-account-info-item-column/bank-account-info-item-column.component';
 import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
 import { SwitchComponent } from '../../components/switch/switch.component';
 import { SecurityComponent } from './pages/profile/security/security.component';
 import { BvnComponent } from './pages/profile/bvn/bvn.component';
-import { InvestmentCardComponent } from './components/investment-card/investment-card.component';
 import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { StatusTextDirective } from '../../directives/status-text/status-text.directive';
+import { WithdrawComponent } from './pages/account-wallet/components/withdraw/withdraw.component';
+import { InvestmentCardComponent } from './pages/investments/components/investment-card/investment-card.component';
+import { ReferralLinkComponent } from './pages/home/components/referral-link/referral-link.component';
+import { WalletBalanceCardComponent } from './pages/account-wallet/components/wallet-balance-card/wallet-balance-card.component';
 
 @NgModule({
   declarations: [
@@ -122,9 +122,9 @@ import { StatusTextDirective } from '../../directives/status-text/status-text.di
     TopUpComponent,
     TransactionsComponent,
     VerifyBvnComponent,
-    WalletBalanceCardComponent,
     WalletAccountDetailsComponent,
     WalletAccountTransactionsComponent,
+    WalletBalanceCardComponent,
     WithdrawComponent,
   ],
   imports: [

@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { AccountWalletComponent } from './pages/account-wallet/account-wallet.component';
 import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
 import { HomeComponent } from './pages/home/home.component';
-import { InvestmentDetailsComponent } from './pages/investments/investment-details/investment-details.component';
+import { InvestmentDetailsComponent } from './pages/investment-details/investment-details.component';
 import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
 import { MgrComponent } from './pages/mgr/mgr.component';

@@ -1,8 +1,8 @@
 import { Component, computed } from '@angular/core';
 import { ModalService } from '../../../../components/modal/modal.service';
-import { TopUpComponent } from './top-up/top-up.component';
-import { WithdrawComponent } from './withdraw/withdraw.component';
+import { TopUpComponent } from './components/top-up/top-up.component';
 import { UserStoreService } from '../../../../stores+/user.store';
+import { WithdrawComponent } from './components/withdraw/withdraw.component';
 
 @Component({
   selector: 'ca-account-wallet',

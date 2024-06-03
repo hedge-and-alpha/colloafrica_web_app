@@ -1,10 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Card } from '../../../../interfaces/bank-and-card';
-import { CreditCardNumberPipe } from '../../../../pipes/credit-card-number/credit-card-number.pipe';
-import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
-import { AlertService } from '../../../../components/alert/alert.service';
-import { CardAndBankStoreService } from '../../../../stores+/card-bank.store';
+import { Card } from '../../../../../../interfaces/bank-and-card';
+import { CreditCardNumberPipe } from '../../../../../../pipes/credit-card-number/credit-card-number.pipe';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { CardAndBankStoreService } from '../../../../../../stores+/card-bank.store';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

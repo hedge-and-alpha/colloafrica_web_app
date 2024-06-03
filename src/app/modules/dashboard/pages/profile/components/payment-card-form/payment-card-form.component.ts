@@ -6,19 +6,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ModalService } from '../../../../components/modal/modal.service';
-import { ModalStatusComponent } from '../../../../components/modal-status/modal-status.component';
+import { ModalService } from '../../../../../../components/modal/modal.service';
+import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
 import { NgClass } from '@angular/common';
-import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
-import { FormFieldComponent } from '../../../../components/form-field/form-field.component';
-import { ColsField2Component } from '../../../../components/cols-field-2/cols-field-2.component';
-import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
-import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
+import { FormErrorComponent } from '../../../../../../components/form-error/form-error.component';
+import { FormFieldComponent } from '../../../../../../components/form-field/form-field.component';
+import { ColsField2Component } from '../../../../../../components/cols-field-2/cols-field-2.component';
+import { ButtonLoadingDirective } from '../../../../../../directives/button-loading/button-loading.directive';
+import { ButtonPrimaryDirective } from '../../../../../../directives/button-primary/button-primary.directive';
 import { CreditCardDirectivesModule } from 'angular-cc-library';
-import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
+import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
-import { CardAndBankStoreService } from '../../../../stores+/card-bank.store';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { CardAndBankStoreService } from '../../../../../../stores+/card-bank.store';
 
 @Component({
   selector: 'ca-payment-card-form',

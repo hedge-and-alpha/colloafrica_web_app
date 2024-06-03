@@ -8,13 +8,13 @@
 }
 
 :host .ca-payment-card.visa {
-  background-image: url("../../../../../assets/images/card-visa.png");
+  background-image: url("../../../../../../../assets/images/card-visa.png");
 }
 :host .ca-payment-card.verve {
-  background-image: url("../../../../../assets/images/card-verve.png");
+  background-image: url("../../../../../../../assets/images/card-verve.png");
 }
 :host .ca-payment-card.master {
-  background-image: url("../../../../../assets/images/card-master.png");
+  background-image: url("../../../../../../../assets/images/card-master.png");
 }
 
 :host .ca-payment-card .card-number {

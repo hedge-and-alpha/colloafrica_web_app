@@ -1,7 +1,7 @@
 import { Component, computed } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModalService } from '../../../../../components/modal/modal.service';
-import { UserStoreService } from '../../../../../stores+/user.store';
+import { ModalService } from '../../../../../../components/modal/modal.service';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 type TopUpStep = 'amount' | 'method';
 type PaymentMethod = 'transfer' | 'card' | null;

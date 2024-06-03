@@ -7,7 +7,7 @@
   height: 100%;
   border-radius: 12px;
   background-color: var(--purple);
-  background-image: url("../../../../../assets/images/wallet-balance-pattern.svg");
+  background-image: url("../../../../../../../assets/images/wallet-balance-pattern.svg");
   box-shadow: 1px 2px 12px 0 #6f6f6f26;
 }
 

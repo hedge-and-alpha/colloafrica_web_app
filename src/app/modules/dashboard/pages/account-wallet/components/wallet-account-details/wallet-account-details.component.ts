@@ -1,5 +1,5 @@
 import { Component, OnInit, computed } from '@angular/core';
-import { UserStoreService } from '../../../../stores+/user.store';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-wallet-account-details',

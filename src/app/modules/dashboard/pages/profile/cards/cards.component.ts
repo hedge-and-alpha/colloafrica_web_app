@@ -4,7 +4,7 @@ import { AlertService } from '../../../../../components/alert/alert.service';
 import { ModalService } from '../../../../../components/modal/modal.service';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
 import { CardAndBankStoreService } from '../../../../../stores+/card-bank.store';
-import { PaymentCardFormComponent } from '../../../components/payment-card-form/payment-card-form.component';
+import { PaymentCardFormComponent } from '../components/payment-card-form/payment-card-form.component';
 
 @Component({
   selector: 'ca-cards',
