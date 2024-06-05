@@ -11,6 +11,8 @@ import { AllotmentTypeComponent } from '../allotment-type/allotment-type.compone
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { MgrWelcomeComponent } from '../../../mgr-details/components/mgr-welcome/mgr-welcome.component';
 import { AlertService } from '../../../../../../components/alert/alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 type AllotmentType = 'manual' | 'auto';
 
@@ -21,6 +23,7 @@ type AllotmentType = 'manual' | 'auto';
 })
 export class MgrPlanFormComponent implements OnInit {
   isSubmitted = false;
+  loading = false;
   selectedThemeIndex: null | number = null;
   selectedAllotmentType: null | AllotmentType = null;
 
@@ -49,7 +52,8 @@ export class MgrPlanFormComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: ModalService,
     private api: DashboardApiService,
-    private alert: AlertService
+    private alert: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -114,11 +118,29 @@ export class MgrPlanFormComponent implements OnInit {
 
     if (this.form.invalid) return;
 
+    this.loading = true;
+
     const data = { ...this.form.value };
     delete data.terms;
-    console.log(this.form.value);
 
-    this.api.createMGR(data).subscribe({});
+    this.api.createMGR(data).subscribe({
+      next: ({ data, message, status }) => {
+        this.loading = false;
+        this.alert.open('success', { details: message, summary: status });
+        this.form.reset();
+        /**
+         * !Todo: add data to mgr store
+         * !Todo: route to mgr home
+         */
+      },
+      error: (err: HttpErrorResponse) => {
+        this.loading = false;
+        this.alert.open('danger', {
+          details: `${err.message}`,
+          summary: `${err.status}: ${err.statusText}`,
+        });
+      },
+    });
   }
 }
 

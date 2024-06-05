@@ -16,6 +16,7 @@ import {
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
 import { UserStoreService } from '../../stores+/user.store';
 import { TransactionStoreService } from '../../stores+/transaction.store';
+import { MGR } from '../../interfaces/mgr.interface';
 
 @Injectable()
 export class DashboardApiService {
@@ -211,6 +212,9 @@ export class DashboardApiService {
 
   /********************** MGR start **********************/
   createMGR(data: object) {
-    return this.http.post(`${this.#baseUrl}/mgr`, data);
+    return this.http.post<ApiResponse & { data: MGR }>(
+      `${this.#baseUrl}/mgr`,
+      data
+    );
   }
 }

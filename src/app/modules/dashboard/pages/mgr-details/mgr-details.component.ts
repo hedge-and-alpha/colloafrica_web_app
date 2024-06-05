@@ -21,8 +21,8 @@ export class MgrDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.isBvnVerified =
-    //   this.userStore.user?.bvn_verification_status === 1 ? true : false;
+    this.isBvnVerified =
+      this.userStore.user?.bvn_verification_status === 1 ? true : false;
 
     async function loadMgrWelcome() {
       return (await import('./components/mgr-welcome/mgr-welcome.component'))
