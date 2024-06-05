@@ -1,8 +1,8 @@
 <div class="mb-4 mt-[18px] flex flex-col sm:flex-row gap-3">
-  <ca-h1 class="">game of thrones</ca-h1>
+  <ca-h1 class="">{{ plan.name }}</ca-h1>
 
   <div class="buttons inline-flex gap-3 sm:ms-auto">
-    <button class="bg-purple-main text-white px-3">
+    <button class="bg-purple-main text-white px-3" (click)="editPlan()">
       <i class="ca-pencil"></i>
       Edit plan
     </button>
@@ -15,7 +15,7 @@
 </div>
 
 <div class="flex-ctr">
-  <ca-mgr-balance-card />
+  <ca-mgr-balance-card [plan]="plan" />
 
   <div class="col-2 grow">
     <div class="share-alloc flex gap-2">

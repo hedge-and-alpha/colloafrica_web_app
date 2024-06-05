@@ -1,1 +1,44 @@
+@if (loading) {
+<div class="min-h-[70vh] flex items-center justify-center">
+  <ca-loader />
+</div>
+} @else { @if (!hasMgr) {
 <ca-mgr-intro />
+} @else {
+<div class="mb-10">
+  <div class="mb-8 mt-[18px] flex flex-col md:flex-row gap-3">
+    <ca-h1>Merry Go Round(MGR) Plans</ca-h1>
+
+    <div class="buttons inline-flex gap-3 md:ms-auto">
+      <ng-select
+        placeholder="Select filter"
+        [clearable]="false"
+        [searchable]="false"
+      >
+        <ng-option value="active">Active</ng-option>
+        <ng-option value="started">Started</ng-option>
+        <ng-option value="completed">Completed</ng-option>
+        <ng-option value="deactivated">System deactivated</ng-option>
+        <ng-option value="pending">Pending</ng-option>
+        <ng-option value="cancelled">Cancelled</ng-option>
+      </ng-select>
+
+      <button
+        class="bg-purple-main text-white px-3 rounded-lg shrink-0"
+        (click)="createNewPlan()"
+      >
+        <i class="ca-plus"></i>
+        Create new plan
+      </button>
+    </div>
+  </div>
+
+  <h2 class="text-purple-main mb-6 font-medium">Admin (MGR) Plans</h2>
+  <ca-mgr-plan-list [plans]="adminMgrs" [isAdmin]="true" />
+
+  <div class="h-[1px] bg-[#c5c5c5] my-8"></div>
+
+  <h2 class="text-purple-main mb-6 font-medium">Participated (MGR) Plans</h2>
+  <ca-mgr-plan-list [plans]="participantMgrs" />
+</div>
+} }

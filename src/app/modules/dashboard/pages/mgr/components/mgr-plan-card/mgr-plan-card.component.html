@@ -1,0 +1,46 @@
+<ca-card class="rounded-[15px] overflow-clip w-[16.125rem] h-full text-white">
+  <div
+    class="h-full flex flex-col gap-4 px-3 pt-5 pb-8 bg-purple-main"
+    [ngStyle]="plan.theme_color | composeGradient"
+  >
+    <div class="flex items-center justify-end gap-2">
+      <span class="text-sm font-medium text-white">5 months</span>
+      <div
+        class="inline-flex items-center justify-center h-6 rounded-[4px] bg-white"
+      >
+        <div class="text-[#5c5c5c] text-[0.625rem] px-[14.5px]">
+          {{ plan.contribution_start_date | date : "longDate" }}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p
+        class="font-medium"
+        style="font-size: clamp(1.25rem, 1.0833rem + 0.7407vw, 1.75rem)"
+      >
+        #{{ plan.amount | number : "1.0-0" }}
+      </p>
+
+      <div class="h-[1px] bg-white mt-2 mb-3"></div>
+
+      <a
+        class="flex items-start gap-2 text-white"
+        [routerLink]="['/', 'mgr', plan.name]"
+        [state]="{ isAdmin, plan }"
+      >
+        <hgroup class="grow flex flex-col gap-1">
+          <h3
+            class="font-medium"
+            style="font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem)"
+          >
+            {{ plan.name }}
+          </h3>
+          <p class="text-xs text-white">{{ plan.desc }}</p>
+        </hgroup>
+
+        <i class="ca-arrow-up-right ms-auto"></i>
+      </a>
+    </div>
+  </div>
+</ca-card>

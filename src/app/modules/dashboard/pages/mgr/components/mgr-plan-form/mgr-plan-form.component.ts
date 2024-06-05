@@ -128,9 +128,9 @@ export class MgrPlanFormComponent implements OnInit {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
         this.form.reset();
+        this.router.navigate(['/', 'mgr']);
         /**
          * !Todo: add data to mgr store
-         * !Todo: route to mgr home
          */
       },
       error: (err: HttpErrorResponse) => {

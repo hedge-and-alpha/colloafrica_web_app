@@ -23,6 +23,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
 import { MgrCreateEditComponent } from './pages/mgr/mgr-create-edit/mgr-create-edit.component';
+import { MgrAdminDetailsComponent } from './pages/mgr-admin-details/mgr-admin-details.component';
 
 const routes: Routes = [
   {
@@ -71,14 +72,24 @@ const routes: Routes = [
       },
       { path: 'mgr', component: MgrComponent, title: 'MGR plans' },
       {
-        path: 'mgr/:id',
-        component: MgrDetailsComponent,
-        title: 'MGR details',
-      },
-      {
-        path: 'mgr/:id/:action',
-        component: MgrCreateEditComponent,
-        title: 'MGR',
+        path: 'mgr',
+        children: [
+          {
+            path: ':name',
+            component: MgrDetailsComponent,
+            title: 'MGR details',
+          },
+          {
+            path: 'admin/:name',
+            component: MgrAdminDetailsComponent,
+            title: 'MGR admin details',
+          },
+          {
+            path: ':id/:action',
+            component: MgrCreateEditComponent,
+            title: 'MGR',
+          },
+        ],
       },
       { path: 'wallet', component: AccountWalletComponent, title: 'Wallet' },
       {

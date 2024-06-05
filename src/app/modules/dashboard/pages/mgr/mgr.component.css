@@ -1,0 +1,8 @@
+:host h2 {
+  font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);
+}
+
+:host ::ng-deep .ng-select .ng-select-container {
+  border-radius: 8px;
+  padding-inline: 1rem;
+}

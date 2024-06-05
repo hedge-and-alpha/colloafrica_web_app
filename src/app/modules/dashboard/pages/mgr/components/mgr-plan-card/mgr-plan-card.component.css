@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+:host a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+}

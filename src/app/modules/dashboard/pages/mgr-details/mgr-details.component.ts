@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TableHeading } from '../../../../interfaces/table-heading';
+import { Router } from '@angular/router';
 import { ModalService } from '../../../../components/modal/modal.service';
-import { MgrWelcomeComponent } from './components/mgr-welcome/mgr-welcome.component';
+import { MGR } from '../../../../interfaces/mgr.interface';
+import { TableHeading } from '../../../../interfaces/table-heading';
 import { UserStoreService } from '../../../../stores+/user.store';
-import { VerifyBvnComponent } from '../../components/verify-bvn/verify-bvn.component';
 
 @Component({
   selector: 'ca-mgr-details',
@@ -12,12 +12,14 @@ import { VerifyBvnComponent } from '../../components/verify-bvn/verify-bvn.compo
 })
 export class MgrDetailsComponent implements OnInit {
   isBvnVerified = false;
+  plan: MGR = history.state['plan'] as MGR;
 
   tableHeading = TABLE_HEADING;
 
   constructor(
     private modalService: ModalService,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -36,6 +38,12 @@ export class MgrDetailsComponent implements OnInit {
         });
       });
     }
+  }
+
+  editPlan() {
+    this.router.navigate(['/', 'mgr', this.plan.id, 'edit'], {
+      state: { plan: this.plan },
+    });
   }
 }
 

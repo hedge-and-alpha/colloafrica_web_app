@@ -81,13 +81,17 @@ import { WithdrawComponent } from './pages/account-wallet/components/withdraw/wi
 import { InvestmentCardComponent } from './pages/investments/components/investment-card/investment-card.component';
 import { ReferralLinkComponent } from './pages/home/components/referral-link/referral-link.component';
 import { WalletBalanceCardComponent } from './pages/account-wallet/components/wallet-balance-card/wallet-balance-card.component';
-import { MgrBalanceCardComponent } from './pages/mgr/mgr-plan/components/mgr-balance-card/mgr-balance-card.component';
+import { MgrBalanceCardComponent } from './pages/mgr-details/components/mgr-balance-card/mgr-balance-card.component';
 import { ButtonIconDirective } from '../../directives/button-icon/button-icon.directive';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AllotmentTypeComponent } from './pages/mgr/components/allotment-type/allotment-type.component';
 import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
 import { MgrWelcomeComponent } from './pages/mgr-details/components/mgr-welcome/mgr-welcome.component';
 import { SealCheckIconComponent } from '../../icons/seal-check-icon.component';
+import { MgrPlanCardComponent } from './pages/mgr/components/mgr-plan-card/mgr-plan-card.component';
+import { MgrPlanListComponent } from './pages/mgr/components/mgr-plan-list/mgr-plan-list.component';
+import { ComposeGradientPipe } from '../../pipes/compose-gradient/compose-gradient.pipe';
+import { MgrAdminDetailsComponent } from './pages/mgr-admin-details/mgr-admin-details.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +141,9 @@ import { SealCheckIconComponent } from '../../icons/seal-check-icon.component';
     MgrBalanceCardComponent,
     AllotmentTypeComponent,
     MgrWelcomeComponent,
+    MgrPlanCardComponent,
+    MgrPlanListComponent,
+    MgrAdminDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -179,6 +186,7 @@ import { SealCheckIconComponent } from '../../icons/seal-check-icon.component';
     DropdownMenuTriggerDirective,
     StatusTextDirective,
     TooltipDirective,
+    ComposeGradientPipe,
   ],
   providers: [
     DashboardApiService,

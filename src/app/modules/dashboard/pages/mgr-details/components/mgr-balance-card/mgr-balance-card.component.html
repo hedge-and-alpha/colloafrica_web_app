@@ -7,7 +7,7 @@
           class="font-semibold"
           style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
         >
-          {{ 10000000000 | currency : "NGN" : "symbol-narrow" : "1.0-0" }}
+          {{ plan.amount | currency : "NGN" : "symbol-narrow" : "1.0-0" }}
         </p>
         <p class="text-sm sm:hidden">Recurring Amount</p>
         <p class="hidden sm:block sm:text-[0.625rem]">
@@ -18,10 +18,12 @@
       <div class="font-medium sm:ms-auto">
         <div class="date bg-white text-xs mb-4 sm:mb-2 -ms-[6px] sm:ms-0">
           Starts&nbsp;
-          <time datetime="26 October, 2023">26 October, 2023</time>
+          <time datetime="26 October, 2023">{{
+            plan.contribution_start_date | date : "longDate"
+          }}</time>
         </div>
         <p class="text-[0.625rem] leading-[1.4]">
-          Allotment Mode : Auto Position
+          Allotment Mode : {{ plan.allotment_type | titlecase }} Position
         </p>
       </div>
     </div>
@@ -33,7 +35,7 @@
     <div class="flex flex-col gap-3 grow">
       <div class="flex items-center">
         <div class="font-medium">Interval Type:</div>
-        <div class="ms-auto">Monthly</div>
+        <div class="ms-auto">{{ plan.duration | titlecase }}</div>
       </div>
 
       <div class="flex items-center">
@@ -47,12 +49,16 @@
     <div class="flex flex-col gap-3 grow">
       <div class="flex items-center">
         <div class="font-medium">Contribution Date:</div>
-        <div class="ms-auto">Monthly</div>
+        <div class="ms-auto">
+          {{ plan.contribution_start_date | date : "longDate" }}
+        </div>
       </div>
 
       <div class="flex items-center">
         <div class="font-medium">Last Date to Join:</div>
-        <div class="ms-auto">Monthly</div>
+        <div class="ms-auto">
+          {{ plan.join_date_deadline | date : "longDate" }}
+        </div>
       </div>
     </div>
   </div>

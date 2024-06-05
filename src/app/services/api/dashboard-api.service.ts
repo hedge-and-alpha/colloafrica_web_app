@@ -217,4 +217,12 @@ export class DashboardApiService {
       data
     );
   }
+
+  getAdminMGR() {
+    return this.http.get<{ data: MGR[] }>(`${this.#baseUrl}/mgr/admin`);
+  }
+
+  getParticipantMGR() {
+    return this.http.get<{ data: MGR[] }>(`${this.#baseUrl}/mgr/participant`);
+  }
 }
