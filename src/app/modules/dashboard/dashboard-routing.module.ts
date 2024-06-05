@@ -21,6 +21,8 @@ import { AllInvestmentsComponent } from './pages/investments/all-investments/all
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
+import { MgrCreateEditComponent } from './pages/mgr/mgr-create-edit/mgr-create-edit.component';
 
 const routes: Routes = [
   {
@@ -67,8 +69,17 @@ const routes: Routes = [
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
       },
-      { path: 'mgr-plan', component: MgrPlanComponent, title: 'MGR plan' },
-      { path: 'mgr/:view', component: MgrComponent, title: 'MGR' },
+      { path: 'mgr', component: MgrComponent, title: 'MGR plans' },
+      {
+        path: 'mgr/:id',
+        component: MgrDetailsComponent,
+        title: 'MGR details',
+      },
+      {
+        path: 'mgr/:id/:action',
+        component: MgrCreateEditComponent,
+        title: 'MGR',
+      },
       { path: 'wallet', component: AccountWalletComponent, title: 'Wallet' },
       {
         path: 'investments',

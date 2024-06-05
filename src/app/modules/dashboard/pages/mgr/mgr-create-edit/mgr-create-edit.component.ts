@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'ca-mgr-create',
-  templateUrl: './mgr-create.component.html',
-  styleUrl: './mgr-create.component.css',
+  selector: 'ca-mgr-create-edit',
+  templateUrl: './mgr-create-edit.component.html',
+  styleUrl: './mgr-create-edit.component.css',
 })
-export class MgrCreateComponent implements OnInit {
+export class MgrCreateEditComponent implements OnInit {
   formTemplate: FormTemplate = 'new';
 
   constructor(private route: ActivatedRoute) {}
@@ -20,4 +20,4 @@ export class MgrCreateComponent implements OnInit {
   }
 }
 
-type FormTemplate = 'new' | 'join';
+type FormTemplate = 'new' | 'join' | 'edit';

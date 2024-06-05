@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MgrCreateComponent } from './mgr-create.component';
+import { MgrCreateComponent } from './mgr-create-edit.component';
 
 describe('MgrCreateComponent', () => {
   let component: MgrCreateComponent;
@@ -8,10 +8,9 @@ describe('MgrCreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MgrCreateComponent]
-    })
-    .compileComponents();
-    
+      declarations: [MgrCreateComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(MgrCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

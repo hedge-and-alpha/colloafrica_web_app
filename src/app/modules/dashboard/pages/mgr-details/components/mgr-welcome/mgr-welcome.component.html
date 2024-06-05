@@ -1,0 +1,29 @@
+<div class="max-w-[30rem] mx-auto text-center">
+  <div class="flex justify-center">
+    <ca-seal-check-icon />
+  </div>
+
+  <div
+    class="mt-6 mb-4 font-semibold"
+    style="font-size: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem)"
+  >
+    Welcome, {{ user()!.first_name | titlecase }}
+  </div>
+
+  <p
+    class="mx-auto mb-10 max-w-[25.5625rem]"
+    style="font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem)"
+  >
+    Your MGR Plan has been successfully created. We will need you to verify your
+    BVN to complete your MGR process .
+  </p>
+
+  <div class="flex gap-4 sm:gap-7">
+    <button class="flex-1" ca-button-secondary (click)="close()">
+      Skip for now
+    </button>
+    <button class="flex-1" ca-button-primary (click)="verifyBvn()">
+      Continue
+    </button>
+  </div>
+</div>

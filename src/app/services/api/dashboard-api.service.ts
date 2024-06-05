@@ -208,4 +208,9 @@ export class DashboardApiService {
     >(`${this.#baseUrl}/transaction/transfer`, data);
   }
   /********************** Account end **********************/
+
+  /********************** MGR start **********************/
+  createMGR(data: object) {
+    return this.http.post(`${this.#baseUrl}/mgr`, data);
+  }
 }

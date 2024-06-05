@@ -54,7 +54,7 @@ import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-s
 import { HomeComponent } from './pages/home/home.component';
 import { InvestmentDetailsComponent } from './pages/investment-details/investment-details.component';
 import { InvestmentsComponent } from './pages/investments/investments.component';
-import { MgrCreateComponent } from './pages/mgr/mgr-create/mgr-create.component';
+import { MgrCreateEditComponent } from './pages/mgr/mgr-create-edit/mgr-create-edit.component';
 import { MgrIntroComponent } from './pages/mgr/mgr-intro/mgr-intro.component';
 import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
 import { MgrComponent } from './pages/mgr/mgr.component';
@@ -83,6 +83,11 @@ import { ReferralLinkComponent } from './pages/home/components/referral-link/ref
 import { WalletBalanceCardComponent } from './pages/account-wallet/components/wallet-balance-card/wallet-balance-card.component';
 import { MgrBalanceCardComponent } from './pages/mgr/mgr-plan/components/mgr-balance-card/mgr-balance-card.component';
 import { ButtonIconDirective } from '../../directives/button-icon/button-icon.directive';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AllotmentTypeComponent } from './pages/mgr/components/allotment-type/allotment-type.component';
+import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
+import { MgrWelcomeComponent } from './pages/mgr-details/components/mgr-welcome/mgr-welcome.component';
+import { SealCheckIconComponent } from '../../icons/seal-check-icon.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +111,8 @@ import { ButtonIconDirective } from '../../directives/button-icon/button-icon.di
     InvestmentsComponent,
     JoinMgrPlanFormComponent,
     MgrComponent,
-    MgrCreateComponent,
+    MgrCreateEditComponent,
+    MgrDetailsComponent,
     MgrIntroComponent,
     MgrPlanComponent,
     MgrPlanFormComponent,
@@ -129,11 +135,14 @@ import { ButtonIconDirective } from '../../directives/button-icon/button-icon.di
     WalletBalanceCardComponent,
     WithdrawComponent,
     MgrBalanceCardComponent,
+    AllotmentTypeComponent,
+    MgrWelcomeComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BsDatepickerModule,
     IMaskModule,
     NgSelectModule,
     DashboardRoutingModule,
@@ -158,6 +167,7 @@ import { ButtonIconDirective } from '../../directives/button-icon/button-icon.di
     OtpComponent,
     PaperPlaneIconComponent,
     PaymentCardComponent,
+    SealCheckIconComponent,
     SwitchComponent,
     TableComponent,
     NgOptimizedImage,

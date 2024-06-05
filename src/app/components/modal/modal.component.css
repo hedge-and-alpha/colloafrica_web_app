@@ -18,8 +18,7 @@
 
 :host .ca-modal .ca-modal-content.large {
   max-width: 60rem;
-  min-height: 495px;
-  max-height: 72vh;
+  height: auto;
   overflow-y: scroll;
 }
 

@@ -7,14 +7,4 @@ import { TableHeading } from '../../../../../interfaces/table-heading';
   styleUrl: './mgr-plan.component.css',
 })
 export class MgrPlanComponent {
-  tableHeading = TABLE_HEADING;
 }
-
-const TABLE_HEADING: TableHeading[] = [
-  { label: 'Name' },
-  { label: 'Role' },
-  { label: 'Position' },
-  { label: 'Status' },
-  { label: 'Joined' },
-  { label: 'Action' },
-];

@@ -1,0 +1,90 @@
+<div class="mb-4 mt-[18px] flex flex-col sm:flex-row gap-3">
+  <ca-h1 class="">game of thrones</ca-h1>
+
+  <div class="buttons inline-flex gap-3 sm:ms-auto">
+    <button class="bg-purple-main text-white px-3">
+      <i class="ca-pencil"></i>
+      Edit plan
+    </button>
+
+    <button class="text-purple-main px-3">
+      <i class="ca-trash"></i>
+      Cancel plan
+    </button>
+  </div>
+</div>
+
+<div class="flex-ctr">
+  <ca-mgr-balance-card />
+
+  <div class="col-2 grow">
+    <div class="share-alloc flex gap-2">
+      <ca-card class="py-3 px-4 rounded-[14px] grow">
+        <div class="flex items-start">
+          <div>
+            <div class="sm:font-medium text-xs text-[#7D7F85] mb-4">
+              Share invite link
+            </div>
+            <div class="text-sm sm:text-xs font-medium text-[#b0b0b0]">
+              Not available
+            </div>
+          </div>
+
+          <div class="ms-auto flex gap-2 icon-buttons">
+            <button
+              class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
+              [disabled]="true"
+            >
+              <i class="ca-share-network text-xs"></i>
+            </button>
+            <button
+              class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
+            >
+              <i class="ca-copy text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </ca-card>
+
+      <div class="allocation-card">
+        <ca-card class="px-4 py-3 rounded-md">
+          <div
+            class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]"
+          >
+            Next Allocation to
+            <span class="bg-warning alloc-position"> 6 </span>
+          </div>
+          <div class="flex items-center gap-[0.625rem]">
+            <img src="assets/images/profile-photo.webp" alt="" />
+            <p class="text-xs font-medium">Kristin Watson</p>
+          </div>
+        </ca-card>
+      </div>
+    </div>
+
+    <div class="allocation-card">
+      <ca-card class="px-4 py-3 rounded-md">
+        <div
+          class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]"
+        >
+          Allocation Position
+          <span class="bg-warning rounded-full alloc-position"> 6 </span>
+        </div>
+        <p class="text-xs">
+          Your Allocation position is [5] and you will get N50,000,000.
+        </p>
+      </ca-card>
+    </div>
+  </div>
+</div>
+
+<h2
+  class="mt-8 mb-5 font-medium"
+  style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
+>
+  Participants (1 of 1)
+</h2>
+
+<ca-card class="p-4 lg:p-5 rounded-md lg:rounded-xl mb-6 lg:mb-10">
+  <ca-table [tableHeading]="tableHeading"></ca-table>
+</ca-card>
