@@ -68,8 +68,7 @@
   }
 
   :host .flex-ctr .col-2 .share-alloc > ca-card {
-    max-width: 16.5rem;
-    flex-grow: 1;
+    flex-basis: calc(59.73% - 8px);
   }
 }
 

@@ -80,7 +80,6 @@ export class MgrPlanFormComponent implements OnInit {
     if (isEdit && isEdit === 'edit') {
       this.isEditing = true;
       let plan = history.state['plan'] as MGR;
-      console.log('edit plan:', plan);
 
       this.form.patchValue({
         name: plan.name,
@@ -192,7 +191,6 @@ export class MgrPlanFormComponent implements OnInit {
   }
 
   editPlan(data: object) {
-    console.log('edit');
     console.log(data);
   }
 }
