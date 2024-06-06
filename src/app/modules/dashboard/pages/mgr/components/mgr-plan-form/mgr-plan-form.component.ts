@@ -175,7 +175,10 @@ export class MgrPlanFormComponent implements OnInit {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
         this.form.reset();
-        this.router.navigate(['/', 'mgr']);
+        this.router.navigate(['/', 'mgr', data.name], {
+          queryParams: { new_plan: true },
+          state: { isAdmin: true, plan: data },
+        });
         /**
          * !Todo: add data to mgr store
          */

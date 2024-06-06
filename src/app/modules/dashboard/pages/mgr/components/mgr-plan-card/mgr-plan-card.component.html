@@ -4,7 +4,16 @@
     [ngStyle]="plan.theme_color | composeGradient"
   >
     <div class="flex items-center justify-end gap-2">
-      <span class="text-sm font-medium text-white">5 months</span>
+      <span class="text-sm font-medium text-white">
+        {{ plan.number_of_members }}
+        {{
+          plan.duration === "daily"
+            ? "days"
+            : plan.duration === "weekly"
+            ? "weeks"
+            : "months"
+        }}
+      </span>
       <div
         class="inline-flex items-center justify-center h-6 rounded-[4px] bg-white"
       >

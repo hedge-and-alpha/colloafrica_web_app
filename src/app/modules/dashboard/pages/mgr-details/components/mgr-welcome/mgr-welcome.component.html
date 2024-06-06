@@ -1,3 +1,35 @@
+@if (user()!.bvn_verification_status === 1 && isNewPlan) {
+<div class="max-w-[30rem] mx-auto text-center">
+  <div class="flex justify-center">
+    <ca-seal-check-icon />
+  </div>
+
+  <div
+    class="mt-6 mb-4 font-semibold"
+    style="font-size: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem)"
+  >
+    Successful
+  </div>
+
+  <p
+    class="mx-auto mb-10 max-w-[25.5625rem]"
+    style="font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem)"
+  >
+    Congratulations! Your MGR Plan has been successfully created.
+    <!-- Check if accout balance is low -->
+    @if (+user()!.virtual_account!.account_balance < 1000) {
+    <a routerLink="/wallet" class="text-purple-main font-medium underline">
+      Top up
+    </a>
+    your account. }
+  </p>
+
+  <div class="flex">
+    <button class="w-full" ca-button-primary (click)="close()">Close</button>
+  </div>
+</div>
+
+} @else if (user()!.bvn_verification_status === 0 && isNewPlan) {
 <div class="max-w-[30rem] mx-auto text-center">
   <div class="flex justify-center">
     <ca-seal-check-icon />
@@ -15,7 +47,7 @@
     style="font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem)"
   >
     Your MGR Plan has been successfully created. We will need you to verify your
-    BVN to complete your MGR process .
+    BVN to complete your MGR process.
   </p>
 
   <div class="flex gap-4 sm:gap-7">
@@ -27,3 +59,4 @@
     </button>
   </div>
 </div>
+}

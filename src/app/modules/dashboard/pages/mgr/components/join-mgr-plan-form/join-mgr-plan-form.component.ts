@@ -110,7 +110,10 @@ export class JoinMgrPlanFormComponent implements OnInit {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
         this.form.reset();
-        this.router.navigate(['/', 'mgr']);
+        this.router.navigate(['/', 'mgr', data.mgr.name], {
+          queryParams: { new_plan: true },
+          state: { isAdmin: false, plan: data.mgr },
+        });
         /**
          * !Todo: add data to mgr store
          */

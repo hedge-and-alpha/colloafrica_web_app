@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from '../../../../components/modal/modal.service';
 import { MGR } from '../../../../interfaces/mgr.interface';
 import { TableHeading } from '../../../../interfaces/table-heading';
@@ -13,6 +13,7 @@ import { UserStoreService } from '../../../../stores+/user.store';
 export class MgrDetailsComponent implements OnInit {
   inviteLink: null | string = null;
   isBvnVerified = false;
+  isNewlyCreatedPlan = false;
   plan: MGR = history.state['plan'] as MGR;
 
   tableHeading = TABLE_HEADING;
@@ -20,15 +21,25 @@ export class MgrDetailsComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private userStore: UserStoreService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
 
-    this.isBvnVerified =
-      this.userStore.user?.bvn_verification_status === 1 ? true : false;
+    // this.isBvnVerified =
+    //   this.userStore.user?.bvn_verification_status === 1 ? true : false;
+    let newlyCreatedQueryParam =
+      this.route.snapshot.queryParamMap.get('new_plan');
 
+    if (newlyCreatedQueryParam) {
+      this.isNewlyCreatedPlan = true;
+      this.openModal(this.isNewlyCreatedPlan);
+    }
+  }
+
+  openModal(isNew: boolean) {
     async function loadMgrWelcome() {
       return (await import('./components/mgr-welcome/mgr-welcome.component'))
         .MgrWelcomeComponent;
@@ -36,9 +47,14 @@ export class MgrDetailsComponent implements OnInit {
 
     if (!this.isBvnVerified) {
       loadMgrWelcome().then((MgrWelcomeComponent) => {
-        this.modalService.open(MgrWelcomeComponent, 'regular', {
-          showHeading: false,
-        });
+        this.modalService.open(
+          MgrWelcomeComponent,
+          'small',
+          {
+            showHeading: false,
+          },
+          { isNewPlan: isNew }
+        );
       });
     }
   }
