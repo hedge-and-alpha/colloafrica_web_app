@@ -1,18 +1,18 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../../../../../../components/modal/modal.service';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '../../../../../../components/alert/alert.service';
+import { ModalService } from '../../../../../../components/modal/modal.service';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 import { AllotmentTypeComponent } from '../allotment-type/allotment-type.component';
-import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
-import { MgrWelcomeComponent } from '../../../mgr-details/components/mgr-welcome/mgr-welcome.component';
-import { AlertService } from '../../../../../../components/alert/alert.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { MGR } from '../../../../../../interfaces/mgr.interface';
 
 type AllotmentType = 'manual' | 'auto';
 
@@ -23,6 +23,7 @@ type AllotmentType = 'manual' | 'auto';
 })
 export class MgrPlanFormComponent implements OnInit {
   isSubmitted = false;
+  isEditing = false;
   loading = false;
   selectedThemeIndex: null | number = null;
   selectedAllotmentType: null | AllotmentType = null;
@@ -30,20 +31,36 @@ export class MgrPlanFormComponent implements OnInit {
   themes: Theme[] = THEME_COLOURS;
   durations: Duration[] = DURATIONS;
 
-  form = this.fb.group(
+  form: MGRForm = this.fb.group(
     {
-      name: [null, [Validators.required, emptyFieldValidator()]],
-      desc: [null, [Validators.required, emptyFieldValidator()]],
-      duration: [null, [Validators.required]],
-      number_of_members: [null, [Validators.required]],
-      amount: [null, [Validators.required]],
-      join_date_deadline: [null, [Validators.required]],
-      contribution_start_date: [null, [Validators.required]],
-      allocation_date: [null, [Validators.required]],
-      theme_color: [null, [Validators.required]],
-      allotment_type: [null, [Validators.required]],
-      // allotment_position: [null, [Validators.required]],
-      terms: [null, [Validators.required]],
+      name: new FormControl<null | string>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      desc: new FormControl<null | string>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      duration: new FormControl<string | null>(null, [Validators.required]),
+      number_of_members: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      amount: new FormControl<string | null>(null, [Validators.required]),
+      join_date_deadline: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      contribution_start_date: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      allocation_date: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      theme_color: new FormControl<string | null>(null, [Validators.required]),
+      allotment_type: new FormControl<string | null>(null, [
+        Validators.required,
+      ]),
+      // allotment_position: new FormControl<string | null>(null, [Validators.required]),
+      terms: new FormControl<boolean | null>(null, [Validators.required]),
     },
     { updateOn: 'submit' }
   );
@@ -53,10 +70,33 @@ export class MgrPlanFormComponent implements OnInit {
     private modalService: ModalService,
     private api: DashboardApiService,
     private alert: AlertService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let isEdit = this.route.snapshot.paramMap.get('action');
+
+    if (isEdit && isEdit === 'edit') {
+      this.isEditing = true;
+      let plan = history.state['plan'] as MGR;
+      console.log('edit plan:', plan);
+
+      this.form.patchValue({
+        name: plan.name,
+        amount: plan.amount,
+        desc: plan.desc,
+        number_of_members: plan.number_of_members,
+        allocation_date: plan.allocation_date,
+        allotment_type: plan.allotment_type,
+        contribution_start_date: plan.contribution_start_date,
+        duration: plan.duration,
+        join_date_deadline: plan.join_date_deadline,
+        theme_color: plan.theme_color,
+        terms: true,
+      });
+    }
+  }
 
   get name() {
     return this.form.get('name');
@@ -123,6 +163,14 @@ export class MgrPlanFormComponent implements OnInit {
     const data = { ...this.form.value };
     delete data.terms;
 
+    if (!this.isEditing) {
+      this.createNewPlan(data);
+    } else {
+      this.editPlan(data);
+    }
+  }
+
+  createNewPlan(data: object) {
     this.api.createMGR(data).subscribe({
       next: ({ data, message, status }) => {
         this.loading = false;
@@ -141,6 +189,11 @@ export class MgrPlanFormComponent implements OnInit {
         });
       },
     });
+  }
+
+  editPlan(data: object) {
+    console.log('edit');
+    console.log(data);
   }
 }
 
@@ -179,3 +232,16 @@ const THEME_COLOURS: Theme[] = [
 
 type Theme = { from: string; to: string };
 type Duration = { id: string; name: string };
+type MGRForm = FormGroup<{
+  name: FormControl<null | string>;
+  desc: FormControl<null | string>;
+  duration: FormControl<null | string>;
+  number_of_members: FormControl<null | string>;
+  join_date_deadline: FormControl<null | string>;
+  contribution_start_date: FormControl<null | string>;
+  allocation_date: FormControl<null | string>;
+  allotment_type: FormControl<null | string>;
+  theme_color: FormControl<null | string>;
+  amount: FormControl<null | string>;
+  terms: FormControl<null | boolean>;
+}>;

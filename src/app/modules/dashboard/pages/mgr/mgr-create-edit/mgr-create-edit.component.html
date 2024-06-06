@@ -1,3 +1,5 @@
+<ca-h1 class="mb-5 mt-[18px]">{{ pageTitle }}</ca-h1>
+
 <ca-savings-layout>
   <div col-1>
     <ca-card class="rounded-[15px] p-4 sm:p-7 mb-5">
@@ -54,7 +56,7 @@
   </div>
 
   <ca-card col-2 class="rounded-[15px] px-4 pt-7 pb-4 sm:px-7 sm:pt-10 sm:pb-7">
-    @if (formTemplate === 'new') {
+    @if (formTemplate === 'new' || formTemplate === 'edit') {
     <ca-mgr-plan-form />
     } @if (formTemplate === 'join') {
     <ca-join-mgr-plan-form />

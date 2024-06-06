@@ -283,6 +283,7 @@
     </div>
   </div>
 
+  @if (!isEditing) {
   <div class="mb-12">
     <div class="flex items-start gap-3">
       <input type="checkbox" id="subscribe" formControlName="terms" />
@@ -294,6 +295,7 @@
     <ca-form-error [errors]="terms?.errors" />
     }
   </div>
+  }
 
   <div class="mb-4">
     <button
