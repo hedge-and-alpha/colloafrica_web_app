@@ -21,6 +21,19 @@
   min-height: 100vh;
 }
 
+:host .ca-dashboard .main-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+:host .ca-dashboard .main-content::-webkit-scrollbar-track {
+  background: #989393;
+}
+
+:host .ca-dashboard .main-content::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 6px;
+}
+
 :host .ca-dashboard > nav.active {
   left: 0;
 }

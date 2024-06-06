@@ -1,4 +1,4 @@
-<ca-card class="p-5 text-white">
+<ca-card class="p-5 text-white h-full">
   <div class="top-half flex items-start sm:items-center gap-4">
     <img src="assets/images/naira-coin.webp" alt="" id="coin" />
     <div class="grow flex flex-col sm:flex-row gap-6">
@@ -29,9 +29,11 @@
     </div>
   </div>
 
-  <div class="divider mt-6 mb-5 md:my-4"></div>
+  <div class="divider mt-6 mb-5 md:mt-4 md:mb-2"></div>
 
-  <div class="bottom-half text-sm sm:text-xs flex flex-col sm:flex-row gap-3">
+  <div
+    class="bottom-half text-sm sm:text-xs flex flex-col sm:flex-row sm:items-center gap-3"
+  >
     <div class="flex flex-col gap-3 lg:gap-1 grow">
       <div class="flex items-center">
         <div class="font-medium">Interval Type:</div>
@@ -40,11 +42,20 @@
 
       <div class="flex items-center">
         <div class="font-medium">Duration:</div>
-        <div class="ms-auto">10 Months</div>
+        <div class="ms-auto">
+          {{ plan.number_of_members }}
+          {{
+            plan.duration === "daily"
+              ? "days"
+              : plan.duration === "weekly"
+              ? "weeks"
+              : "months"
+          }}
+        </div>
       </div>
     </div>
 
-    <div class="hidden sm:block h-[40px] w-[0.5px] mx-4 bg-[#b0b0b0]"></div>
+    <div class="hidden sm:block h-[50px] w-[0.5px] mx-4 bg-[#b0b0b0]"></div>
 
     <div class="flex flex-col gap-3 lg:gap-1 grow">
       <div class="flex items-center">
