@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
   <ca-form-field
     label="Name"
     labelFor="name"
     class="block mb-6"
     [isRequired]="true"
   >
-    <input type="text" id="name" />
+    <input type="text" id="name" formControlName="name" readonly />
   </ca-form-field>
 
   <!-- 2 cols -->
@@ -19,12 +19,14 @@
       <div class="-mx-5 grow">
         <ng-select
           class="px-2"
-          [clearOnBackspace]="false"
           labelForId="duration"
+          formControlName="name"
+          [clearOnBackspace]="false"
+          [readonly]="true"
         >
           <!-- @for (duration of durations; track $index) {
-          <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
-          } -->
+            <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
+            } -->
         </ng-select>
       </div>
     </ca-form-field>
@@ -35,7 +37,12 @@
       class="block mb-6"
       [isRequired]="true"
     >
-      <input type="number" id="num-members" />
+      <input
+        type="number"
+        id="num-members"
+        formControlName="number_of_members"
+        readonly
+      />
     </ca-form-field>
   </div>
   <!-- 2 cols -->
@@ -47,22 +54,39 @@
       class="block mb-6"
       [isRequired]="true"
     >
-      <input type="number" id="amount" />
+      <input type="number" id="amount" formControlName="amount" readonly />
       <div class="border-s border-[#7D7F85] ps-3" style="color: #77777e">
         NGN
       </div>
     </ca-form-field>
 
-    <ca-form-field
-      label="Allotment position"
-      labelFor="position"
-      class="block mb-6"
-      [isRequired]="true"
-    >
-      <div class="-mx-5 grow">
-        <ng-select labelForId="position" class="px-2"></ng-select>
-      </div>
-    </ca-form-field>
+    <div class="mb-6">
+      <ca-form-field
+        label="Allotment position"
+        labelFor="position"
+        class="block"
+        [isRequired]="true"
+      >
+        <div class="-mx-5 grow">
+          <ng-select
+            labelForId="position"
+            class="px-2"
+            placeholder="Select position"
+            formControlName="allotment_position"
+            [ngClass]="{
+              'ng-touched ng-dirty': isSubmitted && allotmentPosition.invalid
+            }"
+          >
+            @for (pos of allotmentPositions; track $index) {
+            <ng-option [value]="pos">{{ pos }}</ng-option>
+            }
+          </ng-select>
+        </div>
+      </ca-form-field>
+      @if (isSubmitted && allotmentPosition.invalid) {
+      <ca-form-error [errors]="allotmentPosition.errors" />
+      }
+    </div>
   </div>
 
   <ca-form-field
@@ -71,9 +95,20 @@
     class="block mb-6"
     [isRequired]="true"
   >
-    <div class="grow"></div>
-    <!-- <input type="date" id="date" /> -->
-    <i class="ca-calendar text-[#5c5c5c]"></i>
+    <input
+      id="date"
+      type="text"
+      formControlName="join_date_deadline"
+      bsDatepicker
+      #jdp="bsDatepicker"
+      [bsConfig]="{
+        isAnimated: true,
+        dateInputFormat: 'YYYY-MM-DD',
+        isDisabled: true,
+        minDate
+      }"
+    />
+    <i class="ca-calendar text-[#5c5c5c]" (click)="jdp.show()"></i>
   </ca-form-field>
 
   <!-- 2 cols -->
@@ -84,10 +119,21 @@
       class="block mb-6"
       [isRequired]="true"
     >
-      <div class="grow"></div>
-      <!-- <input type="date" id="date" /> -->
-      <div class="grow"></div>
-      <i class="ca-calendar text-[#5c5c5c]"></i>
+      <input
+        id="date"
+        type="text"
+        formControlName="contribution_start_date"
+        bsDatepicker
+        #cdp="bsDatepicker"
+        readonly
+        [bsConfig]="{
+          isAnimated: true,
+          dateInputFormat: 'YYYY-MM-DD',
+          isDisabled: true,
+          minDate
+        }"
+      />
+      <i class="ca-calendar text-[#5c5c5c]" (click)="cdp.show()"></i>
     </ca-form-field>
 
     <ca-form-field
@@ -96,23 +142,45 @@
       class="block mb-6"
       [isRequired]="true"
     >
-      <div class="grow"></div>
-      <!-- <input type="date" id="date" /> -->
-      <div class="grow"></div>
-      <i class="ca-calendar text-[#5c5c5c]"></i>
+      <input
+        id="date"
+        type="text"
+        formControlName="allocation_date"
+        bsDatepicker
+        #adp="bsDatepicker"
+        readonly
+        [isDisabled]="true"
+        [bsConfig]="{
+          isAnimated: true,
+          dateInputFormat: 'YYYY-MM-DD',
+          isDisabled: true,
+          minDate
+        }"
+      />
+      <i class="ca-calendar text-[#5c5c5c]" (click)="adp.show()"></i>
     </ca-form-field>
   </div>
   <!-- 2 cols -->
 
-  <div class="mb-12 flex items-start gap-3">
-    <input type="checkbox" id="subscribe" />
-    <label class="text-sm" for="subscribe">
-      I agree to Collo Africa MGR terms and conditions.
-    </label>
+  <div class="mb-12">
+    <div class="flex items-start gap-3">
+      <input type="checkbox" id="subscribe" formControlName="terms" />
+      <label class="text-sm" for="subscribe">
+        I agree to Collo Africa MGR terms and conditions.
+      </label>
+    </div>
+    @if (isSubmitted && terms?.invalid) {
+    <ca-form-error [errors]="terms?.errors" />
+    }
   </div>
 
   <div class="mb-4">
-    <button class="w-full btn bg-purple-main text-white" type="submit">
+    <button
+      class="w-full btn bg-purple-main text-white"
+      type="submit"
+      loadingColour="#fff"
+      [loading]="loading"
+    >
       Join plan
     </button>
   </div>

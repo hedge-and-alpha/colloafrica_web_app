@@ -16,12 +16,12 @@
       </td>
       <td class="whitespace-nowrap">
         <div class="h-full flex items-center justify-center gap-2">
-          @if (item.type === 'debit') {
+          @if (item.flow === 'out') {
           <i class="ca-x-circle text-[#D92121]"></i>
           } @else {
           <i class="ca-check-circle text-[#049F0A]"></i>
           }
-          {{ item.type | titlecase }}
+          {{ (item.flow === "in" ? "credit" : "debit") | titlecase }}
         </div>
       </td>
     </ng-template>

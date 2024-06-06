@@ -67,8 +67,16 @@
     gap: 0.75rem;
   }
 
+  :host .flex-ctr ca-mgr-balance-card {
+    flex-basis: calc(56.6% - 28px);
+  }
+
+  :host .flex .col-2 {
+    flex: 0 1 auto;
+  }
+
   :host .flex-ctr .col-2 .share-alloc > ca-card {
-    flex-basis: calc(59.73% - 8px);
+    flex-basis: calc(56% - 8px);
   }
 }
 

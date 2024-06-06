@@ -225,4 +225,17 @@ export class DashboardApiService {
   getParticipantMGR() {
     return this.http.get<{ data: MGR[] }>(`${this.#baseUrl}/mgr/participant`);
   }
+
+  getMgrByInviteLink(link: string) {
+    return this.http.get<{
+      data: { mgr: MGR; available_positions?: number[] };
+    }>(`${this.#baseUrl}/mgr/invite-link/${link}`);
+  }
+
+  joinMgrByInviteLink(link: string, position: string) {
+    return this.http.post<ApiResponse & { data: { mgr: MGR } }>(
+      `${this.#baseUrl}/mgr/join/${link}/${position}`,
+      null
+    );
+  }
 }

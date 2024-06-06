@@ -11,6 +11,7 @@ import { UserStoreService } from '../../../../stores+/user.store';
   styleUrl: './mgr-details.component.css',
 })
 export class MgrDetailsComponent implements OnInit {
+  inviteLink: null | string = null;
   isBvnVerified = false;
   plan: MGR = history.state['plan'] as MGR;
 
@@ -23,6 +24,8 @@ export class MgrDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
+
     this.isBvnVerified =
       this.userStore.user?.bvn_verification_status === 1 ? true : false;
 

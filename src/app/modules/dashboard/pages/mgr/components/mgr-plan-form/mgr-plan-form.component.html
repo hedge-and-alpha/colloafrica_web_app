@@ -130,13 +130,14 @@
         type="text"
         formControlName="join_date_deadline"
         bsDatepicker
+        #jdp="bsDatepicker"
         readonly
         [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
         [ngClass]="{
           'ng-dirty ng-touched': isSubmitted && joinDateDeadline?.invalid
         }"
       />
-      <i class="ca-calendar text-[#5c5c5c]"></i>
+      <i class="ca-calendar text-[#5c5c5c]" (click)="jdp.show()"></i>
     </ca-form-field>
     @if (isSubmitted && joinDateDeadline?.invalid) {
     <ca-form-error [errors]="joinDateDeadline?.errors" />
@@ -157,13 +158,14 @@
           type="text"
           formControlName="contribution_start_date"
           bsDatepicker
+          #cdp="bsDatepicker"
           readonly
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
           [ngClass]="{
             'ng-dirty ng-touched': isSubmitted && startDate?.invalid
           }"
         />
-        <i class="ca-calendar text-[#5c5c5c]"></i>
+        <i class="ca-calendar text-[#5c5c5c]" (click)="cdp.show()"></i>
       </ca-form-field>
       @if (isSubmitted && startDate?.invalid) {
       <ca-form-error [errors]="startDate?.errors" />
@@ -182,13 +184,14 @@
           type="text"
           formControlName="allocation_date"
           bsDatepicker
+          #adp="bsDatepicker"
           readonly
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
           [ngClass]="{
             'ng-dirty ng-touched': isSubmitted && allocationDate?.invalid
           }"
         />
-        <i class="ca-calendar text-[#5c5c5c]"></i>
+        <i class="ca-calendar text-[#5c5c5c]" (click)="adp.show()"></i>
       </ca-form-field>
       @if (isSubmitted && allocationDate?.invalid) {
       <ca-form-error [errors]="allocationDate?.errors" />
