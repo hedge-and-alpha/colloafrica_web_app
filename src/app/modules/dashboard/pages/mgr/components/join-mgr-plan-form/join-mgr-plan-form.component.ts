@@ -20,9 +20,14 @@ export class JoinMgrPlanFormComponent implements OnInit {
   isManual = false;
   loading = false;
   isSubmitted = false;
+  isDisabled = true;
 
   minDate = new Date();
+  joinDate = new Date();
+  contributionDate = new Date();
+  allocationDate = new Date();
   allotmentPositions: number[] = [];
+  durations: Duration[] = DURATIONS;
 
   form = this.fb.group(
     {
@@ -31,7 +36,7 @@ export class JoinMgrPlanFormComponent implements OnInit {
       duration: [''],
       number_of_members: [''],
       amount: [''],
-      join_date_deadline: [''],
+      join_date_deadline: ['', { disabled: true }],
       contribution_start_date: ['', { disabled: true }],
       allocation_date: ['', { disabled: true }],
       theme_color: [''],
@@ -68,10 +73,11 @@ export class JoinMgrPlanFormComponent implements OnInit {
   }
 
   getMgrDetails(link: string) {
-    this.loading = true;
-
     this.api.getMgrByInviteLink(link).subscribe({
       next: ({ data: { mgr, available_positions } }) => {
+        this.joinDate = new Date(mgr.join_date_deadline);
+        this.contributionDate = new Date(mgr.contribution_start_date);
+        this.allocationDate = new Date(mgr.allocation_date);
         this.form.patchValue({
           name: mgr.name,
           desc: mgr.desc,
@@ -128,3 +134,11 @@ export class JoinMgrPlanFormComponent implements OnInit {
     });
   }
 }
+
+const DURATIONS: Duration[] = [
+  { id: 'daily', name: 'Daily' },
+  { id: 'weekly', name: 'Weekly' },
+  { id: 'monthly', name: 'Monthly' },
+];
+
+type Duration = { id: string; name: string };

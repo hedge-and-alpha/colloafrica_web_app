@@ -20,13 +20,13 @@
         <ng-select
           class="px-2"
           labelForId="duration"
-          formControlName="name"
+          formControlName="duration"
           [clearOnBackspace]="false"
           [readonly]="true"
         >
-          <!-- @for (duration of durations; track $index) {
-            <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
-            } -->
+          @for (duration of durations; track $index) {
+          <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
+          }
         </ng-select>
       </div>
     </ca-form-field>
@@ -98,14 +98,14 @@
     <input
       id="date"
       type="text"
-      formControlName="join_date_deadline"
       bsDatepicker
       #jdp="bsDatepicker"
+      [bsValue]="joinDate"
+      [isDisabled]="true"
       [bsConfig]="{
         isAnimated: true,
         dateInputFormat: 'YYYY-MM-DD',
-        isDisabled: true,
-        minDate
+        minDate: joinDate
       }"
     />
     <i class="ca-calendar text-[#5c5c5c]" (click)="jdp.show()"></i>
@@ -122,15 +122,14 @@
       <input
         id="date"
         type="text"
-        formControlName="contribution_start_date"
         bsDatepicker
         #cdp="bsDatepicker"
-        readonly
+        [bsValue]="contributionDate"
+        [isDisabled]="true"
         [bsConfig]="{
           isAnimated: true,
           dateInputFormat: 'YYYY-MM-DD',
-          isDisabled: true,
-          minDate
+          minDate: contributionDate
         }"
       />
       <i class="ca-calendar text-[#5c5c5c]" (click)="cdp.show()"></i>
@@ -145,16 +144,14 @@
       <input
         id="date"
         type="text"
-        formControlName="allocation_date"
         bsDatepicker
         #adp="bsDatepicker"
-        readonly
+        [bsValue]="allocationDate"
         [isDisabled]="true"
         [bsConfig]="{
           isAnimated: true,
           dateInputFormat: 'YYYY-MM-DD',
-          isDisabled: true,
-          minDate
+          minDate: allocationDate
         }"
       />
       <i class="ca-calendar text-[#5c5c5c]" (click)="adp.show()"></i>

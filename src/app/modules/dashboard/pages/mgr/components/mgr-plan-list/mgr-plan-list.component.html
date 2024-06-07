@@ -1,4 +1,4 @@
-<div class="flex gap-4 flex-1">
+<div class="flex gap-4 flex-1 flex-nowrap overflow-x-scroll no-scrollbar">
   @for (plan of plans; track plan.id) {
   <ca-mgr-plan-card [plan]="plan" [isAdmin]="isAdmin" />
   } @empty {
