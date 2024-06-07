@@ -1,29 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { dashboardResolverResolver } from '../../services/api/dashboard-resolver.resolver';
 import { DashboardComponent } from './dashboard.component';
 import { AccountWalletComponent } from './pages/account-wallet/account-wallet.component';
 import { CreateSavingsPlanComponent } from './pages/create-savings-plan/create-savings-plan.component';
 import { HomeComponent } from './pages/home/home.component';
 import { InvestmentDetailsComponent } from './pages/investment-details/investment-details.component';
-import { InvestmentsComponent } from './pages/investments/investments.component';
-import { MgrPlanComponent } from './pages/mgr/mgr-plan/mgr-plan.component';
-import { MgrComponent } from './pages/mgr/mgr.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { SavingsComponent } from './pages/savings/savings.component';
-import { dashboardResolverResolver } from '../../services/api/dashboard-resolver.resolver';
-import { PersonalInfoComponent } from './pages/profile/personal-info/personal-info.component';
-import { IdVerificationComponent } from './pages/profile/id-verification/id-verification.component';
-import { CardsComponent } from './pages/profile/cards/cards.component';
-import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
-import { SecurityComponent } from './pages/profile/security/security.component';
-import { BvnComponent } from './pages/profile/bvn/bvn.component';
 import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
+import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
-import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { MgrAdminDetailsComponent } from './pages/mgr-admin-details/mgr-admin-details.component';
 import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
 import { MgrCreateEditComponent } from './pages/mgr/mgr-create-edit/mgr-create-edit.component';
-import { MgrAdminDetailsComponent } from './pages/mgr-admin-details/mgr-admin-details.component';
+import { MgrComponent } from './pages/mgr/mgr.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
+import { CardsComponent } from './pages/profile/cards/cards.component';
+import { IdVerificationComponent } from './pages/profile/id-verification/id-verification.component';
+import { PersonalInfoComponent } from './pages/profile/personal-info/personal-info.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { SecurityComponent } from './pages/profile/security/security.component';
+import { SavingsComponent } from './pages/savings/savings.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 const routes: Routes = [
   {

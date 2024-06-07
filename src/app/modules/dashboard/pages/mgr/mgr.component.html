@@ -2,7 +2,9 @@
 <div class="min-h-[70vh] flex items-center justify-center">
   <ca-loader />
 </div>
-} @else { @if (!hasMgr) {
+} @else {
+<!--  -->
+@if (!adminMgrs.length && !participantMgrs.length) {
 <ca-mgr-intro />
 } @else {
 <div class="mb-10">
