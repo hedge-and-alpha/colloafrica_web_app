@@ -21,10 +21,15 @@ export class MgrDetailsHeaderComponent {
   }
 
   cancelPlan() {
-    this.modalService.open(CancelPlanModalComponent, 'small', {
-      closable: true,
-      showHeading: true,
-      headingText: 'Cancel Plan',
-    });
+    this.modalService.open(
+      CancelPlanModalComponent,
+      'small',
+      {
+        closable: true,
+        showHeading: true,
+        headingText: 'Cancel Plan',
+      },
+      { planId: this.plan.id }
+    );
   }
 }

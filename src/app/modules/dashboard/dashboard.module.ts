@@ -64,6 +64,8 @@ import { InvestmentCardComponent } from './pages/investments/components/investme
 import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
 import { MgrCreateEditComponent } from './pages/mgr-create-edit/mgr-create-edit.component';
+import { CancelPlanModalComponent } from './pages/mgr-details/components/cancel-plan-modal/cancel-plan-modal.component';
+import { ManageGroupMemberModalComponent } from './pages/mgr-details/components/manage-group-member-modal/manage-group-member-modal.component';
 import { MgrBalanceCardComponent } from './pages/mgr-details/components/mgr-balance-card/mgr-balance-card.component';
 import { MgrDetailsHeaderComponent } from './pages/mgr-details/components/mgr-details-header/mgr-details-header.component';
 import { MgrWelcomeComponent } from './pages/mgr-details/components/mgr-welcome/mgr-welcome.component';
@@ -95,7 +97,6 @@ import { SavingsDetailComponent } from './pages/savings-detail/savings-detail.co
 import { SavingsPlanFormComponent } from './pages/savings/components/savings-plan-form/savings-plan-form.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { CancelPlanModalComponent } from './pages/mgr-details/components/cancel-plan-modal/cancel-plan-modal.component';
 
 @NgModule({
   declarations: [
@@ -152,6 +153,7 @@ import { CancelPlanModalComponent } from './pages/mgr-details/components/cancel-
     WithdrawComponent,
     AllotmentTypeComponent,
     CancelPlanModalComponent,
+    ManageGroupMemberModalComponent,
   ],
   imports: [
     CommonModule,
