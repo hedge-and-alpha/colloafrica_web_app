@@ -1,0 +1,17 @@
+<form class="mt-7" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="mb-8">
+    <textarea
+      class="w-full h-[122px] p-4"
+      formControlName="reason"
+      placeholder="Why do you want to cancel this plan?"
+      [ngClass]="{
+        'ng-touched ng-dirty': isSubmitted && reason.invalid
+      }"
+    ></textarea>
+    @if (isSubmitted && reason.invalid) {
+    <ca-form-error [errors]="reason.errors" />
+    }
+  </div>
+
+  <button type="submit" class="w-52" ca-button-primary>Submit</button>
+</form>

@@ -95,6 +95,7 @@ import { SavingsDetailComponent } from './pages/savings-detail/savings-detail.co
 import { SavingsPlanFormComponent } from './pages/savings/components/savings-plan-form/savings-plan-form.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { CancelPlanModalComponent } from './pages/mgr-details/components/cancel-plan-modal/cancel-plan-modal.component';
 
 @NgModule({
   declarations: [
@@ -150,6 +151,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     WalletBalanceCardComponent,
     WithdrawComponent,
     AllotmentTypeComponent,
+    CancelPlanModalComponent,
   ],
   imports: [
     CommonModule,
