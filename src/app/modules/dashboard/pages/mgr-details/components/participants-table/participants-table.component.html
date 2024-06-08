@@ -1,8 +1,8 @@
 <h2
-  class="font-medium"
+  class="font-medium mb-5"
   style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
 >
-  Participants ({{ users.length }} of {{ users.length }})
+  Participants ({{ users.length }} of {{ plan.number_of_members }})
 </h2>
 
 <ca-card class="p-4 lg:p-5 rounded-md lg:rounded-xl mb-6 lg:mb-10">
@@ -27,7 +27,7 @@
         </div>
       </td>
       <td class="whitespace-nowrap">{{ item.role | titlecase }}</td>
-      <td class="whitespace-nowrap">
+      <td class="whitespace-nowrap text-center">
         <span
           class="bg-[#FFBD00] h-7 w-7 font-ubuntu font-medium text-sm rounded-full inline-flex items-center justify-center"
         >

@@ -1,0 +1,47 @@
+<div class="flex flex-col sm:flex-row gap-3 flex-wrap">
+  <ca-h1 class="">{{ plan.name }}</ca-h1>
+
+  <div class="buttons inline-flex gap-3 sm:ms-auto">
+    <button class="bg-purple-main text-white px-3" (click)="editPlan()">
+      <i class="ca-pencil"></i>
+      Edit plan
+    </button>
+
+    <button class="text-purple-main px-3" (cancel)="cancelPlan()">
+      <i class="ca-trash"></i>
+      Cancel plan
+    </button>
+  </div>
+
+  <!-- <nav
+    class="flex items-center justify-center gap-3 flex-nowrap overflow-x-scroll no-scrollbar sm:ms-auto"
+  >
+    <a
+      class="font-medium px-3"
+      [routerLink]="['/', 'mgr', plan.name, 'details']"
+      routerLinkActive="!text-white bg-purple-main border-purple-main"
+      [state]="{ isAdmin: true, plan }"
+    >
+      <i class="ca-money-bag"></i>
+      MGR plan details
+    </a>
+
+    <a
+      class="font-medium px-3"
+      [routerLink]="['/', 'mgr', plan.name, 'collection-statistics']"
+      routerLinkActive="!text-white bg-purple-main border-purple-main"
+    >
+      <i class="ca-chart-pie-slice"></i>
+      View collection statistics
+    </a>
+
+    <a
+      class="font-medium px-3"
+      [routerLink]="['/', 'mgr', plan.name, 'contribution-statistics']"
+      routerLinkActive="!text-white bg-purple-main border-purple-main"
+    >
+      <i class="ca-chart-bar"></i>
+      View contribution statistics
+    </a>
+  </nav> -->
+</div>

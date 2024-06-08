@@ -63,17 +63,21 @@ import { AllInvestmentsComponent } from './pages/investments/all-investments/all
 import { InvestmentCardComponent } from './pages/investments/components/investment-card/investment-card.component';
 import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
-import { MgrAdminDetailsComponent } from './pages/mgr-admin-details/mgr-admin-details.component';
+import { MgrCreateEditComponent } from './pages/mgr-create-edit/mgr-create-edit.component';
 import { MgrBalanceCardComponent } from './pages/mgr-details/components/mgr-balance-card/mgr-balance-card.component';
+import { MgrDetailsHeaderComponent } from './pages/mgr-details/components/mgr-details-header/mgr-details-header.component';
 import { MgrWelcomeComponent } from './pages/mgr-details/components/mgr-welcome/mgr-welcome.component';
+import { ParticipantsTableComponent } from './pages/mgr-details/components/participants-table/participants-table.component';
 import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
+import { MgrCollectionStatisticsComponent } from './pages/mgr-details/pages/mgr-collection-statistics/mgr-collection-statistics.component';
+import { MgrContributionStatisticsComponent } from './pages/mgr-details/pages/mgr-contribution-statistics/mgr-contribution-statistics.component';
+import { MgrPlanComponent } from './pages/mgr-details/pages/mgr-plan/mgr-plan.component';
 import { AllotmentTypeComponent } from './pages/mgr/components/allotment-type/allotment-type.component';
 import { JoinMgrPlanFormComponent } from './pages/mgr/components/join-mgr-plan-form/join-mgr-plan-form.component';
+import { MgrIntroComponent } from './pages/mgr/components/mgr-intro/mgr-intro.component';
 import { MgrPlanCardComponent } from './pages/mgr/components/mgr-plan-card/mgr-plan-card.component';
 import { MgrPlanFormComponent } from './pages/mgr/components/mgr-plan-form/mgr-plan-form.component';
 import { MgrPlanListComponent } from './pages/mgr/components/mgr-plan-list/mgr-plan-list.component';
-import { MgrCreateEditComponent } from './pages/mgr/mgr-create-edit/mgr-create-edit.component';
-import { MgrIntroComponent } from './pages/mgr/mgr-intro/mgr-intro.component';
 import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
@@ -91,7 +95,6 @@ import { SavingsDetailComponent } from './pages/savings-detail/savings-detail.co
 import { SavingsPlanFormComponent } from './pages/savings/components/savings-plan-form/savings-plan-form.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { ParticipantsTableComponent } from './pages/mgr-details/components/participants-table/participants-table.component';
 
 @NgModule({
   declarations: [
@@ -114,11 +117,20 @@ import { ParticipantsTableComponent } from './pages/mgr-details/components/parti
     InvestmentDetailsComponent,
     InvestmentsComponent,
     JoinMgrPlanFormComponent,
+    MgrBalanceCardComponent,
     MgrComponent,
     MgrCreateEditComponent,
+    MgrCollectionStatisticsComponent,
+    MgrContributionStatisticsComponent,
     MgrDetailsComponent,
+    MgrDetailsHeaderComponent,
     MgrIntroComponent,
+    MgrPlanComponent,
     MgrPlanFormComponent,
+    MgrPlanCardComponent,
+    MgrPlanListComponent,
+    MgrWelcomeComponent,
+    ParticipantsTableComponent,
     MyInvestmentsComponent,
     NotificationsComponent,
     ProfileComponent,
@@ -137,13 +149,7 @@ import { ParticipantsTableComponent } from './pages/mgr-details/components/parti
     WalletAccountTransactionsComponent,
     WalletBalanceCardComponent,
     WithdrawComponent,
-    MgrBalanceCardComponent,
     AllotmentTypeComponent,
-    MgrWelcomeComponent,
-    MgrPlanCardComponent,
-    MgrPlanListComponent,
-    MgrAdminDetailsComponent,
-    ParticipantsTableComponent,
   ],
   imports: [
     CommonModule,
