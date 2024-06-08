@@ -13,6 +13,9 @@ module.exports = {
         danger: "#D92121",
         success: "#049F0A",
       },
+      fontFamily: {
+        ubuntu: ["Ubuntu"],
+      },
     },
   },
   plugins: [],

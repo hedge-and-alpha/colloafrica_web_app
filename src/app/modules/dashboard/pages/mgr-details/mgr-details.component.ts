@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from '../../../../components/modal/modal.service';
-import { MGR } from '../../../../interfaces/mgr.interface';
-import { TableHeading } from '../../../../interfaces/table-heading';
+import { MGR, MGRUser } from '../../../../interfaces/mgr.interface';
+import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { UserStoreService } from '../../../../stores+/user.store';
 
 @Component({
@@ -14,22 +14,21 @@ export class MgrDetailsComponent implements OnInit {
   inviteLink: null | string = null;
   isBvnVerified = false;
   isNewlyCreatedPlan = false;
-  plan: MGR = history.state['plan'] as MGR;
+  plan: MGR = history.state['plan'];
 
-  tableHeading = TABLE_HEADING;
+  users: MGRUser[] = [];
 
   constructor(
     private modalService: ModalService,
     private userStore: UserStoreService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private api: DashboardApiService
   ) {}
 
   ngOnInit() {
     this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
 
-    // this.isBvnVerified =
-    //   this.userStore.user?.bvn_verification_status === 1 ? true : false;
     let newlyCreatedQueryParam =
       this.route.snapshot.queryParamMap.get('new_plan');
 
@@ -65,12 +64,3 @@ export class MgrDetailsComponent implements OnInit {
     });
   }
 }
-
-const TABLE_HEADING: TableHeading[] = [
-  { label: 'Name' },
-  { label: 'Role' },
-  { label: 'Position' },
-  { label: 'Status' },
-  { label: 'Joined' },
-  { label: 'Action' },
-];

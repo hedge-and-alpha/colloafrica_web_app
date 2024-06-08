@@ -18,7 +18,7 @@
   <ca-mgr-balance-card class="shrink-0 h-full" [plan]="plan" />
 
   <div class="col-2 grow">
-    <div class="share-alloc flex gap-2">
+    <div class="share-alloc flex flex-col sm:flex-row gap-2">
       <ca-card class="py-3 px-4 rounded-[14px] share-link grow">
         <div class="flex items-center">
           <div class="sm:font-medium text-xs text-[#7D7F85]">
@@ -47,7 +47,7 @@
         </div>
         } @else {
         <div
-          class="text-sm sm:text-xs font-medium max-w-[13rem] overflow-hidden text-nowrap text-ellipsis mt-3"
+          class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
         >
           <a
             [routerLink]="['/', 'mgr', plan.id, 'join']"
@@ -92,13 +92,4 @@
   </div>
 </div>
 
-<h2
-  class="mt-8 mb-5 font-medium"
-  style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
->
-  Participants (1 of 1)
-</h2>
-
-<ca-card class="p-4 lg:p-5 rounded-md lg:rounded-xl mb-6 lg:mb-10">
-  <ca-table [tableHeading]="tableHeading"></ca-table>
-</ca-card>
+<ca-participants-table class="block mt-8 mb-5" />

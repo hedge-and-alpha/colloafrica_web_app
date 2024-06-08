@@ -1,14 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../../../../components/alert/alert.service';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 
 @Component({
   selector: 'ca-join-mgr-plan-form',
@@ -31,11 +26,11 @@ export class JoinMgrPlanFormComponent implements OnInit {
 
   form = this.fb.group(
     {
-      name: [''],
-      desc: [''],
-      duration: [''],
-      number_of_members: [''],
-      amount: [''],
+      name: ['', { disabled: true }],
+      desc: ['', { disabled: true }],
+      duration: ['', { disabled: true }],
+      number_of_members: ['', { disabled: true }],
+      amount: ['', { disabled: true }],
       join_date_deadline: ['', { disabled: true }],
       contribution_start_date: ['', { disabled: true }],
       allocation_date: ['', { disabled: true }],

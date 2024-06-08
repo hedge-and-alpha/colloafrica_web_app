@@ -1,18 +1,15 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterContentInit,
   Component,
   ContentChild,
-  ContentChildren,
   EventEmitter,
   Input,
-  OnChanges,
   Output,
-  SimpleChanges,
   TemplateRef,
 } from '@angular/core';
-import { TableHeading } from '../../interfaces/table-heading';
-import { CommonModule } from '@angular/common';
 import { TablePagination } from '../../interfaces/api-response';
+import { TableHeading } from '../../interfaces/table-heading';
 
 @Component({
   selector: 'ca-table',
@@ -25,6 +22,7 @@ export class TableComponent implements AfterContentInit {
   tableRow!: TemplateRef<unknown>;
 
   @Input() loading = false;
+  @Input() hasPagination = true;
   @Input() paginationData!: TablePagination;
   @Input() tableHeading: TableHeading[] = [];
   @Input() tableData: Record<string, any>[] = [];

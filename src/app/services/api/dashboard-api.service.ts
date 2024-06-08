@@ -226,6 +226,12 @@ export class DashboardApiService {
     return this.http.get<{ data: MGR[] }>(`${this.#baseUrl}/mgr/participant`);
   }
 
+  getMGRById(id: string) {
+    return this.http
+      .get<{ data: MGR }>(`${this.#baseUrl}/mgr/${id}`)
+      .pipe(map((mgr) => mgr.data.mgr_users!));
+  }
+
   getMgrByInviteLink(link: string) {
     return this.http.get<{
       data: { mgr: MGR; available_positions?: number[] };
@@ -235,6 +241,29 @@ export class DashboardApiService {
   joinMgrByInviteLink(link: string, position: string) {
     return this.http.post<ApiResponse & { data: { mgr: MGR } }>(
       `${this.#baseUrl}/mgr/join/${link}/${position}`,
+      null
+    );
+  }
+
+  cancelMgrPlan(id: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/cancel/${id}`,
+      null
+    );
+  }
+
+  changeMemberPosition(mgrId: string, userId: string, newPosition: number) {
+    return this.http.post<ApiResponse>(
+      `${
+        this.#baseUrl
+      }/mgr/change-member-position/${mgrId}/${userId}/${newPosition}`,
+      null
+    );
+  }
+
+  removeMember(mgrId: string, userId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/remove-member/${mgrId}/${userId}`,
       null
     );
   }

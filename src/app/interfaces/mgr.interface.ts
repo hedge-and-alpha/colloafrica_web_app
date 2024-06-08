@@ -13,4 +13,15 @@ export interface MGR {
   creator_id: number;
   status: string;
   id: string;
+  mgr_users?: MGRUser[];
+}
+
+export interface MGRUser {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  role: string;
+  position: number;
+  status: number;
+  join_date: string;
 }
