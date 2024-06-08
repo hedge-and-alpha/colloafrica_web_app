@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MGR, MGRUser } from '../../../../../../interfaces/mgr.interface';
 import { TableHeading } from '../../../../../../interfaces/table-heading';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { ModalService } from '../../../../../../components/modal/modal.service';
+import { ManageGroupMemberModalComponent } from '../manage-group-member-modal/manage-group-member-modal.component';
 
 @Component({
   selector: 'ca-participants-table',
@@ -15,7 +17,10 @@ export class ParticipantsTableComponent implements OnInit {
 
   @Input() users: MGRUser[] = [];
 
-  constructor(private api: DashboardApiService) {}
+  constructor(
+    private api: DashboardApiService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit() {
     this.getMgrDetails();
@@ -27,6 +32,32 @@ export class ParticipantsTableComponent implements OnInit {
         this.users = users;
       },
     });
+  }
+
+  removeMember(userId: string, firstName: string, lastName: string) {
+    this.modalService.open(
+      ManageGroupMemberModalComponent,
+      'small',
+      {},
+      {
+        action: 'delete',
+        name: `${firstName} ${lastName}`,
+        planId: this.plan.id,
+        userId: userId,
+      }
+    );
+  }
+
+  swapMember(userId: string, firstName: string, lastName: string) {
+    this.modalService.open(
+      ManageGroupMemberModalComponent,
+      'small',
+      {},
+      { action: 'swap', newPosition: 1, planId: this.plan.id, userId: userId }
+      /**
+       * !TODO: pass new position
+       */
+    );
   }
 }
 

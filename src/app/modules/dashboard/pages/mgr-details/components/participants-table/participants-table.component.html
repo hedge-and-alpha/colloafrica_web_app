@@ -50,7 +50,13 @@
           <button ca-button-icon [disabled]="item.role === 'member'">
             <i class="ca-arrows-left-right"></i>
           </button>
-          <button ca-button-icon [disabled]="item.role === 'member'">
+          <button
+            ca-button-icon
+            [disabled]="item.role === 'member'"
+            (click)="
+              removeMember(item.user_id, item.first_name, item.last_name)
+            "
+          >
             <i class="ca-trash"></i>
           </button>
         </div>
