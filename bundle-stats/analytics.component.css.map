@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/home/components/analytics/analytics.component.css"],
+  "sourcesContent": [":host .analytics ca-analytics-card {\r\n  flex: 1 0 16.375rem;\r\n}\r\n\r\n:host ca-analytics-card span {\r\n  border-radius: 10px;\r\n}\r\n\r\n:host ca-analytics-card span.inv {\r\n  background: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%);\r\n}\r\n\r\n:host ca-analytics-card span.wallet {\r\n  background: linear-gradient(245.62deg, #006dca 8.35%, #1e96fc 100%);\r\n}\r\n\r\n@media screen and (min-width: 72.5rem) {\r\n  :host .analytics ca-analytics-card {\r\n    flex-shrink: 1;\r\n  }\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,UAAU,kBACf,KAAM,EAAE,EAAE,SACZ,CAEA,MAAM,kBAAkB,KAJxB,cAKiB,IACjB,CAEA,MAAM,kBAAkB,IAAI,CAAC,IAC3B,WAAY,gBAAgB,QAAhB,CAA0B,QAAQ,KAAlC,CAAyC,QAAQ,OAC/D,CAEA,MAAM,kBAAkB,IAAI,CAAC,OAC3B,WAAY,gBAAgB,SAAhB,CAA2B,QAAQ,KAAnC,CAA0C,QACxD,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,SAC5B,MAAM,CAjBD,UAiBY,kBACf,YAAa,CACf,CACF",
+  "names": []
+}

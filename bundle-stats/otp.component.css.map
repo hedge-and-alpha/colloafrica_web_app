@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/otp/otp.component.css"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n\r\n:host input {\r\n  width: clamp(2.5rem, 2.0833rem + 1.8519vw, 3.75rem);\r\n  aspect-ratio: 1;\r\n  border: 1px solid #dcdcdc;\r\n  background: #f6f6f6;\r\n}\r\n\r\n:host input:is(:hover, :focus, :focus-visible) {\r\n  border-color: var(--purple);\r\n  outline-color: var(--purple);\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,KACX,CAEA,MAAM,MACJ,MAAO,MAAM,MAAM,CAAE,UAAU,EAAE,QAAQ,CAAE,SAC3C,aAAc,EACd,OAAQ,IAAI,MAAM,QAClB,WAAY,OACd,CAEA,MAAM,KAAK,IAAI,OAAQ,OAAQ,gBAC7B,aAAc,IAAI,UAClB,cAAe,IAAI,SACrB",
+  "names": []
+}

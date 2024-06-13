@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/create-savings-plan/create-savings-plan.component.css"],
+  "sourcesContent": [":host .dollar-coin {\r\n  width: clamp(2.25rem, 1.7708rem + 2.1296vw, 3.6875rem);\r\n  aspect-ratio: 1;\r\n}\r\n\r\n:host .unit-price {\r\n  font-size: clamp(1rem, 0.6667rem + 1.4815vw, 2rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,YACL,MAAO,MAAM,OAAO,CAAE,UAAU,EAAE,QAAQ,CAAE,WAC5C,aAAc,CAChB,CAEA,MAAM,CAAC,WACL,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,QAAQ,CAAE,KAC/C",
+  "names": []
+}

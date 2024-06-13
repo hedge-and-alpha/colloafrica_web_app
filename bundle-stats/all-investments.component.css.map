@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/investments/all-investments/all-investments.component.css"],
+  "sourcesContent": [":host .ca-investments {\r\n  max-width: 36.25rem;\r\n  display: grid;\r\n  justify-items: center;\r\n}\r\n\r\n@media (min-width: 33.75rem) {\r\n  :host .ca-investments {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,eACL,UAAW,SACX,QAAS,KACT,cAAe,MACjB,CAEA,OAAO,CAAC,SAAS,EAAE,UACjB,MAAM,CAPD,eAQH,sBAAuB,OAAO,CAAC,CAAE,IACnC,CACF",
+  "names": []
+}

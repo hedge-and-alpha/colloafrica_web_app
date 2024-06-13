@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { MGR, MGRUser } from '../../../../../../interfaces/mgr.interface';
+import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { MgrStoreService } from '../../../../../../stores+/mgr.store';
 
 @Component({
   selector: 'ca-mgr-plan',
@@ -12,16 +14,22 @@ export class MgrPlanComponent implements OnInit {
   inviteLink: null | string = null;
   isBvnVerified = false;
   isNewlyCreatedPlan = false;
+
   plan: MGR = history.state['plan'];
+  activePlan = computed(() => this.mgrStore.activePlan());
 
   users: MGRUser[] = [];
 
   constructor(
     private modalService: ModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private api: DashboardApiService,
+    private mgrStore: MgrStoreService
   ) {}
 
   ngOnInit() {
+    this.getMgrDetails();
+
     this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
 
     let newlyCreatedQueryParam =
@@ -31,6 +39,10 @@ export class MgrPlanComponent implements OnInit {
       this.isNewlyCreatedPlan = true;
       this.openModal(this.isNewlyCreatedPlan);
     }
+  }
+
+  getMgrDetails() {
+    this.api.getMGRById(this.plan.id).subscribe();
   }
 
   openModal(isNew: boolean) {

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/dropdown-menu/dropdown-menu-item/dropdown-menu-item.component.css"],
+  "sourcesContent": [":host {\r\n  display: flex;\r\n  align-items: center;\r\n  height: 29px;\r\n  line-height: 1.3125;\r\n  margin-block-end: 8px;\r\n  padding-inline: 1rem;\r\n  cursor: pointer;\r\n  color: #333;\r\n}\r\n\r\n:host:hover {\r\n  background-color: var(--purple);\r\n  color: #fff;\r\n}\r\n\r\n:host:last-of-type {\r\n  margin-block-end: 0;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,KACT,YAAa,OACb,OAAQ,KACR,YAAa,OACb,iBAAkB,IAClB,eAAgB,KAChB,OAAQ,QACR,MAAO,IACT,CAEA,KAAK,OACH,iBAAkB,IAAI,UACtB,MAAO,IACT,CAEA,KAAK,cACH,iBAAkB,CACpB",
+  "names": []
+}

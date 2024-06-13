@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/mgr-details/components/cancel-plan-modal/cancel-plan-modal.component.css"],
+  "sourcesContent": [":host textarea {\r\n  resize: none;\r\n  border-radius: 5px;\r\n  border: 0.5px solid #b0b0b0;\r\n}\r\n\r\n:host textarea:is(:focus, :focus-visible) {\r\n  border: 0.5px solid var(--purple);\r\n  outline-color: var(--purple);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,SACJ,OAAQ,KADV,cAEiB,IACf,OAAQ,KAAM,MAAM,OACtB,CAEA,MAAM,QAAQ,IAAI,OAAQ,gBACxB,OAAQ,KAAM,MAAM,IAAI,UACxB,cAAe,IAAI,SACrB",
+  "names": []
+}

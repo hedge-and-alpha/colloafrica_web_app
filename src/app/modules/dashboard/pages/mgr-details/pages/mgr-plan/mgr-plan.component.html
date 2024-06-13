@@ -3,7 +3,7 @@
 
   <div class="col-2 grow">
     <div class="share-alloc flex flex-col sm:flex-row gap-2">
-      <ca-card class="py-3 px-4 rounded-[14px] share-link grow">
+      <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
         <div class="flex items-center">
           <div class="sm:font-medium text-xs text-[#7D7F85]">
             Share invite link
@@ -66,10 +66,13 @@
           class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]"
         >
           Allocation Position
-          <span class="bg-warning rounded-full alloc-position"> 6 </span>
+          <span class="bg-warning rounded-full alloc-position">
+            {{ activePlan()?.logged_user_position }}
+          </span>
         </div>
         <p class="text-xs max-w-[171px]">
-          Your Allocation position is [5] and you will get
+          Your Allocation position is [{{ activePlan()?.logged_user_position }}]
+          and you will get
           {{
             +plan.amount * +plan.number_of_members
               | currency : "NGN" : "symbol-narrow"

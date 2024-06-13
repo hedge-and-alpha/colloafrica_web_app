@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;8aeae77be63512111fa5f2f11ac6d5a63c36a9bb9902b28b7bf0a6fa4d35ce49;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/modules/dashboard/pages/home/components/account-info-card/account-info-card.component.ts"],
+  "sourcesContent": ["\n  :host progress::-webkit-progress-bar, :host progress {\n    background: #d0d0d0;\n  }\n\n  :host progress::-webkit-progress-value {\n    background-color: var(--purple);\n  }\n\n  :host progress::-moz-progress-bar {\n    background-color: var(--purple);\n  }\n  "],
+  "mappings": "AACE,MAAM,QAAQ,uBAAwB,MAAM,SAC1C,WAAY,OACd,CAEA,MAAM,QAAQ,yBACZ,iBAAkB,IAAI,SACxB,CAEA,MAAM,QAAQ,oBACZ,iBAAkB,IAAI,SACxB",
+  "names": []
+}

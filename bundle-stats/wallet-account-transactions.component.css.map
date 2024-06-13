@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/account-wallet/components/wallet-account-transactions/wallet-account-transactions.component.css"],
+  "sourcesContent": [":host h2 {\r\n  font-size: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,GACJ,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,OAAQ,CAAE,SAC/C",
+  "names": []
+}

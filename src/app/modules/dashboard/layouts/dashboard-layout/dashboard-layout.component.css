@@ -1,4 +1,5 @@
 :host .ca-dashboard > nav {
+  border-right: 0.5px solid #0000001a;
   position: fixed;
   left: -100%;
   transition: left 450ms;

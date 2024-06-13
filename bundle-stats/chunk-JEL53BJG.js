@@ -1,0 +1,3 @@
+import{Cb as l,Db as c,Sb as r,qa as i,tb as s,ub as n}from"./chunk-22TXYSPT.js";var a=[[["","col-1",""]],[["","col-2",""]]],d=["[col-1]","[col-2]"],g=(()=>{let e=class e{};e.\u0275fac=function(o){return new(o||e)},e.\u0275cmp=i({type:e,selectors:[["ca-cols-field-2"]],standalone:!0,features:[r],ngContentSelectors:d,decls:4,vars:0,consts:[[1,"sm:grid","lg:grid","grid-cols-2","gap-4","md:block"],[1,"mb-6","sm:mb-0","md:mb-6","lg:mb-0"]],template:function(o,p){o&1&&(l(a),s(0,"div",0)(1,"div",1),c(2),n(),c(3,1),n())},styles:[`[_nghost-%COMP%]{display:block}
+/*# sourceMappingURL=cols-field-2.component.css.map */`]});let t=e;return t})();export{g as a};
+//# sourceMappingURL=chunk-JEL53BJG.js.map

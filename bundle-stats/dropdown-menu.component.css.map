@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/dropdown-menu/dropdown-menu.component.css"],
+  "sourcesContent": [":host {\r\n  box-shadow: 2px 2px 8px 0 #6f6f6f40;\r\n  border-radius: 4px;\r\n  width: fit-content;\r\n  position: absolute;\r\n  top: calc(100% + 4px);\r\n  right: 8px;\r\n  width: 17.5rem;\r\n  transform: scale(0);\r\n  transform-origin: 100% 0;\r\n  opacity: 0;\r\n  transition: transform 100ms 70ms, opacity 70ms;\r\n  display: block;\r\n  padding-block: 2px;\r\n  background-color: #fff;\r\n}\r\n\r\n:host.open {\r\n  transform: scale(1);\r\n  opacity: 1;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,WAAY,IAAI,IAAI,IAAM,UAD5B,cAEiB,IACf,MAAO,YACP,SAAU,SACV,IAAK,KAAK,KAAK,EAAE,KACjB,MAAO,IACP,MAAO,QACP,UAAW,MAAM,GACjB,iBAAkB,KAAK,EACvB,QAAS,EACT,WAAY,UAAU,IAAM,IAAI,CAAE,QAAQ,KAC1C,QAAS,MACT,cAAe,IACf,iBAAkB,IACpB,CAEA,KAAK,CAAC,KACJ,UAAW,MAAM,GACjB,QAAS,CACX",
+  "names": []
+}

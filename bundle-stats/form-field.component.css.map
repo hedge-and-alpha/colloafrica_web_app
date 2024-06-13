@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/form-field/form-field.component.css"],
+  "sourcesContent": [":host .ca-form-control {\r\n  height: 50px;\r\n  border-radius: 5px;\r\n}\r\n\r\n:host .ca-form-control:is(:hover, :focus-within) {\r\n  border-color: var(--purple);\r\n}\r\n\r\n:host .ca-form-control:has([disabled]):hover {\r\n  border-color: #e5e7eb;\r\n}\r\n\r\n:host .ca-form-control:has(.ng-invalid.ng-dirty.ng-touched) {\r\n  border-color: #d92121;\r\n}\r\n\r\n:host .ca-form-control label {\r\n  top: -40%;\r\n  transform: translateY(25%);\r\n  left: 22px;\r\n  height: 19px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,gBACL,OAAQ,KADV,cAEiB,GACjB,CAEA,MAAM,CALC,eAKe,IAAI,OAAQ,eAChC,aAAc,IAAI,SACpB,CAEA,MAAM,CATC,eASe,KAAK,CAAC,UAAU,OACpC,aAAc,OAChB,CAEA,MAAM,CAbC,eAae,KAAK,CAAC,UAAU,CAAC,QAAQ,CAAC,YAC9C,aAAc,OAChB,CAEA,MAAM,CAjBC,gBAiBgB,MACrB,IAAK,KACL,UAAW,WAAW,KACtB,KAAM,KACN,OAAQ,IACV",
+  "names": []
+}

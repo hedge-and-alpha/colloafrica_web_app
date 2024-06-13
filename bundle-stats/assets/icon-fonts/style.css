@@ -1,0 +1,197 @@
+@font-face {
+  font-family: 'ColloAfrica';
+  src:
+    url('fonts/ColloAfrica.ttf?1tnmej') format('truetype'),
+    url('fonts/ColloAfrica.woff?1tnmej') format('woff'),
+    url('fonts/ColloAfrica.svg?1tnmej#ColloAfrica') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ColloAfrica' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ca-asterisk:before {
+  content: "\e938";
+}
+.ca-logout:before {
+  content: "\e936";
+}
+.ca-naira:before {
+  content: "\e937";
+}
+.ca-trash-solid:before {
+  content: "\e930";
+}
+.ca-coins:before {
+  content: "\e931";
+}
+.ca-three-dots-fill:before {
+  content: "\e932";
+}
+.ca-user-fill:before {
+  content: "\e933";
+}
+.ca-phone:before {
+  content: "\e934";
+}
+.ca-dollar-send-circle:before {
+  content: "\e935";
+}
+.ca-money-bag:before {
+  content: "\e903";
+}
+.ca-grid:before {
+  content: "\e90a";
+}
+.ca-hand-coin:before {
+  content: "\e914";
+}
+.ca-wallet:before {
+  content: "\e91b";
+}
+.ca-x-circle:before {
+  content: "\e91d";
+}
+.ca-eye:before {
+  content: "\e900";
+}
+.ca-list:before {
+  content: "\e901";
+}
+.ca-file-arrow-down:before {
+  content: "\e902";
+}
+.ca-scroll:before {
+  content: "\e904";
+}
+.ca-bank:before {
+  content: "\e905";
+}
+.ca-eye-slash:before {
+  content: "\e906";
+}
+.ca-arrow-up-right:before {
+  content: "\e907";
+}
+.ca-arrow-up-left:before {
+  content: "\e921";
+}
+.ca-arrow-down-right:before {
+  content: "\e924";
+}
+.ca-arrow-down-right1:before {
+  content: "\e925";
+}
+.ca-chart-bar:before {
+  content: "\e908";
+}
+.ca-chart-pie-slice:before {
+  content: "\e909";
+}
+.ca-trash:before {
+  content: "\e90b";
+}
+.ca-arrows-left-right:before {
+  content: "\e90c";
+}
+.ca-share-network:before {
+  content: "\e90d";
+}
+.ca-trash-fill:before {
+  content: "\e90e";
+}
+.ca-pencil:before {
+  content: "\e90f";
+}
+.ca-x-circle-fill:before {
+  content: "\e910";
+}
+.ca-calendar:before {
+  content: "\e911";
+}
+.ca-caret-down:before {
+  content: "\e912";
+}
+.ca-caret-up:before {
+  content: "\e926";
+}
+.ca-caret-right:before {
+  content: "\e927";
+}
+.ca-caret-left:before {
+  content: "\e928";
+}
+.ca-plus:before {
+  content: "\e913";
+}
+.ca-arrow-up:before {
+  content: "\e929";
+}
+.ca-arrow-right:before {
+  content: "\e92a";
+}
+.ca-arrow-left:before {
+  content: "\e92b";
+}
+.ca-arrow-down:before {
+  content: "\e92c";
+}
+.ca-check-circle:before {
+  content: "\e915";
+}
+.ca-copy:before {
+  content: "\e916";
+}
+.ca-caret-down-fill:before {
+  content: "\e917";
+}
+.ca-caret-up-fill:before {
+  content: "\e92d";
+}
+.ca-caret-left-fill:before {
+  content: "\e92e";
+}
+.ca-caret-right-fill:before {
+  content: "\e92f";
+}
+.ca-notification:before {
+  content: "\e918";
+}
+.ca-x:before {
+  content: "\e919";
+}
+.ca-info:before {
+  content: "\e91a";
+}
+.ca-clipboard:before {
+  content: "\e91c";
+}
+.ca-currency-circle-dollar:before {
+  content: "\e91e";
+}
+.ca-atom:before {
+  content: "\e91f";
+}
+.ca-user-circle-fill:before {
+  content: "\e920";
+}
+.ca-at:before {
+  content: "\e922";
+}
+.ca-user-circle:before {
+  content: "\e923";
+}

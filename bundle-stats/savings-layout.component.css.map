@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/layouts/savings-layout/savings-layout.component.css"],
+  "sourcesContent": [":host .savings-layout [col-2] {\r\n  margin-block-start: 20px;\r\n}\r\n\r\n@media (min-width: 45rem) {\r\n  :host .savings-layout {\r\n    display: grid;\r\n    grid-template-columns: repeat(2, 1fr);\r\n    gap: 1rem;\r\n    align-items: flex-start;\r\n  }\r\n\r\n  :host .savings-layout [col-2] {\r\n    margin-block-start: 0;\r\n  }\r\n}\r\n\r\n@media (min-width: 56rem) {\r\n  :host .savings-layout {\r\n    grid-template-columns: 1fr;\r\n  }\r\n}\r\n\r\n@media (min-width: 72.5rem) {\r\n  :host .savings-layout {\r\n    grid-template-columns: repeat(2, 1fr);\r\n  }\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,eAAe,CAAC,OACrB,mBAAoB,IACtB,CAEA,OAAO,CAAC,SAAS,EAAE,OACjB,MAAM,CALD,eAMH,QAAS,KACT,sBAAuB,OAAO,CAAC,CAAE,KACjC,IAAK,KACL,YAAa,UACf,CAEA,MAAM,CAZD,eAYiB,CAAC,OACrB,mBAAoB,CACtB,CACF,CAEA,OAAO,CAAC,SAAS,EAAE,OACjB,MAAM,CAlBD,eAmBH,sBAAuB,GACzB,CACF,CAEA,OAAO,CAAC,SAAS,EAAE,SACjB,MAAM,CAxBD,eAyBH,sBAAuB,OAAO,CAAC,CAAE,IACnC,CACF",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/account-wallet/components/top-up/top-up.component.css"],
+  "sourcesContent": [":host div[role=\"menu\"] div[role=\"menuitem\"] {\r\n  background: #f6f6f6;\r\n  border: 1px solid #dcdcdc;\r\n  height: 50px;\r\n  border-radius: 5px;\r\n}\r\n\r\n:host div[role=\"menu\"] div[role=\"menuitem\"] label {\r\n  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);\r\n  color: #373737;\r\n}\r\n\r\n:host .account-details {\r\n  background: #f6f6f6;\r\n}\r\n\r\n:host .transfer {\r\n  height: 0;\r\n  margin-block-end: 0;\r\n  overflow-y: hidden;\r\n  transition: 0.3s;\r\n}\r\n\r\n:host\r\n  div[role=\"menu\"]:has(input[type=\"radio\"][value=\"transfer\"]:checked)\r\n  .transfer {\r\n  height: 200px;\r\n  overflow-y: auto;\r\n  margin-block-end: 20px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,GAAG,CAAC,WAAa,GAAG,CAAC,eACzB,WAAY,QACZ,OAAQ,IAAI,MAAM,QAClB,OAAQ,KAHV,cAIiB,GACjB,CAEA,MAAM,GAAG,CAAC,WAAa,GAAG,CAAC,eAAiB,MAC1C,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,OAAQ,CAAE,SAC7C,MAAO,OACT,CAEA,MAAM,CAAC,gBACL,WAAY,OACd,CAEA,MAAM,CAAC,SACL,OAAQ,EACR,iBAAkB,EAClB,WAAY,OACZ,WAAY,GACd,CAEA,MACE,GAAG,CAAC,UAAY,KAAK,KAAK,CAAC,WAAa,CAAC,eAAiB,UAC1D,CATK,SAUL,OAAQ,MACR,WAAY,KACZ,iBAAkB,IACpB",
+  "names": []
+}

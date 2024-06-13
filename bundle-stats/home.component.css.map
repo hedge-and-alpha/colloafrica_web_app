@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/home/home.component.css"],
+  "sourcesContent": [":host .chart-area .chart-box {\r\n  margin-block-end: 24px;\r\n}\r\n\r\n@media (min-width: 50rem) {\r\n  :host .chart-area {\r\n    display: grid;\r\n    grid-template-columns: 59.124% 39.051%;\r\n    gap: 1.825%;\r\n    height: 356px;\r\n  }\r\n\r\n  :host .chart-area .chart-box {\r\n    margin-block-end: 0;\r\n  }\r\n}\r\n\r\n@media screen and (min-width: 56rem) {\r\n  :host .chart-area {\r\n    grid-template-columns: 1fr;\r\n    height: auto;\r\n    gap: 1.5rem;\r\n  }\r\n  :host .chart-area .chart-box {\r\n    margin-block-end: 24px;\r\n  }\r\n}\r\n\r\n@media (min-width: 72.5rem) {\r\n  :host .chart-area {\r\n    grid-template-columns: 59.124% 39.051%;\r\n    gap: 1.825%;\r\n    height: 356px;\r\n  }\r\n  :host .chart-area .chart-box {\r\n    margin-block-end: 0;\r\n  }\r\n}\r\n\r\n:host ca-table::ng-deep th {\r\n  text-align: center;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,WAAW,CAAC,UACjB,iBAAkB,IACpB,CAEA,OAAO,CAAC,SAAS,EAAE,OACjB,MAAM,CALD,WAMH,QAAS,KACT,sBAAuB,QAAQ,QAC/B,IAAK,OACL,OAAQ,KACV,CAEA,MAAM,CAZD,WAYa,CAZD,UAaf,iBAAkB,CACpB,CACF,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,OAC5B,MAAM,CAlBD,WAmBH,sBAAuB,IACvB,OAAQ,KACR,IAAK,MACP,CACA,MAAM,CAvBD,WAuBa,CAvBD,UAwBf,iBAAkB,IACpB,CACF,CAEA,OAAO,CAAC,SAAS,EAAE,SACjB,MAAM,CA7BD,WA8BH,sBAAuB,QAAQ,QAC/B,IAAK,OACL,OAAQ,KACV,CACA,MAAM,CAlCD,WAkCa,CAlCD,UAmCf,iBAAkB,CACpB,CACF,CAEA,MAAM,QAAQ,UAAU,GACtB,WAAY,MACd",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/modal-status/modal-status.component.css"],
+  "sourcesContent": [":host p {\r\n  font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,EACJ,UAAW,MAAM,OAAQ,CAAE,SAAU,EAAE,OAAQ,CAAE,KACnD",
+  "names": []
+}

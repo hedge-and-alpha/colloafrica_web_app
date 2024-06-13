@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/mgr/components/mgr-plan-card/mgr-plan-card.component.css"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n  position: relative;\r\n}\r\n\r\n:host a::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  inset: 0;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,MACT,SAAU,QACZ,CAEA,MAAM,CAAC,QACL,QAAS,GACT,SAAU,SAPZ,MAQS,CACT",
+  "names": []
+}

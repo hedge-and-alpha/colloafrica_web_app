@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/home/components/analytics-card/analytics-card.component.css"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n  height: 120px;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,MACT,OAAQ,KACV",
+  "names": []
+}

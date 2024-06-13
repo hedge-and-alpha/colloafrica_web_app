@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/page-not-found/page-not-found.component.css"],
+  "sourcesContent": [":host p {\r\n  font-size: clamp(1rem, 0.6667rem + 1.4815vw, 2rem);\r\n}\r\n\r\n:host a {\r\n  background: linear-gradient(90deg, #470b96 0%, #e29700 100%);\r\n  display: inline-block;\r\n  border-radius: 4px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,EACJ,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,QAAQ,CAAE,KAC/C,CAEA,MAAM,EACJ,WAAY,gBAAgB,KAAhB,CAAuB,OAAvB,CAAmC,SAC/C,QAAS,aANX,cAOiB,GACjB",
+  "names": []
+}

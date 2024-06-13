@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;b52149f8b042d406092ed9eb1f814005d5fac08ceb9f55709312f75f6b34640d;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/modules/dashboard/pages/profile/components/bank-account-info-item/bank-account-info-item.component.ts"],
+  "sourcesContent": ["\n    :host {\n      display: block;\n    }\n    :host div {\n      background: #F5F5F5;\n      height: 80px;\n      border: 1px solid #EDEDED;\n      display: grid;\n      grid-template-columns: 15rem repeat(3, 1fr) 3rem;\n      justify-content: space-between;\n      align-items: center;\n      border-radius: 10px;\n      gap: 3rem;\n      overflow-x: scroll;\n    }\n  "],
+  "mappings": "AACI,MACE,QAAS,KACX,CACA,MAAM,IACJ,WAAY,QACZ,OAAQ,KACR,OAAQ,IAAI,MAAM,QAClB,QAAS,KACT,sBAAuB,MAAM,OAAO,CAAC,CAAE,KAAK,KAC5C,gBAAiB,cACjB,YAAa,OAXnB,cAYqB,KACf,IAAK,KACL,WAAY,MACd",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/modal/modal.component.css"],
+  "sourcesContent": [":host .ca-modal {\r\n  background: #0f0f0f99;\r\n}\r\n\r\n:host .ca-modal .ca-modal-content {\r\n  width: 95%;\r\n  max-width: 41.75rem;\r\n  max-height: 550px;\r\n  border-radius: 12px;\r\n  transition: max-width 450ms;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n:host .ca-modal .ca-modal-content.small {\r\n  max-width: 31.625rem;\r\n}\r\n\r\n:host .ca-modal .ca-modal-content.large {\r\n  max-width: 60rem;\r\n  height: auto;\r\n  overflow-y: scroll;\r\n}\r\n\r\n:host h2 {\r\n  font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,SACL,WAAY,SACd,CAEA,MAAM,CAJC,SAIS,CAAC,iBACf,MAAO,IACP,UAAW,SACX,WAAY,MAPd,cAQiB,KACf,WAAY,UAAU,KACtB,QAAS,KACT,eAAgB,MAClB,CAEA,MAAM,CAdC,SAcS,CAVC,gBAUgB,CAAC,MAChC,UAAW,SACb,CAEA,MAAM,CAlBC,SAkBS,CAdC,gBAcgB,CAAC,MAChC,UAAW,MACX,OAAQ,KACR,WAAY,MACd,CAEA,MAAM,GACJ,UAAW,MAAM,OAAO,CAAE,UAAU,EAAE,OAAQ,CAAE,OAClD",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/mgr/components/mgr-plan-form/mgr-plan-form.component.css"],
+  "sourcesContent": ["[data-theme=\"0\"] {\r\n  background: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%);\r\n}\r\n\r\n[data-theme=\"1\"] {\r\n  background: linear-gradient(245.62deg, #006dca 8.35%, #1e96fc 100%);\r\n}\r\n\r\n[data-theme=\"2\"] {\r\n  background: linear-gradient(180deg, #ffba08 0%, #ffd056 100%);\r\n}\r\n\r\n[data-theme=\"3\"] {\r\n  background: linear-gradient(243.97deg, #00241b 7.18%, #000000 94.78%);\r\n}\r\n\r\n[data-theme=\"4\"] {\r\n  background: linear-gradient(67.98deg, #bca52c 4.84%, #f6e691 86.26%);\r\n}\r\n\r\n[data-theme=\"5\"] {\r\n  background: linear-gradient(58.91deg, #470b96 9.35%, #6b1bd3 91.36%);\r\n}\r\n"],
+  "mappings": "AAAA,CAAC,gBACC,WAAY,gBAAgB,QAAhB,CAA0B,QAAQ,KAAlC,CAAyC,QAAQ,OAC/D,CAEA,CAAC,gBACC,WAAY,gBAAgB,SAAhB,CAA2B,QAAQ,KAAnC,CAA0C,QACxD,CAEA,CAAC,gBACC,WAAY,gBAAgB,MAAhB,CAAwB,OAAxB,CAAoC,QAClD,CAEA,CAAC,gBACC,WAAY,gBAAgB,SAAhB,CAA2B,QAAQ,KAAnC,CAA0C,KAAQ,OAChE,CAEA,CAAC,gBACC,WAAY,gBAAgB,QAAhB,CAA0B,QAAQ,KAAlC,CAAyC,QAAQ,OAC/D,CAEA,CAAC,gBACC,WAAY,gBAAgB,QAAhB,CAA0B,QAAQ,KAAlC,CAAyC,QAAQ,OAC/D",
+  "names": []
+}

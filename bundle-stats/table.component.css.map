@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/table/table.component.css"],
+  "sourcesContent": [":host table {\r\n  border-collapse: collapse;\r\n}\r\n\r\n:host table th:first-of-type {\r\n  border-top-left-radius: 10px;\r\n  border-bottom-left-radius: 10px;\r\n}\r\n:host table th:last-of-type {\r\n  border-top-right-radius: 10px;\r\n  border-bottom-right-radius: 10px;\r\n}\r\n:host table thead tr {\r\n  background: #ededed;\r\n}\r\n:host table tbody tr {\r\n  border-block-end: 0.5px solid #d1d1d1;\r\n  height: 64px;\r\n}\r\n\r\n:host .ca-table .paginator button {\r\n  font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);\r\n}\r\n:host .ca-table .paginator button:disabled {\r\n  opacity: 0.5;\r\n}\r\n:host .ca-table .paginator span {\r\n  font-size: clamp(0.625rem, 0.5rem + 0.5556vw, 1rem);\r\n  width: 30px;\r\n  aspect-ratio: 1;\r\n  border-radius: 4px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,MACJ,gBAAiB,QACnB,CAEA,MAAM,MAAM,EAAE,eACZ,uBAAwB,KACxB,0BAA2B,IAC7B,CACA,MAAM,MAAM,EAAE,cACZ,wBAAyB,KACzB,2BAA4B,IAC9B,CACA,MAAM,MAAM,MAAM,GAChB,WAAY,OACd,CACA,MAAM,MAAM,MAAM,GAChB,iBAAkB,KAAM,MAAM,QAC9B,OAAQ,IACV,CAEA,MAAM,CAAC,SAAS,CAAC,UAAU,OACzB,UAAW,MAAM,MAAO,CAAE,SAAU,EAAE,OAAQ,CAAE,KAClD,CACA,MAAM,CAHC,SAGS,CAHC,UAGU,MAAM,UAC/B,QAAS,EACX,CACA,MAAM,CANC,SAMS,CANC,UAMU,KACzB,UAAW,MAAM,OAAQ,CAAE,MAAO,EAAE,OAAQ,CAAE,MAC9C,MAAO,KACP,aAAc,EA7BhB,cA8BiB,GACjB",
+  "names": []
+}

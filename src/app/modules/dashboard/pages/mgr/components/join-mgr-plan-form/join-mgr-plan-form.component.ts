@@ -16,6 +16,7 @@ export class JoinMgrPlanFormComponent implements OnInit {
   loading = false;
   isSubmitted = false;
   isDisabled = true;
+  showError = true;
 
   minDate = new Date();
   joinDate = new Date();
@@ -36,7 +37,7 @@ export class JoinMgrPlanFormComponent implements OnInit {
       allocation_date: ['', { disabled: true }],
       theme_color: [''],
       allotment_type: [''],
-      allotment_position: [],
+      allotment_position: [''],
       terms: [null, [Validators.requiredTrue]],
     },
     { updateOn: 'submit' }
@@ -73,6 +74,12 @@ export class JoinMgrPlanFormComponent implements OnInit {
         this.joinDate = new Date(mgr.join_date_deadline);
         this.contributionDate = new Date(mgr.contribution_start_date);
         this.allocationDate = new Date(mgr.allocation_date);
+
+        if (mgr.allotment_type === 'manual') {
+          this.isManual = true;
+          this.allotmentPositions = available_positions!;
+        }
+
         this.form.patchValue({
           name: mgr.name,
           desc: mgr.desc,
@@ -84,14 +91,7 @@ export class JoinMgrPlanFormComponent implements OnInit {
           allocation_date: mgr.allocation_date,
           theme_color: mgr.theme_color,
           allotment_type: mgr.theme_color,
-          // allotment_position: new FormControl<string | null>(null, [Validators.required]),
         });
-
-        if (mgr.allotment_type === 'manual') {
-          this.isManual = true;
-          this.allotmentPositions = available_positions!;
-          this.allotmentPosition?.addValidators([Validators.required]);
-        }
         this.loading = false;
       },
       error: (err: HttpErrorResponse) => {},
@@ -101,7 +101,11 @@ export class JoinMgrPlanFormComponent implements OnInit {
   handleSubmit() {
     this.isSubmitted = true;
 
-    if (this.form.invalid) return;
+    if (this.isManual && !this.allotmentPosition.value) {
+      this.showError = true;
+      return;
+    }
+    this.showError = false;
     this.loading = true;
 
     let position = this.allotmentPosition.value;
@@ -122,7 +126,7 @@ export class JoinMgrPlanFormComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
-          details: `${err.message}`,
+          details: `${err.error.message}`,
           summary: `${err.status}: ${err.statusText}`,
         });
       },

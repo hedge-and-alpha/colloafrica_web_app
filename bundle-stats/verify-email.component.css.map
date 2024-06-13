@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/auth/pages/verify-email/verify-email.component.css"],
+  "sourcesContent": [":host img {\r\n  width: clamp(5.53rem, 4.915rem + 2.7333vw, 7.375rem);\r\n  aspect-ratio: 1;\r\n}\r\n\r\n:host img {\r\n  font-size: clamp(1.5rem, 1.1667rem + 1.4815vw, 2.5rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,IACJ,MAAO,MAAM,OAAO,CAAE,SAAS,EAAE,QAAQ,CAAE,UAC3C,aAAc,CAChB,CAEA,MAAM,IACJ,UAAW,MAAM,MAAM,CAAE,UAAU,EAAE,QAAQ,CAAE,OACjD",
+  "names": []
+}

@@ -43,7 +43,7 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
             'An error occurred: Unable to complete the request. This might be due to network issues, server downtime, or CORS restrictions. Please check your internet connection and try again.';
         }
 
-        console.log('error:', error);
+        console.error(error);
 
         // if (error.status === 0) {
         //   return throwError(() => ({

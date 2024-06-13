@@ -16,6 +16,7 @@ export class ModalService {
   private _size: WritableSignal<ModalSize> = signal('regular');
   private _componentClass: WritableSignal<any | null> = signal(null);
   private _componentInputs: WritableSignal<Record<string, any>> = signal({});
+  private _data: WritableSignal<unknown> = signal(undefined);
 
   private _config: WritableSignal<ModalConfig> = signal({});
 
@@ -37,6 +38,10 @@ export class ModalService {
 
   get componentInputs() {
     return this._componentInputs;
+  }
+
+  get data() {
+    return this._data;
   }
 
   open(
@@ -69,7 +74,8 @@ export class ModalService {
     this._size.set(size);
   }
 
-  close() {
+  close(data?: unknown) {
+    this._data.set(data);
     this._isOpen.set(false);
     this._componentClass.set(null);
     this._componentInputs.set({});

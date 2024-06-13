@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, computed, effect } from '@angular/core';
 import { MGR, MGRUser } from '../../../../../../interfaces/mgr.interface';
 import { TableHeading } from '../../../../../../interfaces/table-heading';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { ManageGroupMemberModalComponent } from '../manage-group-member-modal/manage-group-member-modal.component';
+import { MgrStoreService } from '../../../../../../stores+/mgr.store';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-participants-table',
@@ -15,24 +17,21 @@ export class ParticipantsTableComponent implements OnInit {
 
   tableHeading = TABLE_HEADING;
 
-  @Input() users: MGRUser[] = [];
+  users = computed(() => this.mgrStore.activePlan()?.mgr_users);
+  activePlan = computed(() => this.mgrStore.activePlan());
 
   constructor(
     private api: DashboardApiService,
-    private modalService: ModalService
-  ) {}
-
-  ngOnInit() {
-    this.getMgrDetails();
-  }
-
-  getMgrDetails() {
-    this.api.getMGRById(this.plan.id).subscribe({
-      next: (users) => {
-        this.users = users;
-      },
+    private modalService: ModalService,
+    private mgrStore: MgrStoreService,
+    private userStore: UserStoreService
+  ) {
+    effect(() => {
+      console.log(this.modalService.data());
     });
   }
+
+  ngOnInit() {}
 
   removeMember(userId: string, firstName: string, lastName: string) {
     this.modalService.open(
@@ -43,20 +42,22 @@ export class ParticipantsTableComponent implements OnInit {
         action: 'delete',
         name: `${firstName} ${lastName}`,
         planId: this.plan.id,
-        userId: userId,
+        userId,
       }
     );
   }
 
-  swapMember(userId: string, firstName: string, lastName: string) {
+  swapMember(plan: MGRUser) {
     this.modalService.open(
       ManageGroupMemberModalComponent,
       'small',
       {},
-      { action: 'swap', newPosition: 1, planId: this.plan.id, userId: userId }
-      /**
-       * !TODO: pass new position
-       */
+      {
+        action: 'swap',
+        newPosition: 4,
+        planId: this.plan.id,
+        userId: plan.user_id,
+      }
     );
   }
 }

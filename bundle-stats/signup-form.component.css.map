@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/auth/components/signup-form/signup-form.component.css"],
+  "sourcesContent": [":host [type=\"checkbox\"] {\r\n  margin-top: 4.5px;\r\n}\r\n\r\n:host h1 {\r\n  font-size: clamp(1.5rem, 1.1667rem + 1.4815vw, 2.5rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,eACL,WAAY,KACd,CAEA,MAAM,GACJ,UAAW,MAAM,MAAM,CAAE,UAAU,EAAE,QAAQ,CAAE,OACjD",
+  "names": []
+}

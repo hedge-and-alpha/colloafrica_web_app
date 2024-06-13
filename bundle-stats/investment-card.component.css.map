@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/investments/components/investment-card/investment-card.component.css"],
+  "sourcesContent": [":host {\r\n  max-width: 16.675rem;\r\n  min-height: 280px;\r\n  height: 100%;\r\n}\r\n\r\n:host ca-card {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n:host a {\r\n  font-size: 0.625rem;\r\n}\r\n\r\n:host a::after {\r\n  content: \"\";\r\n  position: absolute;\r\n  inset: 0;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,UAAW,UACX,WAAY,MACZ,OAAQ,IACV,CAEA,MAAM,QACJ,QAAS,KACT,eAAgB,MAClB,CAEA,MAAM,EACJ,UAAW,OACb,CAEA,MAAM,CAAC,OACL,QAAS,GACT,SAAU,SAjBZ,MAkBS,CACT",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/profile/profile.component.css"],
+  "sourcesContent": [":host nav {\r\n  border-block: 1px solid #dddddd;\r\n}\r\n\r\n:host nav a {\r\n  color: #7d7f85;\r\n  font-weight: 500;\r\n  flex-shrink: 0;\r\n  position: relative;\r\n}\r\n\r\n:host nav a:is(.active, :hover, :focus) {\r\n  color: var(--purple);\r\n}\r\n\r\n:host nav a::after {\r\n  content: \"\";\r\n  display: inline-block;\r\n  position: absolute;\r\n  width: 36px;\r\n  height: 3px;\r\n  bottom: -8px;\r\n  background-color: transparent;\r\n  left: calc(50% - 18px);\r\n  transform: scaleX(0);\r\n  transition: transform 350ms;\r\n}\r\n\r\n:host nav a.active::after {\r\n  background-color: var(--purple);\r\n  transform: scaleX(1);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,IACJ,aAAc,IAAI,MAAM,OAC1B,CAEA,MAAM,IAAI,EACR,MAAO,QACP,YAAa,IACb,YAAa,EACb,SAAU,QACZ,CAEA,MAAM,IAAI,CAAC,IAAI,CAAC,OAAQ,OAAQ,QAC9B,MAAO,IAAI,SACb,CAEA,MAAM,IAAI,CAAC,OACT,QAAS,GACT,QAAS,aACT,SAAU,SACV,MAAO,KACP,OAAQ,IACR,OAAQ,KACR,iBAAkB,YAClB,KAAM,KAAK,IAAI,EAAE,MACjB,UAAW,OAAO,GAClB,WAAY,UAAU,IACxB,CAEA,MAAM,IAAI,CAAC,CAjBK,MAiBE,OAChB,iBAAkB,IAAI,UACtB,UAAW,OAAO,EACpB",
+  "names": []
+}

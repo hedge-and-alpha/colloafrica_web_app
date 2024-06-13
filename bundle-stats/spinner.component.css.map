@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;fe404abc75acb9989f1aaca5b2f9fa99105e24e69d4648d757cd346cc5d2c284;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/components/spinner/spinner.component.ts"],
+  "sourcesContent": ["\n    :host {\n      display: flex;\n    }\n    .loader {\n    width: 24px;\n    height: 24px;\n    /* border: 5px solid #FFF; */\n    border-bottom-color: transparent;\n    border-radius: 50%;\n    display: inline-block;\n    box-sizing: border-box;\n    animation: rotation 1s linear infinite;\n    }\n\n    @keyframes rotation {\n    0% {\n        transform: rotate(0deg);\n    }\n    100% {\n        transform: rotate(360deg);\n    }\n    }\n  "],
+  "mappings": "AACI,MACE,QAAS,IACX,CACA,CAAC,OACD,MAAO,KACP,OAAQ,KAER,oBAAqB,YARzB,cASmB,IACf,QAAS,aACT,WAAY,WACZ,UAAW,SAAS,GAAG,OAAO,QAC9B,CAEA,WAHW,SAIX,GACI,UAAW,OAAO,EACtB,CACA,GACI,UAAW,OAAO,OACtB,CACA",
+  "names": []
+}

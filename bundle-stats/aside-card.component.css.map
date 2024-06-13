@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/components/aside-card/aside-card.component.css"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n\r\n:host .ca-aside-card {\r\n  border-radius: 15px;\r\n  display: grid;\r\n  grid-template-columns: 1fr 3.25rem;\r\n  position: relative;\r\n}\r\n\r\n:host .ca-aside-card a::after {\r\n  content: \"\";\r\n  display: block;\r\n  position: absolute;\r\n  inset: 0;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,KACX,CAEA,MAAM,CAAC,cAJP,cAKiB,KACf,QAAS,KACT,sBAAuB,IAAI,QAC3B,SAAU,QACZ,CAEA,MAAM,CAPC,cAOc,CAAC,OACpB,QAAS,GACT,QAAS,MACT,SAAU,SAdZ,MAeS,CACT",
+  "names": []
+}

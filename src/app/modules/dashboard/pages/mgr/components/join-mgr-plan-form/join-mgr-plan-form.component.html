@@ -47,7 +47,7 @@
   </div>
   <!-- 2 cols -->
 
-  <div class="xl:grid grid-cols-2 gap-4">
+  <div class="xl:grid gap-4" [ngClass]="{ 'grid-cols-2': isManual }">
     <ca-form-field
       label="Amount"
       labelFor="amount"
@@ -60,6 +60,7 @@
       </div>
     </ca-form-field>
 
+    @if (isManual) {
     <div class="mb-6">
       <ca-form-field
         label="Allotment position"
@@ -74,7 +75,7 @@
             placeholder="Select position"
             formControlName="allotment_position"
             [ngClass]="{
-              'ng-touched ng-dirty': isSubmitted && allotmentPosition.invalid
+              'ng-touched ng-dirty': isSubmitted && showError
             }"
           >
             @for (pos of allotmentPositions; track $index) {
@@ -83,10 +84,11 @@
           </ng-select>
         </div>
       </ca-form-field>
-      @if (isSubmitted && allotmentPosition.invalid) {
-      <ca-form-error [errors]="allotmentPosition.errors" />
+      @if (isSubmitted && showError) {
+      <ca-form-error [errors]="{ required: true }" />
       }
     </div>
+    }
   </div>
 
   <ca-form-field

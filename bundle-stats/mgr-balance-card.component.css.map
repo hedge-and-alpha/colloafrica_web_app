@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/mgr-details/components/mgr-balance-card/mgr-balance-card.component.css"],
+  "sourcesContent": [":host ca-card {\r\n  background: linear-gradient(58.91deg, #470b96 9.35%, #6b1bd3 91.36%);\r\n  border-radius: 15px;\r\n}\r\n\r\n:host #coin {\r\n  width: clamp(3.625rem, 3.5rem + 0.5556vw, 4rem);\r\n  aspect-ratio: 1;\r\n}\r\n\r\n:host .date {\r\n  color: #7d7f85;\r\n  border-radius: 4px;\r\n  padding: 8px 0.75rem;\r\n  display: inline-flex;\r\n  align-items: center;\r\n}\r\n\r\n:host .divider {\r\n  height: 0.5px;\r\n  background-color: #dadada;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,QACJ,WAAY,gBAAgB,QAAhB,CAA0B,QAAQ,KAAlC,CAAyC,QAAQ,QAD/D,cAEiB,IACjB,CAEA,MAAM,CAAC,KACL,MAAO,MAAM,QAAQ,CAAE,OAAO,EAAE,OAAQ,CAAE,MAC1C,aAAc,CAChB,CAEA,MAAM,CAAC,KACL,MAAO,QAXT,cAYiB,IAZjB,QAaW,IAAI,OACb,QAAS,YACT,YAAa,MACf,CAEA,MAAM,CAAC,QACL,OAAQ,KACR,iBAAkB,OACpB",
+  "names": []
+}

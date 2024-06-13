@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/profile/id-verification/id-verification.component.css"],
+  "sourcesContent": [":host h2 {\r\n  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,GACJ,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,OAAQ,CAAE,QAC/C",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/validators/emptyField.validator.ts"],
+  "sourcesContent": ["import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';\r\n\r\nexport function emptyFieldValidator(): ValidatorFn {\r\n  return (control: AbstractControl): ValidationErrors | null => {\r\n    let value = control.value as string;\r\n\r\n    return value && !value.trim().length ? { emptyField: true } : null;\r\n  };\r\n}\r\n"],
+  "mappings": "AAEM,SAAUA,GAAmB,CACjC,OAAQC,GAAqD,CAC3D,IAAIC,EAAQD,EAAQC,MAEpB,OAAOA,GAAS,CAACA,EAAMC,KAAI,EAAGC,OAAS,CAAEC,WAAY,EAAI,EAAK,IAChE,CACF",
+  "names": ["emptyFieldValidator", "control", "value", "trim", "length", "emptyField"]
+}

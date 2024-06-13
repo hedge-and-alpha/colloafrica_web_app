@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/account-wallet/components/wallet-account-details/wallet-account-details.component.css"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n\r\n:host .ca-wa-details .value {\r\n  font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);\r\n}\r\n:host .ca-wa-details .value-acct {\r\n  font-size: clamp(0.875rem, 0.75rem + 0.5556vw, 1.25rem);\r\n}\r\n\r\n:host .ca-wa-details > div {\r\n  border-bottom: 0.5px solid #e8e8e8;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,KACX,CAEA,MAAM,CAAC,cAAc,CAAC,MACpB,UAAW,MAAM,OAAQ,CAAE,SAAU,EAAE,OAAQ,CAAE,KACnD,CACA,MAAM,CAHC,cAGc,CAAC,WACpB,UAAW,MAAM,OAAQ,CAAE,OAAQ,EAAE,OAAQ,CAAE,QACjD,CAEA,MAAM,CAPC,aAOc,CAAE,IACrB,cAAe,KAAM,MAAM,OAC7B",
+  "names": []
+}

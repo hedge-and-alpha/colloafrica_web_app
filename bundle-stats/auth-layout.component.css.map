@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/auth/layouts/auth-layout/auth-layout.component.css"],
+  "sourcesContent": [":host .layout {\r\n  background: #ededed;\r\n  display: grid;\r\n}\r\n\r\n:host .layout .logo {\r\n  width: clamp(6.9375rem, 4.6042rem + 10.3704vw, 13.9375rem);\r\n}\r\n\r\n@media screen and (min-width: 48rem) {\r\n  :host .layout {\r\n    grid-template-columns: 1fr 1fr;\r\n  }\r\n}\r\n\r\n@media screen and (min-width: 64rem) {\r\n  :host .layout {\r\n    grid-template-columns: 58.33% calc(100% - 58.33%);\r\n  }\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,OACL,WAAY,QACZ,QAAS,IACX,CAEA,MAAM,CALC,OAKO,CAAC,KACb,MAAO,MAAM,SAAS,CAAE,UAAU,EAAE,SAAS,CAAE,WACjD,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,OAC5B,MAAM,CAVD,OAWH,sBAAuB,IAAI,GAC7B,CACF,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,OAC5B,MAAM,CAhBD,OAiBH,sBAAuB,OAAO,MAChC,CACF",
+  "names": []
+}

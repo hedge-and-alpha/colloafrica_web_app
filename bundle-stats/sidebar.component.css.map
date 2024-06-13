@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/components/sidebar/sidebar.component.css"],
+  "sourcesContent": [":host {\r\n  display: flex;\r\n  flex-direction: column;\r\n  height: 100%;\r\n}\r\n\r\n:host .divider {\r\n  background-color: #f3f5f5;\r\n  height: 2px;\r\n  margin-block-end: 18px;\r\n}\r\n\r\n:host menu li a {\r\n  color: #7d7f85;\r\n  width: 100%;\r\n}\r\n\r\n:host menu li a:is(.active, :hover) {\r\n  color: var(--purple);\r\n  transition: color 350ms;\r\n}\r\n\r\n:host menu li a::after {\r\n  content: \"\\e92a\";\r\n  font-family: \"ColloAfrica\" !important;\r\n  margin-inline-start: auto;\r\n  font-weight: 500;\r\n  opacity: 0;\r\n}\r\n\r\n:host menu li:hover a::after,\r\n:host menu li a.active::after {\r\n  opacity: 1;\r\n  transition: opacity 450ms;\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,KACT,eAAgB,OAChB,OAAQ,IACV,CAEA,MAAM,CAAC,QACL,iBAAkB,QAClB,OAAQ,IACR,iBAAkB,IACpB,CAEA,MAAM,KAAK,GAAG,EACZ,MAAO,QACP,MAAO,IACT,CAEA,MAAM,KAAK,GAAG,CAAC,IAAI,CAAC,OAAQ,QAC1B,MAAO,IAAI,UACX,WAAY,MAAM,IACpB,CAEA,MAAM,KAAK,GAAG,CAAC,OACb,QAAS,QACT,YAAa,sBACb,oBAAqB,KACrB,YAAa,IACb,QAAS,CACX,CAEA,MAAM,KAAK,EAAE,OAAO,CAAC,OACrB,MAAM,KAAK,GAAG,CAAC,CAdK,MAcE,OACpB,QAAS,EACT,WAAY,QAAQ,IACtB",
+  "names": []
+}

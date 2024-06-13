@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/notifications/notification-item/notification-item.component.css"],
+  "sourcesContent": [":host .icon-ctr {\r\n  width: clamp(2rem, 1.7708rem + 1.0185vw, 2.6875rem);\r\n  aspect-ratio: 1;\r\n  font-size: clamp(1.125rem, 0.9583rem + 0.7407vw, 1.625rem);\r\n}\r\n\r\n:host time {\r\n  font-size: 0.625rem;\r\n  line-height: 1.4;\r\n}\r\n\r\n:host [data-type=\"request\"],\r\n:host [data-type=\"fund\"] {\r\n  background: #e5fff9;\r\n  color: #17b890;\r\n}\r\n\r\n:host [data-type=\"withdraw\"] {\r\n  background: #ffebec;\r\n  color: #dc4952;\r\n}\r\n\r\n:host button {\r\n  height: 30px;\r\n  width: 4.75rem;\r\n  border-radius: 6px;\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n:host button.confirm {\r\n  background-color: #17b890;\r\n}\r\n\r\n:host button.reject {\r\n  background-color: #dc4952;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,SACL,MAAO,MAAM,IAAI,CAAE,UAAU,EAAE,QAAQ,CAAE,WACzC,aAAc,EACd,UAAW,MAAM,QAAQ,CAAE,SAAU,EAAE,OAAQ,CAAE,SACnD,CAEA,MAAM,KACJ,UAAW,QACX,YAAa,GACf,CAEA,MAAM,CAAC,mBACP,MAAM,CAAC,gBACL,WAAY,QACZ,MAAO,OACT,CAEA,MAAM,CAAC,oBACL,WAAY,QACZ,MAAO,OACT,CAEA,MAAM,OACJ,OAAQ,KACR,MAAO,QAxBT,cAyBiB,IACf,QAAS,YACT,YAAa,OACb,gBAAiB,MACnB,CAEA,MAAM,MAAM,CAAC,QACX,iBAAkB,OACpB,CAEA,MAAM,MAAM,CAAC,OACX,iBAAkB,OACpB",
+  "names": []
+}

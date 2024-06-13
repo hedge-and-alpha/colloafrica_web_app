@@ -3,6 +3,7 @@ export interface MGR {
   desc: string;
   duration: string;
   number_of_members: string;
+  logged_user_position: number;
   amount: string;
   join_date_deadline: string;
   contribution_start_date: string;

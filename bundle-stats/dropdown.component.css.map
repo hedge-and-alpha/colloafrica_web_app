@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;1b1f430c3487d570423b4815169083e0eea681156dd03d11b4d8f71d8dad9b01;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/components/dropdown/dropdown/dropdown.component.ts"],
+  "sourcesContent": ["\n    :host {\n      position: relative;\n      display: inline-block;\n    }\n  "],
+  "mappings": "AACI,MACE,SAAU,SACV,QAAS,YACX",
+  "names": []
+}

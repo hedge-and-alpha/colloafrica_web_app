@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/savings-detail/savings-detail.component.css"],
+  "sourcesContent": [":host .row {\r\n  font-size: clamp(0.875rem, 0.7917rem + 0.3704vw, 1.125rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,IACL,UAAW,MAAM,OAAQ,CAAE,SAAU,EAAE,OAAQ,CAAE,SACnD",
+  "names": []
+}

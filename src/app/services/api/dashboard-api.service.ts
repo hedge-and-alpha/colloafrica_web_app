@@ -5,6 +5,8 @@ import { environment } from '../../../environments/environment';
 import { Account, Transaction } from '../../interfaces/account';
 import { ApiResponse, TablePagination } from '../../interfaces/api-response';
 import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
+import { MGR } from '../../interfaces/mgr.interface';
+import { INotificationData } from '../../interfaces/notification';
 import {
   BasicInfo,
   ContactInfo,
@@ -14,9 +16,9 @@ import {
   User,
 } from '../../interfaces/user';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
-import { UserStoreService } from '../../stores+/user.store';
+import { MgrStoreService } from '../../stores+/mgr.store';
 import { TransactionStoreService } from '../../stores+/transaction.store';
-import { MGR } from '../../interfaces/mgr.interface';
+import { UserStoreService } from '../../stores+/user.store';
 
 @Injectable()
 export class DashboardApiService {
@@ -26,7 +28,8 @@ export class DashboardApiService {
     private http: HttpClient,
     private userStore: UserStoreService,
     private cardBankStore: CardAndBankStoreService,
-    private transactionStore: TransactionStoreService
+    private transactionStore: TransactionStoreService,
+    private mgrStore: MgrStoreService
   ) {}
 
   getUser() {
@@ -227,9 +230,12 @@ export class DashboardApiService {
   }
 
   getMGRById(id: string) {
-    return this.http
-      .get<{ data: MGR }>(`${this.#baseUrl}/mgr/${id}`)
-      .pipe(map((mgr) => mgr.data.mgr_users!));
+    return this.http.get<{ data: MGR }>(`${this.#baseUrl}/mgr/${id}`).pipe(
+      tap((mgr) => {
+        this.mgrStore.setActivePlan(mgr.data!);
+        this.mgrStore.setMembers(mgr.data.mgr_users!);
+      })
+    );
   }
 
   getMgrByInviteLink(link: string) {
@@ -267,4 +273,15 @@ export class DashboardApiService {
       null
     );
   }
+  /********************** MGR end **********************/
+
+  /********************** Notification start **********************/
+  getUnreadNotifications() {
+    return this.http
+      .get<{ data: { notifications: INotificationData[] } }>(
+        `${this.#baseUrl}/user/notifications/unread`
+      )
+      .pipe(map((res) => res.data.notifications));
+  }
+  /********************** Notification end **********************/
 }

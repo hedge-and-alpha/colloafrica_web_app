@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;d1e7aaa07bfde7761cc539d6e1799764dce565080254aa66b46db4ad16870e1d;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/modules/dashboard/components/card/card.component.ts"],
+  "sourcesContent": ["\n    :host {\n      display: block;\n      background-color: #fff;\n    }\n  "],
+  "mappings": "AACI,MACE,QAAS,MACT,iBAAkB,IACpB",
+  "names": []
+}

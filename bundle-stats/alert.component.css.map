@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/alert/alert.component.css"],
+  "sourcesContent": [":host .ca-alert {\r\n  min-width: 20rem;\r\n  max-width: 36rem;\r\n  width: 95%;\r\n  position: fixed;\r\n  top: 24px;\r\n  left: 50%;\r\n  transform: translateX(-50%);\r\n}\r\n\r\n:host .ca-alert-item {\r\n  border: 1px solid;\r\n  display: flex;\r\n  align-items: center;\r\n  border-radius: 5px;\r\n}\r\n\r\n:host .ca-alert-item.plain {\r\n  width: fit-content;\r\n  background-color: #fff;\r\n  border: 1px solid #5c5c5c;\r\n  min-width: max-content;\r\n  margin-inline: auto;\r\n}\r\n\r\n:host .ca-alert-item.success {\r\n  background: #e2fae3;\r\n  border: 1px solid #049f0a;\r\n}\r\n\r\n:host .ca-alert-item.warning {\r\n  background: #fff3dc;\r\n  border: 1px solid #e29700;\r\n}\r\n\r\n:host .ca-alert-item.danger {\r\n  background: #ffe8e9;\r\n  border-color: #dc4952;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,SACL,UAAW,MACX,UAAW,MACX,MAAO,IACP,SAAU,MACV,IAAK,KACL,KAAM,IACN,UAAW,UAAW,KACxB,CAEA,MAAM,CAAC,cACL,OAAQ,IAAI,MACZ,QAAS,KACT,YAAa,OAbf,cAciB,GACjB,CAEA,MAAM,CAPC,aAOa,CAAC,MACnB,MAAO,YACP,iBAAkB,KAClB,OAAQ,IAAI,MAAM,QAClB,UAAW,YACX,cAAe,IACjB,CAEA,MAAM,CAfC,aAea,CAAC,QACnB,WAAY,QACZ,OAAQ,IAAI,MAAM,OACpB,CAEA,MAAM,CApBC,aAoBa,CAAC,QACnB,WAAY,QACZ,OAAQ,IAAI,MAAM,OACpB,CAEA,MAAM,CAzBC,aAyBa,CAAC,OACnB,WAAY,QACZ,aAAc,OAChB",
+  "names": []
+}

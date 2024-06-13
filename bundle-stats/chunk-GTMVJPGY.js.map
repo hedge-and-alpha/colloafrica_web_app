@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/services/auth/auth.service.ts"],
+  "sourcesContent": ["import { Injectable } from '@angular/core';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class AuthService {\r\n  email?: string | null = null;\r\n  url: string | null = null;\r\n}\r\n"],
+  "mappings": "yCAGA,IAAaA,GAAW,IAAA,CAAlB,IAAOA,EAAP,MAAOA,CAAW,CADxBC,aAAA,CAEE,KAAAC,MAAwB,KACxB,KAAAC,IAAqB,6CAFVH,EAAW,wBAAXA,EAAWI,QAAXJ,EAAWK,UAAAC,WADE,MAAM,CAAA,EAC1B,IAAON,EAAPO,SAAOP,CAAW,GAAA",
+  "names": ["AuthService", "constructor", "email", "url", "factory", "\u0275fac", "providedIn", "_AuthService"]
+}

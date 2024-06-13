@@ -2,13 +2,13 @@
   class="font-medium mb-5"
   style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
 >
-  Participants ({{ users.length }} of {{ plan.number_of_members }})
+  Participants ({{ users()?.length }} of {{ plan.number_of_members }})
 </h2>
 
 <ca-card class="p-4 lg:p-5 rounded-md lg:rounded-xl mb-6 lg:mb-10">
   <ca-table
     [tableHeading]="tableHeading"
-    [tableData]="users"
+    [tableData]="users() || []"
     [hasPagination]="false"
   >
     <ng-template let-item #tableBody>
@@ -47,7 +47,13 @@
       </td>
       <td class="whitespace-nowrap">
         <div class="inline-flex gap-3">
-          <button ca-button-icon [disabled]="item.role === 'member'">
+          <button
+            ca-button-icon
+            [ngClass]="{
+              '!hidden': activePlan()!.logged_user_position === item.position
+            }"
+            (click)="swapMember(item)"
+          >
             <i class="ca-arrows-left-right"></i>
           </button>
           <button

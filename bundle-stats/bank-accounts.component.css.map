@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/profile/bank-accounts/bank-accounts.component.css"],
+  "sourcesContent": [":host\r\n  ca-bank-account-info-item\r\n  ca-bank-account-info-item-column:not(:last-of-type) {\r\n  min-width: 112px;\r\n}\r\n\r\n:host h2 {\r\n  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);\r\n}\r\n"],
+  "mappings": "AAAA,MACE,0BACA,gCAAgC,KAAK,eACrC,UAAW,KACb,CAEA,MAAM,GACJ,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,OAAQ,CAAE,QAC/C",
+  "names": []
+}

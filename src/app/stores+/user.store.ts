@@ -1,5 +1,5 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import { User, VirtualAccount } from '../interfaces/user';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',

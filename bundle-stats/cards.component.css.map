@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/profile/cards/cards.component.css"],
+  "sourcesContent": [":host h2 {\r\n  font-size: clamp(1rem, 0.9167rem + 0.3704vw, 1.25rem);\r\n}\r\n\r\n:host .ca-payment-cards {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  gap: 1.5rem;\r\n}\r\n\r\n:host .ca-payment-cards ca-payment-card {\r\n  width: 100%;\r\n  max-width: 19.6875rem;\r\n}\r\n\r\n@media screen and (min-width: 46.625rem) {\r\n  :host .ca-payment-cards {\r\n    display: grid;\r\n    grid-template-columns: repeat(2, 1fr);\r\n    gap: 1.5rem 0.75rem;\r\n    place-items: center;\r\n  }\r\n}\r\n\r\n@media screen and (min-width: 75rem) {\r\n  :host .ca-payment-cards {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,GACJ,UAAW,MAAM,IAAI,CAAE,SAAU,EAAE,OAAQ,CAAE,QAC/C,CAEA,MAAM,CAAC,iBACL,QAAS,KACT,eAAgB,OAChB,YAAa,OACb,IAAK,MACP,CAEA,MAAM,CAPC,iBAOiB,gBACtB,MAAO,KACP,UAAW,UACb,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,WAC5B,MAAM,CAbD,iBAcH,QAAS,KACT,sBAAuB,OAAO,CAAC,CAAE,KACjC,IAAK,OAAO,OACZ,YAAa,MACf,CACF,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,OAC5B,MAAM,CAtBD,iBAuBH,sBAAuB,OAAO,CAAC,CAAE,IACnC,CACF",
+  "names": []
+}

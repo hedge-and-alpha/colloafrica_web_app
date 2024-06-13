@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/components/error-page/error-page.component.css"],
+  "sourcesContent": [":host h1 {\r\n  font-size: clamp(3rem, 2rem + 4.4444vw, 6rem);\r\n}\r\n\r\n:host p {\r\n  font-size: clamp(2rem, 1.3333rem + 2.963vw, 4rem);\r\n}\r\n\r\n:host button {\r\n  background: linear-gradient(90deg, #470b96 0%, #e29700 100%);\r\n  display: inline-block;\r\n  border-radius: 4px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,GACJ,UAAW,MAAM,IAAI,CAAE,KAAK,EAAE,QAAQ,CAAE,KAC1C,CAEA,MAAM,EACJ,UAAW,MAAM,IAAI,CAAE,UAAU,EAAE,OAAO,CAAE,KAC9C,CAEA,MAAM,OACJ,WAAY,gBAAgB,KAAhB,CAAuB,OAAvB,CAAmC,SAC/C,QAAS,aAVX,cAWiB,GACjB",
+  "names": []
+}

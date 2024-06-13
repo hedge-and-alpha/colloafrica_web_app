@@ -3,6 +3,7 @@ import { DashboardApiService } from '../../../../../../services/api/dashboard-ap
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MgrStoreService } from '../../../../../../stores+/mgr.store';
 
 @Component({
   selector: 'ca-manage-group-member-modal',
@@ -20,7 +21,8 @@ export class ManageGroupMemberModalComponent {
 
   constructor(
     private api: DashboardApiService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private mgrStore: MgrStoreService
   ) {}
 
   removeMember() {
@@ -28,6 +30,7 @@ export class ManageGroupMemberModalComponent {
     this.api.removeMember(this.planId, this.userId).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
+        this.api.getMGRById(this.planId).subscribe();
         this.modalService.update(
           ModalStatusComponent,
           'small',
@@ -50,9 +53,33 @@ export class ManageGroupMemberModalComponent {
 
   sendSwapRequest() {
     this.loading = true;
+    this.api
+      .changeMemberPosition(this.planId, this.userId, this.newPosition)
+      .subscribe({
+        next: ({ message, status }) => {
+          this.loading = false;
+          this.api.getMGRById(this.planId).subscribe();
+          this.modalService.update(
+            ModalStatusComponent,
+            'small',
+            {
+              closable: false,
+              showHeading: false,
+            },
+            {
+              success: true,
+              status,
+              message,
+            }
+          );
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loading = false;
+        },
+      });
   }
 
   close() {
-    this.modalService.close();
+    this.modalService.close({ event: 'refresh' });
   }
 }

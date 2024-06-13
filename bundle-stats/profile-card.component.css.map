@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;54a9338f9f97d759b2be6f87f4bf8846ceb56bdd47f20387075b9e55249461d7;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/modules/dashboard/pages/profile/personal-info/profile-card/profile-card.component.ts"],
+  "sourcesContent": ["\n    :host .img-ctr {\n      outline: 1px dashed #E3CFFC;\n      outline-offset: 10px;\n      position: relative;\n    }\n    :host .name {\n      font-size: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem);\n      color: #171717;\n    }\n  "],
+  "mappings": "AACI,MAAM,CAAC,QACL,QAAS,IAAI,OAAO,QACpB,eAAgB,KAChB,SAAU,QACZ,CACA,MAAM,CAAC,KACL,UAAW,MAAM,MAAM,CAAE,UAAU,EAAE,OAAQ,CAAE,MAC/C,MAAO,OACT",
+  "names": []
+}

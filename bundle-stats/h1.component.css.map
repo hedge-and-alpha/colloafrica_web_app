@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;e6010e997769363ec2253ef442926e137f4d992a73d67d199ba7b7bcaec77b68;C:/Users/kevin/Desktop/Dev/Jobs/collo-africa/src/app/modules/dashboard/components/h1/h1.component.ts"],
+  "sourcesContent": ["\n    :host { display: block; }\n    :host h1 {\n      font-size: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem);\n    }\n  "],
+  "mappings": "AACI,MAAQ,QAAS,KAAO,CACxB,MAAM,GACJ,UAAW,MAAM,MAAM,CAAE,UAAU,EAAE,OAAQ,CAAE,KACjD",
+  "names": []
+}

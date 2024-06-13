@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/profile/components/payment-card/payment-card.component.css"],
+  "sourcesContent": [":host .ca-payment-card {\r\n  background-position: center;\r\n  background-repeat: no-repeat;\r\n  background-size: cover;\r\n  max-width: 19.6875rem;\r\n  height: 166px;\r\n  overflow-clip-margin: 1px;\r\n}\r\n\r\n:host .ca-payment-card.visa {\r\n  background-image: url(\"../../../../../../../assets/images/card-visa.png\");\r\n}\r\n:host .ca-payment-card.verve {\r\n  background-image: url(\"../../../../../../../assets/images/card-verve.png\");\r\n}\r\n:host .ca-payment-card.master {\r\n  background-image: url(\"../../../../../../../assets/images/card-master.png\");\r\n}\r\n\r\n:host .ca-payment-card .card-number {\r\n  margin-block: 25px 20px;\r\n  color: #fefefe;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  font-family: \"KreditBack-Regular\";\r\n}\r\n\r\n:host .ca-payment-card .card-number span {\r\n  letter-spacing: 4px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,gBACL,oBAAqB,OACrB,kBAAmB,UACnB,gBAAiB,MACjB,UAAW,WACX,OAAQ,MACR,qBAAsB,GACxB,CAEA,MAAM,CATC,eASe,CAAC,KACrB,iBAAkB,4BACpB,CACA,MAAM,CAZC,eAYe,CAAC,MACrB,iBAAkB,6BACpB,CACA,MAAM,CAfC,eAee,CAAC,OACrB,iBAAkB,8BACpB,CAEA,MAAM,CAnBC,gBAmBgB,CAAC,YACtB,aAAc,KAAK,KACnB,MAAO,QACP,QAAS,KACT,gBAAiB,cACjB,YAAa,kBACf,CAEA,MAAM,CA3BC,gBA2BgB,CARC,YAQY,KAClC,eAAgB,GAClB",
+  "names": []
+}

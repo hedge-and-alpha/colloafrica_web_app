@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/cols-field-2/cols-field-2.component.ts"],
+  "sourcesContent": ["import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'ca-cols-field-2',\r\n  standalone: true,\r\n  imports: [],\r\n  template: `\r\n    <div class=\"sm:grid lg:grid grid-cols-2 gap-4 md:block\">\r\n      <div class=\"mb-6 sm:mb-0 md:mb-6 lg:mb-0\">\r\n        <ng-content select=\"[col-1]\" />\r\n      </div>\r\n      <ng-content select=\"[col-2]\" />\r\n    </div>\r\n  `,\r\n  styles: `\r\n    :host {\r\n      display: block;\r\n    }\r\n  `,\r\n})\r\nexport class ColsField2Component {}\r\n"],
+  "mappings": "qJAoBaA,GAAmB,IAAA,CAA1B,IAAOA,EAAP,MAAOA,CAAmB,yCAAnBA,EAAmB,sBAAnBA,EAAmBC,UAAA,CAAA,CAAA,iBAAA,CAAA,EAAAC,WAAA,GAAAC,SAAA,CAAAC,CAAA,EAAAC,mBAAAC,EAAAC,MAAA,EAAAC,KAAA,EAAAC,OAAA,CAAA,CAAA,EAAA,UAAA,UAAA,cAAA,QAAA,UAAA,EAAA,CAAA,EAAA,OAAA,UAAA,UAAA,SAAA,CAAA,EAAAC,SAAA,SAAAC,EAAAC,EAAA,CAAAD,EAAA,SAb5BE,EAAA,EAAA,MAAA,CAAA,EAAwD,EAAA,MAAA,CAAA,EAEpDC,EAAA,CAAA,EACFC,EAAA,EACAD,EAAA,EAAA,CAAA,EACFC,EAAA;2DAQE,IAAOf,EAAPgB,SAAOhB,CAAmB,GAAA",
+  "names": ["ColsField2Component", "selectors", "standalone", "features", "\u0275\u0275StandaloneFeature", "ngContentSelectors", "_c1", "decls", "vars", "consts", "template", "rf", "ctx", "\u0275\u0275elementStart", "\u0275\u0275projection", "\u0275\u0275elementEnd", "_ColsField2Component"]
+}

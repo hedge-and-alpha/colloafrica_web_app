@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/account-wallet/components/wallet-balance-card/wallet-balance-card.component.css"],
+  "sourcesContent": [":host {\r\n  display: block;\r\n}\r\n\r\n:host .ca-wb-card {\r\n  display: block;\r\n  height: 100%;\r\n  border-radius: 12px;\r\n  background-color: var(--purple);\r\n  background-image: url(\"../../../../../../../assets/images/wallet-balance-pattern.svg\");\r\n  box-shadow: 1px 2px 12px 0 #6f6f6f26;\r\n}\r\n\r\n:host .ca-wb-card .amount {\r\n  font-size: clamp(2rem, 1.8333rem + 0.7407vw, 2.5rem);\r\n}\r\n"],
+  "mappings": "AAAA,MACE,QAAS,KACX,CAEA,MAAM,CAAC,WACL,QAAS,MACT,OAAQ,KANV,cAOiB,KACf,iBAAkB,IAAI,UACtB,iBAAkB,0CAClB,WAAY,IAAI,IAAI,KAAO,SAC7B,CAEA,MAAM,CATC,WASW,CAAC,OACjB,UAAW,MAAM,IAAI,CAAE,UAAU,EAAE,OAAQ,CAAE,OAC/C",
+  "names": []
+}

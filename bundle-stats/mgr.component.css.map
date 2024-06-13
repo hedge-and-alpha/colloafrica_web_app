@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/mgr/mgr.component.css"],
+  "sourcesContent": [":host h2 {\r\n  font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem);\r\n}\r\n\r\n:host ::ng-deep .ng-select .ng-select-container {\r\n  border-radius: 8px;\r\n}\r\n\r\n@media screen and (min-width: 49rem) {\r\n  :host ::ng-deep .ng-select .ng-select-container {\r\n    border-radius: 8px;\r\n    padding-inline: 1rem;\r\n  }\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,GACJ,UAAW,MAAM,OAAO,CAAE,UAAU,EAAE,OAAQ,CAAE,OAClD,CAEA,MAAM,UAAU,CAAC,UAAU,CAAC,oBAJ5B,cAKiB,GACjB,CAEA,OAAO,OAAO,IAAI,CAAC,SAAS,EAAE,OAC5B,MAAM,UAAU,CALD,UAKY,CALD,oBAJ5B,cAUmB,IACf,eAAgB,IAClB,CACF",
+  "names": []
+}

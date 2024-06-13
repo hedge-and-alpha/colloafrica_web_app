@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/validators/matchPassword.validator.ts"],
+  "sourcesContent": ["import { AbstractControl, ValidatorFn } from '@angular/forms';\r\n\r\nexport const matchPasswordValidator: ValidatorFn = (\r\n  control: AbstractControl\r\n) => {\r\n  const password = control.get('password') || control.get('current_password');\r\n  const passwordConfirmation =\r\n    control.get('password_confirmation') ||\r\n    control.get('new_password_confirmation');\r\n\r\n  return password?.value &&\r\n    passwordConfirmation?.value &&\r\n    password.value === passwordConfirmation.value\r\n    ? null\r\n    : { matchPassword: true };\r\n};\r\n"],
+  "mappings": "AAEO,IAAMA,EACXC,GACE,CACF,IAAMC,EAAWD,EAAQE,IAAI,UAAU,GAAKF,EAAQE,IAAI,kBAAkB,EACpEC,EACJH,EAAQE,IAAI,uBAAuB,GACnCF,EAAQE,IAAI,2BAA2B,EAEzC,OAAOD,GAAUG,OACfD,GAAsBC,OACtBH,EAASG,QAAUD,EAAqBC,MACtC,KACA,CAAEC,cAAe,EAAI,CAC3B",
+  "names": ["matchPasswordValidator", "control", "password", "get", "passwordConfirmation", "value", "matchPassword"]
+}

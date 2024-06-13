@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/dashboard/pages/mgr/components/allotment-type/allotment-type.component.css"],
+  "sourcesContent": [":host ::ng-deep .ng-select .ng-select-container {\r\n  background-color: #dadada;\r\n  height: 24px;\r\n  border-radius: 5px;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,UAAU,CAAC,UAAU,CAAC,oBAC1B,iBAAkB,QAClB,OAAQ,KAFV,cAGiB,GACjB",
+  "names": []
+}

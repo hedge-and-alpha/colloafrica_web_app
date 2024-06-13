@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/tooltip/tooltip.component.css"],
+  "sourcesContent": [":host .tooltip {\r\n  display: block;\r\n  position: fixed;\r\n  width: clamp(18rem, 14.6667rem + 14.8148vw, 28rem);\r\n}\r\n\r\n:host .tooltip::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  width: 0;\r\n  height: 0;\r\n  top: -8px;\r\n  left: 8px;\r\n  border-inline: 8px solid transparent;\r\n  border-block-end: 8px solid #fff;\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,CAAC,QACL,QAAS,MACT,SAAU,MACV,MAAO,MAAM,KAAK,CAAE,WAAW,EAAE,SAAS,CAAE,MAC9C,CAEA,MAAM,CANC,OAMO,QACZ,QAAS,GACT,SAAU,SACV,MAAO,EACP,OAAQ,EACR,IAAK,KACL,KAAM,IACN,cAAe,IAAI,MAAM,YACzB,iBAAkB,IAAI,MAAM,IAC9B",
+  "names": []
+}

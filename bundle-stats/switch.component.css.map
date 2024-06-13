@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/switch/switch.component.css"],
+  "sourcesContent": [":host label {\r\n  width: 30px;\r\n  height: 18px;\r\n  display: inline-block;\r\n  background: #7d7f85;\r\n  border-radius: 30px;\r\n  position: relative;\r\n}\r\n\r\n:host label:has(:checked) {\r\n  background-color: var(--purple);\r\n}\r\n\r\n:host label:has(:focus-visible) {\r\n  outline: 1.5px solid black;\r\n  outline-offset: 2px;\r\n}\r\n\r\n:host label::after {\r\n  content: \"\";\r\n  display: inline-block;\r\n  width: 10px;\r\n  height: 10px;\r\n  background-color: #fff;\r\n  border-radius: 50%;\r\n  position: absolute;\r\n  top: 50%;\r\n  left: 15%;\r\n  transform: translateY(-50%);\r\n  transition: left 250ms;\r\n}\r\n\r\n:host label:has(input[type=\"checkbox\"]:checked)::after {\r\n  left: calc((100% - 15%) - 10px);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,MACJ,MAAO,KACP,OAAQ,KACR,QAAS,aACT,WAAY,QAJd,cAKiB,KACf,SAAU,QACZ,CAEA,MAAM,KAAK,KAAK,UACd,iBAAkB,IAAI,SACxB,CAEA,MAAM,KAAK,KAAK,gBACd,QAAS,MAAM,MAAM,MACrB,eAAgB,GAClB,CAEA,MAAM,KAAK,OACT,QAAS,GACT,QAAS,aACT,MAAO,KACP,OAAQ,KACR,iBAAkB,KAvBpB,cAwBiB,IACf,SAAU,SACV,IAAK,IACL,KAAM,IACN,UAAW,WAAW,MACtB,WAAY,KAAK,IACnB,CAEA,MAAM,KAAK,KAAK,KAAK,CAAC,cAAgB,SAAS,OAC7C,KAAM,KAAM,IAAY,EAAE,KAC5B",
+  "names": []
+}

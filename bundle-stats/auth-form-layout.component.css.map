@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/modules/auth/layouts/auth-form-layout/auth-form-layout.component.css"],
+  "sourcesContent": [":host img {\r\n  width: clamp(6.9375rem, 4.6042rem + 10.3704vw, 13.9375rem);\r\n}\r\n"],
+  "mappings": "AAAA,MAAM,IACJ,MAAO,MAAM,SAAS,CAAE,UAAU,EAAE,SAAS,CAAE,WACjD",
+  "names": []
+}
