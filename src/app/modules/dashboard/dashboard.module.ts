@@ -69,7 +69,6 @@ import { ManageGroupMemberModalComponent } from './pages/mgr-details/components/
 import { MgrBalanceCardComponent } from './pages/mgr-details/components/mgr-balance-card/mgr-balance-card.component';
 import { MgrDetailsHeaderComponent } from './pages/mgr-details/components/mgr-details-header/mgr-details-header.component';
 import { MgrWelcomeComponent } from './pages/mgr-details/components/mgr-welcome/mgr-welcome.component';
-import { ParticipantsTableComponent } from './pages/mgr-details/components/participants-table/participants-table.component';
 import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
 import { MgrCollectionStatisticsComponent } from './pages/mgr-details/pages/mgr-collection-statistics/mgr-collection-statistics.component';
 import { MgrContributionStatisticsComponent } from './pages/mgr-details/pages/mgr-contribution-statistics/mgr-contribution-statistics.component';
@@ -132,7 +131,6 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     MgrPlanCardComponent,
     MgrPlanListComponent,
     MgrWelcomeComponent,
-    ParticipantsTableComponent,
     MyInvestmentsComponent,
     NotificationsComponent,
     ProfileComponent,

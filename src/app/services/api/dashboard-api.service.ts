@@ -258,11 +258,9 @@ export class DashboardApiService {
     );
   }
 
-  changeMemberPosition(mgrId: string, userId: string, newPosition: number) {
+  proposePositionSwap(mgrId: string, newPosition: number) {
     return this.http.post<ApiResponse>(
-      `${
-        this.#baseUrl
-      }/mgr/change-member-position/${mgrId}/${userId}/${newPosition}`,
+      `${this.#baseUrl}/mgr/propose-swap/${mgrId}/${newPosition}`,
       null
     );
   }

@@ -72,3 +72,33 @@
 :host .icon-buttons button:disabled {
   background-color: #d3d3d3;
 }
+
+:host [data-status="1"] {
+  height: 30px;
+  width: 88px;
+  background-color: #17b890;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host button[ca-button-icon] {
+  border: 1px solid #009d76;
+  /* border-image: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%); */
+  border-radius: 50%;
+  position: relative;
+}
+
+:host button[ca-button-icon]:disabled {
+  border: 1px solid #d92121;
+}
+
+:host button[ca-button-icon]:disabled::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background-color: #d92121;
+  transform: rotate(-45deg);
+}

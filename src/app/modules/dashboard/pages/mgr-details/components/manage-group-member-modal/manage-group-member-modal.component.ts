@@ -4,6 +4,7 @@ import { ModalService } from '../../../../../../components/modal/modal.service';
 import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MgrStoreService } from '../../../../../../stores+/mgr.store';
+import { AlertService } from '../../../../../../components/alert/alert.service';
 
 @Component({
   selector: 'ca-manage-group-member-modal',
@@ -22,7 +23,7 @@ export class ManageGroupMemberModalComponent {
   constructor(
     private api: DashboardApiService,
     private modalService: ModalService,
-    private mgrStore: MgrStoreService
+    private alertService: AlertService
   ) {}
 
   removeMember() {
@@ -53,30 +54,41 @@ export class ManageGroupMemberModalComponent {
 
   sendSwapRequest() {
     this.loading = true;
-    this.api
-      .changeMemberPosition(this.planId, this.userId, this.newPosition)
-      .subscribe({
-        next: ({ message, status }) => {
-          this.loading = false;
-          this.api.getMGRById(this.planId).subscribe();
-          this.modalService.update(
-            ModalStatusComponent,
-            'small',
-            {
-              closable: false,
-              showHeading: false,
-            },
-            {
-              success: true,
-              status,
-              message,
-            }
-          );
-        },
-        error: (error: HttpErrorResponse) => {
-          this.loading = false;
-        },
-      });
+    this.api.proposePositionSwap(this.planId, this.newPosition).subscribe({
+      next: ({ message, status }) => {
+        this.loading = false;
+        this.api.getMGRById(this.planId).subscribe();
+        this.modalService.update(
+          ModalStatusComponent,
+          'small',
+          {
+            closable: false,
+            showHeading: false,
+          },
+          {
+            success: true,
+            status,
+            message,
+          }
+        );
+      },
+      error: (error: HttpErrorResponse) => {
+        this.loading = false;
+        this.modalService.update(
+          ModalStatusComponent,
+          'small',
+          {
+            closable: false,
+            showHeading: false,
+          },
+          {
+            success: false,
+            status: `Failed: (${error.status})`,
+            message: error.error.message,
+          }
+        );
+      },
+    });
   }
 
   close() {

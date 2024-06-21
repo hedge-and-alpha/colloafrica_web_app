@@ -83,4 +83,79 @@
   </div>
 </div>
 
-<ca-participants-table class="block mt-8" />
+<h2
+  class="font-medium my-5"
+  style="font-size: clamp(1.25rem, 1.1667rem + 0.3704vw, 1.5rem)"
+>
+  Participants ({{ users.length }} of {{ plan.number_of_members }})
+</h2>
+
+<ca-card class="p-4 lg:p-5 rounded-md lg:rounded-xl mb-6 lg:mb-10">
+  <ca-table
+    [tableHeading]="tableHeading"
+    [tableData]="users"
+    [hasPagination]="false"
+  >
+    <ng-template let-item #tableBody>
+      <td class="whitespace-nowrap">
+        <div class="flex items-center gap-3">
+          @if (!item.profile_pic) {
+          <div
+            class="h-[50px] w-[50px] font-medium text-lg bg-purple-main rounded-full"
+          >
+            <div
+              class="h-full w-full inline-flex items-center justify-center text-white"
+            >
+              {{ item.first_name[0] }}{{ item.last_name[0] }}
+            </div>
+          </div>
+          } @else {
+          <img src="rounded-full" alt="" width="50" height="50" />
+          }
+          {{ item.first_name | titlecase }} {{ item.last_name | titlecase }}
+        </div>
+      </td>
+      <td class="whitespace-nowrap">{{ item.role | titlecase }}</td>
+      <td class="whitespace-nowrap text-center">
+        <span
+          class="bg-[#FFBD00] h-7 w-7 font-ubuntu font-medium text-sm rounded-full inline-flex items-center justify-center"
+        >
+          {{ item.position }}
+        </span>
+      </td>
+      <td class="whitespace-nowrap">
+        <span
+          class="text-white text-sm font-medium"
+          [attr.data-status]="item.status"
+        >
+          {{ item.status === 1 ? "Joined" : "" }}
+        </span>
+      </td>
+      <td class="whitespace-nowrap">
+        {{ item.join_date | date : "dd MMMM, y hh:mm a" }}
+      </td>
+      <td class="whitespace-nowrap">
+        <div class="inline-flex gap-3">
+          <button
+            ca-button-icon
+            [ngClass]="{
+              '!hidden': activePlan()!.logged_user_position === item.position
+            }"
+            (click)="swapMember(item)"
+          >
+            <i class="ca-arrows-left-right"></i>
+          </button>
+          <button
+            ca-button-icon
+            [disabled]="item.role === 'member'"
+            (click)="
+              removeMember(item.user_id, item.first_name, item.last_name)
+            "
+          >
+            <i class="ca-trash"></i>
+          </button>
+        </div>
+      </td>
+    </ng-template>
+  </ca-table>
+</ca-card>

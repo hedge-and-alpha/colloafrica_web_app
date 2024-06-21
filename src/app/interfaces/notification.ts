@@ -2,6 +2,7 @@
 export interface SwapRequestNotificationData {
   swap_request_id: string;
   message: string;
+  title: string;
 }
 
 // Define the main interface for the notification
