@@ -17,12 +17,27 @@ export interface MGR {
   mgr_users?: MGRUser[];
 }
 
-export interface MGRUser {
-  user_id: number;
+export interface MGRUserBase {
   first_name: string;
   last_name: string;
+}
+
+export interface MGRUser extends MGRUserBase {
+  user_id: number;
   role: string;
   position: number;
   status: number;
   join_date: string;
+}
+
+export interface MGRAnalytics {
+  total_contributions: string;
+  total_allotments: number;
+  total_members: number;
+  users: MGRAnalyticsUser[];
+}
+
+export interface MGRAnalyticsUser extends MGRUserBase {
+  id: number;
+  profile_pic: null | string;
 }

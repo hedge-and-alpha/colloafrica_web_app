@@ -1,3 +1,91 @@
-<ca-mgr-details-header class="block mb-4 mt-[18px]" />
+<ca-mgr-details-header
+  class="block mb-4 mt-[18px]"
+  (viewChange)="handleViewChange($event)"
+/>
 
-<router-outlet />
+@if (view() !== 'details') {
+<div
+  class="flex flex-nowrap gap-7 h-28 cards overflow-x-scroll no-scrollbar text-white"
+>
+  <ca-card class="w-[25rem] h-full shrink-0 px-5">
+    <div class="flex items-center gap-[14px] h-full">
+      <img src="assets/images/naira-coin.webp" alt="" width="64" height="64" />
+
+      <div class="flex flex-col gap-2 leading-1.2">
+        <div class="font-medium">Total Amount Contributed</div>
+        <div class="text-[1.75rem] font-semibold">
+          {{
+            mgrAnalytics.total_contributions
+              | currency : "NGN" : "symbol-narrow"
+          }}
+        </div>
+      </div>
+    </div>
+  </ca-card>
+
+  <ca-card class="w-[25rem] h-full shrink-0 px-5">
+    <div class="flex items-center gap-[14px] h-full">
+      <img src="assets/images/naira-coin.webp" alt="" width="64" height="64" />
+
+      <div class="flex flex-col gap-2 leading-1.2">
+        <div class="font-medium">Allocation Completed</div>
+        <div class="text-[1.75rem] font-semibold">
+          {{
+            mgrAnalytics.total_allotments | currency : "NGN" : "symbol-narrow"
+          }}
+        </div>
+      </div>
+    </div>
+  </ca-card>
+
+  <ca-card class="w-[13.6rem] h-full shrink-0">
+    <div class="h-full flex flex-col gap-3 w-36 mx-auto justify-center">
+      <div class="font-semibold">Total Members</div>
+
+      <div class="flex items-center gap-3">
+        <div class="flex">
+          @for (user of mgrAnalytics.users.slice(0,3); track user.id; let first
+          = $first) {
+          <div
+            class="avatar-circle"
+            [ngClass]="{ '-ms-5': !first }"
+            [caTooltip]="user.first_name + ' ' + user.last_name"
+          >
+            @if (!user.profile_pic) {
+            <div
+              class="font-bold text-lg h-full flex items-center justify-center"
+            >
+              {{ user.first_name[0] }}{{ user.last_name[0] }}
+            </div>
+            } @else {
+            <img
+              [src]="user.profile_pic"
+              alt=""
+              height="50"
+              width="50"
+              class="rounded-full"
+            />
+            }
+          </div>
+          }
+        </div>
+
+        @if (mgrAnalytics.users.length > 3) {
+        <div class="font-semibold text-[1.75rem] flex items-center">
+          <span class="text-base">+</span><span>{{ extraUsersCount }}</span>
+        </div>
+        }
+      </div>
+    </div>
+  </ca-card>
+</div>
+
+@if (view() === 'contribution') {
+<ca-mgr-contribution-statistics />
+} @if (view() === 'collection') {
+<ca-mgr-collection-statistics />
+}
+<!--  -->
+} @else {
+<ca-mgr-plan />
+}

@@ -9,7 +9,7 @@
   gap: 0.5rem;
 }
 
-:host nav a {
+:host .tabs button {
   color: #5c5c5c;
   border: 1px solid #abadb2;
   border-radius: 8px;
@@ -20,4 +20,9 @@
   height: 38px;
   flex-shrink: 0;
   font-size: clamp(0.875rem, 0.8333rem + 0.1852vw, 1rem);
+}
+
+:host .tabs button.active {
+  background-color: var(--purple);
+  color: #fff;
 }

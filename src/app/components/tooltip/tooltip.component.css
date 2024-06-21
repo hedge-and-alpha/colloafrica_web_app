@@ -1,7 +1,8 @@
 :host .tooltip {
   display: block;
   position: fixed;
-  width: clamp(18rem, 14.6667rem + 14.8148vw, 28rem);
+  /* width: clamp(18rem, 14.6667rem + 14.8148vw, 28rem); */
+  max-width: 28rem;
 }
 
 :host .tooltip::before {

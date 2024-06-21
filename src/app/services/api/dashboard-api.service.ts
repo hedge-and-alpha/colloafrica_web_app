@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { Account, Transaction } from '../../interfaces/account';
 import { ApiResponse, TablePagination } from '../../interfaces/api-response';
 import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
-import { MGR } from '../../interfaces/mgr.interface';
+import { MGR, MGRAnalytics } from '../../interfaces/mgr.interface';
 import { INotificationData } from '../../interfaces/notification';
 import {
   BasicInfo,
@@ -269,6 +269,12 @@ export class DashboardApiService {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/remove-member/${mgrId}/${userId}`,
       null
+    );
+  }
+
+  getMgrAnalyticsById(mgrId: string) {
+    return this.http.get<{ data: MGRAnalytics }>(
+      `${this.#baseUrl}/mgr/analytics/${mgrId}`
     );
   }
   /********************** MGR end **********************/

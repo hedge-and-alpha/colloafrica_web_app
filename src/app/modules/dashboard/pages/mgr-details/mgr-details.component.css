@@ -1,0 +1,23 @@
+:host .cards ca-card {
+  border-radius: 15px;
+}
+
+:host .cards ca-card:first-child {
+  background: linear-gradient(58.91deg, #470b96 9.35%, #6b1bd3 91.36%);
+}
+
+:host .cards ca-card:nth-child(2) {
+  background: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%);
+}
+
+:host .cards ca-card:last-child {
+  background: linear-gradient(245.62deg, #006dca 8.35%, #1e96fc 100%);
+}
+
+:host .avatar-circle {
+  background: linear-gradient(58.91deg, #470b96 9.35%, #6b1bd3 91.36%);
+  border-radius: 50%;
+  border: 0.5px solid #ffffff;
+  height: 50px;
+  width: 50px;
+}
