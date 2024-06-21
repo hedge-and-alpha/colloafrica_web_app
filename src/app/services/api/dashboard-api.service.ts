@@ -5,7 +5,12 @@ import { environment } from '../../../environments/environment';
 import { Account, Transaction } from '../../interfaces/account';
 import { ApiResponse, TablePagination } from '../../interfaces/api-response';
 import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
-import { MGR, MGRAnalytics } from '../../interfaces/mgr.interface';
+import {
+  MGR,
+  MGRAnalytics,
+  MGRCollectionStats,
+  MGRContributionStats,
+} from '../../interfaces/mgr.interface';
 import { INotificationData } from '../../interfaces/notification';
 import {
   BasicInfo,
@@ -275,6 +280,18 @@ export class DashboardApiService {
   getMgrAnalyticsById(mgrId: string) {
     return this.http.get<{ data: MGRAnalytics }>(
       `${this.#baseUrl}/mgr/analytics/${mgrId}`
+    );
+  }
+
+  getMgrPlanCollectionStats(mgrId: string) {
+    return this.http.get<{ data: { allotments: MGRCollectionStats[] } }>(
+      `${this.#baseUrl}/mgr/statistics/collections/${mgrId}`
+    );
+  }
+
+  getMgrPlanContributionStats(mgrId: string) {
+    return this.http.get<{ data: { contributions: MGRContributionStats[] } }>(
+      `${this.#baseUrl}/mgr/statistics/contributions/${mgrId}`
     );
   }
   /********************** MGR end **********************/

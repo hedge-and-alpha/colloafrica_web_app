@@ -41,3 +41,21 @@ export interface MGRAnalyticsUser extends MGRUserBase {
   id: number;
   profile_pic: null | string;
 }
+
+interface MGRStatsBase extends MGRUserBase {
+  amount: string;
+  user_id: number;
+}
+
+export interface MGRContributionStats extends MGRStatsBase {
+  email: string;
+  role: 'admin' | 'member';
+  position: number;
+}
+
+export interface MGRCollectionStats extends MGRStatsBase {
+  id: string;
+  mgr_cycle_id: string;
+  mgr_id: string;
+  created_at: string;
+}

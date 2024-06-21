@@ -80,11 +80,13 @@
   </ca-card>
 </div>
 
-@if (view() === 'contribution') {
-<ca-mgr-contribution-statistics />
-} @if (view() === 'collection') {
-<ca-mgr-collection-statistics />
-}
+<div class="mt-12">
+  @if (view() === 'contribution') {
+  <ca-mgr-contribution-statistics />
+  } @if (view() === 'collection') {
+  <ca-mgr-collection-statistics [collectionStats]="mgrCollections" />
+  }
+</div>
 <!--  -->
 } @else {
 <ca-mgr-plan />
