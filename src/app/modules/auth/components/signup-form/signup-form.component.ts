@@ -1,25 +1,19 @@
-import { Component } from '@angular/core';
-import { FormFieldComponent } from '../../../../components/form-field/form-field.component';
-import { ColsField2Component } from '../../../../components/cols-field-2/cols-field-2.component';
-import { Router, RouterLink } from '@angular/router';
-import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
-import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
-import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { NgClass } from '@angular/common';
-import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
-import { AuthApiService } from '../../../../services/api/auth-api.service';
-import { AlertService } from '../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AlertService } from '../../../../components/alert/alert.service';
+import { ColsField2Component } from '../../../../components/cols-field-2/cols-field-2.component';
+import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
+import { FormFieldComponent } from '../../../../components/form-field/form-field.component';
+import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
 import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
+import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
+import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
+import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
 
 @Component({
   selector: 'ca-signup-form',
@@ -126,7 +120,6 @@ export class SignupFormComponent {
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         this.alertService.open('danger', {
-          summary: error.error.status + ' ' + error.status,
           details: error.error.message,
         });
       },

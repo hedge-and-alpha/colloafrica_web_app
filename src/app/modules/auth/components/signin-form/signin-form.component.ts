@@ -73,7 +73,6 @@ export class SigninFormComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         this.alertService.open('danger', {
-          summary: error.error.status + ' ' + error.status,
           details: error.error.message,
         });
       },
