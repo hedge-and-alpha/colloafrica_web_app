@@ -116,7 +116,7 @@ export class ContactComponent implements OnInit {
 
     this.loading = true;
 
-    this.api.updatePersonalContactInfo(this.form.value).subscribe({
+    this.api.updatePersonalContactInfo(this.form.getRawValue()).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });

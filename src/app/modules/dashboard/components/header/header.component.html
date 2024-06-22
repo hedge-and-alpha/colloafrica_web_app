@@ -11,20 +11,24 @@
     >
       <i class="ca-notification"></i>
     </a>
-    <button class="ms-6 text-[#171717] inline-flex items-center gap-2">
-      <img
-        [ngSrc]="user()?.profile_picture || 'assets/images/profile-photo.webp'"
-        alt="Avatar"
-        width="30"
-        height="30"
-        class="rounded-full object-cover"
-      />
+    <div class="ms-6 text-[#171717] inline-flex items-center gap-2">
+      <figure class="h-[30px] aspect-square relative">
+        <img
+          fill
+          priority="high"
+          alt="Avatar"
+          class="rounded-full object-cover"
+          [ngSrc]="
+            user()?.profile_picture || 'assets/images/profile-photo.webp'
+          "
+        />
+      </figure>
       <span
         class="font-medium hidden sm:inline-block max-w-40 overflow-hidden text-ellipsis whitespace-nowrap"
       >
         {{ user()?.first_name }} {{ user()?.last_name }}
       </span>
-    </button>
+    </div>
     <ng-content select=".menu-btn" />
   </div>
 </header>

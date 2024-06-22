@@ -3,10 +3,12 @@ import { UserStoreService } from '../../../../../../stores+/user.store';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { AlertService } from '../../../../../../components/alert/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'ca-profile-card',
   standalone: true,
+  imports: [NgOptimizedImage],
   templateUrl: './profile-card.component.html',
   styles: `
     :host .img-ctr {
