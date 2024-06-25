@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalService } from '../../../../../../components/modal/modal.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ca-allotment-type',
@@ -7,17 +8,21 @@ import { ModalService } from '../../../../../../components/modal/modal.service';
   styleUrl: './allotment-type.component.css',
 })
 export class AllotmentTypeComponent implements OnInit {
-  selectedPosition: number | null = null;
+  selectedPositionControl = new FormControl<number | null>(null, [
+    Validators.required,
+  ]);
 
   allowableNumbers: number[] = [];
 
   @Input() numberOfMembers!: number;
+  @Input() selectedPosition!: number;
 
   @Output() numberOfMembersChange = new EventEmitter<number>();
 
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
+    this.selectedPositionControl.patchValue(this.selectedPosition);
     this.allowableNumbers = Array.from(
       { length: this.numberOfMembers },
       (_, i) => i + 1
@@ -25,10 +30,16 @@ export class AllotmentTypeComponent implements OnInit {
   }
 
   handlePositionChange(event: number) {
-    this.selectedPosition = event;
+    this.selectedPositionControl.patchValue(event);
   }
 
   handleTypeSelection(type: 'manual' | 'auto') {
-    this.modalService.close({ position: this.selectedPosition, type });
+    if (type === 'auto') {
+      this.selectedPositionControl.reset();
+    }
+    this.modalService.close({
+      position: this.selectedPositionControl.value,
+      type,
+    });
   }
 }

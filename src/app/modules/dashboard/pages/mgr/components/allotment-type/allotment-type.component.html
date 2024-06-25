@@ -74,6 +74,7 @@
         <ng-select
           class="rounded-[5px] border border-black"
           appendTo="body"
+          [formControl]="selectedPositionControl"
           (change)="handlePositionChange($event)"
         >
           @for (n of allowableNumbers; track $index) {
@@ -94,10 +95,10 @@
         type="button"
         class="text-white h-8 w-[138px] inline-flex justify-center items-center text-xs font-medium rounded-[4px]"
         [ngClass]="{
-          'bg-[#D0D5DD]': !selectedPosition,
-          'bg-purple-main': selectedPosition
+          'bg-[#D0D5DD]': selectedPositionControl.invalid,
+          'bg-purple-main': selectedPositionControl.valid
         }"
-        [disabled]="!selectedPosition"
+        [disabled]="selectedPositionControl.invalid"
         (click)="handleTypeSelection('manual')"
       >
         Manual Allotment

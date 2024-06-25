@@ -181,6 +181,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       },
       {
         numberOfMembers: this.numberOfAllowableMembers,
+        selectedPosition: this.selectedPosition,
       }
     );
   }
@@ -194,16 +195,16 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
 
     if (this.form.invalid) return;
 
-    this.loading = true;
+    // this.loading = true;
 
     const data = { ...this.form.value };
     delete data.terms;
-
-    if (!this.isEditing) {
-      this.createNewPlan(data);
-    } else {
-      this.editPlan(data);
-    }
+    console.log(this.form.value);
+    // if (!this.isEditing) {
+    //   this.createNewPlan(data);
+    // } else {
+    //   this.editPlan(data);
+    // }
   }
 
   createNewPlan(data: object) {
