@@ -1,1 +1,20 @@
-<p>mgr-contribution-statistics works!</p>
+<h2 class="font-semibold mb-5 text-2xl">
+  Your Contribution & Allocation Details
+</h2>
+
+<ca-table
+  [tableHeading]="tableHeading"
+  [tableData]="contributionStats"
+  [hasPagination]="false"
+>
+  <ng-template let-item #tableBody>
+    <td class="whitespace-nowrap">{{ item }}</td>
+    <td class="whitespace-nowrap">
+      {{ item.amount | currency : "NGN" : "symbol-narrow" }}
+    </td>
+    <td class="whitespace-nowrap">
+      {{ item.created_at | date : "dd MMMM, YYYY" }}
+    </td>
+    <td class="whitespace-nowrap">{{ item }}</td>
+  </ng-template></ca-table
+>
