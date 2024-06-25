@@ -72,7 +72,7 @@ const routes: Routes = [
       },
       { path: 'mgr', component: MgrComponent, title: 'MGR plans' },
       {
-        path: 'mgr/:name',
+        path: 'mgr/:id',
         component: MgrDetailsComponent,
         children: [
           {
