@@ -96,6 +96,7 @@ import { SavingsDetailComponent } from './pages/savings-detail/savings-detail.co
 import { SavingsPlanFormComponent } from './pages/savings/components/savings-plan-form/savings-plan-form.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { AllotmentTypeCardComponent } from './pages/mgr/components/allotment-type-card/allotment-type-card.component';
 
 @NgModule({
   declarations: [
@@ -152,6 +153,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     AllotmentTypeComponent,
     CancelPlanModalComponent,
     ManageGroupMemberModalComponent,
+    AllotmentTypeCardComponent,
   ],
   imports: [
     CommonModule,

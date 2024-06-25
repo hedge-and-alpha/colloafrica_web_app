@@ -1,0 +1,29 @@
+<div
+  class="rounded-lg px-3 py-2 h-24 flex items-center gap-2 alloment-type-card"
+>
+  <div class="w-16 h-20 sm:mx-auto shrink-0 bg-[#EDEDED] rounded-[5px]">
+    <div class="h-full flex flex-col gap-2 p-[6px]">
+      <div
+        class="grow sm:h-44 flex items-center justify-center rounded-[5px] bg-[#E0E0E0]"
+      >
+        <i class="ca-user-fill text-xl text-[#A8A8A8]"></i>
+      </div>
+      <p class="text-[6px] leading-[1.4] text-[#b3b3b3] text-center">
+        Participants Name
+      </p>
+    </div>
+  </div>
+
+  <div class="w-36 flex flex-col gap-3">
+    <div class="text-purple-main font-semibold">
+      {{ (allotmentType | titlecase) ?? "" }} Allotment
+    </div>
+    <button
+      type="button"
+      class="bg-purple-main w-full h-8 rounded-lg text-sm text-white"
+      (click)="allotmentTypeChange.emit()"
+    >
+      Change
+    </button>
+  </div>
+</div>

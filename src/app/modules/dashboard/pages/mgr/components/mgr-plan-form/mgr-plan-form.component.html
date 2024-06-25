@@ -11,12 +11,12 @@
         id="name"
         formControlName="name"
         [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && name?.invalid
+          'ng-touched ng-dirty': isSubmitted && name.invalid
         }"
       />
     </ca-form-field>
-    @if (isSubmitted && name?.invalid) {
-    <ca-form-error [errors]="name?.errors" />
+    @if (isSubmitted && name.invalid) {
+    <ca-form-error [errors]="name.errors" />
     }
   </div>
 
@@ -32,12 +32,12 @@
         id="desc"
         formControlName="desc"
         [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && desc?.invalid
+          'ng-touched ng-dirty': isSubmitted && desc.invalid
         }"
       />
     </ca-form-field>
-    @if (isSubmitted && desc?.invalid) {
-    <ca-form-error [errors]="desc?.errors" />
+    @if (isSubmitted && desc.invalid) {
+    <ca-form-error [errors]="desc.errors" />
     }
   </div>
 
@@ -57,7 +57,7 @@
             labelForId="duration"
             formControlName="duration"
             [ngClass]="{
-              'ng-touched ng-dirty': isSubmitted && duration?.invalid
+              'ng-touched ng-dirty': isSubmitted && duration.invalid
             }"
           >
             @for (duration of durations; track $index) {
@@ -66,8 +66,8 @@
           </ng-select>
         </div>
       </ca-form-field>
-      @if (isSubmitted && duration?.invalid) {
-      <ca-form-error [errors]="duration?.errors" />
+      @if (isSubmitted && duration.invalid) {
+      <ca-form-error [errors]="duration.errors" />
       }
     </div>
 
@@ -83,12 +83,12 @@
           id="num-members"
           formControlName="number_of_members"
           [ngClass]="{
-            'ng-touched ng-dirty': isSubmitted && numberOfMembers?.invalid
+            'ng-touched ng-dirty': isSubmitted && numberOfMembers.invalid
           }"
         />
       </ca-form-field>
-      @if (isSubmitted && numberOfMembers?.invalid) {
-      <ca-form-error [errors]="numberOfMembers?.errors" />
+      @if (isSubmitted && numberOfMembers.invalid) {
+      <ca-form-error [errors]="numberOfMembers.errors" />
       }
     </div>
   </div>
@@ -106,15 +106,15 @@
         id="amount"
         formControlName="amount"
         [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && amount?.invalid
+          'ng-touched ng-dirty': isSubmitted && amount.invalid
         }"
       />
       <div class="border-s border-[#7D7F85] ps-3" style="color: #77777e">
         NGN
       </div>
     </ca-form-field>
-    @if (isSubmitted && amount?.invalid) {
-    <ca-form-error [errors]="amount?.errors" />
+    @if (isSubmitted && amount.invalid) {
+    <ca-form-error [errors]="amount.errors" />
     }
   </div>
 
@@ -134,13 +134,13 @@
         readonly
         [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
         [ngClass]="{
-          'ng-dirty ng-touched': isSubmitted && joinDateDeadline?.invalid
+          'ng-dirty ng-touched': isSubmitted && joinDateDeadline.invalid
         }"
       />
       <i class="ca-calendar text-[#5c5c5c]" (click)="jdp.show()"></i>
     </ca-form-field>
-    @if (isSubmitted && joinDateDeadline?.invalid) {
-    <ca-form-error [errors]="joinDateDeadline?.errors" />
+    @if (isSubmitted && joinDateDeadline.invalid) {
+    <ca-form-error [errors]="joinDateDeadline.errors" />
     }
   </div>
 
@@ -162,13 +162,13 @@
           readonly
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
           [ngClass]="{
-            'ng-dirty ng-touched': isSubmitted && startDate?.invalid
+            'ng-dirty ng-touched': isSubmitted && startDate.invalid
           }"
         />
         <i class="ca-calendar text-[#5c5c5c]" (click)="cdp.show()"></i>
       </ca-form-field>
-      @if (isSubmitted && startDate?.invalid) {
-      <ca-form-error [errors]="startDate?.errors" />
+      @if (isSubmitted && startDate.invalid) {
+      <ca-form-error [errors]="startDate.errors" />
       }
     </div>
 
@@ -188,68 +188,17 @@
           readonly
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
           [ngClass]="{
-            'ng-dirty ng-touched': isSubmitted && allocationDate?.invalid
+            'ng-dirty ng-touched': isSubmitted && allocationDate.invalid
           }"
         />
         <i class="ca-calendar text-[#5c5c5c]" (click)="adp.show()"></i>
       </ca-form-field>
-      @if (isSubmitted && allocationDate?.invalid) {
-      <ca-form-error [errors]="allocationDate?.errors" />
+      @if (isSubmitted && allocationDate.invalid) {
+      <ca-form-error [errors]="allocationDate.errors" />
       }
     </div>
   </div>
   <!-- 2 cols -->
-
-  <div class="mb-5">
-    <ca-form-field
-      label="Select Allotment Type"
-      labelFor="allotment-type"
-      class="block"
-      [isRequired]="true"
-    >
-      <div class="-mx-5 grow">
-        <ng-select
-          class="px-2"
-          labelForId="allotment-type"
-          formControlName="allotment_type"
-          [clearOnBackspace]="false"
-          [ngClass]="{
-            'ng-touched ng-dirty': isSubmitted && allotmentType.invalid
-          }"
-          (change)="handleSelectAllotmentType($event)"
-        >
-          <ng-option value="manual">Manual Allotment</ng-option>
-          <ng-option value="auto">Auto Allotment</ng-option>
-        </ng-select>
-      </div>
-    </ca-form-field>
-    @if (isSubmitted && allotmentType.invalid) {
-    <ca-form-error [errors]="allotmentType.errors" />
-    }
-  </div>
-
-  <!-- @if (selectedAllotmentType && selectedAllotmentType === 'manual') {
-  <div class="mb-6">
-    <ca-form-field
-      label="Allotment Position"
-      labelFor="allotment-position"
-      class="block"
-      [isRequired]="true"
-    >
-      <input
-        type="number"
-        id="allotment-position"
-        formControlName="allotment_position"
-        [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && allotmentPosition?.invalid
-        }"
-      />
-    </ca-form-field>
-    @if (isSubmitted && allotmentPosition?.invalid) {
-    <ca-form-error [errors]="allotmentPosition?.errors" />
-    }
-  </div>
-  } -->
 
   <div class="mt-7 mb-6">
     <div class="flex flex-wrap gap-5 items-center sm:justify-center">
@@ -272,17 +221,30 @@
         <ca-form-error [errors]="themeColor.errors" />
         }
       </div>
-      <button
-        class="btn bg-purple-main text-white sm:ms-auto shrink-0"
-        type="button"
-        style="
-          font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
-          height: 36px;
-        "
-        (click)="selectAllotmentType()"
-      >
-        Select allotment type
-      </button>
+      @if (!selectedAllotmentType) {
+      <div class="flex flex-col lg:ms-auto">
+        <button
+          class="btn bg-purple-main text-white sm:ms-auto shrink-0"
+          type="button"
+          style="
+            font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
+            height: 36px;
+          "
+          (click)="selectAllotmentType()"
+        >
+          Select allotment type
+        </button>
+        @if (isSubmitted && allotmentType.invalid) {
+        <ca-form-error [errors]="allotmentType.errors" />
+        }
+      </div>
+      <!--  -->
+      } @else {
+      <ca-allotment-type-card
+        [allotmentType]="selectedAllotmentType"
+        (allotmentTypeChange)="selectAllotmentType()"
+      />
+      }
     </div>
   </div>
 
@@ -294,8 +256,8 @@
         I agree to Collo Africa MGR terms and conditions.
       </label>
     </div>
-    @if (isSubmitted && terms?.invalid) {
-    <ca-form-error [errors]="terms?.errors" />
+    @if (isSubmitted && terms.invalid) {
+    <ca-form-error [errors]="terms.errors" />
     }
   </div>
   }

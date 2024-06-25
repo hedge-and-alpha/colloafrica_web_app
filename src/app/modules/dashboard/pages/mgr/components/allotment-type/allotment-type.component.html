@@ -38,6 +38,7 @@
       <button
         type="button"
         class="bg-purple-main text-white h-8 w-[138px] inline-flex justify-center items-center text-xs font-medium rounded-[4px]"
+        (click)="handleTypeSelection('auto')"
       >
         Auto Allotment
       </button>
@@ -67,12 +68,18 @@
             />
           </svg>
         </div>
-        <div class="">
-          <p class="text-[0.625rem] leading-[1.4] text-[#b3b3b3] text-center">
-            Participants Name
-          </p>
-          <!-- <ng-select class="rounded-[5px]" appendTo="body"></ng-select> -->
-        </div>
+        <p class="text-[0.625rem] leading-[1.4] text-[#b3b3b3] text-center">
+          Participants Name
+        </p>
+        <ng-select
+          class="rounded-[5px] border border-black"
+          appendTo="body"
+          (change)="handlePositionChange($event)"
+        >
+          @for (n of allowableNumbers; track $index) {
+          <ng-option [value]="n">{{ n }}</ng-option>
+          }
+        </ng-select>
       </div>
     </div>
 
@@ -85,7 +92,13 @@
 
       <button
         type="button"
-        class="bg-purple-main text-white h-8 w-[138px] inline-flex justify-center items-center text-xs font-medium rounded-[4px]"
+        class="text-white h-8 w-[138px] inline-flex justify-center items-center text-xs font-medium rounded-[4px]"
+        [ngClass]="{
+          'bg-[#D0D5DD]': !selectedPosition,
+          'bg-purple-main': selectedPosition
+        }"
+        [disabled]="!selectedPosition"
+        (click)="handleTypeSelection('manual')"
       >
         Manual Allotment
       </button>

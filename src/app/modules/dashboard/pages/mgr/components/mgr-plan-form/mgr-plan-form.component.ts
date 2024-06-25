@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, effect } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,6 +13,7 @@ import { DashboardApiService } from '../../../../../../services/api/dashboard-ap
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
 import { AllotmentTypeComponent } from '../allotment-type/allotment-type.component';
 import { MGR } from '../../../../../../interfaces/mgr.interface';
+import { Subscription } from 'rxjs';
 
 type AllotmentType = 'manual' | 'auto';
 
@@ -21,12 +22,18 @@ type AllotmentType = 'manual' | 'auto';
   templateUrl: './mgr-plan-form.component.html',
   styleUrl: './mgr-plan-form.component.css',
 })
-export class MgrPlanFormComponent implements OnInit {
+export class MgrPlanFormComponent implements OnInit, OnDestroy {
+  selectedAllotmentType: null | AllotmentType = null;
+
+  selectedPosition = 0;
+  numberOfAllowableMembers = 0;
+  selectedThemeIndex: null | number = null;
+
   isSubmitted = false;
   isEditing = false;
   loading = false;
-  selectedThemeIndex: null | number = null;
-  selectedAllotmentType: null | AllotmentType = null;
+
+  numberOfMembersSub?: Subscription;
 
   themes: Theme[] = THEME_COLOURS;
   durations: Duration[] = DURATIONS;
@@ -42,9 +49,10 @@ export class MgrPlanFormComponent implements OnInit {
         emptyFieldValidator(),
       ]),
       duration: new FormControl<string | null>(null, [Validators.required]),
-      number_of_members: new FormControl<string | null>(null, [
-        Validators.required,
-      ]),
+      number_of_members: new FormControl<string | null>(null, {
+        validators: [Validators.required],
+        updateOn: 'change',
+      }),
       amount: new FormControl<string | null>(null, [Validators.required]),
       join_date_deadline: new FormControl<string | null>(null, [
         Validators.required,
@@ -59,7 +67,7 @@ export class MgrPlanFormComponent implements OnInit {
       allotment_type: new FormControl<string | null>(null, [
         Validators.required,
       ]),
-      // allotment_position: new FormControl<string | null>(null, [Validators.required]),
+      allotment_position: new FormControl<number | null>(null),
       terms: new FormControl<boolean | null>(null, [Validators.required]),
     },
     { updateOn: 'submit' }
@@ -72,7 +80,20 @@ export class MgrPlanFormComponent implements OnInit {
     private alert: AlertService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    effect(() => {
+      if (this.modalService.data()) {
+        const { position, type } = this.modalService.data() as {
+          position: number;
+          type: 'manual' | 'auto';
+        };
+        this.selectedPosition = position;
+        this.selectedAllotmentType = type;
+        this.allotmentPosition.patchValue(position);
+        this.allotmentType.patchValue(type);
+      }
+    });
+  }
 
   ngOnInit() {
     let isEdit = this.route.snapshot.paramMap.get('action');
@@ -95,31 +116,32 @@ export class MgrPlanFormComponent implements OnInit {
         terms: true,
       });
     }
+    this.observeNumberOfMembersControl();
   }
 
   get name() {
-    return this.form.get('name');
+    return this.form.get('name') as FormControl;
   }
   get desc() {
-    return this.form.get('desc');
+    return this.form.get('desc') as FormControl;
   }
   get duration() {
-    return this.form.get('duration');
+    return this.form.get('duration') as FormControl;
   }
   get numberOfMembers() {
-    return this.form.get('number_of_members');
+    return this.form.get('number_of_members') as FormControl;
   }
   get amount() {
-    return this.form.get('amount');
+    return this.form.get('amount') as FormControl;
   }
   get joinDateDeadline() {
-    return this.form.get('join_date_deadline');
+    return this.form.get('join_date_deadline') as FormControl;
   }
   get startDate() {
-    return this.form.get('contribution_start_date');
+    return this.form.get('contribution_start_date') as FormControl;
   }
   get allocationDate() {
-    return this.form.get('allocation_date');
+    return this.form.get('allocation_date') as FormControl;
   }
   get themeColor() {
     return this.form.get('theme_color') as FormControl;
@@ -127,11 +149,19 @@ export class MgrPlanFormComponent implements OnInit {
   get allotmentType() {
     return this.form.get('allotment_type') as FormControl;
   }
-  // get allotmentPosition() {
-  //   return this.form.get('allotment_position');
-  // }
+  get allotmentPosition() {
+    return this.form.get('allotment_position') as FormControl;
+  }
   get terms() {
-    return this.form.get('terms');
+    return this.form.get('terms') as FormControl;
+  }
+
+  observeNumberOfMembersControl() {
+    this.numberOfMembersSub = this.numberOfMembers?.valueChanges.subscribe({
+      next: (value) => {
+        this.numberOfAllowableMembers = value ? +value : 0;
+      },
+    });
   }
 
   selectTheme(theme: Theme, idx: number) {
@@ -141,11 +171,18 @@ export class MgrPlanFormComponent implements OnInit {
   }
 
   selectAllotmentType() {
-    this.modalService.open(AllotmentTypeComponent, 'large', {
-      showHeading: true,
-      headingText: 'Select Allotment mode',
-      closable: true,
-    });
+    this.modalService.open(
+      AllotmentTypeComponent,
+      'large',
+      {
+        showHeading: true,
+        headingText: 'Select Allotment mode',
+        closable: true,
+      },
+      {
+        numberOfMembers: this.numberOfAllowableMembers,
+      }
+    );
   }
 
   handleSelectAllotmentType(event: AllotmentType) {
@@ -179,9 +216,6 @@ export class MgrPlanFormComponent implements OnInit {
           queryParams: { new_plan: true },
           state: { isAdmin: true, plan: data },
         });
-        /**
-         * !Todo: add data to mgr store
-         */
       },
       error: (err: HttpErrorResponse) => {
         this.loading = false;
@@ -195,6 +229,10 @@ export class MgrPlanFormComponent implements OnInit {
 
   editPlan(data: object) {
     console.log(data);
+  }
+
+  ngOnDestroy() {
+    this.numberOfMembersSub?.unsubscribe();
   }
 }
 
@@ -242,6 +280,7 @@ type MGRForm = FormGroup<{
   contribution_start_date: FormControl<null | string>;
   allocation_date: FormControl<null | string>;
   allotment_type: FormControl<null | string>;
+  allotment_position: FormControl<null | number>;
   theme_color: FormControl<null | string>;
   amount: FormControl<null | string>;
   terms: FormControl<null | boolean>;
