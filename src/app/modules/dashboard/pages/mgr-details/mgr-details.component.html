@@ -1,7 +1,15 @@
-<ca-mgr-details-header
-  class="block mb-4 mt-[18px]"
-  (viewChange)="handleViewChange($event)"
-/>
+<div class="flex flex-col sm:flex-row gap-3 flex-wrap mb-4 mt-[18px]">
+  <ca-h1 class="">{{ planName }}</ca-h1>
+
+  @if (mgrPlan) {
+  <ca-mgr-details-header
+    class="block ms-auto"
+    [isAdmin]="isUserAdmin"
+    [groupStarted]="isGroupStarted"
+    (viewChange)="handleViewChange($event)"
+  />
+  }
+</div>
 
 @if (view() !== 'details') {
 <div
@@ -82,12 +90,12 @@
 
 <div class="mt-12">
   @if (view() === 'contribution') {
-  <ca-mgr-contribution-statistics />
+  <ca-mgr-contribution-statistics [contributionStats]="mgrContributions" />
   } @if (view() === 'collection') {
   <ca-mgr-collection-statistics [collectionStats]="mgrCollections" />
   }
 </div>
 <!--  -->
-} @else {
-<ca-mgr-plan />
-}
+} @else { @if (mgrPlan) {
+<ca-mgr-plan [plan]="mgrPlan" />
+} }

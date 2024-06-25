@@ -28,6 +28,7 @@ export interface MGRUser extends MGRUserBase {
   position: number;
   status: number;
   join_date: string;
+  profile_pic: null | string;
 }
 
 export interface MGRAnalytics {
@@ -53,7 +54,8 @@ export interface MGRContributionStats extends MGRStatsBase {
   position: number;
 }
 
-export interface MGRCollectionStats extends MGRStatsBase {
+export interface MGRCollectionStats
+  extends Omit<MGRStatsBase, 'first_name' | 'last_name'> {
   id: string;
   mgr_cycle_id: string;
   mgr_id: string;

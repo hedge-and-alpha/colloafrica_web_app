@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { MGR } from '../../../../../../interfaces/mgr.interface';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../../../../components/modal/modal.service';
+import { MGR } from '../../../../../../interfaces/mgr.interface';
 import { CancelPlanModalComponent } from '../cancel-plan-modal/cancel-plan-modal.component';
 
 type View = 'details' | 'contribution' | 'collection';
@@ -14,6 +14,9 @@ type View = 'details' | 'contribution' | 'collection';
 export class MgrDetailsHeaderComponent {
   view: View = 'details';
   plan: MGR = history.state['plan'];
+
+  @Input() isAdmin = false;
+  @Input() groupStarted = false;
 
   @Output() viewChange = new EventEmitter<View>();
 

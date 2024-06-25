@@ -1,7 +1,6 @@
-<div class="flex flex-col sm:flex-row gap-3 flex-wrap">
-  <ca-h1 class="">{{ plan.name }}</ca-h1>
-
-  <!-- <div class="buttons inline-flex gap-3 sm:ms-auto">
+<div>
+  @if (!groupStarted) {
+  <div class="buttons inline-flex gap-3 sm:ms-auto">
     <button class="bg-purple-main text-white px-3" (click)="editPlan()">
       <i class="ca-pencil"></i>
       Edit plan
@@ -11,8 +10,11 @@
       <i class="ca-trash"></i>
       Cancel plan
     </button>
-  </div> -->
+  </div>
+  }
 
+  <!--  -->
+  @if (groupStarted) {
   <div
     class="tabs flex items-center justify-center gap-3 flex-nowrap overflow-x-scroll no-scrollbar sm:ms-auto"
   >
@@ -25,6 +27,8 @@
       MGR plan details
     </button>
 
+    <!--  -->
+    @if (isAdmin) {
     <button
       class="font-medium px-3"
       (click)="changeView('collection')"
@@ -42,5 +46,7 @@
       <i class="ca-chart-bar"></i>
       View contribution statistics
     </button>
+    }
   </div>
+  }
 </div>
