@@ -46,6 +46,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       ]),
       desc: new FormControl<null | string>(null, [
         Validators.required,
+        Validators.maxLength(120),
         emptyFieldValidator(),
       ]),
       duration: new FormControl<string | null>(null, [Validators.required]),
@@ -67,7 +68,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       allotment_type: new FormControl<string | null>(null, [
         Validators.required,
       ]),
-      allotment_position: new FormControl<number | null>(null),
+      slot_number: new FormControl<number | null>(null),
       terms: new FormControl<boolean | null>(null, [Validators.required]),
     },
     { updateOn: 'submit' }
@@ -89,7 +90,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         };
         this.selectedPosition = position;
         this.selectedAllotmentType = type;
-        this.allotmentPosition.patchValue(position);
+        this.slotNumber.patchValue(position);
         this.allotmentType.patchValue(type);
       }
     });
@@ -149,8 +150,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   get allotmentType() {
     return this.form.get('allotment_type') as FormControl;
   }
-  get allotmentPosition() {
-    return this.form.get('allotment_position') as FormControl;
+  get slotNumber() {
+    return this.form.get('slot_number') as FormControl;
   }
   get terms() {
     return this.form.get('terms') as FormControl;
@@ -281,7 +282,7 @@ type MGRForm = FormGroup<{
   contribution_start_date: FormControl<null | string>;
   allocation_date: FormControl<null | string>;
   allotment_type: FormControl<null | string>;
-  allotment_position: FormControl<null | number>;
+  slot_number: FormControl<null | number>;
   theme_color: FormControl<null | string>;
   amount: FormControl<null | string>;
   terms: FormControl<null | boolean>;

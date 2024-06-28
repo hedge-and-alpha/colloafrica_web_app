@@ -34,9 +34,10 @@
           class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
         >
           <a
+            target="_blank"
+            class="underline text-primary"
             [routerLink]="['/', 'mgr', plan.id, 'join']"
             [queryParams]="{ invite_id: plan.invite_link }"
-            class="underline text-primary"
             >{{ inviteLink }}</a
           >
         </div>

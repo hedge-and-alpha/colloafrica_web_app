@@ -4,7 +4,7 @@
 </div>
 } @else {
 <!--  -->
-@if (!adminMgrs.length && !participantMgrs.length) {
+@if (!adminMgrs.length && !participantMgrs.length && !filtered) {
 <ca-mgr-intro />
 } @else {
 <div class="mb-10">
@@ -16,11 +16,12 @@
         placeholder="Select filter"
         [clearable]="false"
         [searchable]="false"
+        (change)="handleMgrFilter($event)"
       >
+        <ng-option value="all">All</ng-option>
         <ng-option value="active">Active</ng-option>
-        <ng-option value="started">Started</ng-option>
         <ng-option value="completed">Completed</ng-option>
-        <ng-option value="deactivated">System deactivated</ng-option>
+        <ng-option value="system_deactivated">System deactivated</ng-option>
         <ng-option value="pending">Pending</ng-option>
         <ng-option value="cancelled">Cancelled</ng-option>
       </ng-select>

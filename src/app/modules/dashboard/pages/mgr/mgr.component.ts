@@ -13,6 +13,7 @@ export class MgrComponent implements OnInit, OnDestroy {
   view: 'intro' | 'new' | 'join' = 'intro';
   hasMgr = true;
   loading = true;
+  filtered = false;
 
   adminMgrs: MGR[] = [];
   participantMgrs: MGR[] = [];
@@ -27,19 +28,15 @@ export class MgrComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.route.paramMap.subscribe((param) => {
-    //   const p = param.get('view');
-    //   this.view = p as 'intro' | 'new' | 'join';
-    // });
     this.fetchMgrs();
   }
 
-  fetchMgrs() {
+  fetchMgrs(status?: string) {
     this.loading = true;
 
     return forkJoin({
-      admin: this.api.getAdminMGR(),
-      participant: this.api.getParticipantMGR(),
+      admin: this.api.getAdminMGR(status),
+      participant: this.api.getParticipantMGR(status),
     }).subscribe({
       next: ({ admin, participant }) => {
         this.loading = false;
@@ -50,6 +47,15 @@ export class MgrComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
     });
+  }
+
+  handleMgrFilter(event: string) {
+    this.filtered = true;
+    if (event === 'all') {
+      this.fetchMgrs();
+      return;
+    }
+    this.fetchMgrs(event);
   }
 
   createNewPlan() {

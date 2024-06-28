@@ -226,12 +226,18 @@ export class DashboardApiService {
     );
   }
 
-  getAdminMGR() {
-    return this.http.get<{ data: MGR[] }>(`${this.#baseUrl}/mgr/admin`);
+  getAdminMGR(status?: string) {
+    const endpoint = status
+      ? `${this.#baseUrl}/mgr/admin/${status}`
+      : `${this.#baseUrl}/mgr/admin`;
+    return this.http.get<{ data: MGR[] }>(endpoint);
   }
 
-  getParticipantMGR() {
-    return this.http.get<{ data: MGR[] }>(`${this.#baseUrl}/mgr/participant`);
+  getParticipantMGR(status?: string) {
+    const endpoint = status
+      ? `${this.#baseUrl}/mgr/participant/${status}`
+      : `${this.#baseUrl}/mgr/participant`;
+    return this.http.get<{ data: MGR[] }>(endpoint);
   }
 
   getMGRById(id: string) {
