@@ -10,6 +10,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class AllotmentTypeComponent implements OnInit {
   selectedPositionControl = new FormControl<number | null>(null, [
     Validators.required,
+    Validators.min(1),
   ]);
 
   allowableNumbers: number[] = [];
