@@ -44,21 +44,27 @@
         }
       </ca-card>
 
+      @if (plan.next_allocation_to) {
       <div class="allocation-card grow">
         <ca-card class="px-4 py-3 rounded-md h-full">
           <div
             class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]"
           >
             Next Allocation to
-            <span class="bg-warning alloc-position"> 6 </span>
+            <span class="bg-warning alloc-position">
+              {{ plan.next_allocation_to.slot_number }}
+            </span>
           </div>
 
           <div class="flex items-center gap-[0.625rem]">
             <img src="assets/images/profile-photo.webp" alt="" />
-            <p class="text-xs font-medium">Kristin Watson</p>
+            <p class="text-xs font-medium">
+              {{ plan.next_allocation_to.name | titlecase }}
+            </p>
           </div>
         </ca-card>
       </div>
+      }
     </div>
 
     <div class="allocation-card">
