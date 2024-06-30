@@ -53,9 +53,9 @@
         <div class="-mx-5 grow">
           <ng-select
             class="px-2"
-            [clearOnBackspace]="false"
             labelForId="duration"
             formControlName="duration"
+            [clearOnBackspace]="false"
             [ngClass]="{
               'ng-touched ng-dirty': isSubmitted && duration.invalid
             }"
@@ -131,15 +131,18 @@
         formControlName="join_date_deadline"
         bsDatepicker
         #jdp="bsDatepicker"
-        readonly
+        [minDate]="minJoinDate"
         [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
         [ngClass]="{
           'ng-dirty ng-touched': isSubmitted && joinDateDeadline.invalid
         }"
       />
-      <i class="ca-calendar text-[#5c5c5c]" (click)="jdp.show()"></i>
+      <button type="button" (click)="jdp.show()">
+        <i class="ca-calendar text-[#5c5c5c]"></i>
+      </button>
     </ca-form-field>
-    @if (isSubmitted && joinDateDeadline.invalid) {
+    @if ((isSubmitted && joinDateDeadline.invalid) ||
+    joinDateDeadline.errors?.['deadline']) {
     <ca-form-error [errors]="joinDateDeadline.errors" />
     }
   </div>
@@ -160,12 +163,15 @@
           bsDatepicker
           #cdp="bsDatepicker"
           readonly
+          [minDate]="minContributionDate"
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
           [ngClass]="{
             'ng-dirty ng-touched': isSubmitted && startDate.invalid
           }"
         />
-        <i class="ca-calendar text-[#5c5c5c]" (click)="cdp.show()"></i>
+        <button type="button" (click)="cdp.show()">
+          <i class="ca-calendar text-[#5c5c5c]"></i>
+        </button>
       </ca-form-field>
       @if (isSubmitted && startDate.invalid) {
       <ca-form-error [errors]="startDate.errors" />
@@ -183,15 +189,8 @@
           id="allocation-date"
           type="text"
           formControlName="allocation_date"
-          bsDatepicker
-          #adp="bsDatepicker"
-          readonly
-          [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
-          [ngClass]="{
-            'ng-dirty ng-touched': isSubmitted && allocationDate.invalid
-          }"
         />
-        <i class="ca-calendar text-[#5c5c5c]" (click)="adp.show()"></i>
+        <i class="ca-calendar text-[#5c5c5c]"></i>
       </ca-form-field>
       @if (isSubmitted && allocationDate.invalid) {
       <ca-form-error [errors]="allocationDate.errors" />
@@ -221,7 +220,7 @@
         <ca-form-error [errors]="themeColor.errors" />
         }
       </div>
-      @if (!selectedAllotmentType) {
+      @if (!selectedAllotmentType && !isEditing) {
       <div class="flex flex-col lg:ms-auto">
         <button
           class="btn bg-purple-main text-white sm:ms-auto shrink-0"
@@ -251,7 +250,7 @@
   @if (!isEditing) {
   <div class="mb-12">
     <div class="flex items-start gap-3">
-      <input type="checkbox" id="subscribe" formControlName="terms" />
+      <input type="checkbox" id="subscribe" [formControl]="terms" />
       <label class="text-sm" for="subscribe">
         I agree to Collo Africa MGR terms and conditions.
       </label>

@@ -226,6 +226,13 @@ export class DashboardApiService {
     );
   }
 
+  updateMGR(id: string, data: object) {
+    return this.http.put<ApiResponse & { data: MGR }>(
+      `${this.#baseUrl}/mgr/${id}`,
+      data
+    );
+  }
+
   getAdminMGR(status?: string) {
     const endpoint = status
       ? `${this.#baseUrl}/mgr/admin/${status}`

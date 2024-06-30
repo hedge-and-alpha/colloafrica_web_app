@@ -129,7 +129,8 @@ hgroup p {
   width: 100%;
 }
 
-.ca-form-control:has([disabled]) {
+.ca-form-control:has([disabled]),
+.ca-form-control:has([readonly]) {
   background-color: #efefef4d;
 }
 

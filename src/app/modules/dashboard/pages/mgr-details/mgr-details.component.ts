@@ -88,7 +88,7 @@ export class MgrDetailsComponent implements OnInit {
         );
         this.planName = data.name;
         this.isUserAdmin = !!user && user.role === 'admin';
-        this.isGroupStarted = data.status === 'active';
+        this.isGroupStarted = data.status === 'started';
       },
     });
   }

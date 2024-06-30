@@ -13,6 +13,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   maxlength: 'The value is too long',
   minLength: 'The value is too short',
   minlength: 'The value is too short',
+  deadline: 'Deadline date cannot be greater than start date',
 };
 
 export const VALIDATION_ERROR_MESSAGES = new InjectionToken(

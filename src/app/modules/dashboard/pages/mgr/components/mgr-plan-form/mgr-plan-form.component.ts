@@ -7,15 +7,23 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AlertService } from '../../../../../../components/alert/alert.service';
 import { ModalService } from '../../../../../../components/modal/modal.service';
+import { MGR } from '../../../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
 import { emptyFieldValidator } from '../../../../../../validators/emptyField.validator';
+import { DURATIONS, THEME_COLOURS } from '../../data/mgr.data';
+import {
+  AllotmentType,
+  MGRDuration,
+  MGRDurationList,
+  MGRForm,
+  Theme,
+} from '../../interfaces/mgr.interfaces';
 import { AllotmentTypeComponent } from '../allotment-type/allotment-type.component';
-import { MGR } from '../../../../../../interfaces/mgr.interface';
-import { Subscription } from 'rxjs';
-
-type AllotmentType = 'manual' | 'auto';
+import { UtilsService } from '../../../../../../services/utils/utils.service';
+import { contributionDateValidator } from '../../../../../../validators/contribution-date.validator';
 
 @Component({
   selector: 'ca-mgr-plan-form',
@@ -33,12 +41,20 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   isEditing = false;
   loading = false;
 
+  minJoinDate = new Date();
+  minContributionDate = new Date(new Date().setDate(new Date().getDate() + 1));
+
   numberOfMembersSub?: Subscription;
+  joinDateSub?: Subscription;
+  startDateSub?: Subscription;
+  durationSub?: Subscription;
 
   themes: Theme[] = THEME_COLOURS;
-  durations: Duration[] = DURATIONS;
+  durations: MGRDurationList[] = DURATIONS;
 
-  form: MGRForm = this.fb.group(
+  terms = new FormControl<boolean>(false, [Validators.requiredTrue]);
+
+  form: FormGroup<MGRForm> = this.fb.group(
     {
       name: new FormControl<null | string>(null, [
         Validators.required,
@@ -49,27 +65,34 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         Validators.maxLength(120),
         emptyFieldValidator(),
       ]),
-      duration: new FormControl<string | null>(null, [Validators.required]),
+      duration: new FormControl<string | null>(null, {
+        validators: [Validators.required],
+        updateOn: 'change',
+      }),
       number_of_members: new FormControl<string | null>(null, {
         validators: [Validators.required],
         updateOn: 'change',
       }),
       amount: new FormControl<string | null>(null, [Validators.required]),
-      join_date_deadline: new FormControl<string | null>(null, [
-        Validators.required,
-      ]),
-      contribution_start_date: new FormControl<string | null>(null, [
-        Validators.required,
-      ]),
-      allocation_date: new FormControl<string | null>(null, [
-        Validators.required,
-      ]),
+      join_date_deadline: new FormControl<string | null>(null, {
+        validators: [Validators.required],
+        updateOn: 'change',
+      }),
+      contribution_start_date: new FormControl<string | null>(null, {
+        validators: [Validators.required],
+        updateOn: 'change',
+      }),
+      allocation_date: new FormControl<string | null>(
+        { value: null, disabled: true },
+        {
+          validators: [Validators.required],
+        }
+      ),
       theme_color: new FormControl<string | null>(null, [Validators.required]),
       allotment_type: new FormControl<string | null>(null, [
         Validators.required,
       ]),
       slot_number: new FormControl<number | null>(null),
-      terms: new FormControl<boolean | null>(null, [Validators.required]),
     },
     { updateOn: 'submit' }
   );
@@ -80,7 +103,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     private api: DashboardApiService,
     private alert: AlertService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private utils: UtilsService
   ) {
     effect(() => {
       if (this.modalService.data()) {
@@ -108,16 +132,20 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         amount: plan.amount,
         desc: plan.desc,
         number_of_members: plan.number_of_members,
-        allocation_date: plan.allocation_date,
+        allocation_date: this.utils.toISODate(plan.allocation_date),
         allotment_type: plan.allotment_type,
-        contribution_start_date: plan.contribution_start_date,
+        contribution_start_date: this.utils.toISODate(
+          plan.contribution_start_date
+        ),
         duration: plan.duration,
         join_date_deadline: plan.join_date_deadline,
         theme_color: plan.theme_color,
-        terms: true,
       });
     }
-    this.observeNumberOfMembersControl();
+    this.terms.patchValue(true), this.observeNumberOfMembersControl();
+    this.observeJoinDateControl();
+    this.observeDurationControl();
+    this.observeStartDateControl();
   }
 
   get name() {
@@ -136,7 +164,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     return this.form.get('amount') as FormControl;
   }
   get joinDateDeadline() {
-    return this.form.get('join_date_deadline') as FormControl;
+    return this.form.get('join_date_deadline') as FormControl<string | null>;
   }
   get startDate() {
     return this.form.get('contribution_start_date') as FormControl;
@@ -153,8 +181,76 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   get slotNumber() {
     return this.form.get('slot_number') as FormControl;
   }
-  get terms() {
-    return this.form.get('terms') as FormControl;
+
+  calculateAllotmentDate(duration: MGRDuration) {
+    const today = new Date();
+    let startDate = this.startDate as FormControl<string | null>;
+    let nextAllocationDate!: string | number | Date;
+
+    if (!startDate.value) {
+      if (duration === 'daily') {
+        nextAllocationDate = new Date(today.setDate(today.getDate() + 1));
+      } else {
+        nextAllocationDate = new Date(today.setDate(today.getDate() + 2));
+      }
+    } else {
+      const start = new Date(startDate.value);
+      if (duration === 'daily') {
+        nextAllocationDate = new Date(start.setDate(start.getDate() + 1));
+      } else {
+        nextAllocationDate = new Date(start.setDate(start.getDate() + 2));
+      }
+    }
+
+    this.allocationDate.setValue(this.utils.toISODate(nextAllocationDate));
+  }
+
+  observeDurationControl() {
+    this.durationSub = this.duration.valueChanges.subscribe({
+      next: (value) => {
+        this.calculateAllotmentDate(value);
+      },
+    });
+  }
+
+  observeJoinDateControl() {
+    this.joinDateSub = this.joinDateDeadline?.valueChanges.subscribe({
+      next: (value) => {
+        if (value) {
+          if (this.startDate.value) {
+            const join = new Date(value).getTime();
+            const start = new Date(this.startDate.value).getTime();
+
+            if (join >= start) {
+              this.joinDateDeadline.setErrors({ deadline: true });
+            }
+          }
+
+          const date = new Date(value);
+          const minStartDate = new Date(date.setDate(date.getDate() + 1));
+          this.minContributionDate = minStartDate;
+        }
+      },
+    });
+  }
+
+  observeStartDateControl() {
+    this.startDateSub = this.startDate?.valueChanges.subscribe({
+      next: (value) => {
+        if (value) {
+          this.calculateAllotmentDate(this.duration.value);
+
+          if (this.joinDateDeadline.value) {
+            const join = new Date(this.joinDateDeadline.value).getTime();
+            const start = new Date(value).getTime();
+
+            if (start > join) {
+              this.joinDateDeadline.setErrors(null);
+            }
+          }
+        }
+      },
+    });
   }
 
   observeNumberOfMembersControl() {
@@ -194,18 +290,25 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   handleSubmit() {
     this.isSubmitted = true;
 
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.terms.invalid) return;
 
     // this.loading = true;
 
-    const data = { ...this.form.value };
-    delete data.terms;
-    console.log(this.form.value);
-    // if (!this.isEditing) {
-    //   this.createNewPlan(data);
-    // } else {
-    //   this.editPlan(data);
-    // }
+    const data = { ...this.form.getRawValue() };
+    if (!this.isEditing) {
+      this.createNewPlan(data);
+    } else {
+      const payload = {
+        name: data.name,
+        desc: data.desc,
+        duration: data.duration,
+        number_of_members: data.number_of_members,
+        amount: data.amount,
+        join_date_deadline: data.join_date_deadline,
+      };
+      console.log(payload);
+      this.editPlan(payload);
+    }
   }
 
   createNewPlan(data: object) {
@@ -214,9 +317,9 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
         this.form.reset();
-        this.router.navigate(['/', 'mgr', data.name], {
+        this.router.navigate(['/', 'mgr', data.id, 'details'], {
           queryParams: { new_plan: true },
-          state: { isAdmin: true, plan: data },
+          state: { plan: data },
         });
       },
       error: (err: HttpErrorResponse) => {
@@ -230,60 +333,31 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   }
 
   editPlan(data: object) {
-    console.log(data);
+    let plan = history.state['plan'] as MGR;
+    // this.api.updateMGR(data).subscribe({
+    //   next: ({ data, message, status }) => {
+    //     this.loading = false;
+    //     this.alert.open('success', { details: message, summary: status });
+    //     this.form.reset();
+    //     this.router.navigate(['/', 'mgr', data.name], {
+    //       queryParams: { new_plan: true },
+    //       state: { isAdmin: true, plan: data },
+    //     });
+    //   },
+    //   error: (err: HttpErrorResponse) => {
+    //     this.loading = false;
+    //     this.alert.open('danger', {
+    //       details: `${err.message}`,
+    //       summary: `${err.status}: ${err.statusText}`,
+    //     });
+    //   },
+    // });
   }
 
   ngOnDestroy() {
     this.numberOfMembersSub?.unsubscribe();
+    this.joinDateSub?.unsubscribe();
+    this.startDateSub?.unsubscribe();
+    this.durationSub?.unsubscribe();
   }
 }
-
-const DURATIONS: Duration[] = [
-  { id: 'daily', name: 'Daily' },
-  { id: 'weekly', name: 'Weekly' },
-  { id: 'monthly', name: 'Monthly' },
-];
-
-const THEME_COLOURS: Theme[] = [
-  {
-    from: '#17B890',
-    to: '#009D76',
-  },
-  {
-    from: '#006dca',
-    to: '#1e96fc',
-  },
-  {
-    from: '#ffba08',
-    to: '#ffd056',
-  },
-  {
-    from: '#00241b',
-    to: '#000000',
-  },
-  {
-    from: '#bca52c',
-    to: '#f6e691',
-  },
-  {
-    from: '#470b96',
-    to: '#6b1bd3',
-  },
-];
-
-type Theme = { from: string; to: string };
-type Duration = { id: string; name: string };
-type MGRForm = FormGroup<{
-  name: FormControl<null | string>;
-  desc: FormControl<null | string>;
-  duration: FormControl<null | string>;
-  number_of_members: FormControl<null | string>;
-  join_date_deadline: FormControl<null | string>;
-  contribution_start_date: FormControl<null | string>;
-  allocation_date: FormControl<null | string>;
-  allotment_type: FormControl<null | string>;
-  slot_number: FormControl<null | number>;
-  theme_color: FormControl<null | string>;
-  amount: FormControl<null | string>;
-  terms: FormControl<null | boolean>;
-}>;
