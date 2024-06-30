@@ -35,7 +35,9 @@
 
       <a
         class="flex items-start gap-2 text-white"
-        [routerLink]="['/', 'mgr', plan.id, 'details']"
+        [routerLink]="
+          plan.status === 'cancelled' ? null : ['/', 'mgr', plan.id, 'details']
+        "
         [state]="{ isAdmin, plan }"
       >
         <hgroup class="grow flex flex-col gap-1">
