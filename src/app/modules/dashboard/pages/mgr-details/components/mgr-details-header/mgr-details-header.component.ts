@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { MGR } from '../../../../../../interfaces/mgr.interface';
 import { CancelPlanModalComponent } from '../cancel-plan-modal/cancel-plan-modal.component';
+import { EditMgrPlanComponent } from '../edit-mgr-plan/edit-mgr-plan.component';
 
 type View = 'details' | 'contribution' | 'collection';
 
@@ -20,7 +20,7 @@ export class MgrDetailsHeaderComponent {
 
   @Output() viewChange = new EventEmitter<View>();
 
-  constructor(private router: Router, private modalService: ModalService) {}
+  constructor(private modalService: ModalService) {}
 
   changeView(view: View) {
     this.view = view;
@@ -28,9 +28,16 @@ export class MgrDetailsHeaderComponent {
   }
 
   editPlan() {
-    this.router.navigate(['/', 'mgr', this.plan.id, 'edit'], {
-      state: { plan: this.plan },
-    });
+    this.modalService.open(
+      EditMgrPlanComponent,
+      'small',
+      {
+        closable: true,
+        showHeading: true,
+        headingText: 'Edit Plan',
+      },
+      { plan: this.plan }
+    );
   }
 
   cancelPlan() {

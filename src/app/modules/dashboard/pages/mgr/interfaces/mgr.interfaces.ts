@@ -27,3 +27,13 @@ export interface MGRForm {
   theme_color: FormControl<null | string>;
   amount: FormControl<null | string>;
 }
+
+export interface EditMGRForm {
+  name: FormControl<string>;
+  desc: FormControl<string>;
+  duration: FormControl<string>;
+  number_of_members: FormControl<string>;
+  join_date_deadline: FormControl<string>;
+  theme_color: FormControl<string>;
+  amount: FormControl<string>;
+}

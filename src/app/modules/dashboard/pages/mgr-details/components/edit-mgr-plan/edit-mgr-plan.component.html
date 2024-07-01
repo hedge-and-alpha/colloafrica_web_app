@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+<form class="mt-8" [formGroup]="form" (ngSubmit)="handleSubmit()">
   <div class="mb-6">
     <ca-form-field
       label="Plan name"
@@ -147,58 +147,6 @@
     }
   </div>
 
-  <!-- 2 cols -->
-  <div class="xl:grid grid-cols-2 gap-4">
-    <div class="mb-6">
-      <ca-form-field
-        label="Contribution start date"
-        labelFor="start-date"
-        class="block"
-        [isRequired]="true"
-      >
-        <input
-          id="start-date"
-          type="text"
-          formControlName="contribution_start_date"
-          bsDatepicker
-          #cdp="bsDatepicker"
-          readonly
-          [minDate]="minContributionDate"
-          [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
-          [ngClass]="{
-            'ng-dirty ng-touched': isSubmitted && startDate.invalid
-          }"
-        />
-        <button type="button" (click)="cdp.show()">
-          <i class="ca-calendar text-[#5c5c5c]"></i>
-        </button>
-      </ca-form-field>
-      @if (isSubmitted && startDate.invalid) {
-      <ca-form-error [errors]="startDate.errors" />
-      }
-    </div>
-
-    <div class="mb-6">
-      <ca-form-field
-        label="Allocation date"
-        labelFor="allocation-date"
-        class="block"
-        [isRequired]="true"
-      >
-        <input
-          id="allocation-date"
-          type="text"
-          formControlName="allocation_date"
-        />
-        <i class="ca-calendar text-[#5c5c5c]"></i>
-      </ca-form-field>
-      @if (isSubmitted && allocationDate.invalid) {
-      <ca-form-error [errors]="allocationDate.errors" />
-      }
-    </div>
-  </div>
-  <!-- 2 cols -->
-
   <div class="mt-7 mb-6">
     <div class="flex flex-wrap gap-5 items-center sm:justify-center">
       <div class="shrink-0">
@@ -216,47 +164,11 @@
           </div>
           }
         </div>
-        @if (isSubmitted && themeColor.invalid) {
-        <ca-form-error [errors]="themeColor.errors" />
+        @if (isSubmitted && themeColour.invalid) {
+        <ca-form-error [errors]="themeColour.errors" />
         }
       </div>
-      @if (!selectedAllotmentType && !isEditing) {
-      <div class="flex flex-col lg:ms-auto">
-        <button
-          class="btn bg-purple-main text-white sm:ms-auto shrink-0"
-          type="button"
-          style="
-            font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
-            height: 36px;
-          "
-          (click)="selectAllotmentType()"
-        >
-          Select allotment type
-        </button>
-        @if (isSubmitted && allotmentType.invalid) {
-        <ca-form-error [errors]="allotmentType.errors" />
-        }
-      </div>
-      <!--  -->
-      } @else {
-      <ca-allotment-type-card
-        [allotmentType]="selectedAllotmentType"
-        (allotmentTypeChange)="selectAllotmentType()"
-      />
-      }
     </div>
-  </div>
-
-  <div class="mb-12">
-    <div class="flex items-start gap-3">
-      <input type="checkbox" id="subscribe" [formControl]="terms" />
-      <label class="text-sm" for="subscribe">
-        I agree to Collo Africa MGR terms and conditions.
-      </label>
-    </div>
-    @if (isSubmitted && terms.invalid) {
-    <ca-form-error [errors]="terms.errors" />
-    }
   </div>
 
   <div class="mb-4">

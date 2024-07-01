@@ -1,0 +1,23 @@
+[data-theme="0"] {
+  background: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%);
+}
+
+[data-theme="1"] {
+  background: linear-gradient(245.62deg, #006dca 8.35%, #1e96fc 100%);
+}
+
+[data-theme="2"] {
+  background: linear-gradient(180deg, #ffba08 0%, #ffd056 100%);
+}
+
+[data-theme="3"] {
+  background: linear-gradient(243.97deg, #00241b 7.18%, #000000 94.78%);
+}
+
+[data-theme="4"] {
+  background: linear-gradient(67.98deg, #bca52c 4.84%, #f6e691 86.26%);
+}
+
+[data-theme="5"] {
+  background: linear-gradient(58.91deg, #470b96 9.35%, #6b1bd3 91.36%);
+}

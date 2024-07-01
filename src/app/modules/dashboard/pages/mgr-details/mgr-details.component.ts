@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Component,
   OnInit,
@@ -6,18 +7,17 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import {
   MGR,
   MGRAnalytics,
   MGRCollectionStats,
   MGRContributionStats,
-  MGRUser,
 } from '../../../../interfaces/mgr.interface';
-import { map, tap } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { UserStoreService } from '../../../../stores+/user.store';
+import { ModalService } from '../../../../components/modal/modal.service';
 
 type View = 'details' | 'contribution' | 'collection';
 
@@ -52,15 +52,20 @@ export class MgrDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private api: DashboardApiService,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private modalService: ModalService
   ) {
     this.planId = this.route.snapshot.paramMap.get('id')!;
 
     effect(() => {
       if (this.view() !== 'details') {
         this.getMgrAnalytics(this.planId);
+      }
+    });
+    effect(() => {
+      if (this.modalService.data()?.action === 'refresh') {
+        this.getMgrDetails();
       }
     });
   }
@@ -72,11 +77,6 @@ export class MgrDetailsComponent implements OnInit {
 
   handleViewChange(event: View) {
     this.view.set(event);
-    // this.router.navigate([], {
-    //   relativeTo: this.route,
-    //   queryParams: { tab: event },
-    //   replaceUrl: true,
-    // });
   }
 
   getMgrDetails() {

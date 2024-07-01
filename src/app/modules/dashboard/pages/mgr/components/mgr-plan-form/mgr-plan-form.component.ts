@@ -73,7 +73,10 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         validators: [Validators.required],
         updateOn: 'change',
       }),
-      amount: new FormControl<string | null>(null, [Validators.required]),
+      amount: new FormControl<string | null>(null, [
+        Validators.required,
+        Validators.min(1000),
+      ]),
       join_date_deadline: new FormControl<string | null>(null, {
         validators: [Validators.required],
         updateOn: 'change',
@@ -121,27 +124,6 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    let isEdit = this.route.snapshot.paramMap.get('action');
-
-    if (isEdit && isEdit === 'edit') {
-      this.isEditing = true;
-      let plan = history.state['plan'] as MGR;
-
-      this.form.patchValue({
-        name: plan.name,
-        amount: plan.amount,
-        desc: plan.desc,
-        number_of_members: plan.number_of_members,
-        allocation_date: this.utils.toISODate(plan.allocation_date),
-        allotment_type: plan.allotment_type,
-        contribution_start_date: this.utils.toISODate(
-          plan.contribution_start_date
-        ),
-        duration: plan.duration,
-        join_date_deadline: plan.join_date_deadline,
-        theme_color: plan.theme_color,
-      });
-    }
     this.terms.patchValue(true), this.observeNumberOfMembersControl();
     this.observeJoinDateControl();
     this.observeDurationControl();
@@ -292,23 +274,9 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
 
     if (this.form.invalid || this.terms.invalid) return;
 
-    // this.loading = true;
+    this.loading = true;
 
-    const data = { ...this.form.getRawValue() };
-    if (!this.isEditing) {
-      this.createNewPlan(data);
-    } else {
-      const payload = {
-        name: data.name,
-        desc: data.desc,
-        duration: data.duration,
-        number_of_members: data.number_of_members,
-        amount: data.amount,
-        join_date_deadline: data.join_date_deadline,
-      };
-      console.log(payload);
-      this.editPlan(payload);
-    }
+    this.createNewPlan({ ...this.form.getRawValue() });
   }
 
   createNewPlan(data: object) {
@@ -330,28 +298,6 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         });
       },
     });
-  }
-
-  editPlan(data: object) {
-    let plan = history.state['plan'] as MGR;
-    // this.api.updateMGR(data).subscribe({
-    //   next: ({ data, message, status }) => {
-    //     this.loading = false;
-    //     this.alert.open('success', { details: message, summary: status });
-    //     this.form.reset();
-    //     this.router.navigate(['/', 'mgr', data.name], {
-    //       queryParams: { new_plan: true },
-    //       state: { isAdmin: true, plan: data },
-    //     });
-    //   },
-    //   error: (err: HttpErrorResponse) => {
-    //     this.loading = false;
-    //     this.alert.open('danger', {
-    //       details: `${err.message}`,
-    //       summary: `${err.status}: ${err.statusText}`,
-    //     });
-    //   },
-    // });
   }
 
   ngOnDestroy() {
