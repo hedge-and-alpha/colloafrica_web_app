@@ -5,6 +5,7 @@ import { MGR, MGRUser } from '../../../../../../interfaces/mgr.interface';
 import { TableHeading } from '../../../../../../interfaces/table-heading';
 import { MgrStoreService } from '../../../../../../stores+/mgr.store';
 import { ManageGroupMemberModalComponent } from '../../components/manage-group-member-modal/manage-group-member-modal.component';
+import { AlertService } from '../../../../../../components/alert/alert.service';
 
 @Component({
   selector: 'ca-mgr-plan',
@@ -27,7 +28,8 @@ export class MgrPlanComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private route: ActivatedRoute,
-    private mgrStore: MgrStoreService
+    private mgrStore: MgrStoreService,
+    private alert: AlertService
   ) {}
 
   ngOnInit() {
@@ -48,6 +50,18 @@ export class MgrPlanComponent implements OnInit {
       (user) => user.role === 'admin'
     )?.user_id;
     this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
+  }
+
+  async shareLink() {
+    try {
+      await navigator.share({
+        title: this.plan.name,
+        text: this.plan.desc,
+        url: this.inviteLink ?? '',
+      });
+    } catch (error) {
+      this.alert.open('danger', { details: `${error}` });
+    }
   }
 
   openModal(isNew: boolean) {
