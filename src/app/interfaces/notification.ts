@@ -13,4 +13,5 @@ export interface INotificationData {
   notifiable_id: number;
   data: SwapRequestNotificationData;
   read_at: string | null;
+  created_at: string;
 }

@@ -10,8 +10,8 @@ import { DatePipe } from '@angular/common';
   styleUrl: './notification-item.component.css',
 })
 export class NotificationItemComponent {
-  @Input() notificationTitle = '';
-  @Input() message = '';
-  @Input() datetime = new Date().toISOString();
-  @Input() type = '';
+  @Input() notificationTitle!: string;
+  @Input() message!: string;
+  @Input() datetime!: string;
+  @Input() type!: string;
 }
