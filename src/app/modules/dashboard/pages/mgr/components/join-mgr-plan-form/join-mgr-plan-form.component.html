@@ -97,20 +97,8 @@
     class="block mb-6"
     [isRequired]="true"
   >
-    <input
-      id="date"
-      type="text"
-      bsDatepicker
-      #jdp="bsDatepicker"
-      [bsValue]="joinDate"
-      [isDisabled]="true"
-      [bsConfig]="{
-        isAnimated: true,
-        dateInputFormat: 'YYYY-MM-DD',
-        minDate: joinDate
-      }"
-    />
-    <i class="ca-calendar text-[#5c5c5c]" (click)="jdp.show()"></i>
+    <input id="date" type="text" formControlName="join_date_deadline" />
+    <i class="ca-calendar text-[#5c5c5c]"></i>
   </ca-form-field>
 
   <!-- 2 cols -->
@@ -121,20 +109,8 @@
       class="block mb-6"
       [isRequired]="true"
     >
-      <input
-        id="date"
-        type="text"
-        bsDatepicker
-        #cdp="bsDatepicker"
-        [bsValue]="contributionDate"
-        [isDisabled]="true"
-        [bsConfig]="{
-          isAnimated: true,
-          dateInputFormat: 'YYYY-MM-DD',
-          minDate: contributionDate
-        }"
-      />
-      <i class="ca-calendar text-[#5c5c5c]" (click)="cdp.show()"></i>
+      <input id="date" type="text" formControlName="contribution_start_date" />
+      <i class="ca-calendar text-[#5c5c5c]"></i>
     </ca-form-field>
 
     <ca-form-field
@@ -143,20 +119,8 @@
       class="block mb-6"
       [isRequired]="true"
     >
-      <input
-        id="date"
-        type="text"
-        bsDatepicker
-        #adp="bsDatepicker"
-        [bsValue]="allocationDate"
-        [isDisabled]="true"
-        [bsConfig]="{
-          isAnimated: true,
-          dateInputFormat: 'YYYY-MM-DD',
-          minDate: allocationDate
-        }"
-      />
-      <i class="ca-calendar text-[#5c5c5c]" (click)="adp.show()"></i>
+      <input id="date" type="text" formControlName="allocation_date" />
+      <i class="ca-calendar text-[#5c5c5c]"></i>
     </ca-form-field>
   </div>
   <!-- 2 cols -->

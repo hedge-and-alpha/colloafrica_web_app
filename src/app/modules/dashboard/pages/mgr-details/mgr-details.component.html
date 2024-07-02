@@ -4,6 +4,7 @@
   @if (mgrPlan) {
   <ca-mgr-details-header
     class="block ms-auto"
+    [plan]="mgrPlan"
     [isAdmin]="isUserAdmin"
     [groupStarted]="isGroupStarted"
     (viewChange)="handleViewChange($event)"

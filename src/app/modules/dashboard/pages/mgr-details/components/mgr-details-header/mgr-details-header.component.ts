@@ -13,10 +13,10 @@ type View = 'details' | 'contribution' | 'collection';
 })
 export class MgrDetailsHeaderComponent {
   view: View = 'details';
-  plan: MGR = history.state['plan'];
 
   @Input() isAdmin = false;
   @Input() groupStarted = false;
+  @Input() plan!: MGR;
 
   @Output() viewChange = new EventEmitter<View>();
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../../../../components/alert/alert.service';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
+import { UtilsService } from '../../../../../../services/utils/utils.service';
 
 @Component({
   selector: 'ca-join-mgr-plan-form',
@@ -27,14 +28,14 @@ export class JoinMgrPlanFormComponent implements OnInit {
 
   form = this.fb.group(
     {
-      name: ['', { disabled: true }],
-      desc: ['', { disabled: true }],
-      duration: ['', { disabled: true }],
-      number_of_members: ['', { disabled: true }],
-      amount: ['', { disabled: true }],
-      join_date_deadline: ['', { disabled: true }],
-      contribution_start_date: ['', { disabled: true }],
-      allocation_date: ['', { disabled: true }],
+      name: [{ value: '', disabled: true }],
+      desc: [{ value: '', disabled: true }],
+      duration: [{ value: '', disabled: true }],
+      number_of_members: [{ value: '', disabled: true }],
+      amount: [{ value: '', disabled: true }],
+      join_date_deadline: [{ value: '', disabled: true }],
+      contribution_start_date: [{ value: '', disabled: true }],
+      allocation_date: [{ value: '', disabled: true }],
       theme_color: [''],
       allotment_type: [''],
       allotment_position: [''],
@@ -48,7 +49,8 @@ export class JoinMgrPlanFormComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private alert: AlertService,
-    private router: Router
+    private router: Router,
+    private utils: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -86,9 +88,11 @@ export class JoinMgrPlanFormComponent implements OnInit {
           duration: mgr.duration,
           number_of_members: mgr.number_of_members,
           amount: mgr.amount,
-          join_date_deadline: mgr.join_date_deadline,
-          contribution_start_date: mgr.contribution_start_date,
-          allocation_date: mgr.allocation_date,
+          join_date_deadline: this.utils.toISODate(mgr.join_date_deadline),
+          contribution_start_date: this.utils.toISODate(
+            mgr.contribution_start_date
+          ),
+          allocation_date: this.utils.toISODate(mgr.allocation_date),
           theme_color: mgr.theme_color,
           allotment_type: mgr.theme_color,
         });
@@ -115,13 +119,9 @@ export class JoinMgrPlanFormComponent implements OnInit {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
         this.form.reset();
-        this.router.navigate(['/', 'mgr', data.mgr.name], {
-          queryParams: { new_plan: true },
-          state: { isAdmin: false, plan: data.mgr },
+        this.router.navigate(['/', 'mgr', data.mgr.id, 'details'], {
+          state: { plan: data.mgr },
         });
-        /**
-         * !Todo: add data to mgr store
-         */
       },
       error: (err: HttpErrorResponse) => {
         this.loading = false;

@@ -31,7 +31,7 @@
         </div>
         } @else {
         <div
-          class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
+          class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:w-[16rem] xl:w-[30rem] overflow-hidden text-nowrap text-ellipsis mt-3"
         >
           <a
             target="_blank"
@@ -44,7 +44,7 @@
         }
       </ca-card>
 
-      @if (plan.next_allocation_to) {
+      @if (plan.status === 'active' && plan.next_allocation_to) {
       <div class="allocation-card grow">
         <ca-card class="px-4 py-3 rounded-md h-full">
           <div
@@ -77,7 +77,7 @@
             {{ activePlan()?.logged_user_position }}
           </span>
         </div>
-        <p class="text-xs max-w-[171px]">
+        <p class="text-xs max-w-52">
           Your Allocation position is [{{ activePlan()?.logged_user_position }}]
           and you will get
           {{
