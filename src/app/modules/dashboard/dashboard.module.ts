@@ -98,6 +98,8 @@ import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { AllotmentTypeCardComponent } from './pages/mgr/components/allotment-type-card/allotment-type-card.component';
 import { EditMgrPlanComponent } from './pages/mgr-details/components/edit-mgr-plan/edit-mgr-plan.component';
+import { ChangePositionComponent } from './pages/mgr-details/components/change-position/change-position.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -156,6 +158,7 @@ import { EditMgrPlanComponent } from './pages/mgr-details/components/edit-mgr-pl
     ManageGroupMemberModalComponent,
     AllotmentTypeCardComponent,
     EditMgrPlanComponent,
+    ChangePositionComponent,
   ],
   imports: [
     CommonModule,
@@ -164,6 +167,9 @@ import { EditMgrPlanComponent } from './pages/mgr-details/components/edit-mgr-pl
     BsDatepickerModule,
     IMaskModule,
     NgSelectModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
     DashboardRoutingModule,
     BankAccountInfoItemComponent,
     BankAccountInfoItemColumnComponent,

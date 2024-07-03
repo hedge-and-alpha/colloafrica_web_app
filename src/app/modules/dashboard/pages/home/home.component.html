@@ -1,9 +1,16 @@
 <ca-h1 class="mb-[14px] mt-[18px]">dashboard</ca-h1>
 
-<ca-analytics />
+<ca-analytics [analytics]="analytics" />
 
 <div class="chart-area mb-4">
-  <ca-card class="rounded-xl px-4 sm:px-5 pt-6 pb-[28px] chart-box"></ca-card>
+  <ca-card class="rounded-xl px-4 sm:px-5 pt-6 pb-[28px] chart-box">
+    <div
+      echarts
+      [options]="options"
+      [loading]="isLoading"
+      style="height: 100%; min-height: 245px"
+    ></div>
+  </ca-card>
 
   <div class="flex flex-col gap-3">
     <ca-account-info-card />

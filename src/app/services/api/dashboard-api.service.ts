@@ -24,6 +24,7 @@ import { CardAndBankStoreService } from '../../stores+/card-bank.store';
 import { MgrStoreService } from '../../stores+/mgr.store';
 import { TransactionStoreService } from '../../stores+/transaction.store';
 import { UserStoreService } from '../../stores+/user.store';
+import { IDashboardData } from '../../modules/dashboard/pages/home/models/home.model';
 
 @Injectable()
 export class DashboardApiService {
@@ -47,6 +48,14 @@ export class DashboardApiService {
         })
       );
   }
+
+  /********************** Dashboard home **********************/
+  getDashboardData() {
+    return this.http
+      .get<{ data: IDashboardData }>(`${this.#baseUrl}/user/dashboard`)
+      .pipe(map((response) => response.data));
+  }
+  /********************** Dashboard end **********************/
 
   /********************** Profile **********************/
   uploadProfilePicture(data: FormData) {
