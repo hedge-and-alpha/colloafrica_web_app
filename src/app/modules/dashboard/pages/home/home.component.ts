@@ -4,6 +4,7 @@ import { TableHeading } from '../../../../interfaces/table-heading';
 import { chartOptions } from './data/home.data';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { IDashboardAnalytics, IDashboardData } from './models/home.model';
+import { Transaction } from '../../../../interfaces/account';
 
 @Component({
   selector: 'ca-home',
@@ -14,15 +15,21 @@ export class HomeComponent implements OnInit {
   isLoading = false;
 
   options!: EChartsOption;
-  analytics!: IDashboardAnalytics;
+  analytics: IDashboardAnalytics = {
+    total_contributions: '',
+    amount_allotted: '',
+    investments: 0,
+    wallet_balance: '',
+  };
 
   tableHeading = TABLE_HEADING;
-  tableData = [];
+  tableData: Transaction[] = [];
 
   constructor(private api: DashboardApiService) {}
 
   ngOnInit(): void {
     this.getDashboardData();
+    this.getTransactions(1);
   }
 
   getDashboardData() {
@@ -44,6 +51,14 @@ export class HomeComponent implements OnInit {
           contrib.month.slice(0, 3)
         );
         this.options = chartOptions(amount, months);
+      },
+    });
+  }
+
+  getTransactions(page: number) {
+    this.api.getTransactions(page).subscribe({
+      next: ({ data }) => {
+        this.tableData = data.transactions;
       },
     });
   }

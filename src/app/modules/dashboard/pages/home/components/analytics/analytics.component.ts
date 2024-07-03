@@ -7,10 +7,5 @@ import { IDashboardAnalytics } from '../../models/home.model';
   styleUrl: './analytics.component.css',
 })
 export class AnalyticsComponent {
-  @Input() analytics: IDashboardAnalytics = {
-    total_contributions: '',
-    amount_allotted: '',
-    investments: 0,
-    wallet_balance: '',
-  };
+  @Input() analytics!: IDashboardAnalytics;
 }
