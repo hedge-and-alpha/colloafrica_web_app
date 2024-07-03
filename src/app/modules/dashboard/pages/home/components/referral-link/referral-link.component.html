@@ -4,13 +4,14 @@
     <ca-card class="h-[34px] rounded-md border border-[#C6A0F8]">
       <div class="h-full px-4 flex items-center gap-[0.875rem]">
         <p
-          class="text-sm font-medium grow border-e border-e-[#7D7F85] pe-4 w-64 text-ellipsis overflow-hidden"
+          class="text-sm font-medium grow border-e border-e-[#7D7F85] pe-4 w-64 whitespace-nowrap text-ellipsis overflow-hidden"
         >
-          newref=1&ref=95d75b09500720
+          {{ referralLink }}
         </p>
         <button
           class="text-purple-main ms-auto font-medium"
           aria-label="copy referral link"
+          [caCopyText]="referralLink"
         >
           <i class="ca-copy"></i>
         </button>
