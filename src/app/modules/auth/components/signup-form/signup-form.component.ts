@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '../../../../components/alert/alert.service';
 import { ColsField2Component } from '../../../../components/cols-field-2/cols-field-2.component';
 import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
@@ -38,37 +38,55 @@ export class SignupFormComponent {
 
   form = this.fb.group(
     {
-      first_name: [null, [Validators.required, emptyFieldValidator()]],
-      last_name: [null, [Validators.required, emptyFieldValidator()]],
-      email: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
-          emptyFieldValidator(),
-        ],
-      ],
-      password: [null, [Validators.required, emptyFieldValidator()]],
-      password_confirmation: [
-        null,
-        [Validators.required, emptyFieldValidator()],
-      ],
-      phone_number: [null, [Validators.required, emptyFieldValidator()]],
-      referral_code: [null, [emptyFieldValidator()]],
-      subscription: [false, [Validators.requiredTrue]],
+      first_name: this.fb.control<string | null>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      last_name: this.fb.control<string | null>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      email: this.fb.control<string | null>(null, [
+        Validators.required,
+        Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
+        emptyFieldValidator(),
+      ]),
+      password: this.fb.control<string | null>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      password_confirmation: this.fb.control<string | null>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      phone_number: this.fb.control<string | null>(null, [
+        Validators.required,
+        emptyFieldValidator(),
+      ]),
+      referral_code: this.fb.control<string | null>(null, [
+        emptyFieldValidator(),
+      ]),
+      subscription: this.fb.control<boolean | null>(false, [
+        Validators.requiredTrue,
+      ]),
     },
     { validators: [matchPasswordValidator], updateOn: 'submit' }
   );
 
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private api: AuthApiService,
     private auth: AuthService,
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const referralCode = this.route.snapshot.queryParamMap.get('referral_code');
+
+    referralCode && this.referralCode?.setValue(referralCode);
+  }
 
   get firstName() {
     return this.form.get('first_name');
