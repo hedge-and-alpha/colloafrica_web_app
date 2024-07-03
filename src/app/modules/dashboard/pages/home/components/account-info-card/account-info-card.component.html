@@ -1,5 +1,5 @@
 <ca-card class="rounded-xl h-[83px]">
-  @if (!isComplete) {
+  @if (!virtualAccount()) {
   <div class="h-full py-[15px] px-5 xl:px-7 text-sm font-medium leading-1.2">
     <p class="mb-2">Account Number</p>
     <div>
@@ -17,14 +17,17 @@
   <div class="h-full px-7 grid grid-cols-2 items-center">
     <div class="text-sm leading-1.2 h-full content-center">
       <p class="font-medium">Account Number</p>
-      <p class="my-1 text-purple-main font-semibold text-base">3096827890</p>
-      <p>VFD Bank</p>
+      <p class="my-1 text-purple-main font-semibold text-base">
+        {{ virtualAccount()?.account_number }}
+      </p>
+      <p>{{ virtualAccount()?.bank_name }}</p>
     </div>
     <div
       class="border-s border-s-[#E8E8E8] h-full lg:text-center content-end pb-4 ps-4 lg:ps-0"
     >
       <button
         class="text-purple-main font-medium inline-flex items-center gap-2 grow text-sm xl:text-base"
+        [caCopyText]="virtualAccount()!.account_number"
       >
         <i class="ca-copy"></i>
         Copy to clipboard

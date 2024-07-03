@@ -2,6 +2,7 @@ import { Component, isDevMode } from '@angular/core';
 import { ModalService } from '../../components/modal/modal.service';
 import { NetworkService } from '../../services/network.service';
 import { UserStoreService } from '../../stores+/user.store';
+import { AlertService } from '../../components/alert/alert.service';
 
 @Component({
   selector: 'ca-dashboard',
@@ -15,7 +16,8 @@ export class DashboardComponent {
   constructor(
     private networkService: NetworkService,
     private modalService: ModalService,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private alert: AlertService
   ) {
     // this.networkService.isOnline$.subscribe((v) => {
     //   this.online = v;
@@ -40,6 +42,15 @@ export class DashboardComponent {
           showHeading: false,
         });
       });
+
+      this.alert.open(
+        'warning',
+        {
+          summary: 'Complete KYC',
+          details: 'Please verify your BVN in order to receive payouts.',
+        },
+        90000000
+      );
     }
   }
 

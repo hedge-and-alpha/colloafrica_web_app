@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-account-info-card',
@@ -18,7 +19,7 @@ import { Component } from '@angular/core';
   `,
 })
 export class AccountInfoCardComponent {
-  isComplete = false;
+  virtualAccount = computed(() => this.userStore.user?.virtual_account);
 
-  ngOnInit() {}
+  constructor(private userStore: UserStoreService) {}
 }
