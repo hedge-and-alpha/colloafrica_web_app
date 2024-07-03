@@ -21,9 +21,12 @@
 
       <!-- Details -->
       } @if (alert.config.details) {
-      <p class="text-sm">
-        {{ alert.config.details | capitalizeFirst }}
-      </p>
+      <div class="text-sm flex items-center gap-2">
+        <p>{{ alert.config.details | capitalizeFirst }}</p>
+        @if (alert.config.action) {
+        <button class="underline">Verify</button>
+        }
+      </div>
       }
     </div>
 

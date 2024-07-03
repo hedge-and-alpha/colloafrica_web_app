@@ -44,12 +44,12 @@ export class HomeComponent implements OnInit {
           total_contributions: res.total_contributions,
           wallet_balance: res.wallet_balance,
         };
-        const amount = res.contributions_last_12_months.map((contrib) =>
-          Number(contrib.total_amount)
-        );
-        const months = res.contributions_last_12_months.map((contrib) =>
-          contrib.month.slice(0, 3)
-        );
+        const amount = res.contributions_last_12_months
+          .map((contrib) => Number(contrib.total_amount))
+          .reverse();
+        const months = res.contributions_last_12_months
+          .map((contrib) => contrib.month.slice(0, 3))
+          .reverse();
         this.options = chartOptions(amount, months);
       },
     });

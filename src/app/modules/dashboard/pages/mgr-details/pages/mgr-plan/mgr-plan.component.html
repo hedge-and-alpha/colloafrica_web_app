@@ -32,7 +32,7 @@
         </div>
         } @else {
         <div
-          class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:w-[16rem] xl:w-[30rem] overflow-hidden text-nowrap text-ellipsis mt-3"
+          class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
         >
           <a
             target="_blank"
@@ -78,14 +78,25 @@
             {{ activePlan()?.logged_user_position }}
           </span>
         </div>
-        <p class="text-xs max-w-52">
-          Your Allocation position is [{{ activePlan()?.logged_user_position }}]
-          and you will get
-          {{
-            +plan.amount * +plan.number_of_members
-              | currency : "NGN" : "symbol-narrow"
-          }}.
-        </p>
+        <div class="flex items-center">
+          <p class="text-xs max-w-52">
+            Your Allocation position is [{{
+              activePlan()?.logged_user_position
+            }}] and you will get
+            {{
+              +plan.amount * +plan.number_of_members
+                | currency : "NGN" : "symbol-narrow"
+            }}.
+          </p>
+
+          <button
+            class="rounded-md bg-purple-main text-white py-2 px-4 ms-auto font-medium text-xs disabled:bg-[#b0b0b0]"
+            [disabled]="plan.status !== 'pending'"
+            (click)="handleChangeAllocationPosition()"
+          >
+            Change allocation position
+          </button>
+        </div>
       </ca-card>
     </div>
   </div>

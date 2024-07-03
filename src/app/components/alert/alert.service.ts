@@ -4,6 +4,7 @@ type Variant = 'warning' | 'danger' | 'success' | 'plain';
 type Config = {
   summary?: string;
   details?: string;
+  action?: boolean;
 };
 type Alert = {
   variant: Variant;
@@ -23,12 +24,15 @@ export class AlertService {
 
   constructor() {}
 
-  open(type: Variant, config: Config = {}, duration = 5000) {
+  open(type: Variant, config: Config = {}, duration: number = 5000) {
     let alert: Alert = {
       variant: type,
       id: Date.now().toString(),
       config,
     };
+
+    // if (duration === 'sticky') {
+    // }
 
     if (type === 'plain' && this.#alerts().length >= 1) {
       this.#alerts.set([alert]);

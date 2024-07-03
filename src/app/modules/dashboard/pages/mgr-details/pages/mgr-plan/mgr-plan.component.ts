@@ -6,6 +6,7 @@ import { TableHeading } from '../../../../../../interfaces/table-heading';
 import { MgrStoreService } from '../../../../../../stores+/mgr.store';
 import { ManageGroupMemberModalComponent } from '../../components/manage-group-member-modal/manage-group-member-modal.component';
 import { AlertService } from '../../../../../../components/alert/alert.service';
+import { ChangePositionComponent } from '../../components/change-position/change-position.component';
 
 @Component({
   selector: 'ca-mgr-plan',
@@ -62,6 +63,19 @@ export class MgrPlanComponent implements OnInit {
     } catch (error) {
       this.alert.open('danger', { details: `${error}` });
     }
+  }
+
+  handleChangeAllocationPosition() {
+    this.modalService.open(
+      ChangePositionComponent,
+      'small',
+      {
+        showHeading: true,
+        closable: true,
+        headingText: 'Change Allocation Position',
+      },
+      { availablePositions: [] }
+    );
   }
 
   openModal(isNew: boolean) {

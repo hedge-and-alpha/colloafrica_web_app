@@ -79,5 +79,6 @@ export class ModalService {
     this._isOpen.set(false);
     this._componentClass.set(null);
     this._componentInputs.set({});
+    this._config.set({});
   }
 }

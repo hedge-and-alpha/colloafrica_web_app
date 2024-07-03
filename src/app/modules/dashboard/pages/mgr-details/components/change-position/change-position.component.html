@@ -1,0 +1,33 @@
+<div class="mt-8">
+  <form>
+    <ca-form-field
+      label="New allocation position"
+      labelFor="position"
+      class="block"
+      [isRequired]="true"
+    >
+      <div class="-mx-5 grow">
+        <ng-select
+          id="position"
+          placeholder="Select new position"
+          appendTo="body"
+        >
+          <ng-option>1</ng-option>
+          <ng-option>2</ng-option>
+          <ng-option>3</ng-option>
+        </ng-select>
+      </div>
+    </ca-form-field>
+
+    <div class="mt-10">
+      <button
+        type="submit"
+        class="w-full"
+        ca-button-primary
+        [loading]="loading"
+      >
+        Confirm
+      </button>
+    </div>
+  </form>
+</div>
