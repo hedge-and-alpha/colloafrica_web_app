@@ -36,7 +36,6 @@ export class TopUpComponent {
   }
 
   handleSubmit() {
-    console.log(this.form.value);
     this.isSubmitted = true;
 
     if (this.form.invalid) return;
@@ -48,7 +47,6 @@ export class TopUpComponent {
   }
 
   selectPaymentMethod(method: PaymentMethod) {
-    console.log(method);
     this.paymentMethod = method;
   }
 }
