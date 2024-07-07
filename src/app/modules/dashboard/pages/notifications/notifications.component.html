@@ -5,10 +5,8 @@
   @for ((notification of notifications); track $index) {
   <ca-notification-item
     class="block mb-3 md:mb-4"
-    type="fund"
-    [notificationTitle]="notification.data.title"
-    [message]="notification.data.message"
-    [datetime]="notification.created_at"
+    [notification]="notification"
+    (notificationChange)="handleNotification()"
   />
   }
 </div>

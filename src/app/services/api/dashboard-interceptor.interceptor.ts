@@ -8,10 +8,12 @@ import {
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
+import { AlertService } from '../../components/alert/alert.service';
 
 export class dashboardInterceptorInterceptor implements HttpInterceptor {
   #token = localStorage.getItem('AUTH_TOKEN');
   #router = inject(Router);
+  #alertService = inject(AlertService);
 
   intercept(
     req: HttpRequest<any>,
@@ -29,7 +31,6 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    // console.log('interceptor:', req.url);
     return next.handle(modifiedRequest).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
@@ -41,16 +42,27 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
         if (error.status === 0) {
           errorMessage +=
             'An error occurred: Unable to complete the request. This might be due to network issues, server downtime, or CORS restrictions. Please check your internet connection and try again.';
+          this.#alertService.open(
+            'danger',
+            {
+              summary: `${error.statusText}`,
+              details: `${errorMessage}`,
+              closable: true,
+            },
+            80000
+          );
+        } else {
+          // this.#alertService.open(
+          //   'danger',
+          //   {
+          //     summary: `Error: ${error.status}`,
+          //     details: `${error.error.message}`,
+          //     closable: true,
+          //   },
+          //   80000
+          // );
         }
 
-        console.error(error);
-
-        // if (error.status === 0) {
-        //   return throwError(() => ({
-        //     ...error,
-        //     error: { ...error.error, message: errorMessage },
-        //   }));
-        // }
         return throwError(() => error);
       })
     );

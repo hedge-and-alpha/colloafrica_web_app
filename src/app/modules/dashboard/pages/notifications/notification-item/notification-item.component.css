@@ -9,13 +9,13 @@
   line-height: 1.4;
 }
 
-:host [data-type="request"],
-:host [data-type="fund"] {
+:host [data-type="swap"],
+:host [data-type="credit"] {
   background: #e5fff9;
   color: #17b890;
 }
 
-:host [data-type="withdraw"] {
+:host [data-type="debit"] {
   background: #ffebec;
   color: #dc4952;
 }

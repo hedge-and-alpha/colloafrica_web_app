@@ -1,5 +1,5 @@
 <div class="mt-8">
-  <form>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <ca-form-field
       label="New allocation position"
       labelFor="position"
@@ -11,11 +11,10 @@
           id="position"
           placeholder="Select new position"
           appendTo="body"
-        >
-          <ng-option>1</ng-option>
-          <ng-option>2</ng-option>
-          <ng-option>3</ng-option>
-        </ng-select>
+          formControlName="slot"
+          [searchable]="false"
+          [items]="availableSlots$ | async"
+        />
       </div>
     </ca-form-field>
 
@@ -25,6 +24,7 @@
         class="w-full"
         ca-button-primary
         [loading]="loading"
+        [disabled]="form.invalid"
       >
         Confirm
       </button>

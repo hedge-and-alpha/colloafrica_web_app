@@ -30,9 +30,11 @@
       }
     </div>
 
+    @if (!!alert.config.closable) {
     <button type="button" class="text-sm ms-auto" (click)="close(alert.id)">
       <i class="ca-x font-semibold"></i>
     </button>
+    }
   </div>
   } @else {
   <div class="ca-alert-item plain py-2 px-6">

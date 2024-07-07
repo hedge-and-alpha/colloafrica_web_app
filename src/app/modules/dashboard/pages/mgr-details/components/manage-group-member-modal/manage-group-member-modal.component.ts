@@ -54,7 +54,7 @@ export class ManageGroupMemberModalComponent {
 
   sendSwapRequest() {
     this.loading = true;
-    this.api.proposePositionSwap(this.planId, this.newPosition).subscribe({
+    this.api.proposePositionSwap(this.planId, +this.userId).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
         this.api.getMGRById(this.planId).subscribe();

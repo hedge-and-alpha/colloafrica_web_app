@@ -5,6 +5,7 @@ type Config = {
   summary?: string;
   details?: string;
   action?: boolean;
+  closable?: boolean;
 };
 type Alert = {
   variant: Variant;
@@ -24,15 +25,16 @@ export class AlertService {
 
   constructor() {}
 
-  open(type: Variant, config: Config = {}, duration: number = 5000) {
+  open(
+    type: Variant,
+    config: Config = { closable: true },
+    duration: number = 5000
+  ) {
     let alert: Alert = {
       variant: type,
       id: Date.now().toString(),
       config,
     };
-
-    // if (duration === 'sticky') {
-    // }
 
     if (type === 'plain' && this.#alerts().length >= 1) {
       this.#alerts.set([alert]);
@@ -50,8 +52,14 @@ export class AlertService {
     }, duration);
   }
 
+  openWithComponent() {}
+
   close(id: string) {
     let filtered = this.#alerts().filter((alert) => alert.id !== id);
     this.#alerts.update(() => filtered);
+  }
+
+  closeAll() {
+    this.#alerts.update(() => []);
   }
 }

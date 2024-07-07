@@ -1,8 +1,9 @@
 // Define the structure for the notification data
 export interface SwapRequestNotificationData {
-  swap_request_id: string;
+  swap_request_id?: string;
   message: string;
   title: string;
+  amount?: string;
 }
 
 // Define the main interface for the notification

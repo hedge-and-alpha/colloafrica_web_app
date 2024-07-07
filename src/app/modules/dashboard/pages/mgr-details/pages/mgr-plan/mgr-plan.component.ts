@@ -74,7 +74,7 @@ export class MgrPlanComponent implements OnInit {
         closable: true,
         headingText: 'Change Allocation Position',
       },
-      { availablePositions: [] }
+      { mgrId: this.plan.id }
     );
   }
 
@@ -122,6 +122,7 @@ export class MgrPlanComponent implements OnInit {
         action: 'swap',
         newPosition: plan.position,
         planId: this.plan.id,
+        userId: plan.user_id,
       }
     );
   }

@@ -271,6 +271,12 @@ export class DashboardApiService {
     }>(`${this.#baseUrl}/mgr/invite-link/${link}`);
   }
 
+  getMgrPlanAvailableSlots(mgrId: string) {
+    return this.http
+      .get<{ data: number[] }>(`${this.#baseUrl}/mgr/${mgrId}/slots`)
+      .pipe(map((response) => response.data));
+  }
+
   joinMgrByInviteLink(link: string, position: string) {
     return this.http.post<ApiResponse & { data: { mgr: MGR } }>(
       `${this.#baseUrl}/mgr/join/${link}/${position}`,
@@ -285,9 +291,23 @@ export class DashboardApiService {
     );
   }
 
-  proposePositionSwap(mgrId: string, newPosition: number) {
+  changeMgrPosition(mgrId: string, newPosition: string) {
     return this.http.post<ApiResponse>(
-      `${this.#baseUrl}/mgr/propose-swap/${mgrId}/${newPosition}`,
+      `${this.#baseUrl}/mgr/change-position/${mgrId}/${newPosition}`,
+      null
+    );
+  }
+
+  proposePositionSwap(mgrId: string, userId: number) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/propose-swap/${mgrId}/${userId}`,
+      null
+    );
+  }
+
+  manageSwapRequests(action: 'accept' | 'reject', swapRequestId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/swap-requests/${action}/${swapRequestId}`,
       null
     );
   }
