@@ -2,12 +2,18 @@
 
 @if ((notifications$ | async); as notifications) {
 <div class="mb-10">
+  @if (notifications.length) {
+  <!--  -->
   @for ((notification of notifications); track $index) {
   <ca-notification-item
     class="block mb-3 md:mb-4"
     [notification]="notification"
     (notificationChange)="handleNotification()"
   />
+  }
+  <!--  -->
+  } @else {
+  <p>You do not have any notifications</p>
   }
 </div>
 }

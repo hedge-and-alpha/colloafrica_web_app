@@ -25,7 +25,7 @@
 @media screen and (min-width: 72.5rem) {
   :host .ca-content-sidebar {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 68% 32%;
     padding-block: 9px;
   }
   :host .ca-content-sidebar.bbs {

@@ -52,7 +52,10 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   themes: Theme[] = THEME_COLOURS;
   durations: MGRDurationList[] = DURATIONS;
 
-  terms = new FormControl<boolean>(false, [Validators.requiredTrue]);
+  terms = new FormControl<boolean>(false, [
+    Validators.required,
+    Validators.requiredTrue,
+  ]);
 
   form: FormGroup<MGRForm> = this.fb.group(
     {
@@ -124,7 +127,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.terms.patchValue(true), this.observeNumberOfMembersControl();
+    this.observeNumberOfMembersControl();
     this.observeJoinDateControl();
     this.observeDurationControl();
     this.observeStartDateControl();

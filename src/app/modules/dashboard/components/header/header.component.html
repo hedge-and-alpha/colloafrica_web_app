@@ -11,7 +11,10 @@
     >
       <i class="ca-notification"></i>
     </a>
-    <div class="ms-6 text-[#171717] inline-flex items-center gap-2">
+    <a
+      class="ms-6 text-[#171717] inline-flex items-center gap-2"
+      routerLink="/profile"
+    >
       <figure class="h-[30px] aspect-square relative">
         <img
           fill
@@ -28,7 +31,7 @@
       >
         {{ user()?.first_name }} {{ user()?.last_name }}
       </span>
-    </div>
+    </a>
     <ng-content select=".menu-btn" />
   </div>
 </header>

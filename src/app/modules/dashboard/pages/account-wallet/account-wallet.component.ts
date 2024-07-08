@@ -3,6 +3,7 @@ import { ModalService } from '../../../../components/modal/modal.service';
 import { TopUpComponent } from './components/top-up/top-up.component';
 import { UserStoreService } from '../../../../stores+/user.store';
 import { WithdrawComponent } from './components/withdraw/withdraw.component';
+import { AlertService } from '../../../../components/alert/alert.service';
 
 @Component({
   selector: 'ca-account-wallet',
@@ -14,7 +15,8 @@ export class AccountWalletComponent {
 
   constructor(
     private modalService: ModalService,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private alertService: AlertService
   ) {}
 
   verifyBvn() {
@@ -44,5 +46,12 @@ export class AccountWalletComponent {
         headingText: 'Enter bank details',
       });
     }
+  }
+
+  payBills() {
+    this.alertService.open('danger', {
+      details: 'Feature coming soon',
+      closable: true,
+    });
   }
 }
