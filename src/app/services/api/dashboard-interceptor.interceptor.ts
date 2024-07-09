@@ -52,15 +52,17 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
             80000
           );
         } else {
-          // this.#alertService.open(
-          //   'danger',
-          //   {
-          //     summary: `Error: ${error.status}`,
-          //     details: `${error.error.message}`,
-          //     closable: true,
-          //   },
-          //   80000
-          // );
+          if (req.method === 'GET') {
+            this.#alertService.open(
+              'danger',
+              {
+                summary: `Failed to fetch: error ${error.status}`,
+                details: `There was an error trying to fetch data for this page: ${error.error.message}`,
+                closable: true,
+              },
+              80000
+            );
+          }
         }
 
         return throwError(() => error);

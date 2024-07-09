@@ -93,7 +93,7 @@
   @if (view() === 'contribution') {
   <ca-mgr-contribution-statistics [contributionStats]="mgrContributions" />
   } @if (view() === 'collection') {
-  <ca-mgr-collection-statistics [collectionStats]="mgrCollections" />
+  <ca-mgr-collection-statistics [collectionStats]="mgrPlan.user_allocations" />
   }
 </div>
 <!--  -->

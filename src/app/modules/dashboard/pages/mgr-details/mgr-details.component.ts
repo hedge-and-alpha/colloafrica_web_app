@@ -35,6 +35,7 @@ export class MgrDetailsComponent implements OnInit {
 
   isUserAdmin = false;
   isGroupStarted = false;
+  loading = false;
 
   user = computed(() => this.userStore.user);
   view: WritableSignal<View> = signal('details');
@@ -47,7 +48,6 @@ export class MgrDetailsComponent implements OnInit {
     users: [],
   };
 
-  mgrCollections: MGRCollectionStats[] = [];
   mgrContributions: MGRContributionStats[] = [];
 
   constructor(
@@ -59,11 +59,6 @@ export class MgrDetailsComponent implements OnInit {
     this.planId = this.route.snapshot.paramMap.get('id')!;
 
     effect(() => {
-      if (this.view() !== 'details') {
-        this.getMgrAnalytics(this.planId);
-      }
-    });
-    effect(() => {
       if (this.modalService.data()?.action === 'refresh') {
         this.getMgrDetails();
       }
@@ -72,7 +67,6 @@ export class MgrDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMgrDetails();
-    this.getCollectionStats(this.planId);
   }
 
   handleViewChange(event: View) {
@@ -103,40 +97,6 @@ export class MgrDetailsComponent implements OnInit {
         console.error(err);
       },
     });
-  }
-
-  getCollectionStats(planId: string) {
-    this.api
-      .getMgrPlanCollectionStats(planId)
-      // .pipe(
-      //   map((res) => {
-      //     res.data.allotments = [
-      //       ...res.data.allotments,
-      //       {
-      //         id: '809024d4-2fb0-11ef-aaef-705a0f866f70',
-      //         amount: '10000.00',
-      //         mgr_cycle_id: '83939b28-2f9d-11ef-aaef-705a0f866f70',
-      //         mgr_id: '2b508c14-1d67-4c19-bcd7-49e9afab6810',
-      //         user_id: 2,
-      //         created_at: '2024-06-21T10:32:20.000000Z',
-      //       },
-      //       {
-      //         id: '809024d4-2fb0-11ef-aaef-705a0f866f70',
-      //         amount: '10000.00',
-      //         mgr_cycle_id: '83939b28-2f9d-11ef-aaef-705a0f866f70',
-      //         mgr_id: '2b508c14-1d67-4c19-bcd7-49e9afab6810',
-      //         user_id: 2,
-      //         created_at: '2024-06-21T10:32:20.000000Z',
-      //       },
-      //     ];
-      //     return res;
-      //   })
-      // )
-      .subscribe({
-        next: ({ data }) => {
-          this.mgrCollections = data.allotments;
-        },
-      });
   }
 
   getContributionStats(planId: string) {

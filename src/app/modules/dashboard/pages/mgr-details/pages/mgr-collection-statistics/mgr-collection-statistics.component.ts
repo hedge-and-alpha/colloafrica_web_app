@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MGRCollectionStats } from '../../../../../../interfaces/mgr.interface';
+import { MGRUserAllocation } from '../../../../../../interfaces/mgr.interface';
 import { TableHeading } from '../../../../../../interfaces/table-heading';
 
 @Component({
@@ -11,10 +11,10 @@ export class MgrCollectionStatisticsComponent {
   tableHeading = TABLE_HEADING;
 
   @Input({ required: true, transform: transformCollections })
-  collectionStats: MGRCollectionStats[] = [];
+  collectionStats: MGRUserAllocation[] = [];
 }
 
-function transformCollections(collections: MGRCollectionStats[]) {
+function transformCollections(collections: MGRUserAllocation[]) {
   return collections.map((stat, i) => ({ sn: i + 1, ...stat }));
 }
 

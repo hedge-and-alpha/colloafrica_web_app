@@ -1,4 +1,9 @@
-<ca-card class="rounded-[15px] overflow-clip w-[16.125rem] h-full text-white">
+<ca-card
+  class="rounded-[15px] overflow-clip w-[16.125rem] h-full text-white"
+  [ngClass]="{
+    'hover:cursor-not-allowed opacity-70': plan.status === 'cancelled'
+  }"
+>
   <div
     class="h-full flex flex-col gap-4 px-3 pt-5 pb-8 bg-purple-main"
     [ngStyle]="plan.theme_color | composeGradient"

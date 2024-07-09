@@ -16,6 +16,14 @@ export interface MGR {
   id: string;
   next_allocation_to: null | { name: string; slot_number: string };
   mgr_users?: MGRUser[];
+  user_allocations: MGRUserAllocation[];
+}
+
+export interface MGRUserAllocation {
+  amount: string;
+  payment_date: string;
+  allotment_period: string;
+  status: 'success';
 }
 
 export interface MGRUserBase {

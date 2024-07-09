@@ -1,0 +1,9 @@
+:host [data-status="success"] {
+  height: 30px;
+  width: 88px;
+  background-color: #17b890;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
