@@ -45,7 +45,7 @@
         }
       </ca-card>
 
-      @if (plan.status === 'active' && plan.next_allocation_to) {
+      @if (plan.status === 'started' && plan.next_allocation_to) {
       <div class="allocation-card grow">
         <ca-card class="px-4 py-3 rounded-md h-full">
           <div
@@ -157,21 +157,21 @@
         <div class="inline-flex gap-3">
           <button
             ca-button-icon
-            [disabled]="activePlan()!.status === 'active'"
+            [disabled]="activePlan()!.status === 'started'"
             (click)="swapMember(item)"
           >
             <!-- [ngClass]="{
-              '!hidden': activePlan()!.status === 'active'
+              '!hidden': activePlan()!.status === 'started'
             }" -->
             <!-- activePlan()!.logged_user_position === item.position && -->
             <i class="ca-arrows-left-right"></i>
           </button>
-          <!-- (item.role === 'member' && activePlan()!.status !== 'active') ||
+          <!-- (item.role === 'member' && activePlan()!.status !== 'started') ||
           item.role === 'admin' || -->
           <button
             ca-button-icon
             [disabled]="
-              activePlan()!.status === 'active' || item.role === 'admin'
+              activePlan()!.status === 'started' || item.role === 'admin'
             "
             (click)="
               removeMember(item.user_id, item.first_name, item.last_name)
