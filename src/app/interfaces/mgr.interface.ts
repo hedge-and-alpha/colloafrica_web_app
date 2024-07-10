@@ -4,6 +4,7 @@ export interface MGR {
   duration: string;
   number_of_members: string;
   logged_user_position: number;
+  current_cycle_number: number;
   amount: string;
   join_date_deadline: string;
   contribution_start_date: string;
@@ -17,6 +18,9 @@ export interface MGR {
   next_allocation_to: null | { name: string; slot_number: string };
   mgr_users?: MGRUser[];
   user_allocations: MGRUserAllocation[];
+  cycle_dates: { cycle_number: number; cycle_date: string }[];
+  total_allocation: number;
+  total_contribution: string;
 }
 
 export interface MGRUserAllocation {
@@ -52,21 +56,9 @@ export interface MGRAnalyticsUser extends MGRUserBase {
   profile_pic: null | string;
 }
 
-interface MGRStatsBase extends MGRUserBase {
-  amount: string;
+export interface MGRContributionStats {
   user_id: number;
-}
-
-export interface MGRContributionStats extends MGRStatsBase {
-  email: string;
-  role: 'admin' | 'member';
-  position: number;
-}
-
-export interface MGRCollectionStats
-  extends Omit<MGRStatsBase, 'first_name' | 'last_name'> {
-  id: string;
-  mgr_cycle_id: string;
-  mgr_id: string;
-  created_at: string;
+  amount: string;
+  date: string;
+  allotted: boolean;
 }

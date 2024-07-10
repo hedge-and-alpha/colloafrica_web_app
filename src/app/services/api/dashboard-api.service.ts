@@ -8,7 +8,6 @@ import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
 import {
   MGR,
   MGRAnalytics,
-  MGRCollectionStats,
   MGRContributionStats,
 } from '../../interfaces/mgr.interface';
 import { INotificationData } from '../../interfaces/notification';
@@ -20,11 +19,11 @@ import {
   NextOfKinInfo,
   User,
 } from '../../interfaces/user';
+import { IDashboardData } from '../../modules/dashboard/pages/home/models/home.model';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
 import { MgrStoreService } from '../../stores+/mgr.store';
 import { TransactionStoreService } from '../../stores+/transaction.store';
 import { UserStoreService } from '../../stores+/user.store';
-import { IDashboardData } from '../../modules/dashboard/pages/home/models/home.model';
 
 @Injectable()
 export class DashboardApiService {
@@ -325,15 +324,9 @@ export class DashboardApiService {
     );
   }
 
-  getMgrPlanCollectionStats(mgrId: string) {
-    return this.http.get<{ data: { allotments: MGRCollectionStats[] } }>(
-      `${this.#baseUrl}/mgr/statistics/collections/${mgrId}`
-    );
-  }
-
-  getMgrPlanContributionStats(mgrId: string) {
-    return this.http.get<{ data: { contributions: MGRContributionStats[] } }>(
-      `${this.#baseUrl}/mgr/statistics/contributions/${mgrId}`
+  getMgrPlanContributionStats(mgrId: string, cycleNumber: number | string) {
+    return this.http.get<{ data: MGRContributionStats[] }>(
+      `${this.#baseUrl}/mgr/${mgrId}/cycle/${cycleNumber}`
     );
   }
   /********************** MGR end **********************/

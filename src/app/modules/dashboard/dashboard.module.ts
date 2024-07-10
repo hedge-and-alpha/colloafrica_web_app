@@ -2,7 +2,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IMaskModule } from 'angular-imask';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -163,6 +163,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule,
     IMaskModule,

@@ -23,10 +23,7 @@
       <div class="flex flex-col gap-2 leading-1.2">
         <div class="font-medium">Total Amount Contributed</div>
         <div class="text-[1.75rem] font-semibold">
-          {{
-            mgrAnalytics.total_contributions
-              | currency : "NGN" : "symbol-narrow"
-          }}
+          {{ mgrPlan.total_contribution | currency : "NGN" : "symbol-narrow" }}
         </div>
       </div>
     </div>
@@ -39,9 +36,7 @@
       <div class="flex flex-col gap-2 leading-1.2">
         <div class="font-medium">Allocation Completed</div>
         <div class="text-[1.75rem] font-semibold">
-          {{
-            mgrAnalytics.total_allotments | currency : "NGN" : "symbol-narrow"
-          }}
+          {{ mgrPlan.total_allocation | currency : "NGN" : "symbol-narrow" }}
         </div>
       </div>
     </div>
@@ -53,8 +48,8 @@
 
       <div class="flex items-center gap-3">
         <div class="flex">
-          @for (user of mgrAnalytics.users.slice(0,3); track user.id; let first
-          = $first) {
+          @for (user of mgrPlan.mgr_users!.slice(0,3); track user.user_id; let
+          first = $first) {
           <div
             class="avatar-circle"
             [ngClass]="{ '-ms-5': !first }"
@@ -91,7 +86,7 @@
 
 <div class="mt-12">
   @if (view() === 'contribution') {
-  <ca-mgr-contribution-statistics [contributionStats]="mgrContributions" />
+  <ca-mgr-contribution-statistics [mgrPlan]="mgrPlan" />
   } @if (view() === 'collection') {
   <ca-mgr-collection-statistics [collectionStats]="mgrPlan.user_allocations" />
   }

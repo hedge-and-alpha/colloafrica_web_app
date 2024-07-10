@@ -1,20 +1,70 @@
-<h2 class="font-semibold mb-5 text-2xl">
-  Your Contribution & Allocation Details
-</h2>
+<div class="inline-flex items-center gap-4 mb-5">
+  <h2 class="font-semibold text-2xl">Your Contribution & Allocation Details</h2>
+  <ng-select
+    placeholder="Select cycle"
+    [ngModel]="currentCycleNumber"
+    (change)="cycleDateChange($event)"
+  >
+    @for (date of mgrPlan.cycle_dates; track $index) {
+    <ng-option [value]="date.cycle_number">{{ date.cycle_date }}</ng-option>
+    }
+  </ng-select>
+</div>
 
 <ca-table
   [tableHeading]="tableHeading"
-  [tableData]="contributionStats"
+  [tableData]="tableData"
   [hasPagination]="false"
 >
   <ng-template let-item #tableBody>
-    <td class="whitespace-nowrap">{{ item }}</td>
+    <td class="whitespace-nowrap">
+      <div class="flex items-center gap-3">
+        @if (!item.profile_pic) {
+        <div
+          class="h-[50px] w-[50px] font-medium text-lg bg-purple-main rounded-full"
+        >
+          <div
+            class="h-full w-full inline-flex items-center justify-center text-white"
+          >
+            {{ item.first_name[0] }}{{ item.last_name[0] }}
+          </div>
+        </div>
+        } @else {
+        <img src="rounded-full" alt="" width="50" height="50" />
+        }
+        <span>
+          {{ item.first_name | titlecase }}
+          {{ item.last_name | titlecase }}
+        </span>
+        @if (item.allotted) {
+        <span
+          class="bg-[#B0B0B0] rounded-md py-[6.5px] px-3 font-semibold text-sm"
+        >
+          Money Allocated
+        </span>
+        }
+      </div>
+    </td>
     <td class="whitespace-nowrap">
       {{ item.amount | currency : "NGN" : "symbol-narrow" }}
     </td>
     <td class="whitespace-nowrap">
-      {{ item.created_at | date : "dd MMMM, YYYY" }}
+      {{ item.role | titlecase }}
     </td>
-    <td class="whitespace-nowrap">{{ item }}</td>
+    <td class="whitespace-nowrap">
+      <span
+        class="bg-[#FFBD00] h-7 w-7 font-ubuntu font-medium text-sm rounded-full inline-flex items-center justify-center"
+      >
+        {{ item.position }}
+      </span>
+    </td>
+    <td class="whitespace-nowrap">
+      <span
+        class="text-white text-sm font-medium"
+        [attr.data-status]="'success'"
+      >
+        Paid
+      </span>
+    </td>
   </ng-template></ca-table
 >

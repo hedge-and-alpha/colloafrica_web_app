@@ -8,16 +8,14 @@ import {
   signal,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { ModalService } from '../../../../components/modal/modal.service';
 import {
   MGR,
   MGRAnalytics,
-  MGRCollectionStats,
   MGRContributionStats,
 } from '../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { UserStoreService } from '../../../../stores+/user.store';
-import { ModalService } from '../../../../components/modal/modal.service';
 
 type View = 'details' | 'contribution' | 'collection';
 
@@ -97,40 +95,5 @@ export class MgrDetailsComponent implements OnInit {
         console.error(err);
       },
     });
-  }
-
-  getContributionStats(planId: string) {
-    this.api
-      .getMgrPlanContributionStats(planId)
-      .pipe(
-        map((res) => {
-          res.data.contributions = [
-            ...res.data.contributions,
-            // {
-            //   amount: '10000.00',
-            //   user_id: 2,
-            //   email: 'johndoe@yopmail.com',
-            //   first_name: 'John',
-            //   last_name: 'Doe',
-            //   position: 1,
-            //   role: 'admin',
-            // },
-            // {
-            //   id: '809024d4-2fb0-11ef-aaef-705a0f866f70',
-            //   amount: '10000.00',
-            //   mgr_cycle_id: '83939b28-2f9d-11ef-aaef-705a0f866f70',
-            //   mgr_id: '2b508c14-1d67-4c19-bcd7-49e9afab6810',
-            //   user_id: 2,
-            //   created_at: '2024-06-21T10:32:20.000000Z',
-            // },
-          ];
-          return res;
-        })
-      )
-      .subscribe({
-        next: ({ data }) => {
-          this.mgrContributions = data.contributions;
-        },
-      });
   }
 }
