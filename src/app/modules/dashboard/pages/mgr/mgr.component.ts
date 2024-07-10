@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription, forkJoin } from 'rxjs';
-import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
+import { Router } from '@angular/router';
+import { Subscription, forkJoin } from 'rxjs';
 import { MGR } from '../../../../interfaces/mgr.interface';
+import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 
 @Component({
   selector: 'ca-mgr',
@@ -11,6 +11,8 @@ import { MGR } from '../../../../interfaces/mgr.interface';
 })
 export class MgrComponent implements OnInit, OnDestroy {
   view: 'intro' | 'new' | 'join' = 'intro';
+  defaultFiltervalue = 'all';
+
   hasMgr = true;
   loading = true;
   filtered = false;
@@ -21,11 +23,7 @@ export class MgrComponent implements OnInit, OnDestroy {
   // mgrs$: Observable
   paramSub!: Subscription;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private api: DashboardApiService
-  ) {}
+  constructor(private router: Router, private api: DashboardApiService) {}
 
   ngOnInit() {
     this.fetchMgrs();
@@ -51,6 +49,7 @@ export class MgrComponent implements OnInit, OnDestroy {
 
   handleMgrFilter(event: string) {
     this.filtered = true;
+    this.defaultFiltervalue = event;
     if (event === 'all') {
       this.fetchMgrs();
       return;
