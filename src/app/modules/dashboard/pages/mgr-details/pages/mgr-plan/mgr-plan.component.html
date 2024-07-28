@@ -157,17 +157,14 @@
         <div class="inline-flex gap-3">
           <button
             ca-button-icon
-            [disabled]="activePlan()!.status === 'started'"
+            [disabled]="
+              user()!.id === item.user_id || activePlan()!.status === 'started'
+            "
             (click)="swapMember(item)"
           >
-            <!-- [ngClass]="{
-              '!hidden': activePlan()!.status === 'started'
-            }" -->
-            <!-- activePlan()!.logged_user_position === item.position && -->
             <i class="ca-arrows-left-right"></i>
           </button>
-          <!-- (item.role === 'member' && activePlan()!.status !== 'started') ||
-          item.role === 'admin' || -->
+
           <button
             ca-button-icon
             [disabled]="

@@ -7,6 +7,7 @@ import { MgrStoreService } from '../../../../../../stores+/mgr.store';
 import { ManageGroupMemberModalComponent } from '../../components/manage-group-member-modal/manage-group-member-modal.component';
 import { AlertService } from '../../../../../../components/alert/alert.service';
 import { ChangePositionComponent } from '../../components/change-position/change-position.component';
+import { UserStoreService } from '../../../../../../stores+/user.store';
 
 @Component({
   selector: 'ca-mgr-plan',
@@ -19,6 +20,7 @@ export class MgrPlanComponent implements OnInit {
   isBvnVerified = false;
   isNewlyCreatedPlan = false;
 
+  user = computed(() => this.userStore.user);
   activePlan = computed(() => this.mgrStore.activePlan());
 
   tableHeading = TABLE_HEADING;
@@ -30,7 +32,8 @@ export class MgrPlanComponent implements OnInit {
     private modalService: ModalService,
     private route: ActivatedRoute,
     private mgrStore: MgrStoreService,
-    private alert: AlertService
+    private alert: AlertService,
+    private userStore: UserStoreService
   ) {}
 
   ngOnInit() {
