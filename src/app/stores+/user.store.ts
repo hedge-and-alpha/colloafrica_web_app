@@ -1,5 +1,5 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
-import { User } from '../interfaces/user';
+import { User, VirtualAccount } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +19,11 @@ export class UserStoreService {
     this.#user.update((u) => ({ ...u, ...user }));
   }
 
-  updateBvnStatus(status: 0 | 1) {
+  updateBvnStatus(status: 0 | 1, account: VirtualAccount) {
     this.#user.update((user) => ({
       ...user!,
       bvn_verification_status: status,
+      virtual_account: { ...account },
     }));
   }
 

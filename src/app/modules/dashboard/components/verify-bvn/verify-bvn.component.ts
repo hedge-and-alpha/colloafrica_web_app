@@ -62,7 +62,7 @@ export class VerifyBvnComponent {
                transactions is ${data.account_number}.`,
           }
         );
-        this.userStore.updateBvnStatus(1);
+        this.userStore.updateBvnStatus(1, data);
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;

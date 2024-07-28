@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { map, pipe, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Account, Transaction } from '../../interfaces/account';
 import { ApiResponse, TablePagination } from '../../interfaces/api-response';
@@ -18,6 +18,7 @@ import {
   IDCard,
   NextOfKinInfo,
   User,
+  VirtualAccount,
 } from '../../interfaces/user';
 import { IDashboardData } from '../../modules/dashboard/pages/home/models/home.model';
 import { CardAndBankStoreService } from '../../stores+/card-bank.store';
@@ -191,7 +192,7 @@ export class DashboardApiService {
 
   /********************** Account **********************/
   verifyBvn(data: object) {
-    return this.http.post<{ data: Account }>(
+    return this.http.post<{ data: VirtualAccount }>(
       `${this.#baseUrl}/virtual-account/create`,
       data
     );
