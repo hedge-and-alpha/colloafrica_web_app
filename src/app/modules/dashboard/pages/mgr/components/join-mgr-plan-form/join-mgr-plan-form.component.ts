@@ -17,7 +17,8 @@ export class JoinMgrPlanFormComponent implements OnInit {
   loading = false;
   isSubmitted = false;
   isDisabled = true;
-  showError = true;
+  showAllotmentError = true;
+  showTermsError = true;
 
   minDate = new Date();
   joinDate = new Date();
@@ -25,6 +26,14 @@ export class JoinMgrPlanFormComponent implements OnInit {
   allocationDate = new Date();
   allotmentPositions: number[] = [];
   durations: Duration[] = DURATIONS;
+
+  terms = new FormControl<boolean>(
+    { value: false, disabled: false },
+    {
+      validators: [Validators.required, Validators.requiredTrue],
+      nonNullable: true,
+    }
+  );
 
   form = this.fb.group(
     {
@@ -39,7 +48,6 @@ export class JoinMgrPlanFormComponent implements OnInit {
       theme_color: [''],
       allotment_type: [''],
       allotment_position: [''],
-      terms: [null, [Validators.requiredTrue]],
     },
     { updateOn: 'submit' }
   );
@@ -64,10 +72,6 @@ export class JoinMgrPlanFormComponent implements OnInit {
 
   get allotmentPosition() {
     return this.form.get('allotment_position') as FormControl;
-  }
-
-  get terms() {
-    return this.form.get('terms');
   }
 
   getMgrDetails(link: string) {
@@ -104,12 +108,16 @@ export class JoinMgrPlanFormComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
+    const acceptedTerms = this.terms.value;
 
     if (this.isManual && !this.allotmentPosition.value) {
-      this.showError = true;
+      this.showAllotmentError = true;
       return;
     }
-    this.showError = false;
+    this.showAllotmentError = false;
+
+    if (!acceptedTerms) return;
+
     this.loading = true;
 
     let position = this.allotmentPosition.value;

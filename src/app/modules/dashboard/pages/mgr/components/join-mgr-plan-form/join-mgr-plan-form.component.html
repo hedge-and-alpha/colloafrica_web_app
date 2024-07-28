@@ -75,7 +75,7 @@
             placeholder="Select position"
             formControlName="allotment_position"
             [ngClass]="{
-              'ng-touched ng-dirty': isSubmitted && showError
+              'ng-touched ng-dirty': isSubmitted && showAllotmentError
             }"
           >
             @for (pos of allotmentPositions; track $index) {
@@ -84,7 +84,7 @@
           </ng-select>
         </div>
       </ca-form-field>
-      @if (isSubmitted && showError) {
+      @if (isSubmitted && showAllotmentError) {
       <ca-form-error [errors]="{ required: true }" />
       }
     </div>
@@ -127,19 +127,19 @@
 
   <div class="mb-12">
     <div class="flex items-start gap-3">
-      <input type="checkbox" id="subscribe" formControlName="terms" />
+      <input type="checkbox" id="subscribe" [formControl]="terms" />
       <label class="text-sm" for="subscribe">
         I agree to Collo Africa MGR terms and conditions.
       </label>
     </div>
-    @if (isSubmitted && terms?.invalid) {
-    <ca-form-error [errors]="terms?.errors" />
+    @if (isSubmitted && terms.invalid) {
+    <ca-form-error [errors]="terms.errors" />
     }
   </div>
 
   <div class="mb-4">
     <button
-      class="w-full btn bg-purple-main text-white"
+      class="w-full btn bg-purple-main text-white disabled:opacity-60"
       type="submit"
       loadingColour="#fff"
       [loading]="loading"
