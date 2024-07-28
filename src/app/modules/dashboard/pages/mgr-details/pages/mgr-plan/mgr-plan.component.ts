@@ -25,8 +25,8 @@ export class MgrPlanComponent implements OnInit {
 
   tableHeading = TABLE_HEADING;
 
-  @Input() plan!: MGR;
-  @Input() users: MGRUser[] = [];
+  @Input({ required: true }) plan!: MGR;
+  @Input({ required: true }) users: MGRUser[] = [];
 
   constructor(
     private modalService: ModalService,
@@ -49,7 +49,7 @@ export class MgrPlanComponent implements OnInit {
   }
 
   initPageData() {
-    this.users = this.plan.mgr_users!;
+    // this.users = this.plan.mgr_users!;
     this.adminId = this.plan.mgr_users!.find(
       (user) => user.role === 'admin'
     )?.user_id;

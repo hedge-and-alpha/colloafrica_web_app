@@ -13,6 +13,7 @@ import {
   MGR,
   MGRAnalytics,
   MGRContributionStats,
+  MGRUser,
 } from '../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { UserStoreService } from '../../../../stores+/user.store';
@@ -39,6 +40,7 @@ export class MgrDetailsComponent implements OnInit {
   view: WritableSignal<View> = signal('details');
 
   mgrPlan!: MGR;
+  mgrPlanUsers: MGRUser[] = [];
   mgrAnalytics: MGRAnalytics = {
     total_contributions: '',
     total_allotments: 0,
@@ -75,6 +77,7 @@ export class MgrDetailsComponent implements OnInit {
     this.api.getMGRById(this.planId).subscribe({
       next: ({ data }) => {
         this.mgrPlan = data;
+        this.mgrPlanUsers = data.mgr_users!;
         const user = data.mgr_users!.find(
           (user) => user.user_id === this.user()?.id
         );
