@@ -49,4 +49,8 @@ export class TopUpComponent {
   selectPaymentMethod(method: PaymentMethod) {
     this.paymentMethod = method;
   }
+
+  closeModal() {
+    this.modalService.close();
+  }
 }
