@@ -26,6 +26,7 @@ export class VerifyBvnComponent {
           emptyFieldValidator(),
         ],
       ],
+      dob: [null, [Validators.required]],
     },
     { updateOn: 'submit' }
   );
@@ -39,6 +40,10 @@ export class VerifyBvnComponent {
 
   get bvn() {
     return this.form.get('bvn');
+  }
+
+  get dob() {
+    return this.form.get('dob');
   }
 
   handleSubmit() {

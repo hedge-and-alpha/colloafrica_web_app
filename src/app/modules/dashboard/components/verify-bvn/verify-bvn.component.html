@@ -4,13 +4,13 @@
   verification. Rest assured, your information is handled with the utmost
   confidentiality.
   <strong class="font-medium"
-    >Please ensure that the name on your profile matches the name on your BVN to
+    >Please ensure that the name on your profile and date of birth matches the information on your BVN to
     prevent any errors.</strong
   >
 </p>
 
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <div class="">
+  <div class="mb-3">
     <label for="bvn" class="font-medium inline-block mb-2"
       >Bank Verification Number</label
     >
@@ -27,6 +27,28 @@
     @if (isSubmitted && bvn?.invalid) {
     <ca-form-error [errors]="bvn?.errors" />
     }
+  </div>
+
+  <div>
+    <label for="dob" class="font-medium inline-block mb-2">Date of Birth</label>
+   
+      <ca-form-field [isRequired]="true">
+        <input
+          id="dob"
+          type="text"
+          formControlName="dob"
+          bsDatepicker
+          readonly
+          placeholder="Enter date of birth"
+          [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
+          [ngClass]="{
+            'ng-dirty ng-touched': isSubmitted && (dob?.dirty || dob?.touched)
+          }"
+        />
+      </ca-form-field>
+      @if (isSubmitted && (dob?.dirty || dob?.touched)) {
+      <ca-form-error [errors]="dob?.errors" />
+      }
   </div>
 
   <div class="mt-14 flex justify-end gap-4 sm:gap-7">
