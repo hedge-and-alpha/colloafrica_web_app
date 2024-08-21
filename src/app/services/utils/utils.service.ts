@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UtilsService {
-  constructor() {}
+  constructor() { }
 
   createSlugFromText(text: string) {
     return text.toLowerCase().split(' ').join('-');
@@ -48,5 +48,14 @@ export class UtilsService {
 
   toISODate(date: Date | string | number) {
     return this.convertLocalDateToISOString(date).split('T')[0];
+  }
+
+  formatDate(inputDate: string): string {
+    const date = new Date(inputDate);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getUTCDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

@@ -6,6 +6,7 @@ import { emptyFieldValidator } from '../../../../validators/emptyField.validator
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserStoreService } from '../../../../stores+/user.store';
+import { UtilsService } from '../../../../services/utils/utils.service';
 
 @Component({
   selector: 'ca-verify-bvn',
@@ -35,7 +36,8 @@ export class VerifyBvnComponent {
     private fb: FormBuilder,
     private modalService: ModalService,
     private api: DashboardApiService,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private utils: UtilsService
   ) {}
 
   get bvn() {
@@ -52,7 +54,7 @@ export class VerifyBvnComponent {
     if (this.form.invalid) return;
 
     this.loading = true;
-    this.api.verifyBvn(this.form.value).subscribe({
+    this.api.verifyBvn({dob: this.utils.formatDate(this.form.value.dob ?? ''), bvn: this.form.value.bvn}).subscribe({
       next: ({ data }) => {
         this.loading = false;
         this.modalService.update(
