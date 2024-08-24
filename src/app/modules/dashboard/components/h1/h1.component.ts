@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
   styles: `
     :host { display: block; }
     :host h1 {
-      font-size: clamp(1.5rem, 1.3333rem + 0.7407vw, 2rem);
+      font-size: clamp(1rem, 1.3333rem + 0.7407vw, 1.5rem);
     }
   `,
 })

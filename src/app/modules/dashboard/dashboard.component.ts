@@ -46,8 +46,9 @@ export class DashboardComponent {
       this.alert.open(
         'warning',
         {
-          summary: 'Complete KYC',
-          details: 'Please verify your BVN in order to receive payouts.',
+          summary: 'Complete BVN verification',
+          details: 'Please verify your BVN for profile verification and wallet creation.',
+          closable: true
         },
         90000000
       );

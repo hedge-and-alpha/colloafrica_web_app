@@ -1,18 +1,21 @@
 <div class="min-h-screen layout">
   <div class="h-full hidden md:block">
-    <img
+    <div class="h-full w-full" style="display: flex; align-items: center; justify-content: center;">
+      <img
       src="assets/images/auth-illustration.svg"
       alt=""
-      class="w-full h-full block"
+      style="height: 50%;"
+      class="block"
     />
+    </div>
   </div>
   <div class="bg-white h-full px-4 xl:ps-10 pt-14">
     <div class="max-w-[32.25rem] mx-auto">
       <a routerLink="/auth">
-        <img src="assets/images/logo.svg" alt="" class="logo" />
+        <img src="assets/images/logo.svg" style="width: 140px;" alt="" class="logo" />
       </a>
 
-      <div class="mt-8">
+      <div class="mt-12">
         <router-outlet />
       </div>
     </div>

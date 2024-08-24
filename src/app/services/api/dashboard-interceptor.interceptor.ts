@@ -56,8 +56,8 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
             this.#alertService.open(
               'danger',
               {
-                summary: `Failed to fetch: error ${error.status}`,
-                details: `There was an error trying to fetch data for this page: ${error.error.message}`,
+                summary: `Access denied`,
+                details: `Your access has been denied because: ${error.error.message}`,
                 closable: true,
               },
               80000

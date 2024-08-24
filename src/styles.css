@@ -45,12 +45,12 @@ body {
 }
 
 hgroup h1 {
-  font-size: clamp(1.5rem, 1.1667rem + 1.4815vw, 2.5rem);
+  font-size: clamp(1rem, 1.1667rem + 1.4815vw, 2rem);
 }
 
 hgroup p {
   color: var(--body-text-2);
-  font-size: clamp(0.875rem, 0.6667rem + 0.9259vw, 1.5rem);
+  font-size: clamp(0.8rem, 0.66rem + 0.92vw, 1rem);
 }
 
 /* Forms */

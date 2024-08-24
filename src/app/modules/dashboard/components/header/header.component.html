@@ -1,6 +1,6 @@
 <header class="flex items-center h-[102px]">
   <a routerLink="/" aria-label="Navigate to home page">
-    <img src="assets/images/logo.svg" alt="" width="75" height="25" />
+    <img src="assets/images/logo.svg" alt="" width="75" />
   </a>
 
   <div class="ms-auto flex items-center">
@@ -12,9 +12,14 @@
       <i class="ca-notification"></i>
     </a>
     <a
-      class="ms-6 text-[#171717] inline-flex items-center gap-2"
+      class="ms-4 text-[#171717] inline-flex items-center gap-2"
       routerLink="/profile"
     >
+      <span
+        class="font-medium hidden sm:inline-block max-w-40 overflow-hidden text-ellipsis whitespace-nowrap"
+      >
+        {{ user()?.first_name }} {{ user()?.last_name }}
+      </span>
       <figure class="h-[30px] aspect-square relative">
         <img
           fill
@@ -26,11 +31,6 @@
           "
         />
       </figure>
-      <span
-        class="font-medium hidden sm:inline-block max-w-40 overflow-hidden text-ellipsis whitespace-nowrap"
-      >
-        {{ user()?.first_name }} {{ user()?.last_name }}
-      </span>
     </a>
     <ng-content select=".menu-btn" />
   </div>
