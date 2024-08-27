@@ -279,43 +279,43 @@ export class DashboardApiService {
 
   joinMgrByInviteLink(link: string, position: string) {
     return this.http.post<ApiResponse & { data: { mgr: MGR } }>(
-      `${this.#baseUrl}/mgr/join/${link}/${position}`,
-      null
+      `${this.#baseUrl}/mgr/join/${link}${position ? `/${position}` : ``}`,
+      {}
     );
   }
 
   cancelMgrPlan(id: string) {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/cancel/${id}`,
-      null
+      {}
     );
   }
 
   changeMgrPosition(mgrId: string, newPosition: string) {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/change-position/${mgrId}/${newPosition}`,
-      null
+      {}
     );
   }
 
   proposePositionSwap(mgrId: string, userId: number) {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/propose-swap/${mgrId}/${userId}`,
-      null
+      {}
     );
   }
 
   manageSwapRequests(action: 'accept' | 'reject', swapRequestId: string) {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/swap-requests/${action}/${swapRequestId}`,
-      null
+      {}
     );
   }
 
   removeMember(mgrId: string, userId: string) {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/remove-member/${mgrId}/${userId}`,
-      null
+      {}
     );
   }
 

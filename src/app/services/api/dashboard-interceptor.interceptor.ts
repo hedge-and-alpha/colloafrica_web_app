@@ -20,7 +20,9 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const modifiedRequest = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${this.#token}`),
+      headers: req.headers
+        .set('Authorization', `Bearer ${this.#token}`)
+        .set('Content-Type', 'application/json'),
     });
     const ignoredUrls = [
       'https://api-apps.vfdbank.systems/vtech-wallet/api/v1/wallet2/bank',
@@ -45,7 +47,7 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
           this.#alertService.open(
             'danger',
             {
-              summary: `${error.statusText}`,
+              summary: `Connection error occurred`,
               details: `${errorMessage}`,
               closable: true,
             },
