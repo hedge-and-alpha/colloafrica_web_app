@@ -94,12 +94,13 @@ export class IdVerificationComponent implements OnInit {
       next: ({ message, status }) => {
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
+        window.location.reload();
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
           details: error.error.message,
-          summary: error.error.status + ' ' + error.status,
+          summary: 'Identity verification failed',
         });
       },
     });

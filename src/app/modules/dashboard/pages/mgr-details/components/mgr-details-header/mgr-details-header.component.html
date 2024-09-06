@@ -1,5 +1,5 @@
 <div>
-  @if (!groupStarted) {
+  @if (!groupStarted && isAdmin) {
   <div class="buttons inline-flex gap-3 sm:ms-auto">
     <button class="bg-purple-main text-white px-3" (click)="editPlan()">
       <i class="ca-pencil"></i>

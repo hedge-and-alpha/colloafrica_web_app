@@ -116,6 +116,20 @@ export class MgrPlanComponent implements OnInit {
     );
   }
 
+  leavePlan(userId: string, firstName: string, lastName: string) {
+    this.modalService.open(
+      ManageGroupMemberModalComponent,
+      'small',
+      {},
+      {
+        action: 'leave',
+        name: `${firstName} ${lastName}`,
+        planId: this.plan.id,
+        userId,
+      }
+    );
+  }
+
   swapMember(plan: MGRUser) {
     this.modalService.open(
       ManageGroupMemberModalComponent,

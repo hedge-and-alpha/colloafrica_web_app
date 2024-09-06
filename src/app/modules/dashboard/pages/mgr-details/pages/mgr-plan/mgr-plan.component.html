@@ -155,17 +155,14 @@
       </td>
       <td class="whitespace-nowrap">
         <div class="inline-flex gap-3">
-          <button
-            ca-button-icon
-            [disabled]="
-              user()!.id === item.user_id || activePlan()!.status === 'started'
-            "
+          <button *ngIf="!( user()!.id === item.user_id || activePlan()!.status === 'started')"
+            ca-button-icon 
             (click)="swapMember(item)"
           >
             <i class="ca-arrows-left-right"></i>
           </button>
 
-          <button
+          <button  *ngIf="(plan.status === 'pending') && (item.role !== 'admin') && (user()!.id === plan!.creator_id)"
             ca-button-icon
             [disabled]="
               activePlan()!.status === 'started' || item.role === 'admin'
@@ -176,6 +173,15 @@
           >
             <i class="ca-trash"></i>
           </button>
+
+          <button  *ngIf="(plan.status === 'pending') && (item.role === 'member') && (user()!.id === item.user_id)"
+          ca-button-icon
+          (click)="
+            leavePlan(item.user_id, item.first_name, item.last_name)
+          "
+        >
+          <i class="ca-trash"></i>
+        </button>
         </div>
       </td>
     </ng-template>

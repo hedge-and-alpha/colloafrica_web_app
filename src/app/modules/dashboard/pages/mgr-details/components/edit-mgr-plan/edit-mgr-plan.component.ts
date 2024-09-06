@@ -17,6 +17,7 @@ import {
   MGRDurationList,
   Theme,
 } from '../../../mgr/interfaces/mgr.interfaces';
+import { UtilsService } from '../../../../../../services/utils/utils.service';
 
 @Component({
   selector: 'ca-edit-mgr-plan',
@@ -42,7 +43,8 @@ export class EditMgrPlanComponent implements OnInit {
     private fb: FormBuilder,
     private api: DashboardApiService,
     private modalService: ModalService,
-    private alert: AlertService
+    private alert: AlertService,
+    public utils: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -126,7 +128,8 @@ export class EditMgrPlanComponent implements OnInit {
       duration: data.duration,
       number_of_members: data.number_of_members,
       amount: data.amount,
-      join_date_deadline: data.join_date_deadline,
+      theme_color: data.theme_color,
+      join_date_deadline: this.utils.transformDate(data.join_date_deadline!.toString()),
     };
 
     this.api.updateMGR(this.plan.id, payload).subscribe({
@@ -142,8 +145,7 @@ export class EditMgrPlanComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
-          details: `${err.message}`,
-          summary: `${err.status}: ${err.statusText}`,
+          details: `${err.error.message}`
         });
       },
     });

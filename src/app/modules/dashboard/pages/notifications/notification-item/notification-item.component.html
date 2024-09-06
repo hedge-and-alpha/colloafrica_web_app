@@ -28,7 +28,7 @@
         </time>
       </div>
 
-      @if (notificationTypes.swap) {
+      @if (notificationTypes.swap_request && !notification.read_at) {
       <div class="mt-4 sm:mt-0 flex gap-3 sm:ms-auto">
         <button
           class="confirm text-xs text-white leading-4"

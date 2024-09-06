@@ -18,10 +18,21 @@ export class UtilsService {
     return text[0].toUpperCase() + text.slice(1);
   }
 
-  transformDate(date: Date | string) {
-    let isoDate = new Date(date).toISOString();
-    return isoDate.slice(0, isoDate.indexOf('T'));
-  }
+  // transformDate(date: Date | string) {
+  //   let isoDate = new Date(date).toISOString();
+  //   return isoDate.slice(0, isoDate.indexOf('T'));
+  // }
+  transformDate(date: Date | string): string {
+    const localDate = new Date(date);
+
+    // Extract year, month, and day components
+    const year = localDate.getFullYear();
+    const month = ('0' + (localDate.getMonth() + 1)).slice(-2); // Months are 0-based
+    const day = ('0' + localDate.getDate()).slice(-2);
+
+    // Return in YYYY-MM-DD format
+    return `${year}-${month}-${day}`;
+}
 
   private isValidDate(dateString: string | number | Date) {
     const date = new Date(dateString);

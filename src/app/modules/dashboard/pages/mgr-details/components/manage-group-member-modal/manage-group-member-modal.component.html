@@ -53,7 +53,7 @@
     <p class="mx-auto max-w-[22rem]">
       @if (action === 'swap') {
       <!--  -->
-      Are you sure you want to swap your allotment position to position
+      Are you sure that you want to swap your allotment position to position
       {{ newPosition }}
       }
       <!--  -->
@@ -62,6 +62,11 @@
       Are you sure you want to delete
       <span class="font-semibold">{{ name | titlecase }}</span> from this plan?
       }
+       <!--  -->
+       @if (action === 'leave') {
+        <!--  -->
+        Are you sure that you want to leave this MGR plan?
+        }
     </p>
   </div>
 </div>
@@ -80,15 +85,25 @@
   >
     Send request
   </button>
-  } @else {
+  } @else if(action === 'leave') {
   <button
     type="button"
     class="w-full"
     ca-button-primary
     [loading]="loading"
-    (click)="removeMember()"
+    (click)="leavePlan()"
   >
-    Delete
+    Leave
   </button>
-  }
+  } @else {
+    <button
+      type="button"
+      class="w-full"
+      ca-button-primary
+      [loading]="loading"
+      (click)="removeMember()"
+    >
+      Delete
+    </button>
+    }
 </div>

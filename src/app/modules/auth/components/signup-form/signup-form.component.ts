@@ -48,7 +48,7 @@ export class SignupFormComponent {
       ]),
       email: this.fb.control<string | null>(null, [
         Validators.required,
-        Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
+        Validators.email,
         emptyFieldValidator(),
       ]),
       password: this.fb.control<string | null>(null, [

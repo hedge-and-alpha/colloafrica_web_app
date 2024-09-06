@@ -94,7 +94,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
           validators: [Validators.required],
         }
       ),
-      theme_color: new FormControl<string | null>(null, [Validators.required]),
+      theme_color: new FormControl<string | null>(null),
       allotment_type: new FormControl<string | null>(null, [
         Validators.required,
       ]),
@@ -296,8 +296,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       error: (err: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
-          details: `${err.message}`,
-          summary: `${err.status}: ${err.statusText}`,
+          details: `${err.error.message}`,
+          summary: `Plan creation failed!`,
         });
       },
     });

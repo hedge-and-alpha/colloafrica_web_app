@@ -12,6 +12,7 @@ interface NotificationType {
   debit: boolean;
   credit: boolean;
   swap: boolean;
+  swap_request: boolean;
 }
 
 @Component({
@@ -38,9 +39,10 @@ export class NotificationItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.notificationTypes = {
-      debit: this.notification.type.toLowerCase().includes('debit'),
-      credit: this.notification.type.toLowerCase().includes('credit'),
-      swap: !!this.notification.type.toLowerCase().includes('swap'),
+      debit: this.notification.data.notification_type!.toLowerCase().includes('debit'),
+      credit: this.notification.data.notification_type!.toLowerCase().includes('credit'),
+      swap_request: this.notification.data.notification_type === 'swap request',
+      swap: !!this.notification.data.notification_type!.toLowerCase().includes('swap'),
     };
   }
 
@@ -53,7 +55,7 @@ export class NotificationItemComponent implements OnInit {
 
     if (this.notification.data.swap_request_id) {
       this.api
-        .manageSwapRequests(action, this.notification.data.swap_request_id)
+        .manageSwapRequests(action, this.notification.data.swap_request_id, this.notification.id)
         .subscribe({
           next: ({ message, status }) => {
             this.isAccepting = false;
@@ -67,8 +69,8 @@ export class NotificationItemComponent implements OnInit {
           error: (err: HttpErrorResponse) => {
             this.isAccepting = false;
             this.isRejecting = false;
+            this.notificationChange.emit();
             this.alertService.open('danger', {
-              summary: `Error ${err.status}`,
               details: `${err.error.message}`,
             });
           },

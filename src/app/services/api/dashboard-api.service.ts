@@ -305,9 +305,9 @@ export class DashboardApiService {
     );
   }
 
-  manageSwapRequests(action: 'accept' | 'reject', swapRequestId: string) {
+  manageSwapRequests(action: 'accept' | 'reject', swapRequestId: string, notificationId: string) {
     return this.http.post<ApiResponse>(
-      `${this.#baseUrl}/mgr/swap-requests/${action}/${swapRequestId}`,
+      `${this.#baseUrl}/mgr/swap-requests/${action}/${swapRequestId}/${notificationId}`,
       {}
     );
   }
@@ -315,6 +315,13 @@ export class DashboardApiService {
   removeMember(mgrId: string, userId: string) {
     return this.http.post<ApiResponse>(
       `${this.#baseUrl}/mgr/remove-member/${mgrId}/${userId}`,
+      {}
+    );
+  }
+
+  leavePlan(mgrId: string, userId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/leave-mgr/${mgrId}`,
       {}
     );
   }

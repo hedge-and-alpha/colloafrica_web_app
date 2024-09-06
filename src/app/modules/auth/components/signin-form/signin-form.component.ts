@@ -23,7 +23,8 @@ export class SigninFormComponent implements OnInit {
         null,
         [
           Validators.required,
-          Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
+          // Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
+          Validators.email,
           emptyFieldValidator(),
         ],
       ],
