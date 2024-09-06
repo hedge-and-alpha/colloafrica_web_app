@@ -74,6 +74,6 @@ const TABLE_HEADING: TableHeading[] = [
   { label: 'Trans. Date' },
   { label: 'Status' },
   { label: 'Type' },
-  { label: 'Debited From' },
+  // { label: 'Debited From' },
   { label: 'Comment' },
 ];

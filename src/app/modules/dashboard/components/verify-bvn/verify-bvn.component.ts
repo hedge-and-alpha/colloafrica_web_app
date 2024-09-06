@@ -54,7 +54,7 @@ export class VerifyBvnComponent {
     if (this.form.invalid) return;
 
     this.loading = true;
-    this.api.verifyBvn({dob: this.utils.formatDate(this.form.value.dob ?? ''), bvn: this.form.value.bvn}).subscribe({
+    this.api.verifyBvn({dob: this.utils.transformDate(new Date(this.form.value.dob ?? '')!.toString() ?? ''), bvn: this.form.value.bvn}).subscribe({
       next: ({ data }) => {
         this.loading = false;
         this.modalService.update(

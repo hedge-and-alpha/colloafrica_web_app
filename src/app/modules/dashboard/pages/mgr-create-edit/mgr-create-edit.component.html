@@ -1,65 +1,71 @@
 <ca-h1 class="mb-5">{{ pageTitle }}</ca-h1>
-
-<ca-savings-layout>
-  <div col-1>
-    <ca-card class="rounded-[15px] p-4 sm:p-7 mb-5">
-      <h2 class="mb-[14px] font-semibold">
-        Things to Know Before Setting Up Your MGR Plan
-      </h2>
-
-      <p class="mb-4 text-sm" style="line-height: 1.36">
-        A Merry-Go-Round (MGR) plan works just like any typical contribution
-        group such as Ajo, Adashi, or Esusu, the only difference is you get to
-        do it digitally with more security and transparency. Before setting your
-        plan up, ensure you have the following details - it is a good idea to
-        speak to the people you want to join your group ahead of time so you all
-        agree to the terms of the plan:
-      </p>
-
-      <ol class="text-sm list-decimal ps-4">
-        <li>
-          <span class="font-semibold">The contribution duration</span>
-          - how frequently do you want to contribute and payout?
-        </li>
-        <li>
-          <span class="font-semibold">The number of members</span> - decide on
-          the number of people you want to join.
-        </li>
-        <li>
-          <span class="font-semibold">Amount</span> - this is the sum each
-          person will donate at the interval you decide (weekly, monthly, etc.)
-        </li>
-        <li>
-          <span class="font-semibold">Contribution Start Date</span> - this is
-          the date the system will start collecting contributions via the bank /
-          card details provided. It is a good idea to select a date that gives
-          members enough time to have their payment methods set up and their
-          funds ready.
-        </li>
-        <li>
-          <span class="font-semibold">Allocation Date</span> - this is the date
-          when the total sum contributed will be paid out to the member whose
-          turn it is to receive it.
-        </li>
-        <li>
-          <span class="font-semibold">Join Date Deadline</span> - Pick a date
-          that gives members sufficient time to join. The plan will start
-          without any member who has not joined at this date.
-        </li>
-        <li>
-          <span class="font-semibold">Allotment type</span> - You can manually
-          allocate collection slots to members or it can be done automatically
-          by the system. Members can also swap slots.
-        </li>
-      </ol>
-    </ca-card>
+<ng-container *ngIf="processing">
+  <div class="p-10flex items-center justify-center">
+    <ca-loader />
   </div>
-
-  <ca-card col-2 class="rounded-[15px] px-4 pt-7 pb-4 sm:px-7 sm:pt-10 sm:pb-7">
-    @if (formTemplate === 'new' || formTemplate === 'edit') {
-    <ca-mgr-plan-form />
-    } @if (formTemplate === 'join') {
-    <ca-join-mgr-plan-form />
-    }
-  </ca-card>
-</ca-savings-layout>
+</ng-container>
+<ng-container *ngIf="!processing">
+  <ca-savings-layout>
+    <div col-1>
+      <ca-card class="rounded-[15px] p-4 sm:p-7 mb-5">
+        <h2 class="mb-[14px] font-semibold">
+          Things to Know Before Setting Up Your MGR Plan
+        </h2>
+  
+        <p class="mb-4 text-sm" style="line-height: 1.36">
+          A Merry-Go-Round (MGR) plan works just like any typical contribution
+          group such as Ajo, Adashi, or Esusu, the only difference is you get to
+          do it digitally with more security and transparency. Before setting your
+          plan up, ensure you have the following details - it is a good idea to
+          speak to the people you want to join your group ahead of time so you all
+          agree to the terms of the plan:
+        </p>
+  
+        <ol class="text-sm list-decimal ps-4">
+          <li>
+            <span class="font-semibold">The contribution duration</span>
+            - how frequently do you want to contribute and payout?
+          </li>
+          <li>
+            <span class="font-semibold">The number of members</span> - decide on
+            the number of people you want to join.
+          </li>
+          <li>
+            <span class="font-semibold">Amount</span> - this is the sum each
+            person will donate at the interval you decide (weekly, monthly, etc.)
+          </li>
+          <li>
+            <span class="font-semibold">Contribution Start Date</span> - this is
+            the date the system will start collecting contributions via the bank /
+            card details provided. It is a good idea to select a date that gives
+            members enough time to have their payment methods set up and their
+            funds ready.
+          </li>
+          <li>
+            <span class="font-semibold">Allocation Date</span> - this is the date
+            when the total sum contributed will be paid out to the member whose
+            turn it is to receive it.
+          </li>
+          <li>
+            <span class="font-semibold">Join Date Deadline</span> - Pick a date
+            that gives members sufficient time to join. The plan will start
+            without any member who has not joined at this date.
+          </li>
+          <li>
+            <span class="font-semibold">Allotment type</span> - You can manually
+            allocate collection slots to members or it can be done automatically
+            by the system. Members can also swap slots.
+          </li>
+        </ol>
+      </ca-card>
+    </div>
+  
+    <ca-card col-2 class="rounded-[15px] px-4 pt-7 pb-4 sm:px-7 sm:pt-10 sm:pb-7">
+      @if (formTemplate === 'new' || formTemplate === 'edit') {
+      <ca-mgr-plan-form />
+      } @if (formTemplate === 'join') {
+      <ca-join-mgr-plan-form />
+      }
+    </ca-card>
+  </ca-savings-layout>
+</ng-container>
