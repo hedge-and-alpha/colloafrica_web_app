@@ -19,11 +19,29 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const modifiedRequest = req.clone({
-      headers: req.headers
-        .set('Authorization', `Bearer ${this.#token}`)
-        .set('Content-Type', 'application/json'),
-    });
+    // const modifiedRequest = req.clone({
+    //   headers: req.headers
+    //     .set('Authorization', `Bearer ${this.#token}`)
+    //     .set('Content-Type', 'application/json'),
+    // });
+
+    let modifiedRequest: HttpRequest<any>;
+
+    // Check if the body is FormData
+    if (req.body instanceof FormData) {
+      // If it's FormData, don't set Content-Type (browser will handle it)
+      modifiedRequest = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${this.#token}`)
+      });
+    } else {
+      // If it's not FormData, set Content-Type to application/json
+      modifiedRequest = req.clone({
+        headers: req.headers
+          .set('Authorization', `Bearer ${this.#token}`)
+          .set('Content-Type', 'application/json')
+      });
+    }
+
     const ignoredUrls = [
       'https://api-apps.vfdbank.systems/vtech-wallet/api/v1/wallet2/bank',
       'auth',
