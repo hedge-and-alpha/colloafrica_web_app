@@ -54,16 +54,16 @@ export class MgrCreateEditComponent implements OnInit {
   getMgrDetails(link: string) {
     this.api.getMgrByInviteLink(link).subscribe({
       next: ({ data: { mgr, available_positions } }) => {
-        this.joinDate = new Date(mgr.join_date_deadline);
-        if (this.today.getTime() > this.joinDate.getTime()) {
-          this.alert.open('danger', { details: 'The MGR link is currently invalid.'});
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 3000);
+        // this.joinDate = new Date(mgr.join_date_deadline);
+        // if (this.today.getTime() > this.joinDate.getTime()) {
+        //   this.alert.open('danger', { details: 'The MGR link is currently invalid.'});
+        //   setTimeout(() => {
+        //     this.router.navigate(['/']);
+        //   }, 3000);
           
-        } else {
+        // } else {
           this.processing = false;
-        }
+        // }
       },
       error: (err: HttpErrorResponse) => {
         this.alert.open('danger', { details: 'The MGR link is currently invalid.'});
