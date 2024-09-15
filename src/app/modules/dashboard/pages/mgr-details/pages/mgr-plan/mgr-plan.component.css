@@ -83,6 +83,15 @@
   align-items: center;
 }
 
+.c-badge {
+  height: 30px;
+  width: 88px;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
 :host button[ca-button-icon] {
   border: 1px solid #009d76;
   /* border-image: linear-gradient(58.91deg, #17b890 9.35%, #009d76 91.36%); */

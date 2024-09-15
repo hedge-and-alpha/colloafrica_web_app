@@ -53,6 +53,9 @@ hgroup p {
   font-size: clamp(0.8rem, 0.66rem + 0.92vw, 1rem);
 }
 
+.text-white {
+  color: white !important;
+}
 /* Forms */
 .btn {
   height: 50px;

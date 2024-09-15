@@ -16,8 +16,8 @@
       </div>
 
       <div class="font-medium sm:ms-auto">
-        <div class="date bg-white text-xs mb-4 sm:mb-2 -ms-[6px] sm:ms-0">
-          Starts&nbsp;
+        <div [class]="'date '+(plan.status == 'started' ? 'bg-warning text-white' : 'bg-white')+' text-xs mb-4 sm:mb-2 -ms-[6px] sm:ms-0'">
+          {{plan.status == 'started' ? 'Started' : 'Starts' }}&nbsp;
           <time datetime="26 October, 2023">{{
             plan.contribution_start_date | date : "longDate"
           }}</time>

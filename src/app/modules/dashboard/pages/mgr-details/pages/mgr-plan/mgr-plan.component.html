@@ -3,47 +3,49 @@
 
   <div class="col-2 grow">
     <div class="share-alloc flex flex-col sm:flex-row gap-2">
-      <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
-        <div class="flex items-center">
-          <div class="sm:font-medium text-xs text-[#7D7F85]">
-            Share invite link
+      @if (plan.status == 'pending') {
+        <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
+          <div class="flex items-center">
+            <div class="sm:font-medium text-xs text-[#7D7F85]">
+              Share invite link
+            </div>
+  
+            <div class="ms-auto flex gap-2 icon-buttons">
+              <button
+                class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
+                [disabled]="!inviteLink"
+                (click)="shareLink()"
+              >
+                <i class="ca-share-network text-xs"></i>
+              </button>
+              <button
+                class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
+                [caCopyText]="inviteLink!"
+                [disabled]="!inviteLink"
+              >
+                <i class="ca-copy text-xs"></i>
+              </button>
+            </div>
           </div>
-
-          <div class="ms-auto flex gap-2 icon-buttons">
-            <button
-              class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
-              [disabled]="!inviteLink"
-              (click)="shareLink()"
-            >
-              <i class="ca-share-network text-xs"></i>
-            </button>
-            <button
-              class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
-              [caCopyText]="inviteLink!"
-              [disabled]="!inviteLink"
-            >
-              <i class="ca-copy text-xs"></i>
-            </button>
+          @if (!inviteLink) {
+          <div class="text-sm sm:text-xs font-medium text-[#b0b0b0] mt-3">
+            Not available
           </div>
-        </div>
-        @if (!inviteLink) {
-        <div class="text-sm sm:text-xs font-medium text-[#b0b0b0] mt-3">
-          Not available
-        </div>
-        } @else {
-        <div
-          class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
-        >
-          <a
-            target="_blank"
-            class="underline text-primary"
-            [routerLink]="['/', 'mgr', plan.id, 'join']"
-            [queryParams]="{ invite_id: plan.invite_link }"
-            >{{ inviteLink }}</a
+          } @else {
+          <div
+            class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
           >
-        </div>
-        }
-      </ca-card>
+            <a
+              target="_blank"
+              class="underline text-primary"
+              [routerLink]="['/', 'mgr', plan.id, 'join']"
+              [queryParams]="{ invite_id: plan.invite_link }"
+              >{{ inviteLink }}</a
+            >
+          </div>
+          }
+        </ca-card>
+      }
 
       @if (plan.status === 'started' && plan.next_allocation_to) {
       <div class="allocation-card grow">
@@ -144,10 +146,10 @@
       </td>
       <td class="whitespace-nowrap">
         <span
-          class="text-white text-sm font-medium"
-          [attr.data-status]="item.status"
+          class="text-white text-sm font-medium c-badge"
+          [attr.data-status]="item.allocation_paused == 1 ? 'failed' : item.status == 1 ? 'success' : 'failed'"
         >
-          {{ item.status === 1 ? "Joined" : "" }}
+          {{ item.allocation_paused == 1 ? "Missed" : item.status === 1 ? "Active" : "Error" }}
         </span>
       </td>
       <td class="whitespace-nowrap">

@@ -1,7 +1,9 @@
 <div class="inline-flex items-center gap-4 mb-5">
-  <h2 class="font-semibold text-2xl">Your Contribution & Allocation Details</h2>
-  <ng-select
+  <h2 class="font-semibold text-2xl">Contribution & Allocation Details</h2>
+  @if (mgrPlan.cycle_dates.length > 0) {
+    <ng-select
     placeholder="Select cycle"
+    [clearable]="false"
     [ngModel]="currentCycleNumber"
     (change)="cycleDateChange($event)"
   >
@@ -9,6 +11,7 @@
     <ng-option [value]="date.cycle_number">{{ date.cycle_date }}</ng-option>
     }
   </ng-select>
+  }
 </div>
 
 <ca-table

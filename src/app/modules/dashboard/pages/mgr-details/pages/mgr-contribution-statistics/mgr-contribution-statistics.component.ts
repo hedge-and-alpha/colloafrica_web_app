@@ -29,13 +29,12 @@ export class MgrContributionStatisticsComponent implements OnInit {
       .getMgrPlanContributionStats(planId, cycle)
       .pipe(
         map(({ data }) => {
-          return data.map((stat) => {
+          return data ? data.map((stat) => {
             const mgrUser = this.mgrPlan.mgr_users?.find(
               (user) => user.user_id === stat.user_id
             )!;
-
             return { ...stat, ...mgrUser };
-          });
+          }) : ([] as TableData[]);
         })
       )
       .subscribe({
