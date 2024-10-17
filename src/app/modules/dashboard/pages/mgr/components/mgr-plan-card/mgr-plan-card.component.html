@@ -33,7 +33,7 @@
         class="font-medium"
         style="font-size: clamp(1.25rem, 1.0833rem + 0.7407vw, 1.75rem)"
       >
-        #{{ plan.amount | number : "1.0-0" }}
+        {{ plan.amount | currency : (plan.currency ?? 'NGN') : 'symbol-narrow' }}
       </p>
 
       <div class="h-[1px] bg-white mt-2 mb-3"></div>

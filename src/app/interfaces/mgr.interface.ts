@@ -2,6 +2,7 @@ export interface MGR {
   name: string;
   desc: string;
   duration: string;
+  currency?: any;
   number_of_members: string;
   logged_user_position: number;
   current_cycle_number: number;
