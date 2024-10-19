@@ -100,6 +100,7 @@ import { AllotmentTypeCardComponent } from './pages/mgr/components/allotment-typ
 import { EditMgrPlanComponent } from './pages/mgr-details/components/edit-mgr-plan/edit-mgr-plan.component';
 import { ChangePositionComponent } from './pages/mgr-details/components/change-position/change-position.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   declarations: [
@@ -168,6 +169,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     BsDatepickerModule,
     IMaskModule,
     NgSelectModule,
+    LoadingBarHttpClientModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),

@@ -17,6 +17,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { CapitalizeFirstPipe } from './pipes/capitalize-first/capitalize-first.pipe';
 import { PageTitleStrategyService } from './services/page-title-strategy.service';
 
+
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+
 @NgModule({
   declarations: [AppComponent, AlertComponent, PageNotFoundComponent],
   imports: [
@@ -24,6 +27,7 @@ import { PageTitleStrategyService } from './services/page-title-strategy.service
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    LoadingBarHttpClientModule,
     ButtonPrimaryDirective,
     ButtonSecondaryDirective,
     ButtonSmDirective,

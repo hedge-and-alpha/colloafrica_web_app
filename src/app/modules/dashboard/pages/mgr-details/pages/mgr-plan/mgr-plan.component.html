@@ -156,7 +156,7 @@
         {{ item.join_date | date : "dd MMMM, y hh:mm a" }}
       </td>
       <td class="whitespace-nowrap">
-        <div class="inline-flex gap-3">
+        <div class="inline-flex gap-3" *ngIf="activePlan()!.status == 'started' || activePlan()!.status == 'pending'">
           <button *ngIf="!( user()!.id === item.user_id || activePlan()!.status === 'started')"
             ca-button-icon 
             (click)="swapMember(item)"

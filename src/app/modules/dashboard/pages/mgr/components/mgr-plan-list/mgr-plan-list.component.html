@@ -1,7 +1,19 @@
-<div class="flex gap-4 flex-1 flex-nowrap overflow-x-scroll no-scrollbar">
+<div class="flex gap-4 flex-1 flex-wrap">
   @for (plan of plans; track plan.id) {
   <ca-mgr-plan-card [plan]="plan" [isAdmin]="isAdmin" />
   } @empty {
   <p>No plans</p>
   }
 </div>
+
+<!-- <div class="row gy-3">
+  @for (plan of plans; track plan.id) {
+    <div class="col-xl-3">
+      <ca-mgr-plan-card [plan]="plan" [isAdmin]="isAdmin" />
+    </div>
+    } @empty {
+    <div class="col-md-12">
+      <p>No plans</p>
+    </div>
+    }
+</div> -->

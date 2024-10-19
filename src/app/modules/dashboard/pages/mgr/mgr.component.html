@@ -4,18 +4,19 @@
   <div class="buttons inline-flex gap-3 md:ms-auto">
     <ng-select
       placeholder="Select filter"
+      style="min-width: 100px;"
       [clearable]="false"
       [searchable]="false"
       [ngModel]="defaultFiltervalue"
       (change)="handleMgrFilter($event)"
     >
-      <ng-option value="all">All</ng-option>
-      <ng-option value="started">Started</ng-option>
       <ng-option value="active">Active</ng-option>
+      <ng-option value="started">Started</ng-option>
       <ng-option value="completed">Completed</ng-option>
       <ng-option value="system_deactivated">System deactivated</ng-option>
       <ng-option value="pending">Pending</ng-option>
       <ng-option value="cancelled">Cancelled</ng-option>
+      <ng-option value="all">All</ng-option>
     </ng-select>
 
     <button

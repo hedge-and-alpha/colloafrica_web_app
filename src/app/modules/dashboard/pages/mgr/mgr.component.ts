@@ -11,7 +11,7 @@ import { DashboardApiService } from '../../../../services/api/dashboard-api.serv
 })
 export class MgrComponent implements OnInit, OnDestroy {
   view: 'intro' | 'new' | 'join' = 'intro';
-  defaultFiltervalue = 'all';
+  defaultFiltervalue = 'active';
 
   hasMgr = true;
   loading = true;
@@ -26,7 +26,7 @@ export class MgrComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private api: DashboardApiService) {}
 
   ngOnInit() {
-    this.fetchMgrs();
+    this.fetchMgrs(this.defaultFiltervalue);
   }
 
   fetchMgrs(status?: string) {
