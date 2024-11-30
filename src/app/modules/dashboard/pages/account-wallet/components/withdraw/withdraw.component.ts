@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, computed } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AlertService } from '../../../../../../components/alert/alert.service';
 import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
@@ -25,6 +25,7 @@ export class WithdrawComponent implements OnInit {
   loading = false;
   selectedBank: BankAccount | null = null;
   banks$!: Observable<BankAccount[]>;
+  withdrawalAmount =  new FormControl();
   user = computed(() => this.userStore.user);
 
   form = this.fb.group(
@@ -118,6 +119,10 @@ export class WithdrawComponent implements OnInit {
 
   cancelWithdrawalRequest() {
     this.modalService.close();
+  }
+
+  formattedCurrency(amount: number) {
+    return new Intl.NumberFormat('en-US').format(amount * 0.005);
   }
 
   completeWithdrawal() {

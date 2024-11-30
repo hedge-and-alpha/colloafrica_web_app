@@ -49,6 +49,7 @@
         class="h-full"
         type="number"
         formControlName="amount"
+        [formControl]="withdrawalAmount"
         placeholder="Enter amount, e.g 1000"
         [ngClass]="{ 'ng-dirty ng-touched': isSubmitted && amount?.invalid }"
     /></ca-form-field>
@@ -61,7 +62,7 @@
   <div class="mb-12 flex text-sm leading-1.2">
     <p class="text-[#7d7f85]">Processing Fee</p>
     <p class="text-[#5c5c5c] ms-auto">
-      {{ 300 | currency : "NGN" : "symbol-narrow" : "1.0-0" }}
+      ₦{{ withdrawalAmount.value && withdrawalAmount.value > 1000 ? formattedCurrency(withdrawalAmount.value) : 0 }}
     </p>
   </div>
 
