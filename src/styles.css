@@ -61,9 +61,9 @@ hgroup p {
   height: 50px;
   border-radius: 8px;
   padding-inline: 1rem;
-  font-size: 1.125rem;
-  line-height: 1.33;
-  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px; /* 133.333% */
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -82,8 +82,8 @@ hgroup p {
 
 .primary,
 .primary:enabled:active {
-  color: var(--button-text);
-  background-color: var(--orange-500);
+  color: #FFF;
+  background: linear-gradient(266deg, #E29700 -8.52%, #470B96 100%);
 }
 
 .primary:enabled:hover {
@@ -95,6 +95,7 @@ hgroup p {
 }
 
 .primary:disabled {
+  background: none;
   background-color: var(--button-disabled);
   color: #fff;
 }
