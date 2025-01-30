@@ -51,10 +51,10 @@
         formControlName="amount"
         [formControl]="withdrawalAmount"
         placeholder="Enter amount, e.g 1000"
-        [ngClass]="{ 'ng-dirty ng-touched': isSubmitted && amount?.invalid }"
+        [ngClass]="{ 'ng-dirty ng-touched': isSubmitted && !validWithdrawalAmount(withdrawalAmount.value) }"
     /></ca-form-field>
 
-    @if (isSubmitted && amount?.invalid) {
+    @if (isSubmitted && !validWithdrawalAmount(withdrawalAmount.value)) {
     <ca-form-error [errors]="amount?.errors" />
     }
   </div>
@@ -62,7 +62,7 @@
   <div class="mb-12 flex text-sm leading-1.2">
     <p class="text-[#7d7f85]">Processing Fee</p>
     <p class="text-[#5c5c5c] ms-auto">
-      ₦{{ withdrawalAmount.value && withdrawalAmount.value > 1000 ? formattedCurrency(withdrawalAmount.value) : 0 }}
+      ₦{{ validWithdrawalAmount(withdrawalAmount.value) ? formattedCurrency(withdrawalAmount.value) : 0 }}
     </p>
   </div>
 
@@ -82,7 +82,7 @@
     </h2>
     <p class="max-w-[22.75rem] mx-auto leading-[1.375] text-[#171717]">
       You are about to send
-      {{ amount?.value | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to
+      {{ withdrawalAmount.value | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to
       {{ selectedBank?.account_number }} {{ selectedBank?.bank_name }}.
     </p>
   </hgroup>

@@ -32,7 +32,6 @@ export class WithdrawComponent implements OnInit {
     {
       bank_account_id: [null, [Validators.required]],
       account_number: [null, [Validators.required]],
-      amount: [null, [Validators.required, Validators.min(1000)]],
     },
     { updateOn: 'submit' }
   );
@@ -125,6 +124,10 @@ export class WithdrawComponent implements OnInit {
     return new Intl.NumberFormat('en-US').format(amount * 0.005);
   }
 
+  validWithdrawalAmount(amount: number) {
+    return amount && amount > 1000
+  }
+
   completeWithdrawal() {
     this.isSubmitted = true;
 
@@ -133,7 +136,7 @@ export class WithdrawComponent implements OnInit {
 
     const data = {
       bank_account_id: `${this.bankAccountId!.value}`,
-      amount: `${this.amount!.value}`,
+      amount: `${this.withdrawalAmount.value}`,
       otp: this.otp!.value,
     };
 
