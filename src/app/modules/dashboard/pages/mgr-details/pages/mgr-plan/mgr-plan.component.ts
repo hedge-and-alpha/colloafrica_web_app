@@ -53,7 +53,7 @@ export class MgrPlanComponent implements OnInit {
     this.adminId = this.plan.mgr_users!.find(
       (user) => user.role === 'admin'
     )?.user_id;
-    this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
+    this.inviteLink = `https://colloafrica.com/features/mgr/join?contribution_amount=${this.plan.amount}&desc=${this.plan.desc}&frequency=${this.plan.duration}&invite_id=${this.plan.invite_link}&join_date_deadline=${this.plan.join_date_deadline}&members=${this.plan.number_of_members}&mgr_id=${this.plan.id}&start_date=${this.plan.contribution_start_date}`;
   }
 
   async shareLink() {
