@@ -213,7 +213,7 @@ export class DashboardApiService {
   }
 
   requestOtp() {
-    return this.http.get<ApiResponse>(
+    return this.http.post<ApiResponse>(
       `${this.#baseUrl}/transaction/request-otp`
     );
   }
