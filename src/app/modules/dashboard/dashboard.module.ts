@@ -101,6 +101,8 @@ import { EditMgrPlanComponent } from './pages/mgr-details/components/edit-mgr-pl
 import { ChangePositionComponent } from './pages/mgr-details/components/change-position/change-position.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { MgrDetailsModule } from './pages/mgr-details/mgr-details.module';
+import { MgrCreateWizardComponent } from './components/mgr-create-wizard/mgr-create-wizard.component';
 
 @NgModule({
   declarations: [
@@ -160,6 +162,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     AllotmentTypeCardComponent,
     EditMgrPlanComponent,
     ChangePositionComponent,
+    MgrCreateWizardComponent,
   ],
   imports: [
     CommonModule,
@@ -174,6 +177,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
       echarts: () => import('echarts'),
     }),
     DashboardRoutingModule,
+    MgrDetailsModule,
     BankAccountInfoItemComponent,
     BankAccountInfoItemColumnComponent,
     ButtonLoadingDirective,

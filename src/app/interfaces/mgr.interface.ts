@@ -43,6 +43,7 @@ export interface MGRUser extends MGRUserBase {
   status: number;
   join_date: string;
   profile_pic: null | string;
+  rollover?: boolean;
 }
 
 export interface MGRAnalytics {

@@ -21,7 +21,7 @@ export class MgrPlanComponent implements OnInit {
   isNewlyCreatedPlan = false;
 
   user = computed(() => this.userStore.user);
-  activePlan = computed(() => this.mgrStore.activePlan());
+  activePlan = computed(() => this.mgrStore.activePlan() as { logged_user_position?: number; status?: string } | null);
 
   tableHeading = TABLE_HEADING;
 
@@ -142,6 +142,24 @@ export class MgrPlanComponent implements OnInit {
         userId: plan.user_id,
       }
     );
+  }
+
+  /**
+   * Determines if the rollover button should be shown
+   * The button should be shown when:
+   * - The MGR is active
+   * - The current user is a member of the MGR
+   * - The user hasn't already opted in for rollover
+   */
+  showRolloverButton(): boolean {
+    if (!this.plan) return false;
+    
+    const isActive = this.plan.status === 'active';
+    const currentUser = this.user();
+    const isMember = this.plan.mgr_users?.some(user => user.user_id === currentUser?.id);
+    const hasOptedIn = this.plan.mgr_users?.find(user => user.user_id === currentUser?.id)?.rollover;
+    
+    return isActive && !!isMember && !hasOptedIn;
   }
 }
 

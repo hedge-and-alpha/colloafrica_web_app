@@ -337,6 +337,13 @@ export class DashboardApiService {
       `${this.#baseUrl}/mgr/${mgrId}/cycle/${cycleNumber}`
     );
   }
+
+  initiateMgrRollover(mgrId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/${mgrId}/rollover`,
+      {}
+    );
+  }
   /********************** MGR end **********************/
 
   /********************** Notification start **********************/
