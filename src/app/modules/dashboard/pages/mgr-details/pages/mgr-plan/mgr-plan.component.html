@@ -53,14 +53,14 @@
             <div class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]">
               Next Allocation to
               <span class="bg-warning alloc-position">
-                {{ plan.next_allocation_to?.slot_number }}
+                {{ plan.next_allocation_to.slot_number }}
               </span>
             </div>
 
             <div class="flex items-center gap-[0.625rem]">
               <img src="assets/images/profile-photo.webp" alt="" />
               <p class="text-xs font-medium">
-                {{ plan.next_allocation_to?.name | titlecase }}
+                {{ plan.next_allocation_to.name | titlecase }}
               </p>
             </div>
           </ca-card>

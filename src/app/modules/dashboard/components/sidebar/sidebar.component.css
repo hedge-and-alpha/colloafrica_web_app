@@ -4,32 +4,61 @@
   height: 100%;
 }
 
-:host .divider {
-  background-color: #f3f5f5;
-  height: 2px;
-  margin-block-end: 18px;
+/* Common styles for all sidebar links */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #414651;
+  width: 264px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
-:host menu li a {
-  color: #7d7f85;
-  width: 100%;
-}
-
-:host menu li a:is(.active, :hover) {
+/* Regular hover state */
+.sidebar-link:hover:not(.active) {
   color: var(--purple);
-  transition: color 350ms;
+  background-color: rgba(125, 42, 232, 0.05);
 }
 
-:host menu li a::after {
-  content: "\e92a";
-  font-family: "ColloAfrica" !important;
-  margin-inline-start: auto;
-  font-weight: 500;
-  opacity: 0;
+/* Active state - purple background with white text */
+.sidebar-link.active {
+  background-color: #702cc8;
+  color: white;
+  font-weight: 600;
 }
 
-:host menu li:hover a::after,
-:host menu li a.active::after {
-  opacity: 1;
-  transition: opacity 450ms;
+/* Coming soon tag */
+.coming-soon {
+  background-color: #FEF6EC;
+  color: #F7931A;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 8px;
+  text-transform: uppercase;
+}
+
+/* Icon styles */
+.sidebar-link i {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+
+/* Support link at bottom */
+:host div.mt-auto .sidebar-link {
+  margin-bottom: 4px;
+}
+
+/* Logout button - keeping it styled as danger but with consistent layout */
+:host button.sidebar-link {
+  border: none;
+  background: transparent;
 }
