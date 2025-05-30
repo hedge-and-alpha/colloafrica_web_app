@@ -70,24 +70,24 @@ const routes: Routes = [
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
       },
-      { path: 'mgr', component: MgrComponent, title: 'MGR plans' },
+      { path: 'mgr', component: MgrComponent, title: 'Contribution' },
       {
         path: 'mgr/:id',
         component: MgrDetailsComponent,
         children: [
           {
             path: 'details',
-            title: 'MGR details',
+            title: 'Contribution Details',
             component: MgrPlanComponent,
           },
           {
             path: 'collection-statistics',
-            title: 'MGR collection statistics',
+            title: 'Contribution Collection Statistics',
             component: MgrCollectionStatisticsComponent,
           },
           {
             path: 'contribution-statistics',
-            title: 'MGR contribution statistics',
+            title: 'Contribution Statistics',
             component: MgrContributionStatisticsComponent,
           },
           { path: '', redirectTo: 'details', pathMatch: 'full' },
@@ -96,7 +96,7 @@ const routes: Routes = [
       {
         path: 'mgr/:id/:action',
         component: MgrCreateEditComponent,
-        title: 'MGR',
+        title: 'Contribution',
       },
       { path: 'wallet', component: AccountWalletComponent, title: 'Wallet' },
       {

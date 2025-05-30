@@ -27,13 +27,13 @@ export class MgrCreateEditComponent implements OnInit {
       this.formTemplate = view as FormTemplate;
 
       if (this.formTemplate === 'new') {
-        this.pageTitle = 'New MGR Plan';
+        this.pageTitle = 'New Contribution';
         this.processing = false;
       } else if (this.formTemplate === 'edit') {
-        this.pageTitle = 'Edit MGR Plan';
+        this.pageTitle = 'Edit Contribution';
         this.processing = false;
       } else {
-        this.pageTitle = 'Join MGR Plan';
+        this.pageTitle = 'Join Contribution';
         this.processing = true;
         let inviteIdQueryParam = this.route.snapshot.queryParamMap.get('invite_id');
         if (inviteIdQueryParam) {

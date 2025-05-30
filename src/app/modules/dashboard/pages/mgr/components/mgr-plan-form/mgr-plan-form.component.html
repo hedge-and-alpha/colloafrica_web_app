@@ -1,272 +1,197 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <div class="mb-6">
-    <ca-form-field
-      label="Plan name"
-      labelFor="name"
-      class="block"
-      [isRequired]="true"
-    >
+<div class="bg-white rounded-lg p-8 shadow-sm mb-8">
+  <h2 class="text-2xl font-medium mb-6">Create new plan</h2>
+  
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <div class="mb-6">
+      <label for="name" class="block text-gray-700 mb-2">Plan name <span class="text-purple-main">*</span></label>
       <input
         type="text"
         id="name"
         formControlName="name"
+        placeholder="Name"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && name.invalid
+          'ng-touched ng-dirty border-red-500': isSubmitted && name.invalid
         }"
       />
-    </ca-form-field>
-    @if (isSubmitted && name.invalid) {
-    <ca-form-error [errors]="name.errors" />
-    }
-  </div>
+      @if (isSubmitted && name.invalid) {
+      <ca-form-error [errors]="name.errors" />
+      }
+    </div>
 
-  <div class="mb-6">
-    <ca-form-field
-      label="Short description"
-      labelFor="desc"
-      class="block"
-      [isRequired]="true"
-    >
+    <div class="mb-6">
+      <label for="desc" class="block text-gray-700 mb-2">Short description <span class="text-purple-main">*</span></label>
       <input
         type="text"
         id="desc"
         formControlName="desc"
+        placeholder="Short description"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && desc.invalid
+          'ng-touched ng-dirty border-red-500': isSubmitted && desc.invalid
         }"
       />
-    </ca-form-field>
-    @if (isSubmitted && desc.invalid) {
-    <ca-form-error [errors]="desc.errors" />
-    }
-  </div>
+      @if (isSubmitted && desc.invalid) {
+      <ca-form-error [errors]="desc.errors" />
+      }
+    </div>
 
-  <!-- 2 cols -->
-  <div class="xl:grid grid-cols-2 gap-4">
-    <div class="mb-5">
-      <ca-form-field
-        label="Duration"
-        labelFor="duration"
-        class="block"
-        [isRequired]="true"
-      >
-        <div class="-mx-5 grow">
-          <ng-select
-            class="px-2"
-            labelForId="duration"
-            formControlName="duration"
-            [clearOnBackspace]="false"
-            [ngClass]="{
-              'ng-touched ng-dirty': isSubmitted && duration.invalid
-            }"
-          >
-            @for (duration of durations; track $index) {
-            <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
-            }
-          </ng-select>
-        </div>
-      </ca-form-field>
+    <div class="mb-6">
+      <label for="duration" class="block text-gray-700 mb-2">Duration <span class="text-purple-main">*</span></label>
+      <div class="relative">
+        <ng-select
+          id="duration"
+          formControlName="duration"
+          [clearOnBackspace]="false"
+          placeholder="Select duration"
+          class="py-1 border border-gray-300 rounded-lg"
+          [ngClass]="{
+            'ng-touched ng-dirty border-red-500': isSubmitted && duration.invalid
+          }"
+        >
+          @for (duration of durations; track $index) {
+          <ng-option [value]="duration.id">{{ duration.name }}</ng-option>
+          }
+        </ng-select>
+      </div>
       @if (isSubmitted && duration.invalid) {
       <ca-form-error [errors]="duration.errors" />
       }
     </div>
 
     <div class="mb-6">
-      <ca-form-field
-        label="Number of members"
-        labelFor="num-members"
-        class="block"
-        [isRequired]="true"
-      >
-        <input
-          type="number"
-          id="num-members"
-          formControlName="number_of_members"
-          [ngClass]="{
-            'ng-touched ng-dirty': isSubmitted && numberOfMembers.invalid
-          }"
-        />
-      </ca-form-field>
+      <label for="num-members" class="block text-gray-700 mb-2">Number of members <span class="text-purple-main">*</span></label>
+      <input
+        type="number"
+        id="num-members"
+        formControlName="number_of_members"
+        placeholder="Number of members"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
+        [ngClass]="{
+          'ng-touched ng-dirty border-red-500': isSubmitted && numberOfMembers.invalid
+        }"
+      />
       @if (isSubmitted && numberOfMembers.invalid) {
       <ca-form-error [errors]="numberOfMembers.errors" />
       }
     </div>
-  </div>
-  <!-- 2 cols -->
 
-  <div class="mb-6">
-    <ca-form-field
-      label="Amount"
-      labelFor="amount"
-      class="block"
-      [isRequired]="true"
-    >
+    <div class="mb-6">
+      <label for="amount" class="block text-gray-700 mb-2">Amount <span class="text-purple-main">*</span></label>
       <input
-        type="number"
+        type="text"
         id="amount"
         formControlName="amount"
+        placeholder="Enter amount"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty': isSubmitted && amount.invalid
+          'ng-touched ng-dirty border-red-500': isSubmitted && amount.invalid
         }"
       />
-      <div class="border-s border-[#7D7F85] ps-3" style="color: #77777e">
-        NGN
-      </div>
-    </ca-form-field>
-    @if (isSubmitted && amount.invalid) {
-    <ca-form-error [errors]="amount.errors" />
-    }
-  </div>
+      @if (isSubmitted && amount.invalid) {
+      <ca-form-error [errors]="amount.errors" />
+      }
+    </div>
 
-  <div class="mb-6">
-    <ca-form-field
-      label="Join date deadline"
-      labelFor="date"
-      class="block"
-      [isRequired]="true"
-    >
-      <input
-        id="date"
-        type="text"
-        formControlName="join_date_deadline"
-        bsDatepicker
-        #jdp="bsDatepicker"
-        [minDate]="minJoinDate"
-        [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
-        [ngClass]="{
-          'ng-dirty ng-touched': isSubmitted && joinDateDeadline.invalid
-        }"
-      />
-      <button type="button" (click)="jdp.show()">
-        <i class="ca-calendar text-[#5c5c5c]"></i>
-      </button>
-    </ca-form-field>
-    @if ((isSubmitted && joinDateDeadline.invalid) ||
-    joinDateDeadline.errors?.['deadline']) {
-    <ca-form-error [errors]="joinDateDeadline.errors" />
-    }
-  </div>
-
-  <!-- 2 cols -->
-  <div class="xl:grid grid-cols-2 gap-4">
     <div class="mb-6">
-      <ca-form-field
-        label="Contribution start date"
-        labelFor="start-date"
-        class="block"
-        [isRequired]="true"
-      >
+      <label for="date" class="block text-gray-700 mb-2">Contribution Start Date <span class="text-purple-main">*</span></label>
+      <div class="relative">
         <input
-          id="start-date"
+          id="date"
           type="text"
           formControlName="contribution_start_date"
+          placeholder="18-05-2023"
           bsDatepicker
           #cdp="bsDatepicker"
-          readonly
           [minDate]="minContributionDate"
-          [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
+          [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
           [ngClass]="{
-            'ng-dirty ng-touched': isSubmitted && startDate.invalid
+            'ng-dirty ng-touched border-red-500': isSubmitted && startDate.invalid
           }"
         />
-        <button type="button" (click)="cdp.show()">
+        <button type="button" (click)="cdp.show()" class="absolute right-3 top-1/2 transform -translate-y-1/2">
           <i class="ca-calendar text-[#5c5c5c]"></i>
         </button>
-      </ca-form-field>
+      </div>
       @if (isSubmitted && startDate.invalid) {
       <ca-form-error [errors]="startDate.errors" />
       }
     </div>
 
     <div class="mb-6">
-      <ca-form-field
-        label="Allocation date"
-        labelFor="allocation-date"
-        class="block"
-        [isRequired]="true"
-      >
+      <label for="allocation-date" class="block text-gray-700 mb-2">Allocation Date <span class="text-purple-main">*</span></label>
+      <div class="relative">
         <input
           id="allocation-date"
           type="text"
           formControlName="allocation_date"
+          placeholder="18-05-2023"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
+          [ngClass]="{
+            'ng-dirty ng-touched border-red-500': isSubmitted && allocationDate.invalid
+          }"
         />
-        <i class="ca-calendar text-[#5c5c5c]"></i>
-      </ca-form-field>
+        <span class="absolute right-3 top-1/2 transform -translate-y-1/2">
+          <i class="ca-calendar text-[#5c5c5c]"></i>
+        </span>
+      </div>
       @if (isSubmitted && allocationDate.invalid) {
       <ca-form-error [errors]="allocationDate.errors" />
       }
     </div>
-  </div>
-  <!-- 2 cols -->
 
-  <div class="mt-7 mb-6">
-    <div class="flex flex-wrap gap-5 items-center sm:justify-center">
-      <div class="shrink-0">
-        <div class="font-medium mb-2">Choose theme color</div>
-        <div class="flex gap-2 xl:gap-3">
-          @for (theme of themes; track $index) {
-          <div
-            class="w-6 h-6 inline-flex items-center justify-center rounded-full cursor-pointer"
-            [attr.data-theme]="$index"
-            (click)="selectTheme(theme, $index + 1)"
-          >
-            @if (selectedThemeIndex && selectedThemeIndex === $index + 1) {
-            <span class="text-xs text-white font-semibold">&#10003;</span>
-            }
-          </div>
-          }
-        </div>
-        @if (isSubmitted && themeColor.invalid) {
-        <ca-form-error [errors]="themeColor.errors" />
-        }
-      </div>
-      @if (!selectedAllotmentType && !isEditing) {
-      <div class="flex flex-col lg:ms-auto">
-        <button
-          class="btn bg-purple-main text-white sm:ms-auto shrink-0"
-          type="button"
-          style="
-            font-size: clamp(0.75rem, 0.6667rem + 0.3704vw, 1rem);
-            height: 36px;
-          "
-          (click)="selectAllotmentType()"
+    <div class="mb-6">
+      <label for="allotment-type" class="block text-gray-700 mb-2">Allotment Type <span class="text-purple-main">*</span></label>
+      <div class="relative">
+        <ng-select
+          id="allotment-type"
+          placeholder="Select allotment type"
+          class="py-1"
+          [ngClass]="{
+            'ng-touched ng-dirty border-red-500': isSubmitted && allotmentType.invalid
+          }"
+          (change)="selectAllotmentType()"
         >
-          Select allotment type
-        </button>
-        @if (isSubmitted && allotmentType.invalid) {
-        <ca-form-error [errors]="allotmentType.errors" />
-        }
+          <ng-option value="manual">Manual</ng-option>
+          <ng-option value="automatic">Automatic</ng-option>
+        </ng-select>
       </div>
-      <!--  -->
-      } @else {
+      @if (isSubmitted && allotmentType.invalid) {
+      <ca-form-error [errors]="allotmentType.errors" />
+      }
+    </div>
+    
+    <!-- Only shown if allotment type is selected -->
+    @if (selectedAllotmentType) {
+    <div class="mb-6">
       <ca-allotment-type-card
         [allotmentType]="selectedAllotmentType"
         (allotmentTypeChange)="selectAllotmentType()"
       />
+    </div>
+    }
+
+    <div class="mb-12">
+      <div class="flex items-start gap-3">
+        <input type="checkbox" id="subscribe" [formControl]="terms" class="mt-1" />
+        <label class="text-sm text-gray-700" for="subscribe">
+          I agree to Collo Africa MGR terms and conditions.
+        </label>
+      </div>
+      @if (isSubmitted && terms.invalid) {
+      <ca-form-error [errors]="terms.errors" />
       }
     </div>
-  </div>
 
-  <div class="mb-12">
-    <div class="flex items-start gap-3">
-      <input type="checkbox" id="subscribe" [formControl]="terms" />
-      <label class="text-sm" for="subscribe">
-        I agree to Collo Africa MGR terms and conditions.
-      </label>
+    <div class="mb-4">
+      <button
+        class="w-full py-3 bg-purple-main text-white rounded-lg font-medium"
+        type="submit"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Processing...' : 'Create plan' }}
+      </button>
     </div>
-    @if (isSubmitted && terms.invalid) {
-    <ca-form-error [errors]="terms.errors" />
-    }
-  </div>
-
-  <div class="mb-4">
-    <button
-      class="w-full btn bg-purple-main text-white"
-      type="submit"
-      loadingColour="#fff"
-      [loading]="loading"
-    >
-      Submit
-    </button>
-  </div>
-</form>
+  </form>
+</div>
