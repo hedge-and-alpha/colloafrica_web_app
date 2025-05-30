@@ -1,31 +1,23 @@
-<div class="mb-8 flex flex-col md:flex-row gap-3">
-  <ca-h1>Merry Go Round(MGR) Plans</ca-h1>
-
-  <div class="buttons inline-flex gap-3 md:ms-auto">
-    <ng-select
-      placeholder="Select filter"
-      style="min-width: 100px;"
-      [clearable]="false"
-      [searchable]="false"
-      [ngModel]="defaultFiltervalue"
-      (change)="handleMgrFilter($event)"
-    >
-      <ng-option value="active">Active</ng-option>
-      <ng-option value="started">Started</ng-option>
-      <ng-option value="completed">Completed</ng-option>
-      <ng-option value="system_deactivated">System deactivated</ng-option>
-      <ng-option value="pending">Pending</ng-option>
-      <ng-option value="cancelled">Cancelled</ng-option>
-      <ng-option value="all">All</ng-option>
-    </ng-select>
-
-    <button
-      class="bg-purple-main text-white px-3 rounded-lg shrink-0"
-      (click)="createNewPlan()"
-    >
-      <i class="ca-plus"></i>
-      Create new plan
-    </button>
+<div class="mb-8 mt-[-28px] mx-[-32px] py-2 px-8 bg-white border-b border-[#E9EAEB]">
+  <div class="flex justify-between items-center">
+    <div class="flex">
+      <div class="cursor-pointer px-6 py-3 border-b-2 border-purple-main text-purple-main font-medium">
+        My Plans
+      </div>
+      <div class="cursor-pointer px-6 py-3 text-gray-500">
+        Public Plans
+      </div>
+    </div>
+    
+    <div class="py-2">
+      <button class="bg-purple-main text-white px-4 py-2 rounded-lg flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        Search Public Plans
+      </button>
+    </div>
   </div>
 </div>
 

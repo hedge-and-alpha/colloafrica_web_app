@@ -8,7 +8,7 @@
   </nav>
 
   <div class="grow bg-[#f5f5f5] flex flex-col main-content">
-    <div class="px-5 grow">
+    <div class="grow">
       <ca-header>
         <button
           class="p-2 bg-purple-main text-white font-bold ms-4 menu-btn" style="border-radius: 6px;"
@@ -19,42 +19,50 @@
         </button>
       </ca-header>
 
-      <main class="max-w-[68rem] mx-auto">
+      <main class="p-8">
         <ng-content />
       </main>
     </div>
 
-    <footer
-      class="py-6 lg:py-6 xl:py-8 bg-[#ededed] flex items-center justify-center shrink-0"
-    >
-      <nav
-        class="flex gap-2 sm:gap-3 font-normal leading-1.2 text-[.625rem] lg:text-xs"
-      >
-        <a
-          href="http://colloafrica.com/#becom-member"
-          target="_blank"
-          rel="noopener noreferrer"
-          >About Us</a
-        >
-        <a
-          href="https://www.colloafrica.com/contactus.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Contact Us</a
-        >
-        <a
-          href="https://www.colloafrica.com/privacy-policy.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Privacy Policy</a
-        >
-        <a
-          href="https://www.colloafrica.com/terms-conditions.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Term & Conditions
-        </a>
-      </nav>
+    <footer class="bg-purple-main py-8 text-white shrink-0">
+      <div class="container mx-auto px-4">
+        <h2 class="text-xl font-bold mb-6">Get support</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Watch Video -->
+          <div class="bg-white rounded-lg p-6 text-purple-800">
+            <div class="flex items-center mb-2">
+              <span class="inline-flex items-center justify-center rounded-full bg-purple-100 p-1 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              </span>
+              <span class="font-semibold">Watch Video</span>
+            </div>
+            <p class="text-sm">Click here to watch the <span class="text-purple-600 font-medium">Video</span> to see how it works.</p>
+          </div>
+          
+          <!-- Read Guide -->
+          <div class="bg-white rounded-lg p-6 text-purple-800">
+            <div class="flex items-center mb-2">
+              <span class="inline-flex items-center justify-center rounded-full bg-purple-100 p-1 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </span>
+              <span class="font-semibold">Read Our Guide</span>
+            </div>
+            <p class="text-sm">Click here to read our <span class="text-purple-600 font-medium">Guide</span> to see how it works.</p>
+          </div>
+          
+          <!-- FAQs -->
+          <div class="bg-white rounded-lg p-6 text-purple-800">
+            <div class="flex items-center mb-2">
+              <span class="inline-flex items-center justify-center rounded-full bg-purple-100 p-1 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span class="font-semibold">FAQs</span>
+            </div>
+            <p class="text-sm">Click here see our FAQs.</p>
+          </div>
+        </div>
+      </div>
     </footer>
   </div>
 </div>
