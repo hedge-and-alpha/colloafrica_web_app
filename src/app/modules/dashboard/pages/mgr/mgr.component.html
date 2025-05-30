@@ -1,12 +1,12 @@
 <div class="mb-8 mt-[-28px] mx-[-32px] py-2 px-8 bg-white border-b border-[#E9EAEB]">
   <div class="flex justify-between items-center">
     <div class="flex">
-      <div class="cursor-pointer px-6 py-3 border-b-2 border-purple-main text-purple-main font-medium">
+      <a routerLink="/mgr" class="cursor-pointer px-6 py-3 border-b-2 border-purple-main text-purple-main font-medium inline-block">
         My Plans
-      </div>
-      <div class="cursor-pointer px-6 py-3 text-gray-500">
+      </a>
+      <a routerLink="/mgr/public" class="cursor-pointer px-6 py-3 text-gray-500 inline-block">
         Public Plans
-      </div>
+      </a>
     </div>
     
     <div class="py-2">
@@ -22,21 +22,77 @@
 </div>
 
 @if (loading) {
-<div class="min-h-[70vh] flex items-center justify-center">
-  <ca-loader />
-</div>
+  <div class="min-h-[70vh] flex items-center justify-center">
+    <ca-loader />
+  </div>
 } @else {
-<!--  -->
-@if (!adminMgrs.length && !participantMgrs.length && !filtered) {
-<ca-mgr-intro />
-} @else {
-<div class="mb-10">
-  <h2 class="text-purple-main mb-6 font-medium">Admin (MGR) Plans</h2>
-  <ca-mgr-plan-list [plans]="adminMgrs" [isAdmin]="true" />
+  @if (isPublicView) {
+    <!-- Public Plans View -->
+    <div class="mb-10">
+      <!-- Search and Filter Bar -->
+      <div class="flex flex-wrap gap-4 mb-6">
+        <div class="relative flex-1">
+          <input 
+            type="text" 
+            placeholder="Enter MGR plan link" 
+            class="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-lg"
+          />
+          <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+        <button class="px-4 py-2 border border-gray-300 rounded-lg flex items-center gap-2">
+          <span>Filters</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+          </svg>
+        </button>
+      </div>
 
-  <div class="h-[1px] bg-[#c5c5c5] my-8"></div>
+      <!-- Public Plans Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (plan of publicMgrs; track plan.id) {
+          <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+            <div class="flex items-center p-4 gap-3">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" [style.background-color]="plan.theme_color">S.S</div>
+              <div>
+                <h3 class="font-medium">{{ plan.name }}</h3>
+                <p class="text-sm text-gray-600">{{ plan.desc }}</p>
+              </div>
+            </div>
+            <div class="border-t border-gray-100 px-4 py-3 text-sm">
+              <p class="text-gray-600">Join date deadline: <span class="font-medium">{{ plan.join_date_deadline | date: 'MMM dd, yyyy' }}</span></p>
+            </div>
+            <div class="p-4 flex justify-end">
+              <a [routerLink]="['/mgr', plan.id, 'view']" class="text-purple-main flex items-center gap-1 font-medium">
+                View project
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- My Plans View -->
+    @if (!adminMgrs.length && !participantMgrs.length && !filtered) {
+      <ca-mgr-intro />
+    } @else {
+      <div class="mb-10">
+        <h2 class="text-purple-main mb-6 font-medium">Admin (MGR) Plans</h2>
+        <ca-mgr-plan-list [plans]="adminMgrs" [isAdmin]="true" />
 
-  <h2 class="text-purple-main mb-6 font-medium">Participated (MGR) Plans</h2>
-  <ca-mgr-plan-list [plans]="participantMgrs" />
-</div>
-} }
+        <div class="h-[1px] bg-[#c5c5c5] my-8"></div>
+
+        <h2 class="text-purple-main mb-6 font-medium">Participated (MGR) Plans</h2>
+        <ca-mgr-plan-list [plans]="participantMgrs" />
+      </div>
+    }
+  }
+}

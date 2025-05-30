@@ -71,6 +71,7 @@ const routes: Routes = [
         ],
       },
       { path: 'mgr', component: MgrComponent, title: 'Contribution' },
+      { path: 'mgr/public', component: MgrComponent, title: 'Public Contributions' },
       {
         path: 'mgr/:id',
         component: MgrDetailsComponent,
