@@ -355,4 +355,50 @@ export class DashboardApiService {
       .pipe(map((res) => res.data.notifications));
   }
   /********************** Notification end **********************/
+
+  /********************** Public MGR start **********************/
+  getPublicMgrs(filters?: any) {
+    let params = '';
+    if (filters) {
+      const searchParams = new URLSearchParams(filters);
+      params = `?${searchParams.toString()}`;
+    }
+    return this.http.get<ApiResponse & { data: any }>(`${this.#baseUrl}/mgr/public${params}`);
+  }
+
+  getPublicMgrDetails(id: string) {
+    return this.http.get<ApiResponse & { data: MGR }>(`${this.#baseUrl}/mgr/public/${id}`);
+  }
+
+  joinPublicMgr(id: string, data: any) {
+    return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/join`, data);
+  }
+
+  createPublicMgr(data: any) {
+    return this.http.post<ApiResponse & { data: MGR }>(`${this.#baseUrl}/mgr/public`, data);
+  }
+
+  checkPublicMgrPermission() {
+    return this.http.get<ApiResponse & { data: { can_create: boolean; user_id: number } }>(
+      `${this.#baseUrl}/mgr/public/permission-check`
+    );
+  }
+
+  // Admin methods for permission management
+  grantPublicMgrPermission(userId: number, notes?: string) {
+    return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/permissions/grant/${userId}`, { notes });
+  }
+
+  revokePublicMgrPermission(userId: number) {
+    return this.http.delete<ApiResponse>(`${this.#baseUrl}/mgr/public/permissions/revoke/${userId}`);
+  }
+
+  getPublicMgrPermissions() {
+    return this.http.get<ApiResponse & { data: any[] }>(`${this.#baseUrl}/mgr/public/permissions`);
+  }
+
+  getPublicMgrStats() {
+    return this.http.get<ApiResponse & { data: any }>(`${this.#baseUrl}/mgr/public/permissions/stats`);
+  }
+  /********************** Public MGR end **********************/
 }

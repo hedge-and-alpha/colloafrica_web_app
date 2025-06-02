@@ -40,6 +40,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   isEditing = false;
   loading = false;
+  isPublicMgr = false;
 
   minJoinDate = new Date();
   minContributionDate = new Date(new Date().setDate(new Date().getDate() + 1));
@@ -127,6 +128,11 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Check if creating a public MGR based on query parameter
+    this.route.queryParams.subscribe(params => {
+      this.isPublicMgr = params['type'] === 'public';
+    });
+
     this.observeNumberOfMembersControl();
     this.observeJoinDateControl();
     this.observeDurationControl();
@@ -283,24 +289,47 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   }
 
   createNewPlan(data: object) {
-    this.api.createMGR(data).subscribe({
-      next: ({ data, message, status }) => {
-        this.loading = false;
-        this.alert.open('success', { details: message, summary: status });
-        this.form.reset();
-        this.router.navigate(['/', 'mgr', data.id, 'details'], {
-          queryParams: { new_plan: true },
-          state: { plan: data },
-        });
-      },
-      error: (err: HttpErrorResponse) => {
-        this.loading = false;
-        this.alert.open('danger', {
-          details: `${err.error.message}`,
-          summary: `Plan creation failed!`,
-        });
-      },
-    });
+    if (this.isPublicMgr) {
+      // For public MGRs, use the public MGR API endpoint
+      this.api.createPublicMgr(data).subscribe({
+        next: ({ data, message, status }) => {
+          this.loading = false;
+          this.alert.open('success', { details: message, summary: status });
+          this.form.reset();
+          this.router.navigate(['/', 'mgr', data.id, 'details'], {
+            queryParams: { new_plan: true },
+            state: { plan: data },
+          });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.loading = false;
+          this.alert.open('danger', {
+            details: `${err.error.message}`,
+            summary: `Public plan creation failed!`,
+          });
+        },
+      });
+    } else {
+      // For regular MGRs, use the existing API endpoint
+      this.api.createMGR(data).subscribe({
+        next: ({ data, message, status }) => {
+          this.loading = false;
+          this.alert.open('success', { details: message, summary: status });
+          this.form.reset();
+          this.router.navigate(['/', 'mgr', data.id, 'details'], {
+            queryParams: { new_plan: true },
+            state: { plan: data },
+          });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.loading = false;
+          this.alert.open('danger', {
+            details: `${err.error.message}`,
+            summary: `Plan creation failed!`,
+          });
+        },
+      });
+    }
   }
 
   ngOnDestroy() {

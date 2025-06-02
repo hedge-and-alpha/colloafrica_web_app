@@ -1,22 +1,57 @@
 <div class="mb-8 mt-[-28px] mx-[-32px] py-2 px-8 bg-white border-b border-[#E9EAEB]">
   <div class="flex justify-between items-center">
     <div class="flex">
-      <a routerLink="/mgr" class="cursor-pointer px-6 py-3 border-b-2 border-purple-main text-purple-main font-medium inline-block">
+      <a routerLink="/mgr" class="cursor-pointer px-6 py-3 border-b-2" 
+         [class]="!isPublicView ? 'border-purple-main text-purple-main font-medium' : 'border-transparent text-gray-500'">
         My Plans
       </a>
-      <a routerLink="/mgr/public" class="cursor-pointer px-6 py-3 text-gray-500 inline-block">
+      <a routerLink="/mgr/public" class="cursor-pointer px-6 py-3 border-b-2"
+         [class]="isPublicView ? 'border-purple-main text-purple-main font-medium' : 'border-transparent text-gray-500'">
         Public Plans
       </a>
     </div>
     
-    <div class="py-2">
-      <button class="bg-purple-main text-white px-4 py-2 rounded-lg flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        Search Public Plans
-      </button>
+    <div class="py-2 flex gap-3">
+      @if (!isPublicView) {
+        <!-- Regular MGR Creation - Always Available -->
+        <button 
+          class="bg-purple-main text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-purple-600"
+          (click)="createNewPlan()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Create Plan
+        </button>
+      } @else {
+        <!-- Public Plans View Actions -->
+        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Search Public Plans
+        </button>
+        
+        @if (canCreatePublicMgr) {
+          <button 
+            class="bg-purple-main text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-purple-600"
+            (click)="createPublicPlan()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Create Public Plan
+          </button>
+        } @else {
+          <div class="text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+            <span>Want to create public plans? </span>
+            <a href="#" class="text-purple-main hover:underline">Contact us</a>
+          </div>
+        }
+      }
     </div>
   </div>
 </div>
@@ -30,12 +65,14 @@
     <!-- Public Plans View -->
     <div class="mb-10">
       <!-- Search and Filter Bar -->
-      <div class="flex flex-wrap gap-4 mb-6">
-        <div class="relative flex-1">
+      <div class="mb-6">
+        <!-- Search Input -->
+        <div class="relative mb-4">
           <input 
             type="text" 
-            placeholder="Enter MGR plan link" 
-            class="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-lg"
+            placeholder="Search plans by name, description, or category..." 
+            [formControl]="searchControl"
+            class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
           />
           <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -44,40 +81,230 @@
             </svg>
           </button>
         </div>
-        <button class="px-4 py-2 border border-gray-300 rounded-lg flex items-center gap-2">
-          <span>Filters</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-          </svg>
-        </button>
+        
+        <!-- Filter Row 1: Frequency, Duration, Category -->
+        <div class="flex flex-wrap gap-3 mb-3">
+          <!-- Frequency Filter -->
+          <div class="flex flex-col">
+            <label class="text-xs text-gray-600 mb-1">Frequency</label>
+            <select 
+              #frequencySelect
+              (change)="updateFilter('frequency', frequencySelect.value)"
+              class="px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:border-purple-main text-sm"
+            >
+              <option value="">All Frequencies</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+          
+          <!-- Duration Filter (Total Length) -->
+          <div class="flex flex-col">
+            <label class="text-xs text-gray-600 mb-1">Duration</label>
+            <select 
+              #durationSelect
+              (change)="updateFilter('duration', durationSelect.value)"
+              class="px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:border-purple-main text-sm"
+            >
+              <option value="">All Durations</option>
+              <option value="1-3">1-3 months</option>
+              <option value="4-6">4-6 months</option>
+              <option value="7-12">7-12 months</option>
+              <option value="12+">12+ months</option>
+            </select>
+          </div>
+          
+          <!-- Category Filter -->
+          <div class="flex flex-col">
+            <label class="text-xs text-gray-600 mb-1">Category</label>
+            <select 
+              #categorySelect
+              (change)="updateFilter('category', categorySelect.value)"
+              class="px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:border-purple-main text-sm"
+            >
+              <option value="">All Categories</option>
+              <option value="savings">Savings</option>
+              <option value="investment">Investment</option>
+              <option value="business">Business</option>
+              <option value="personal">Personal</option>
+              <option value="education">Education</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Filter Row 2: Amount Range and Start Date Range -->
+        <div class="flex flex-wrap gap-3 mb-3">
+          <!-- Amount Range -->
+          <div class="flex flex-col">
+            <label class="text-xs text-gray-600 mb-1">Amount Range</label>
+            <div class="flex gap-2">
+              <input 
+                type="number" 
+                placeholder="Min"
+                #minAmountInput
+                (input)="updateFilter('min_amount', minAmountInput.value)"
+                class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main text-sm"
+              />
+              <span class="flex items-center text-gray-500">-</span>
+              <input 
+                type="number" 
+                placeholder="Max"
+                #maxAmountInput
+                (input)="updateFilter('max_amount', maxAmountInput.value)"
+                class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main text-sm"
+              />
+            </div>
+          </div>
+          
+          <!-- Start Date Range -->
+          <div class="flex flex-col">
+            <label class="text-xs text-gray-600 mb-1">Start Date Range</label>
+            <div class="flex gap-2">
+              <input 
+                type="date" 
+                #startDateFromInput
+                (change)="updateFilter('start_date_from', startDateFromInput.value)"
+                class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main text-sm"
+              />
+              <span class="flex items-center text-gray-500">to</span>
+              <input 
+                type="date" 
+                #startDateToInput
+                (change)="updateFilter('start_date_to', startDateToInput.value)"
+                class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main text-sm"
+              />
+            </div>
+          </div>
+          
+          <!-- Clear Filters Button -->
+          <div class="flex flex-col justify-end">
+            <button 
+              (click)="clearFilters()"
+              class="px-4 py-2 border border-gray-300 rounded-lg flex items-center gap-2 hover:bg-gray-50 text-sm"
+            >
+              <span>Clear All</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- Search Results Info -->
+      @if (searchFilters.search || searchFilters.frequency || searchFilters.duration || searchFilters.category || searchFilters.min_amount || searchFilters.max_amount || searchFilters.start_date_from || searchFilters.start_date_to) {
+        <div class="flex justify-between items-center mb-4 text-sm text-gray-600">
+          <span>Showing {{ publicMgrs.length }} of {{ allPublicMgrs.length }} plans</span>
+          @if (publicMgrs.length === 0) {
+            <span class="text-orange-600">No plans match your filters</span>
+          }
+        </div>
+      }
 
       <!-- Public Plans Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @for (plan of publicMgrs; track plan.id) {
-          <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+          <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
             <div class="flex items-center p-4 gap-3">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white" [style.background-color]="plan.theme_color">S.S</div>
-              <div>
-                <h3 class="font-medium">{{ plan.name }}</h3>
-                <p class="text-sm text-gray-600">{{ plan.desc }}</p>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-sm font-semibold" [style.background-color]="plan.theme_color">
+                {{ (plan.creator?.name || 'MG').substring(0, 2).toUpperCase() }}
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-900 leading-tight">{{ plan.name }}</h3>
+                <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ plan.public_description || plan.description }}</p>
               </div>
             </div>
-            <div class="border-t border-gray-100 px-4 py-3 text-sm">
-              <p class="text-gray-600">Join date deadline: <span class="font-medium">{{ plan.join_date_deadline | date: 'MMM dd, yyyy' }}</span></p>
+            
+            <!-- Plan Details -->
+            <div class="px-4 py-3 bg-gray-50 border-t border-gray-100">
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span class="text-gray-500">Amount:</span>
+                  <p class="font-medium">{{ plan.currency || 'NGN' }} {{ plan.amount | number }}</p>
+                </div>
+                <div>
+                  <span class="text-gray-500">Duration:</span>
+                  <p class="font-medium capitalize">{{ plan.duration }}</p>
+                </div>
+                <div>
+                  <span class="text-gray-500">Available Slots:</span>
+                  <p class="font-medium">{{ plan.available_slots || ((plan.total_slots || 0) - (plan.current_members || 0)) }}/{{ plan.total_slots || plan.number_of_members }}</p>
+                </div>
+                <div>
+                  <span class="text-gray-500">Status:</span>
+                  <p class="font-medium capitalize" [class]="plan.status === 'pending' ? 'text-orange-600' : 'text-green-600'">{{ plan.status }}</p>
+                </div>
+              </div>
             </div>
-            <div class="p-4 flex justify-end">
-              <a [routerLink]="['/mgr', plan.id, 'view']" class="text-purple-main flex items-center gap-1 font-medium">
-                View project
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
+            
+            <div class="border-t border-gray-100 px-4 py-3 text-sm">
+              <p class="text-gray-600">
+                Join deadline: 
+                <span class="font-medium">{{ plan.join_deadline || plan.join_date_deadline | date: 'MMM dd, yyyy' }}</span>
+              </p>
+              @if (plan.category) {
+                <p class="text-gray-600 mt-1">
+                  Category: <span class="font-medium capitalize">{{ plan.category }}</span>
+                </p>
+              }
+            </div>
+            
+            <div class="p-4 flex justify-between items-center">
+              <span class="text-xs text-gray-500">By {{ plan.creator?.name || 'Anonymous' }}</span>
+              <div class="flex gap-2">
+                <button 
+                  class="bg-purple-main text-white px-3 py-1 rounded text-sm hover:bg-purple-600 transition-colors"
+                  (click)="joinPublicPlan(plan)"
+                >
+                  Join Plan
+                </button>
+                <a [routerLink]="['/mgr', plan.id, 'view']" class="text-purple-main hover:text-purple-600 flex items-center gap-1 font-medium text-sm">
+                  View Details
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         }
       </div>
+      
+      @if (!publicMgrs.length && !loading) {
+        <div class="text-center py-12">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-gray-400">
+              @if (searchFilters.search || searchFilters.frequency || searchFilters.duration || searchFilters.category || searchFilters.min_amount || searchFilters.max_amount || searchFilters.start_date_from || searchFilters.start_date_to) {
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              } @else {
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="6" x2="12" y2="10"></line>
+                <line x1="12" y1="14" x2="12" y2="14.01"></line>
+              }
+            </svg>
+          </div>
+          @if (searchFilters.search || searchFilters.frequency || searchFilters.duration || searchFilters.category || searchFilters.min_amount || searchFilters.max_amount || searchFilters.start_date_from || searchFilters.start_date_to) {
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Plans Match Your Search</h3>
+            <p class="text-gray-600 mb-4">Try adjusting your search terms or filters to find more plans.</p>
+            <button 
+              (click)="clearFilters()"
+              class="text-purple-main hover:text-purple-600 font-medium"
+            >
+              Clear all filters
+            </button>
+          } @else {
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Public Plans Available</h3>
+            <p class="text-gray-600 mb-4">There are currently no public MGR plans available to join.</p>
+            <button class="text-purple-main hover:text-purple-600 font-medium">
+              Check back later or create your own plan
+            </button>
+          }
+        </div>
+      }
     </div>
   } @else {
     <!-- My Plans View -->

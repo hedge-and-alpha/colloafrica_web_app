@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, forkJoin } from 'rxjs';
+import { Subscription, forkJoin, debounceTime, distinctUntilChanged } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import { MGR } from '../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
+import { ModalService } from '../../../../components/modal/modal.service';
+import { PublicMgrJoinModalComponent } from './components/public-mgr-join-modal/public-mgr-join-modal.component';
 
 @Component({
   selector: 'ca-mgr',
@@ -17,25 +20,69 @@ export class MgrComponent implements OnInit, OnDestroy {
   loading = true;
   filtered = false;
   isPublicView = false;
+  canCreatePublicMgr = false;
 
   adminMgrs: MGR[] = [];
   participantMgrs: MGR[] = [];
   publicMgrs: MGR[] = [];
+  allPublicMgrs: MGR[] = []; // Store all MGRs for filtering
+
+  // Search and filter controls
+  searchControl = new FormControl('');
+  searchFilters = {
+    search: '',
+    frequency: '',
+    duration: '',
+    category: '',
+    min_amount: '',
+    max_amount: '',
+    start_date_from: '',
+    start_date_to: ''
+  };
 
   // mgrs$: Observable
   paramSub!: Subscription;
+  searchSub!: Subscription;
 
-  constructor(private router: Router, private api: DashboardApiService) {}
+  constructor(private router: Router, private api: DashboardApiService, private modalService: ModalService) {}
 
   ngOnInit() {
     // Check if we're on the public plans route
     this.isPublicView = this.router.url.includes('/public');
+    
+    // Check public MGR creation permission
+    if (this.isPublicView) {
+      this.checkPublicMgrPermission();
+    }
     
     if (this.isPublicView) {
       this.fetchPublicPlans();
     } else {
       this.fetchMgrs(this.defaultFiltervalue);
     }
+
+    // Setup search functionality for public MGRs
+    if (this.isPublicView) {
+      this.searchSub = this.searchControl.valueChanges.pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      ).subscribe(searchTerm => {
+        this.searchFilters.search = searchTerm || '';
+        this.applyFilters();
+      });
+    }
+  }
+
+  checkPublicMgrPermission() {
+    this.api.checkPublicMgrPermission().subscribe({
+      next: (response) => {
+        this.canCreatePublicMgr = response.data?.can_create || false;
+      },
+      error: (error) => {
+        console.error('Error checking public MGR permission:', error);
+        this.canCreatePublicMgr = false;
+      }
+    });
   }
 
   fetchMgrs(status?: string) {
@@ -58,159 +105,21 @@ export class MgrComponent implements OnInit, OnDestroy {
 
   fetchPublicPlans() {
     this.loading = true;
-    // For demo purposes - normally this would be a call to your API service
-    // this.api.getPublicMgrs().subscribe(...)
-    // Instead, we'll use mock data similar to the existing MGR structure
-    setTimeout(() => {
-      this.publicMgrs = [
-        {
-          id: 'pub1',
-          name: 'Lead Product Designer',
-          desc: 'Start building wealth for yourself and Reduce the stress of building capital for your business',
-          duration: 'weekly',
-          currency: 'NGN',
-          number_of_members: '10',
-          logged_user_position: 0,
-          current_cycle_number: 1,
-          amount: '5000',
-          join_date_deadline: '2025-08-28',
-          contribution_start_date: '2025-08-28',
-          allocation_date: '2025-09-04',
-          theme_color: '#4B0082',
-          allotment_type: 'random',
-          invite_link: 'https://collo.africa/mgr/pub1',
-          creator_id: 1,
-          status: 'active',
-          next_allocation_to: null,
-          user_allocations: [],
-          cycle_dates: [],
-          total_allocation: 0,
-          total_contribution: '0'
-        },
-        {
-          id: 'pub2',
-          name: 'Store Supply MGR Plan',
-          desc: 'Start building wealth for yourself and Reduce the stress of building capital for your business',
-          duration: 'monthly',
-          currency: 'NGN',
-          number_of_members: '12',
-          logged_user_position: 0,
-          current_cycle_number: 1,
-          amount: '10000',
-          join_date_deadline: '2025-08-28',
-          contribution_start_date: '2025-08-28',
-          allocation_date: '2025-09-28',
-          theme_color: '#FF6B35',
-          allotment_type: 'random',
-          invite_link: 'https://collo.africa/mgr/pub2',
-          creator_id: 2,
-          status: 'active',
-          next_allocation_to: null,
-          user_allocations: [],
-          cycle_dates: [],
-          total_allocation: 0,
-          total_contribution: '0'
-        },
-        {
-          id: 'pub3',
-          name: 'Store Supply MGR Plan',
-          desc: 'Start building wealth for yourself and Reduce the stress of building capital for your business',
-          duration: 'monthly',
-          currency: 'NGN',
-          number_of_members: '8',
-          logged_user_position: 0,
-          current_cycle_number: 1,
-          amount: '15000',
-          join_date_deadline: '2025-08-28',
-          contribution_start_date: '2025-08-28',
-          allocation_date: '2025-09-28',
-          theme_color: '#000000',
-          allotment_type: 'random',
-          invite_link: 'https://collo.africa/mgr/pub3',
-          creator_id: 3,
-          status: 'active',
-          next_allocation_to: null,
-          user_allocations: [],
-          cycle_dates: [],
-          total_allocation: 0,
-          total_contribution: '0'
-        },
-        {
-          id: 'pub4',
-          name: 'Lead Product Designer',
-          desc: 'Start building wealth for yourself and Reduce the stress of building capital for your business',
-          duration: 'weekly',
-          currency: 'NGN',
-          number_of_members: '6',
-          logged_user_position: 0,
-          current_cycle_number: 1,
-          amount: '7500',
-          join_date_deadline: '2025-08-28',
-          contribution_start_date: '2025-08-28',
-          allocation_date: '2025-09-04',
-          theme_color: '#009473',
-          allotment_type: 'random',
-          invite_link: 'https://collo.africa/mgr/pub4',
-          creator_id: 4,
-          status: 'active',
-          next_allocation_to: null,
-          user_allocations: [],
-          cycle_dates: [],
-          total_allocation: 0,
-          total_contribution: '0'
-        },
-        {
-          id: 'pub5',
-          name: 'Store Supply MGR Plan',
-          desc: 'Start building wealth for yourself and Reduce the stress of building capital for your business',
-          duration: 'daily',
-          currency: 'NGN',
-          number_of_members: '15',
-          logged_user_position: 0,
-          current_cycle_number: 1,
-          amount: '2000',
-          join_date_deadline: '2025-08-28',
-          contribution_start_date: '2025-08-28',
-          allocation_date: '2025-08-29',
-          theme_color: '#E03C31',
-          allotment_type: 'random',
-          invite_link: 'https://collo.africa/mgr/pub5',
-          creator_id: 5,
-          status: 'active',
-          next_allocation_to: null,
-          user_allocations: [],
-          cycle_dates: [],
-          total_allocation: 0,
-          total_contribution: '0'
-        },
-        {
-          id: 'pub6',
-          name: 'Store Supply MGR Plan',
-          desc: 'Start building wealth for yourself and Reduce the stress of building capital for your business',
-          duration: 'monthly',
-          currency: 'NGN',
-          number_of_members: '10',
-          logged_user_position: 0,
-          current_cycle_number: 1,
-          amount: '20000',
-          join_date_deadline: '2025-08-28',
-          contribution_start_date: '2025-08-28',
-          allocation_date: '2025-09-28',
-          theme_color: '#1877F2',
-          allotment_type: 'random',
-          invite_link: 'https://collo.africa/mgr/pub6',
-          creator_id: 6,
-          status: 'active',
-          next_allocation_to: null,
-          user_allocations: [],
-          cycle_dates: [],
-          total_allocation: 0,
-          total_contribution: '0'
-        }
-      ];
-      
-      this.loading = false;
-    }, 1000); // Simulate network delay
+    
+    this.api.getPublicMgrs().subscribe({
+      next: (response) => {
+        this.loading = false;
+        this.publicMgrs = response.data?.data || []; // Handle paginated response
+        this.allPublicMgrs = response.data?.data || []; // Store all MGRs for filtering
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error fetching public MGRs:', error);
+        // Fallback to mock data for development if API fails
+        this.publicMgrs = [];
+        this.allPublicMgrs = [];
+      }
+    });
   }
 
   handleMgrFilter(event: string) {
@@ -227,7 +136,138 @@ export class MgrComponent implements OnInit, OnDestroy {
     this.router.navigate(['/mgr', 0, 'new']);
   }
 
+  createPublicPlan() {
+    // Navigate to public MGR creation page (you might want a separate route/component for this)
+    // For now, we'll navigate to the same creation page but with a query parameter
+    this.router.navigate(['/mgr', 0, 'new'], { queryParams: { type: 'public' } });
+  }
+
+  joinPublicPlan(plan: MGR) {
+    this.modalService.open(
+      PublicMgrJoinModalComponent,
+      'small',
+      {
+        closable: true,
+        showHeading: false,
+      },
+      { plan }
+    );
+  }
+
+  applyFilters() {
+    if (!this.isPublicView) return;
+    
+    let filteredMgrs = [...this.allPublicMgrs];
+    
+    // Apply search filter
+    if (this.searchFilters.search) {
+      const searchLower = this.searchFilters.search.toLowerCase();
+      filteredMgrs = filteredMgrs.filter(mgr => 
+        mgr.name.toLowerCase().includes(searchLower) ||
+        (mgr.public_description || mgr.description || '').toLowerCase().includes(searchLower) ||
+        (mgr.category || '').toLowerCase().includes(searchLower)
+      );
+    }
+    
+    // Apply frequency filter (daily/weekly/monthly)
+    if (this.searchFilters.frequency) {
+      filteredMgrs = filteredMgrs.filter(mgr => mgr.duration === this.searchFilters.frequency);
+    }
+    
+    // Apply duration filter (total length like 3 months, 6 months)
+    if (this.searchFilters.duration) {
+      filteredMgrs = filteredMgrs.filter(mgr => {
+        // Calculate total duration based on frequency and member count
+        const totalSlots = mgr.total_slots || parseInt(mgr.number_of_members);
+        const frequency = mgr.duration;
+        
+        // Convert to approximate months for comparison
+        let durationInMonths = 0;
+        if (frequency === 'daily') {
+          durationInMonths = totalSlots / 30; // Approximate days to months
+        } else if (frequency === 'weekly') {
+          durationInMonths = totalSlots / 4; // Approximate weeks to months
+        } else if (frequency === 'monthly') {
+          durationInMonths = totalSlots;
+        }
+        
+        // Filter based on selected duration range
+        const selectedDuration = this.searchFilters.duration;
+        if (selectedDuration === '1-3') return durationInMonths >= 1 && durationInMonths <= 3;
+        if (selectedDuration === '4-6') return durationInMonths >= 4 && durationInMonths <= 6;
+        if (selectedDuration === '7-12') return durationInMonths >= 7 && durationInMonths <= 12;
+        if (selectedDuration === '12+') return durationInMonths > 12;
+        
+        return true;
+      });
+    }
+    
+    // Apply category filter
+    if (this.searchFilters.category) {
+      filteredMgrs = filteredMgrs.filter(mgr => mgr.category === this.searchFilters.category);
+    }
+    
+    // Apply amount filters
+    if (this.searchFilters.min_amount) {
+      const minAmount = parseFloat(this.searchFilters.min_amount);
+      filteredMgrs = filteredMgrs.filter(mgr => parseFloat(mgr.amount) >= minAmount);
+    }
+    
+    if (this.searchFilters.max_amount) {
+      const maxAmount = parseFloat(this.searchFilters.max_amount);
+      filteredMgrs = filteredMgrs.filter(mgr => parseFloat(mgr.amount) <= maxAmount);
+    }
+    
+    // Apply start date range filters
+    if (this.searchFilters.start_date_from) {
+      const startDateFrom = new Date(this.searchFilters.start_date_from);
+      filteredMgrs = filteredMgrs.filter(mgr => {
+        const mgrStartDate = new Date(mgr.contribution_start_date);
+        return mgrStartDate >= startDateFrom;
+      });
+    }
+    
+    if (this.searchFilters.start_date_to) {
+      const startDateTo = new Date(this.searchFilters.start_date_to);
+      filteredMgrs = filteredMgrs.filter(mgr => {
+        const mgrStartDate = new Date(mgr.contribution_start_date);
+        return mgrStartDate <= startDateTo;
+      });
+    }
+    
+    this.publicMgrs = filteredMgrs;
+  }
+
+  updateFilter(filterKey: keyof typeof this.searchFilters, value: string) {
+    this.searchFilters[filterKey] = value;
+    this.applyFilters();
+  }
+
+  clearFilters() {
+    this.searchFilters = {
+      search: '',
+      frequency: '',
+      duration: '',
+      category: '',
+      min_amount: '',
+      max_amount: '',
+      start_date_from: '',
+      start_date_to: ''
+    };
+    this.searchControl.setValue('');
+    
+    // Reset all select and input elements
+    const selects = document.querySelectorAll('select');
+    const inputs = document.querySelectorAll('input[type="number"], input[type="date"]');
+    
+    selects.forEach(select => (select as HTMLSelectElement).value = '');
+    inputs.forEach(input => (input as HTMLInputElement).value = '');
+    
+    this.publicMgrs = [...this.allPublicMgrs];
+  }
+
   ngOnDestroy(): void {
     this.paramSub?.unsubscribe();
+    this.searchSub?.unsubscribe();
   }
 }
