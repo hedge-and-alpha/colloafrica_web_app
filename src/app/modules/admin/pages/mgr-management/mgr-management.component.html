@@ -1,0 +1,30 @@
+<div class="mgr-management">
+  <h1>MGR Management</h1>
+  <p>Manage and approve MGRs on the platform</p>
+  
+  <div class="status-filters">
+    <button (click)="onStatusChange('all')" [class.active]="selectedStatus === 'all'">All</button>
+    <button (click)="onStatusChange('pending')" [class.active]="selectedStatus === 'pending'">Pending</button>
+    <button (click)="onStatusChange('active')" [class.active]="selectedStatus === 'active'">Active</button>
+  </div>
+
+  @if (loading) {
+    <p>Loading MGRs...</p>
+  } @else {
+    <div class="mgr-list">
+      @for (mgr of mgrs; track mgr.id) {
+        <div class="mgr-item">
+          <h3>{{ mgr.name }}</h3>
+          <p>Status: {{ mgr.status }}</p>
+          <p>Creator: {{ mgr.creator }}</p>
+          @if (mgr.status === 'pending') {
+            <div class="actions">
+              <button (click)="approveMgr(mgr.id)" class="approve-btn">Approve</button>
+              <button (click)="rejectMgr(mgr.id)" class="reject-btn">Reject</button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div> 

@@ -374,6 +374,14 @@ export class DashboardApiService {
     return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/join`, data);
   }
 
+  getPublicMgrPositions(id: string) {
+    return this.http.get<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/positions`);
+  }
+
+  checkJoinEligibility(id: string) {
+    return this.http.get<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/eligibility`);
+  }
+
   createPublicMgr(data: any) {
     return this.http.post<ApiResponse & { data: MGR }>(`${this.#baseUrl}/mgr/public`, data);
   }

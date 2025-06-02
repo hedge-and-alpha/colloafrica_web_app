@@ -104,6 +104,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { MgrDetailsModule } from './pages/mgr-details/mgr-details.module';
 import { MgrCreateWizardComponent } from './components/mgr-create-wizard/mgr-create-wizard.component';
+import { PositionSelectorComponent } from './pages/mgr/components/position-selector/position-selector.component';
 
 @NgModule({
   declarations: [
@@ -165,6 +166,7 @@ import { MgrCreateWizardComponent } from './components/mgr-create-wizard/mgr-cre
     ChangePositionComponent,
     MgrCreateWizardComponent,
     PublicMgrJoinModalComponent,
+    PositionSelectorComponent,
   ],
   imports: [
     CommonModule,
