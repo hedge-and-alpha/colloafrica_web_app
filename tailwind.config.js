@@ -15,6 +15,7 @@ module.exports = {
       },
       fontFamily: {
         ubuntu: ["Ubuntu"],
+        albert: ["Albert Sans", "sans-serif"],
       },
     },
   },
