@@ -32,6 +32,11 @@ export class AdminSidebarComponent {
       icon: 'users'
     },
     {
+      path: '/admin/transaction-management',
+      label: 'Transaction Management',
+      icon: 'transactions'
+    },
+    {
       path: '/admin/analytics',
       label: 'Analytics',
       icon: 'analytics'

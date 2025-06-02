@@ -1,7 +1,40 @@
 <div class="admin-dashboard">
   <div class="dashboard-header">
-    <h1 class="page-title">Admin Dashboard</h1>
-    <p class="page-subtitle">Overview of platform activity and key metrics</p>
+    <div class="header-content">
+      <div class="header-text">
+        <h1 class="page-title">Admin Dashboard</h1>
+        <p class="page-subtitle">Real-time platform insights and analytics</p>
+      </div>
+      <div class="header-actions">
+        <button class="refresh-btn" (click)="refreshDashboard()" [disabled]="loading">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          Refresh
+        </button>
+      </div>
+    </div>
+    
+    @if (realTimeMetrics) {
+      <div class="real-time-metrics">
+        <div class="metric-item">
+          <span class="metric-label">Active Users</span>
+          <span class="metric-value">{{ realTimeMetrics.activeUsers }}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Ongoing Contributions</span>
+          <span class="metric-value">{{ realTimeMetrics.ongoingContributions }}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Pending Approvals</span>
+          <span class="metric-value">{{ realTimeMetrics.pendingApprovals }}</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">System Health</span>
+          <span class="metric-value">{{ realTimeMetrics.systemHealth }}%</span>
+        </div>
+      </div>
+    }
   </div>
 
   @if (loading) {
@@ -9,108 +42,182 @@
       <div class="loading-spinner"></div>
       <p>Loading dashboard data...</p>
     </div>
-  } @else if (analytics) {
+  } @else if (dashboardStats) {
     <div class="dashboard-content">
-      <!-- Stats Cards -->
+      <!-- Enhanced Stats Cards -->
       <div class="stats-grid">
-        <div class="stat-card">
+        <div class="stat-card primary">
           <div class="stat-icon users">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
             </svg>
           </div>
           <div class="stat-content">
-            <h3 class="stat-value">{{ analytics.totalUsers | number }}</h3>
+            <h3 class="stat-value">{{ dashboardStats.totalUsers | number }}</h3>
             <p class="stat-label">Total Users</p>
+            <div class="stat-trend">
+              <span class="trend-indicator" [class]="getMetricTrendClass(dashboardStats.userGrowthRate)">
+                {{ getMetricTrendIcon(dashboardStats.userGrowthRate) }}{{ formatPercentage(dashboardStats.userGrowthRate) }}
+              </span>
+              <span class="trend-text">vs last month</span>
+            </div>
           </div>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card success">
           <div class="stat-icon mgrs">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
           </div>
           <div class="stat-content">
-            <h3 class="stat-value">{{ analytics.totalMgrs | number }}</h3>
+            <h3 class="stat-value">{{ dashboardStats.totalMgrs | number }}</h3>
             <p class="stat-label">Total MGRs</p>
+            <div class="stat-detail">
+              <span>{{ dashboardStats.activeMgrs }} Active • {{ dashboardStats.completedMgrs }} Completed</span>
+            </div>
           </div>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-icon active">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-          </div>
-          <div class="stat-content">
-            <h3 class="stat-value">{{ analytics.activeMgrs | number }}</h3>
-            <p class="stat-label">Active MGRs</p>
-          </div>
-        </div>
-
-        <div class="stat-card">
+        <div class="stat-card warning">
           <div class="stat-icon pending">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
           <div class="stat-content">
-            <h3 class="stat-value">{{ analytics.pendingMgrs | number }}</h3>
-            <p class="stat-label">Pending MGRs</p>
+            <h3 class="stat-value">{{ dashboardStats.pendingMgrs | number }}</h3>
+            <p class="stat-label">Pending Approvals</p>
+            <div class="stat-detail">
+              <span>Requires admin review</span>
+            </div>
           </div>
         </div>
 
-        <div class="stat-card wide">
+        <div class="stat-card info">
+          <div class="stat-icon performance">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-value">{{ formatPercentage(dashboardStats.successRate) }}</h3>
+            <p class="stat-label">Success Rate</p>
+            <div class="stat-detail">
+              <span>Avg. {{ dashboardStats.avgMgrSize }} members per MGR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card revenue wide">
           <div class="stat-icon revenue">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
             </svg>
           </div>
           <div class="stat-content">
-            <h3 class="stat-value">{{ analytics.totalContributions }}</h3>
+            <h3 class="stat-value">{{ formatCurrency(dashboardStats.totalContributions) }}</h3>
             <p class="stat-label">Total Contributions</p>
             <div class="stat-growth">
-              <span class="growth-indicator positive">+{{ analytics.monthlyGrowth }}%</span>
+              <span class="growth-indicator positive">+{{ formatPercentage(dashboardStats.monthlyGrowth) }}</span>
               <span class="growth-text">vs last month</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Recent Activity -->
-      <div class="activity-section">
-        <h2 class="section-title">Recent Activity</h2>
-        <div class="activity-list">
-          @for (activity of analytics.recentActivity; track $index) {
-            <div class="activity-item">
-              <div class="activity-icon" [class]="activity.type">
-                @switch (activity.type) {
-                  @case ('mgr_created') {
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                  }
-                  @case ('user_joined') {
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                    </svg>
-                  }
-                  @case ('mgr_completed') {
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                  }
-                }
-              </div>
-              <div class="activity-content">
-                <p class="activity-message">{{ activity.message }}</p>
-                <span class="activity-time">{{ activity.time }}</span>
-              </div>
+      <!-- Chart Widgets Section -->
+      <div class="charts-section">
+        <div class="chart-row">
+          @if (mgrTrendsChartData) {
+            <div class="chart-container">
+              <ca-chart-widget
+                type="area"
+                [data]="mgrTrendsChartData"
+                title="MGR Trends"
+                [height]="300">
+              </ca-chart-widget>
+            </div>
+          }
+          
+          @if (mgrStatusChartData) {
+            <div class="chart-container">
+              <ca-chart-widget
+                type="doughnut"
+                [data]="mgrStatusChartData"
+                title="MGR Status Distribution"
+                [height]="300">
+              </ca-chart-widget>
+            </div>
+          }
+        </div>
+
+        <div class="chart-row">
+          @if (userRegistrationChartData) {
+            <div class="chart-container">
+              <ca-chart-widget
+                type="line"
+                [data]="userRegistrationChartData"
+                title="User Registration Trends"
+                [height]="300">
+              </ca-chart-widget>
+            </div>
+          }
+          
+          @if (revenueChartData) {
+            <div class="chart-container">
+              <ca-chart-widget
+                type="bar"
+                [data]="revenueChartData"
+                title="Revenue & Commissions"
+                [height]="300">
+              </ca-chart-widget>
             </div>
           }
         </div>
       </div>
+
+      <!-- Performance Metrics -->
+      @if (mgrAnalytics) {
+        <div class="performance-section">
+          <h2 class="section-title">Performance Metrics</h2>
+          <div class="performance-grid">
+            @for (metric of mgrAnalytics.performanceMetrics; track metric.metric) {
+              <div class="performance-card">
+                <div class="performance-content">
+                  <h3 class="performance-value">{{ metric.value }}{{ metric.metric === 'Average Duration' ? ' months' : '%' }}</h3>
+                  <p class="performance-label">{{ metric.metric }}</p>
+                  <div class="performance-trend">
+                    <span class="trend-indicator" [class]="getMetricTrendClass(metric.trend)">
+                      {{ getMetricTrendIcon(metric.trend) }}{{ formatPercentage(Math.abs(metric.trend)) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Top Performers -->
+      @if (userAnalytics?.topPerformers) {
+        <div class="top-performers-section">
+          <h2 class="section-title">Top Performers</h2>
+          <div class="performers-list">
+            @for (performer of userAnalytics.topPerformers; track performer.name) {
+              <div class="performer-card">
+                <div class="performer-info">
+                  <h3 class="performer-name">{{ performer.name }}</h3>
+                  <p class="performer-stats">{{ performer.mgrsCreated }} MGRs Created</p>
+                </div>
+                <div class="performer-value">
+                  <span class="contribution-amount">{{ formatCurrency(performer.totalContributions) }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
     </div>
   }
 </div> 

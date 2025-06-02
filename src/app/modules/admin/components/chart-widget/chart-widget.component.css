@@ -1,0 +1,210 @@
+.chart-widget {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-title {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.chart-title h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.chart-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-svg {
+  width: 100%;
+  height: calc(100% - 40px);
+  min-height: 200px;
+}
+
+.chart-line {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  animation: drawLine 1.5s ease-in-out;
+}
+
+.chart-point {
+  cursor: pointer;
+  transition: r 0.2s ease;
+}
+
+.chart-point:hover {
+  r: 4;
+}
+
+.chart-bar {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  animation: growBar 1s ease-out;
+}
+
+.chart-bar:hover {
+  opacity: 0.8;
+}
+
+.chart-area {
+  opacity: 0.6;
+  animation: fadeInArea 1.5s ease-in-out;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0 0 0;
+  margin-top: auto;
+}
+
+.chart-label {
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  flex: 1;
+}
+
+/* Doughnut chart styles */
+.doughnut-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 100%;
+}
+
+.doughnut-svg {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.doughnut-segment {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  animation: expandSegment 1s ease-out;
+}
+
+.doughnut-segment:hover {
+  transform: scale(1.02);
+  transform-origin: center;
+}
+
+.doughnut-legend {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  font-size: 14px;
+  color: #475569;
+}
+
+/* Animations */
+@keyframes drawLine {
+  from {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes growBar {
+  from {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  to {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes fadeInArea {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes expandSegment {
+  from {
+    transform: scale(0);
+    transform-origin: center;
+  }
+  to {
+    transform: scale(1);
+    transform-origin: center;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chart-widget {
+    padding: 16px;
+  }
+  
+  .doughnut-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .doughnut-svg {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .chart-title h3 {
+    font-size: 16px;
+  }
+  
+  .chart-labels {
+    gap: 4px;
+  }
+  
+  .chart-label {
+    font-size: 10px;
+  }
+}
+
+/* Tooltip styles */
+.chart-point title,
+.chart-bar title,
+.doughnut-segment title {
+  font-size: 12px;
+} 

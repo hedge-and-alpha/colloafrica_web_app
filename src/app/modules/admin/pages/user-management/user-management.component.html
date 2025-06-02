@@ -1,4 +1,358 @@
-<div class="user-management">
-  <h1>User Management</h1>
-  <p>Manage pilot users and permissions</p>
-</div> 
+<!-- User Management Page -->
+<div class="user-management-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <h1>User Management</h1>
+        <p class="header-subtitle">Manage and monitor platform users, KYC verification, and account statuses</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" (click)="exportAllUsers()">
+          <i class="icon-download"></i> Export CSV
+        </button>
+        <button class="btn btn-primary" (click)="exportAsExcel()">
+          <i class="icon-excel"></i> Export Excel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="filters-row">
+      <!-- Search -->
+      <div class="filter-group">
+        <label>Search Users</label>
+        <div class="search-box">
+          <input 
+            type="text" 
+            [(ngModel)]="filters.search" 
+            (input)="onSearchChange()"
+            placeholder="Search by name, email, or phone"
+            class="form-control">
+          <i class="icon-search"></i>
+        </div>
+      </div>
+
+      <!-- Status Filter -->
+      <div class="filter-group">
+        <label>Status</label>
+        <select [(ngModel)]="filters.status" (change)="onFilterChange()" class="form-control">
+          <option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Verification Level Filter -->
+      <div class="filter-group">
+        <label>Verification Level</label>
+        <select [(ngModel)]="filters.verificationLevel" (change)="onFilterChange()" class="form-control">
+          <option *ngFor="let option of verificationOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Risk Level Filter -->
+      <div class="filter-group">
+        <label>Risk Level</label>
+        <select [(ngModel)]="filters.riskLevel" (change)="onFilterChange()" class="form-control">
+          <option *ngFor="let option of riskOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filters-row">
+      <!-- Credit Score Range -->
+      <div class="filter-group">
+        <label>Credit Score Range</label>
+        <div class="range-inputs">
+          <input 
+            type="number" 
+            [(ngModel)]="filters.creditScoreRange!.min" 
+            (change)="onFilterChange()"
+            placeholder="Min" 
+            class="form-control"
+            min="0" 
+            max="1000">
+          <span>to</span>
+          <input 
+            type="number" 
+            [(ngModel)]="filters.creditScoreRange!.max" 
+            (change)="onFilterChange()"
+            placeholder="Max" 
+            class="form-control"
+            min="0" 
+            max="1000">
+        </div>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="filter-group">
+        <label>Sort By</label>
+        <div class="sort-controls">
+          <select [(ngModel)]="filters.sortBy" (change)="onSortChange()" class="form-control">
+            <option *ngFor="let option of sortOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <button 
+            class="btn btn-secondary sort-direction" 
+            (click)="filters.sortOrder = filters.sortOrder === 'asc' ? 'desc' : 'asc'; onSortChange()">
+            <i [class]="'icon-arrow-' + (filters.sortOrder === 'asc' ? 'up' : 'down')"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Clear Filters -->
+      <div class="filter-group">
+        <label>&nbsp;</label>
+        <button class="btn btn-outline" (click)="clearFilters()">
+          <i class="icon-refresh"></i> Clear Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Actions Bar -->
+  <div class="bulk-actions-bar" *ngIf="selectedUsers.size > 0">
+    <div class="selected-info">
+      <span>{{ selectedUsers.size }} user(s) selected</span>
+    </div>
+    <div class="bulk-actions">
+      <button 
+        *ngFor="let action of bulkActions"
+        class="btn"
+        [ngClass]="action.class"
+        (click)="executeBulkAction(action.value)">
+        {{ action.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="users-table-container">
+    <!-- Loading State -->
+    <div class="loading-overlay" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading users...</p>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive" *ngIf="!loading">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th class="checkbox-col">
+              <input 
+                type="checkbox" 
+                [checked]="allUsersSelected"
+                [indeterminate]="someUsersSelected"
+                (change)="toggleAllUsers()">
+            </th>
+            <th class="user-col">User</th>
+            <th class="status-col">Status</th>
+            <th class="verification-col">Verification</th>
+            <th class="credit-col">Credit Score</th>
+            <th class="risk-col">Risk Level</th>
+            <th class="mgrs-col">MGRs</th>
+            <th class="contributions-col">Contributions</th>
+            <th class="activity-col">Last Activity</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let user of users" 
+            class="user-row"
+            [class.selected]="isUserSelected(user.id)"
+            (click)="openUserDetails(user.id)">
+            
+            <!-- Selection Checkbox -->
+            <td class="checkbox-cell" (click)="$event.stopPropagation()">
+              <input 
+                type="checkbox" 
+                [checked]="isUserSelected(user.id)"
+                (change)="toggleUserSelection(user.id)">
+            </td>
+
+            <!-- User Info -->
+            <td class="user-cell">
+              <div class="user-info">
+                <div class="user-avatar">
+                  <img [src]="user.profilePicture" *ngIf="user.profilePicture" [alt]="user.name">
+                  <div class="avatar-placeholder" *ngIf="!user.profilePicture">
+                    {{ user.name.charAt(0) }}
+                  </div>
+                </div>
+                <div class="user-details">
+                  <div class="user-name">{{ user.name }}</div>
+                  <div class="user-email">{{ user.email }}</div>
+                  <div class="user-phone">{{ user.phone }}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Status -->
+            <td class="status-cell">
+              <span class="status-badge" [ngClass]="getStatusClass(user.status)">
+                {{ user.status | titlecase }}
+              </span>
+            </td>
+
+            <!-- Verification Level -->
+            <td class="verification-cell">
+              <span class="verification-badge" [ngClass]="getVerificationClass(user.verificationLevel)">
+                {{ getVerificationLabel(user.verificationLevel) }}
+              </span>
+            </td>
+
+            <!-- Credit Score -->
+            <td class="credit-cell">
+              <div class="credit-score">
+                <div class="score-circle">
+                  <svg width="40" height="40" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="18" stroke="#f3f4f6" stroke-width="2" fill="none"></circle>
+                    <circle cx="20" cy="20" r="18" 
+                            [attr.stroke]="getCreditScoreClass(user.creditScore)"
+                            stroke-width="2" 
+                            fill="none"
+                            stroke-linecap="round"
+                            [attr.stroke-dasharray]="2 * Math.PI * 18"
+                            [attr.stroke-dashoffset]="2 * Math.PI * 18 * (1 - user.creditScore / 1000)">
+                    </circle>
+                  </svg>
+                  <div class="score-text">{{ user.creditScore }}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Risk Level -->
+            <td class="risk-cell">
+              <span class="risk-badge" [ngClass]="getRiskClass(user.riskLevel)">
+                {{ user.riskLevel | titlecase }}
+              </span>
+            </td>
+
+            <!-- MGRs -->
+            <td class="mgrs-cell">
+              <div class="mgr-count">{{ user.totalMgrs }}</div>
+            </td>
+
+            <!-- Contributions -->
+            <td class="contributions-cell">
+              <div class="contribution-amount">{{ formatCurrency(user.totalContributions) }}</div>
+            </td>
+
+            <!-- Last Activity -->
+            <td class="activity-cell">
+              <div class="activity-info">
+                <div class="last-login">{{ formatDate(user.lastLoginAt) }}</div>
+                <div class="location">{{ user.location }}</div>
+              </div>
+            </td>
+
+            <!-- Actions -->
+            <td class="actions-cell" (click)="$event.stopPropagation()">
+              <div class="action-buttons">
+                <button 
+                  class="btn btn-sm btn-primary" 
+                  (click)="openUserDetails(user.id)"
+                  title="View Details">
+                  <i class="icon-eye"></i>
+                </button>
+                <button 
+                  *ngIf="user.status === 'active' || user.status === 'verified'"
+                  class="btn btn-sm btn-warning" 
+                  (click)="quickSuspend(user.id, $event)"
+                  title="Suspend User">
+                  <i class="icon-ban"></i>
+                </button>
+                <button 
+                  *ngIf="user.status === 'suspended'"
+                  class="btn btn-sm btn-success" 
+                  (click)="quickActivate(user.id, $event)"
+                  title="Activate User">
+                  <i class="icon-check"></i>
+                </button>
+                <button 
+                  class="btn btn-sm btn-secondary" 
+                  (click)="resetUserPassword(user.id, $event)"
+                  title="Reset Password">
+                  <i class="icon-key"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="users.length === 0">
+        <div class="empty-icon">
+          <i class="icon-users"></i>
+        </div>
+        <h3>No Users Found</h3>
+        <p>No users match your current filters. Try adjusting your search criteria.</p>
+        <button class="btn btn-primary" (click)="clearFilters()">Clear Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="users.length > 0">
+    <div class="pagination-info">
+      <span>Showing {{ (currentPage - 1) * filters.perPage! + 1 }} to {{ Math.min(currentPage * filters.perPage!, totalUsers) }} of {{ totalUsers }} users</span>
+    </div>
+    
+    <div class="pagination-controls">
+      <!-- Items per page -->
+      <div class="per-page-selector">
+        <label>Show:</label>
+        <select [(ngModel)]="filters.perPage" (change)="onPerPageChange()" class="form-control">
+          <option *ngFor="let option of perPageOptions" [value]="option">{{ option }}</option>
+        </select>
+        <span>per page</span>
+      </div>
+
+      <!-- Page Navigation -->
+      <div class="page-navigation">
+        <button 
+          class="btn btn-secondary" 
+          [disabled]="currentPage === 1"
+          (click)="onPageChange(currentPage - 1)">
+          <i class="icon-chevron-left"></i> Previous
+        </button>
+        
+        <div class="page-numbers">
+          <button 
+            *ngFor="let page of getPaginationPages()" 
+            class="btn"
+            [ngClass]="page === currentPage ? 'btn-primary' : 'btn-outline'"
+            (click)="onPageChange(page)">
+            {{ page }}
+          </button>
+        </div>
+        
+        <button 
+          class="btn btn-secondary" 
+          [disabled]="currentPage === totalPages"
+          (click)="onPageChange(currentPage + 1)">
+          Next <i class="icon-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- User Details Modal -->
+<app-user-details
+  [userId]="selectedUserId"
+  [isOpen]="showUserDetails"
+  (onClose)="closeUserDetails()"
+  (onUserUpdated)="onUserUpdated()">
+</app-user-details> 

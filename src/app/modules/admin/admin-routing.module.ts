@@ -4,6 +4,7 @@ import { AdminLayoutComponent } from './components/admin-layout/admin-layout.com
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { MgrManagementComponent } from './pages/mgr-management/mgr-management.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { TransactionManagementComponent } from './pages/transaction-management/transaction-management.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { adminGuard } from '../../guards/admin/admin.guard';
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: 'user-management', 
         component: UserManagementComponent
+      },
+      {
+        path: 'transaction-management',
+        component: TransactionManagementComponent
       },
       {
         path: 'analytics',
