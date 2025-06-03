@@ -281,12 +281,135 @@ export class UserDetailsComponent implements OnInit {
   }
 
   // Utility Methods
-  formatCurrency(amount: number): string {
+  formatCurrency(amount: number | undefined): string {
     return new Intl.NumberFormat('en-NG', {
       style: 'currency',
       currency: 'NGN',
-      minimumFractionDigits: 0
-    }).format(amount);
+      minimumFractionDigits: 2
+    }).format(amount || 0);
+  }
+
+  getTransactionValue(property: 'totalDeposits' | 'totalWithdrawals' | 'totalContributions' | 'totalReceived'): number {
+    if (!this.user || !this.user.financialInfo || !this.user.financialInfo.transactionSummary) {
+      return 0;
+    }
+    return this.user.financialInfo.transactionSummary[property] || 0;
+  }
+  
+  // Helper method to safely get KYC verification date
+  getVerifiedAt(): string {
+    if (!this.user || !this.user.kycInfo) {
+      return '';
+    }
+    return this.user.kycInfo.verifiedAt || '';
+  }
+  
+  // Helper method to safely get KYC rejection reason
+  getRejectionReason(): string {
+    if (!this.user || !this.user.kycInfo) {
+      return '';
+    }
+    return this.user.kycInfo.rejectionReason || '';
+  }
+  
+  // Helper method to safely get KYC verified by
+  getVerifiedBy(): string {
+    if (!this.user || !this.user.kycInfo) {
+      return '';
+    }
+    return this.user.kycInfo.verifiedBy || '';
+  }
+  
+  // Helper method to safely get KYC verification status
+  getVerificationStatus(): string {
+    if (!this.user || !this.user.kycInfo) {
+      return '';
+    }
+    return this.user.kycInfo.verificationStatus || '';
+  }
+  
+  // Helper method to safely get KYC documents
+  getKycDocuments(): any[] {
+    if (!this.user || !this.user.kycInfo || !this.user.kycInfo.documents) {
+      return [];
+    }
+    return this.user.kycInfo.documents;
+  }
+  
+  // Helper method to safely get next of kin info
+  getNextOfKin(property: 'name' | 'relationship' | 'phone' | 'email'): string {
+    if (!this.user || !this.user.kycInfo || !this.user.kycInfo.nextOfKin) {
+      return '';
+    }
+    return this.user.kycInfo.nextOfKin[property] || '';
+  }
+  
+  // Helper method to safely get verification level
+  getVerificationLevel(): string {
+    if (!this.user) {
+      return '';
+    }
+    return this.user.verificationLevel || '';
+  }
+  
+  // Helper method to safely get personal info
+  getPersonalInfo(property: 'employer' | 'monthlyIncome' | 'gender' | 'occupation' | 'firstName' | 'middleName' | 'lastName' | 'dateOfBirth' | string): any {
+    if (!this.user || !this.user.personalInfo) {
+      return '';
+    }
+    
+    // Use type assertion to tell TypeScript this is a valid access
+    // or handle specific properties explicitly
+    const personalInfo = this.user.personalInfo as Record<string, any>;
+    return personalInfo[property] ?? '';
+  }
+  
+  // Helper method to safely get address info
+  getAddressInfo(property: 'street' | 'city' | 'state' | 'country' | 'postalCode'): string {
+    if (!this.user || !this.user.personalInfo || !this.user.personalInfo.address) {
+      return '';
+    }
+    return this.user.personalInfo.address[property] || '';
+  }
+  
+  // Helper method to safely get user basic info
+  getUserInfo(property: 'name' | 'email' | 'phone' | 'profilePicture' | 'status' | 'riskLevel' | 'totalMgrs' | 'totalContributions' | 'joinedAt' | 'lastLoginAt' | 'location' | 'creditScore'): any {
+    if (!this.user) {
+      return property === 'creditScore' ? 0 : '';
+    }
+    return this.user[property];
+  }
+  
+  // Helper method to safely get bank accounts
+  getBankAccounts(): any[] {
+    if (!this.user || !this.user.financialInfo || !this.user.financialInfo.bankAccounts) {
+      return [];
+    }
+    return this.user.financialInfo.bankAccounts;
+  }
+  
+  // Helper method to safely get credit history
+  getCreditHistory(): any[] {
+    if (!this.user || !this.user.financialInfo || !this.user.financialInfo.creditHistory) {
+      return [];
+    }
+    return this.user.financialInfo.creditHistory;
+  }
+  
+  // Helper method to safely get activity log
+  getActivityLog(): any[] {
+    if (!this.user || !this.user.activityLog) {
+      return [];
+    }
+    return this.user.activityLog;
+  }
+  
+  // Helper method to safely get MGR participation
+  getMgrParticipation(): any[] {
+    if (!this.user || !this.user.mgrParticipation) {
+      return [];
+    }
+    return this.user.mgrParticipation;
   }
 
   formatDate(dateString: string): string {

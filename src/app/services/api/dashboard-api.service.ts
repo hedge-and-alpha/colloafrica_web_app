@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, pipe, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -228,10 +228,37 @@ export class DashboardApiService {
   /********************** Account end **********************/
 
   /********************** MGR start **********************/
-  createMGR(data: object) {
+  createMGR(data: any) {
+    // Create a completely new object with only the required fields
+    // This avoids any potential issues with object references or nested properties
+    const payload = {
+      name: String(data.name || ''),
+      desc: String(data.desc || ''),
+      amount: Number(data.amount || 0),
+      duration: String(data.duration || 'monthly'),
+      number_of_members: Number(data.number_of_members || 3),
+      join_date_deadline: String(data.join_date_deadline || ''),
+      contribution_start_date: String(data.contribution_start_date || ''),
+      allocation_date: String(data.allocation_date || ''),
+      allotment_type: String(data.allotment_type || 'auto'),
+      slot_number: data.slot_number ? Number(data.slot_number) : null,
+      theme_color: String(data.theme_color || ''),
+      is_public: Boolean(data.is_public)
+    };
+    
+    // Log the final payload for debugging
+    console.log('API Service - Final payload for createMGR:', JSON.stringify(payload, null, 2));
+    
+    // Use HttpHeaders to ensure proper content type
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    
+    // Use a more explicit approach with stringification
     return this.http.post<ApiResponse & { data: MGR }>(
       `${this.#baseUrl}/mgr`,
-      data
+      JSON.stringify(payload),
+      { headers: headers }
     );
   }
 
@@ -383,7 +410,38 @@ export class DashboardApiService {
   }
 
   createPublicMgr(data: any) {
-    return this.http.post<ApiResponse & { data: MGR }>(`${this.#baseUrl}/mgr/public`, data);
+    // Create a clean payload with explicit string conversions
+    const payload = {
+      // CRITICAL: Ensure name is explicitly a string
+      name: '' + (data.name || ''),  // Force string conversion with concatenation
+      desc: '' + (data.desc || ''),
+      duration: '' + (data.duration || 'monthly'),
+      number_of_members: Number(data.number_of_members || 3),
+      amount: Number(data.amount || 0),
+      join_date_deadline: '' + (data.join_date_deadline || ''),
+      contribution_start_date: '' + (data.contribution_start_date || ''),
+      allocation_date: '' + (data.allocation_date || ''),
+      allotment_type: String(data.allotment_type || 'auto'),
+      slot_number: data.slot_number ? Number(data.slot_number) : null,
+      theme_color: '' + (data.theme_color || ''),
+      is_public: Boolean(data.is_public),
+      public_description: '' + (data.public_description || '')
+    };
+    
+    // Log the final payload for debugging
+    console.log('API Service - Final payload for createPublicMgr:', JSON.stringify(payload, null, 2));
+    
+    // Use explicit content type and manual serialization to ensure proper format
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    
+    // Send as a raw JSON string to avoid any automatic transformations
+    return this.http.post<ApiResponse & { data: MGR }>(
+      `${this.#baseUrl}/mgr/public`,
+      payload,
+      { headers: headers }
+    );
   }
 
   checkPublicMgrPermission() {

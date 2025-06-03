@@ -2,34 +2,34 @@
   <h2 class="text-xl font-semibold mb-4">Join MGR Plan</h2>
   
   <div class="mb-4">
-    <h3 class="font-medium text-gray-900">{{ data?.plan?.name }}</h3>
-    <p class="text-sm text-gray-600 mt-1">{{ data?.plan?.public_description || data?.plan?.description }}</p>
+    <h3 class="font-medium text-gray-900">{{ data.plan.name }}</h3>
+    <p class="text-sm text-gray-600 mt-1">{{ data.plan.public_description || data.plan.description }}</p>
   </div>
 
   <div class="bg-gray-50 p-4 rounded-lg mb-6">
     <div class="grid grid-cols-2 gap-4 text-sm">
       <div>
         <span class="text-gray-500">Amount:</span>
-        <p class="font-medium">{{ data?.plan?.currency || 'NGN' }} {{ data?.plan?.amount | number }}</p>
+        <p class="font-medium">{{ data.plan.currency || 'NGN' }} {{ data.plan.amount | number }}</p>
       </div>
       <div>
         <span class="text-gray-500">Duration:</span>
-        <p class="font-medium capitalize">{{ data?.plan?.duration }}</p>
+        <p class="font-medium capitalize">{{ data.plan.duration }}</p>
       </div>
       <div>
         <span class="text-gray-500">Available Slots:</span>
-        <p class="font-medium">{{ data?.plan?.available_slots }}/{{ data?.plan?.total_slots }}</p>
+        <p class="font-medium">{{ data.plan.available_slots }}/{{ data.plan.total_slots }}</p>
       </div>
       <div>
         <span class="text-gray-500">Status:</span>
-        <p class="font-medium capitalize text-green-600">{{ data?.plan?.status }}</p>
+        <p class="font-medium capitalize text-green-600">{{ data.plan.status }}</p>
       </div>
     </div>
   </div>
 
   <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
     <!-- Position Selection Section -->
-    <div class="mb-6" *ngIf="data?.plan?.allotment_type === 'manual' && data.plan">
+    <div class="mb-6" *ngIf="data.plan.allotment_type === 'manual'">
       <ca-position-selector 
         [mgr]="data.plan"
         [selectedPosition]="selectedPosition"
@@ -72,10 +72,10 @@
         />
         <span class="text-sm text-gray-700">
           I agree to the terms and conditions of this MGR plan and understand my commitment to contribute 
-          <strong>{{ data?.plan?.currency || 'NGN' }} {{ data?.plan?.amount | number }}</strong> 
-          <strong>{{ data?.plan?.duration }}</strong>.
+          <strong>{{ data.plan.currency || 'NGN' }} {{ data.plan.amount | number }}</strong> 
+          <strong>{{ data.plan.duration }}</strong>.
           <span *ngIf="selectedPosition"> I have selected position <strong>{{ selectedPosition }}</strong>.</span>
-          <span *ngIf="!selectedPosition && data?.plan?.allotment_type === 'manual'"> The system will auto-assign my position.</span>
+          <span *ngIf="!selectedPosition && data.plan.allotment_type === 'manual'"> The system will auto-assign my position.</span>
         </span>
       </label>
       <div *ngIf="joinForm.get('agreement')?.invalid && joinForm.get('agreement')?.touched" 

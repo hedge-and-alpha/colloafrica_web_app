@@ -36,6 +36,28 @@
       }
     </div>
 
+    <!-- Public description field - only shown when creating a public MGR -->
+    @if (isPublicMgr) {
+    <div class="mb-6">
+      <label for="public-desc" class="block text-gray-700 mb-2 font-medium">Public description <span class="text-purple-main">*</span></label>
+      <div class="text-sm text-gray-600 mb-2">This description will be visible to all Collo Africa users. Required for public MGRs.</div>
+      <textarea
+        id="public-desc"
+        [(ngModel)]="publicDescription"
+        [ngModelOptions]="{standalone: true}"
+        placeholder="Detailed description visible to the public"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main h-24"
+        [ngClass]="{
+          'ng-touched ng-dirty border-red-500': isSubmitted && !publicDescription
+        }"
+        (focus)="publicDescription = publicDescription || 'Join our MGR plan to save together and achieve financial goals!'"
+      ></textarea>
+      @if (isSubmitted && !publicDescription) {
+      <div class="text-red-500 text-sm mt-1">Public description is required for public MGRs</div>
+      }
+    </div>
+    }
+
     <div class="mb-6">
       <label for="duration" class="block text-gray-700 mb-2">Duration <span class="text-purple-main">*</span></label>
       <div class="relative">
@@ -144,21 +166,37 @@
     <div class="mb-6">
       <label for="allotment-type" class="block text-gray-700 mb-2">Allotment Type <span class="text-purple-main">*</span></label>
       <div class="relative">
-        <ng-select
-          id="allotment-type"
-          placeholder="Select allotment type"
-          class="py-1"
-          [ngClass]="{
-            'ng-touched ng-dirty border-red-500': isSubmitted && allotmentType.invalid
-          }"
-          (change)="selectAllotmentType()"
-        >
-          <ng-option value="manual">Manual</ng-option>
-          <ng-option value="automatic">Automatic</ng-option>
-        </ng-select>
+        <!-- Use buttons instead of ng-select for more reliable selection -->
+        <div class="flex gap-3 mb-2">
+          <button 
+            type="button" 
+            class="px-4 py-2 border rounded-lg" 
+            [class.bg-purple-main]="selectedAllotmentType === 'manual'" 
+            [class.text-white]="selectedAllotmentType === 'manual'" 
+            [class.border-purple-main]="selectedAllotmentType === 'manual'" 
+            [class.border-gray-300]="selectedAllotmentType !== 'manual'" 
+            (click)="selectedAllotmentType = 'manual'; allotmentType.setValue('manual')"
+          >
+            Manual
+          </button>
+          <button 
+            type="button" 
+            class="px-4 py-2 border rounded-lg" 
+            [class.bg-purple-main]="selectedAllotmentType === 'auto'" 
+            [class.text-white]="selectedAllotmentType === 'auto'" 
+            [class.border-purple-main]="selectedAllotmentType === 'auto'" 
+            [class.border-gray-300]="selectedAllotmentType !== 'auto'" 
+            (click)="selectedAllotmentType = 'auto'; allotmentType.setValue('auto')"
+          >
+            Automatic
+          </button>
+        </div>
+        
+        <!-- Hidden input for form validation -->
+        <input type="hidden" formControlName="allotment_type">
       </div>
       @if (isSubmitted && allotmentType.invalid) {
-      <ca-form-error [errors]="allotmentType.errors" />
+      <div class="text-red-500 text-sm mt-1">Please select an allotment type</div>
       }
     </div>
     
@@ -171,6 +209,22 @@
       />
     </div>
     }
+
+    <div class="mb-6">
+      <div class="flex items-start gap-3">
+        <input 
+          type="checkbox" 
+          id="public-mgr" 
+          [(ngModel)]="isPublicMgr" 
+          [ngModelOptions]="{standalone: true}" 
+          (ngModelChange)="updateAllotmentTypeForPublicMgr()" 
+          class="mt-1" 
+        />
+        <label class="text-sm text-gray-700" for="public-mgr">
+          Make this MGR plan public (visible to all Collo Africa users)
+        </label>
+      </div>
+    </div>
 
     <div class="mb-12">
       <div class="flex items-start gap-3">

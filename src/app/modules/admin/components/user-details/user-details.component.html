@@ -6,23 +6,23 @@
       <div class="header-content">
         <div class="user-info">
           <div class="user-avatar">
-            <img [src]="user?.profilePicture" *ngIf="user?.profilePicture" [alt]="user?.name">
-            <div class="avatar-placeholder" *ngIf="!user?.profilePicture">
-              {{ user?.name?.charAt(0) }}
+            <img [src]="getUserInfo('profilePicture')" *ngIf="getUserInfo('profilePicture')" [alt]="getUserInfo('name')">
+            <div class="avatar-placeholder" *ngIf="!getUserInfo('profilePicture')">
+              {{ getUserInfo('name')?.charAt(0) }}
             </div>
           </div>
           <div class="user-details">
-            <h2>{{ user?.name }}</h2>
-            <p class="user-email">{{ user?.email }}</p>
+            <h2>{{ getUserInfo('name') }}</h2>
+            <p class="user-email">{{ getUserInfo('email') }}</p>
             <div class="user-badges">
-              <span class="badge" [ngClass]="getStatusClass(user?.status || '')">
-                {{ user?.status | titlecase }}
+              <span class="badge" [ngClass]="getStatusClass(getUserInfo('status'))">
+                {{ getUserInfo('status') | titlecase }}
               </span>
-              <span class="badge" [ngClass]="getVerificationLevelClass(user?.verificationLevel || '')">
-                {{ getVerificationLabel(user?.verificationLevel || '') }}
+              <span class="badge" [ngClass]="getVerificationLevelClass(getVerificationLevel())">
+                {{ getVerificationLabel(getVerificationLevel()) }}
               </span>
-              <span class="badge" [ngClass]="getRiskLevelClass(user?.riskLevel || '')">
-                {{ getRiskLabel(user?.riskLevel || '') }}
+              <span class="badge" [ngClass]="getRiskLevelClass(getUserInfo('riskLevel'))">
+                {{ getRiskLabel(getUserInfo('riskLevel')) }}
               </span>
             </div>
           </div>
@@ -116,23 +116,23 @@
                   <svg width="80" height="80" viewBox="0 0 80 80">
                     <circle cx="40" cy="40" r="35" stroke="#f3f4f6" stroke-width="4" fill="none"></circle>
                     <circle cx="40" cy="40" r="35" 
-                            [attr.stroke]="getCreditScoreColor(user?.creditScore ?? 0)"
+                            [attr.stroke]="getCreditScoreColor(getUserInfo('creditScore') || 0)"
                             stroke-width="4" 
                             fill="none"
                             stroke-linecap="round"
                             [attr.stroke-dasharray]="2 * Math.PI * 35"
-                            [attr.stroke-dashoffset]="2 * Math.PI * 35 * (1 - (user?.creditScore ?? 0) / 1000)">
+                            [attr.stroke-dashoffset]="2 * Math.PI * 35 * (1 - (getUserInfo('creditScore') || 0) / 1000)">
                     </circle>
                   </svg>
-                  <div class="score-text">{{ user?.creditScore }}</div>
+                  <div class="score-text">{{ getUserInfo('creditScore') }}</div>
                 </div>
                 <div class="score-info">
                   <p class="score-label">Credit Score</p>
                   <p class="score-description">
-                    <span *ngIf="(user?.creditScore ?? 0) >= 800" class="text-green">Excellent</span>
-                    <span *ngIf="(user?.creditScore ?? 0) >= 700 && (user?.creditScore ?? 0) < 800" class="text-yellow">Good</span>
-                    <span *ngIf="(user?.creditScore ?? 0) >= 600 && (user?.creditScore ?? 0) < 700" class="text-orange">Fair</span>
-                    <span *ngIf="(user?.creditScore ?? 0) < 600" class="text-red">Poor</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) >= 800" class="text-green">Excellent</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) >= 700 && (getUserInfo('creditScore') || 0) < 800" class="text-yellow">Good</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) >= 600 && (getUserInfo('creditScore') || 0) < 700" class="text-orange">Fair</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) < 600" class="text-red">Poor</span>
                   </p>
                 </div>
               </div>
@@ -144,19 +144,19 @@
               <div class="stat-grid">
                 <div class="stat-item">
                   <span class="stat-label">MGRs Joined</span>
-                  <span class="stat-value">{{ user?.totalMgrs }}</span>
+                  <span class="stat-value">{{ getUserInfo('totalMgrs') }}</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-label">Total Contributions</span>
-                  <span class="stat-value">{{ formatCurrency(user?.totalContributions || 0) }}</span>
+                  <span class="stat-value">{{ formatCurrency(getUserInfo('totalContributions')) }}</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-label">Member Since</span>
-                  <span class="stat-value">{{ formatDate(user?.joinedAt || '') }}</span>
+                  <span class="stat-value">{{ formatDate(getUserInfo('joinedAt')) }}</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-label">Last Login</span>
-                  <span class="stat-value">{{ formatDate(user?.lastLoginAt || '') }}</span>
+                  <span class="stat-value">{{ formatDate(getUserInfo('lastLoginAt')) }}</span>
                 </div>
               </div>
             </div>
@@ -168,19 +168,19 @@
                 <div class="financial-item">
                   <span class="financial-label">Total Deposits</span>
                   <span class="financial-value text-green">
-                    +{{ formatCurrency(user?.financialInfo?.transactionSummary?.totalDeposits || 0) }}
+                    +{{ formatCurrency(getTransactionValue('totalDeposits')) }}
                   </span>
                 </div>
                 <div class="financial-item">
                   <span class="financial-label">Total Withdrawals</span>
                   <span class="financial-value text-red">
-                    -{{ formatCurrency(user?.financialInfo?.transactionSummary?.totalWithdrawals || 0) }}
+                    -{{ formatCurrency(getTransactionValue('totalWithdrawals')) }}
                   </span>
                 </div>
                 <div class="financial-item">
                   <span class="financial-label">Total Received</span>
                   <span class="financial-value text-blue">
-                    {{ formatCurrency(user?.financialInfo?.transactionSummary?.totalReceived || 0) }}
+                    {{ formatCurrency(getTransactionValue('totalReceived')) }}
                   </span>
                 </div>
               </div>
@@ -192,19 +192,19 @@
               <div class="info-list">
                 <div class="info-item">
                   <span class="info-label">Phone</span>
-                  <span class="info-value">{{ user?.phone }}</span>
+                  <span class="info-value">{{ getUserInfo('phone') }}</span>
                 </div>
                 <div class="info-item">
                   <span class="info-label">Location</span>
-                  <span class="info-value">{{ user?.location }}</span>
+                  <span class="info-value">{{ getUserInfo('location') }}</span>
                 </div>
                 <div class="info-item">
                   <span class="info-label">Gender</span>
-                  <span class="info-value">{{ user?.personalInfo?.gender | titlecase }}</span>
+                  <span class="info-value">{{ getPersonalInfo('gender') | titlecase }}</span>
                 </div>
                 <div class="info-item">
                   <span class="info-label">Occupation</span>
-                  <span class="info-value">{{ user?.personalInfo?.occupation }}</span>
+                  <span class="info-value">{{ getPersonalInfo('occupation') }}</span>
                 </div>
               </div>
             </div>
@@ -219,23 +219,23 @@
               <div class="info-grid">
                 <div class="info-item">
                   <label>Full Name</label>
-                  <span>{{ user?.personalInfo?.firstName }} {{ user?.personalInfo?.middleName }} {{ user?.personalInfo?.lastName }}</span>
+                  <span>{{ getPersonalInfo('firstName') }} {{ getPersonalInfo('middleName') }} {{ getPersonalInfo('lastName') }}</span>
                 </div>
                 <div class="info-item">
                   <label>Date of Birth</label>
-                  <span>{{ formatDate(user?.personalInfo?.dateOfBirth || '') }}</span>
+                  <span>{{ formatDate(getPersonalInfo('dateOfBirth')) }}</span>
                 </div>
                 <div class="info-item">
                   <label>Gender</label>
-                  <span>{{ user?.personalInfo?.gender | titlecase }}</span>
+                  <span>{{ getPersonalInfo('gender') | titlecase }}</span>
                 </div>
                 <div class="info-item">
                   <label>Phone Number</label>
-                  <span>{{ user?.phone }}</span>
+                  <span>{{ getUserInfo('phone') }}</span>
                 </div>
                 <div class="info-item">
                   <label>Email Address</label>
-                  <span>{{ user?.email }}</span>
+                  <span>{{ getUserInfo('email') }}</span>
                 </div>
               </div>
             </div>
@@ -243,9 +243,9 @@
             <div class="info-section">
               <h3>Address Information</h3>
               <div class="address-info">
-                <p>{{ user?.personalInfo?.address?.street }}</p>
-                <p>{{ user?.personalInfo?.address?.city }}, {{ user?.personalInfo?.address?.state }}</p>
-                <p>{{ user?.personalInfo?.address?.country }} {{ user?.personalInfo?.address?.postalCode }}</p>
+                <p>{{ getAddressInfo('street') }}</p>
+                <p>{{ getAddressInfo('city') }}, {{ getAddressInfo('state') }}</p>
+                <p>{{ getAddressInfo('country') }} {{ getAddressInfo('postalCode') }}</p>
               </div>
             </div>
 
@@ -254,15 +254,15 @@
               <div class="info-grid">
                 <div class="info-item">
                   <label>Occupation</label>
-                  <span>{{ user?.personalInfo?.occupation }}</span>
+                  <span>{{ getPersonalInfo('occupation') }}</span>
                 </div>
                 <div class="info-item">
                   <label>Employer</label>
-                  <span>{{ user?.personalInfo?.employer || 'Not provided' }}</span>
+                  <span>{{ getPersonalInfo('employer') || 'Not provided' }}</span>
                 </div>
                 <div class="info-item">
                   <label>Monthly Income</label>
-                  <span>{{ user?.personalInfo?.monthlyIncome ? formatCurrency(user.personalInfo.monthlyIncome!) : 'Not provided' }}</span>
+                  <span>{{ getPersonalInfo('monthlyIncome') ? formatCurrency(getPersonalInfo('monthlyIncome')) : 'Not provided' }}</span>
                 </div>
               </div>
             </div>
@@ -272,19 +272,19 @@
               <div class="info-grid">
                 <div class="info-item">
                   <label>Name</label>
-                  <span>{{ user?.kycInfo?.nextOfKin?.name }}</span>
+                  <span>{{ getNextOfKin('name') }}</span>
                 </div>
                 <div class="info-item">
                   <label>Relationship</label>
-                  <span>{{ user?.kycInfo?.nextOfKin?.relationship }}</span>
+                  <span>{{ getNextOfKin('relationship') }}</span>
                 </div>
                 <div class="info-item">
                   <label>Phone</label>
-                  <span>{{ user?.kycInfo?.nextOfKin?.phone }}</span>
+                  <span>{{ getNextOfKin('phone') }}</span>
                 </div>
                 <div class="info-item">
                   <label>Email</label>
-                  <span>{{ user?.kycInfo?.nextOfKin?.email || 'Not provided' }}</span>
+                  <span>{{ getNextOfKin('email') || 'Not provided' }}</span>
                 </div>
               </div>
             </div>
@@ -297,23 +297,23 @@
             <div class="kyc-status">
               <h3>KYC Verification Status</h3>
               <div class="status-info">
-                <span class="status-badge" [ngClass]="getVerificationLevelClass(user?.verificationLevel || '')">
-                  {{ getVerificationLabel(user?.verificationLevel || '') }}
+                <span class="status-badge" [ngClass]="getVerificationLevelClass(getVerificationLevel())">
+                  {{ getVerificationLabel(getVerificationLevel()) }}
                 </span>
-                <div class="status-details" *ngIf="user?.kycInfo?.verificationStatus === 'approved'">
-                  <p><strong>Verified by:</strong> {{ user?.kycInfo?.verifiedBy }}</p>
-                  <p><strong>Verified on:</strong> {{ formatDate(user?.kycInfo?.verifiedAt || '') }}</p>
+                <div class="status-details" *ngIf="getVerificationStatus() === 'approved'">
+                  <p><strong>Verified by:</strong> {{ getVerifiedBy() }}</p>
+                  <p *ngIf="getVerifiedAt()"><strong>Verification:</strong> {{ formatDate(getVerifiedAt()) }}</p>
                 </div>
-                <div class="status-details" *ngIf="user?.kycInfo?.verificationStatus === 'rejected'">
-                  <p class="text-red"><strong>Rejection Reason:</strong> {{ user?.kycInfo?.rejectionReason }}</p>
+                <div class="status-details" *ngIf="getVerificationStatus() === 'rejected'">
+                  <p *ngIf="getRejectionReason()"><strong>Rejection Reason:</strong> {{ getRejectionReason() }}</p>
                 </div>
               </div>
             </div>
 
             <div class="documents-section">
               <h3>KYC Documents</h3>
-              <div class="documents-grid" *ngIf="user?.kycInfo?.documents?.length; else noDocuments">
-                <div class="document-card" *ngFor="let document of user?.kycInfo?.documents">
+              <div class="documents-grid" *ngIf="getKycDocuments().length; else noDocuments">
+                <div class="document-card" *ngFor="let document of getKycDocuments()">
                   <div class="document-header">
                     <div class="document-info">
                       <h4>{{ document.type | titlecase }}</h4>
@@ -363,8 +363,8 @@
             <!-- Bank Accounts -->
             <div class="financial-section">
               <h3>Bank Accounts</h3>
-              <div class="bank-accounts" *ngIf="user?.financialInfo?.bankAccounts?.length; else noBankAccounts">
-                <div class="bank-card" *ngFor="let account of user?.financialInfo?.bankAccounts">
+              <div class="bank-accounts" *ngIf="getBankAccounts().length; else noBankAccounts">
+                <div class="bank-card" *ngFor="let account of getBankAccounts()">
                   <div class="bank-info">
                     <h4>{{ account.bankName }}</h4>
                     <p class="account-number">**** **** {{ account.accountNumber.slice(-4) }}</p>
@@ -394,8 +394,8 @@
             <!-- Credit Score History -->
             <div class="financial-section">
               <h3>Credit Score History</h3>
-              <div class="credit-history" *ngIf="user?.financialInfo?.creditHistory?.length; else noCreditHistory">
-                <div class="history-item" *ngFor="let history of user?.financialInfo?.creditHistory">
+              <div class="credit-history" *ngIf="getCreditHistory().length; else noCreditHistory">
+                <div class="history-item" *ngFor="let history of getCreditHistory()">
                   <div class="history-info">
                     <div class="score-change">
                       <span class="new-score">{{ history.score }}</span>
@@ -428,7 +428,7 @@
                   </div>
                   <div class="summary-info">
                     <span class="summary-label">Total Deposits</span>
-                    <span class="summary-value text-green">{{ formatCurrency(user?.financialInfo?.transactionSummary?.totalDeposits || 0) }}</span>
+                    <span class="summary-value text-green">{{ formatCurrency(getTransactionValue('totalDeposits')) }}</span>
                   </div>
                 </div>
                 <div class="summary-item">
@@ -437,7 +437,7 @@
                   </div>
                   <div class="summary-info">
                     <span class="summary-label">Total Withdrawals</span>
-                    <span class="summary-value text-red">{{ formatCurrency(user?.financialInfo?.transactionSummary?.totalWithdrawals || 0) }}</span>
+                    <span class="summary-value text-red">{{ formatCurrency(getTransactionValue('totalWithdrawals')) }}</span>
                   </div>
                 </div>
                 <div class="summary-item">
@@ -446,7 +446,7 @@
                   </div>
                   <div class="summary-info">
                     <span class="summary-label">Total Contributions</span>
-                    <span class="summary-value text-blue">{{ formatCurrency(user?.financialInfo?.transactionSummary?.totalContributions || 0) }}</span>
+                    <span class="summary-value text-blue">{{ formatCurrency(getTransactionValue('totalContributions')) }}</span>
                   </div>
                 </div>
                 <div class="summary-item">
@@ -455,7 +455,7 @@
                   </div>
                   <div class="summary-info">
                     <span class="summary-label">Total Received</span>
-                    <span class="summary-value text-yellow">{{ formatCurrency(user?.financialInfo?.transactionSummary?.totalReceived || 0) }}</span>
+                    <span class="summary-value text-yellow">{{ formatCurrency(getTransactionValue('totalReceived')) }}</span>
                   </div>
                 </div>
               </div>
@@ -467,8 +467,8 @@
         <div class="tab-pane" *ngIf="activeTab === 'activity'">
           <div class="activity-content">
             <h3>Recent Activity</h3>
-            <div class="activity-log" *ngIf="user?.activityLog?.length; else noActivity">
-              <div class="activity-item" *ngFor="let activity of user?.activityLog">
+            <div class="activity-log" *ngIf="getActivityLog().length; else noActivity">
+              <div class="activity-item" *ngFor="let activity of getActivityLog()">
                 <div class="activity-icon" [ngClass]="'activity-' + activity.type">
                   <i [ngClass]="'icon-' + activity.type"></i>
                 </div>
@@ -498,8 +498,8 @@
         <div class="tab-pane" *ngIf="activeTab === 'mgr'">
           <div class="mgr-content">
             <h3>MGR Participation</h3>
-            <div class="mgr-list" *ngIf="user?.mgrParticipation?.length; else noMgrs">
-              <div class="mgr-card" *ngFor="let mgr of user?.mgrParticipation">
+            <div class="mgr-list" *ngIf="getMgrParticipation().length; else noMgrs">
+              <div class="mgr-card" *ngFor="let mgr of getMgrParticipation()">
                 <div class="mgr-header">
                   <h4>{{ mgr.mgrName }}</h4>
                   <div class="mgr-badges">
