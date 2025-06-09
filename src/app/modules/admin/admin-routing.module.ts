@@ -7,13 +7,10 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { TransactionManagementComponent } from './pages/transaction-management/transaction-management.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { adminGuard } from '../../guards/admin/admin.guard';
-
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [adminGuard],
     children: [
       {
         path: '',
