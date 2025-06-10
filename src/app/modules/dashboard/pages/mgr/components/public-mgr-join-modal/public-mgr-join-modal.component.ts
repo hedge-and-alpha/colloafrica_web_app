@@ -18,10 +18,6 @@ export class PublicMgrJoinModalComponent implements OnInit {
 
   joinForm: FormGroup;
   loading = false;
-  eligibilityChecked = false;
-  canJoin = false;
-  eligibilityMessage = '';
-  selectedPosition: number | null = null;
 
   data: { plan: MGR } = { plan: {} as MGR };
 
@@ -42,55 +38,10 @@ export class PublicMgrJoinModalComponent implements OnInit {
     if (this.plan) {
       this.data.plan = this.plan;
     }
-    this.checkEligibility();
-  }
-
-  checkEligibility() {
-    this.api.checkJoinEligibility(this.plan.id).subscribe({
-      next: (response: any) => {
-        this.eligibilityChecked = true;
-        this.canJoin = response.data?.eligible || false;
-        this.eligibilityMessage = response.data?.message || '';
-        
-        // Handle specific eligibility requirements
-        if (response.data?.requirements) {
-          const requirements = response.data.requirements;
-          const missing = [];
-          
-          if (!requirements.kyc_verified) missing.push('KYC verification');
-          if (!requirements.sufficient_balance) missing.push('sufficient wallet balance');
-          if (!requirements.valid_payment_method) missing.push('valid payment method');
-          
-          if (missing.length > 0) {
-            this.eligibilityMessage = `Please complete: ${missing.join(', ')}`;
-          }
-        }
-      },
-      error: (error) => {
-        console.error('Error checking eligibility:', error);
-        // Fallback to simple check for development
-        this.eligibilityChecked = true;
-        this.canJoin = true;
-        this.eligibilityMessage = 'Basic eligibility check passed';
-      }
-    });
-  }
-
-  onPositionSelected(position: number | null) {
-    this.selectedPosition = position;
-    // Update the form control if it exists
-    if (this.joinForm.get('position')) {
-      this.joinForm.get('position')?.setValue(position);
-    }
-  }
-
-  onRecommendationRequested() {
-    // Handle recommendation request - could trigger analytics or additional UI
-    console.log('User requested position recommendations');
   }
 
   onSubmit() {
-    if (this.joinForm.valid && this.canJoin) {
+    if (this.joinForm.valid) {
       this.loading = true;
       
       const joinData = {

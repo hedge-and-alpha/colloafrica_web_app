@@ -36,9 +36,17 @@ export class MgrCreateEditComponent implements OnInit {
         this.pageTitle = 'Join Contribution';
         this.processing = true;
         let inviteIdQueryParam = this.route.snapshot.queryParamMap.get('invite_id');
+        const mgrId = this.route.snapshot.paramMap.get('id'); // For public MGRs
+        
         if (inviteIdQueryParam) {
+          // Private MGR join flow
           this.inviteId = inviteIdQueryParam;
           this.getMgrDetails(this.inviteId);
+        } else if (mgrId) {
+          // Public MGR join flow - redirect to public MGR view with join modal
+          this.router.navigate(['/mgr', mgrId, 'view'], { 
+            queryParams: { showJoin: 'true' } 
+          });
         } else {
           this.alert.open('danger', { details: 'Invalid invitation link.'});
           setTimeout(() => {

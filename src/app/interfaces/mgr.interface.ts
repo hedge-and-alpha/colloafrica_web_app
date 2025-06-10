@@ -16,6 +16,7 @@ export interface MGR {
   creator_id: number;
   status: string;
   id: string;
+  is_public?: boolean;
   next_allocation_to: null | { name: string; slot_number: string };
   mgr_users?: MGRUser[];
   user_allocations: MGRUserAllocation[];

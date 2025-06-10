@@ -97,7 +97,7 @@
       <button 
         type="submit" 
         class="flex-1 px-4 py-2 bg-purple-main text-white rounded-lg hover:bg-purple-600 disabled:opacity-50"
-        [disabled]="loading || !joinForm.valid || !canJoin"
+        [disabled]="loading || !joinForm.valid"
       >
         <span *ngIf="!loading">Join Plan</span>
         <span *ngIf="loading" class="flex items-center justify-center gap-2">

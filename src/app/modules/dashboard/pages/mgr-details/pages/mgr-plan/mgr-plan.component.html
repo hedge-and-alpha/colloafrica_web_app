@@ -7,7 +7,7 @@
         <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
           <div class="flex items-center">
             <div class="sm:font-medium text-xs text-[#7D7F85]">
-              Share invite link
+              {{ plan.is_public ? 'Share plan' : 'Share invite link' }}
             </div>
   
             <div class="ms-auto flex gap-2 icon-buttons">
@@ -38,8 +38,8 @@
             <a
               target="_blank"
               class="underline text-primary"
-              [routerLink]="['/', 'mgr', plan.id, 'join']"
-              [queryParams]="{ invite_id: plan.invite_link }"
+              [routerLink]="plan.is_public ? ['/', 'mgr', plan.id, 'view'] : ['/', 'mgr', plan.id, 'join']"
+              [queryParams]="plan.is_public ? {} : { invite_id: plan.invite_link }"
               >{{ inviteLink }}</a
             >
           </div>

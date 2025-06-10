@@ -17,6 +17,7 @@ import {
 } from '../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { UserStoreService } from '../../../../stores+/user.store';
+import { PublicMgrJoinModalComponent } from '../mgr/components/public-mgr-join-modal/public-mgr-join-modal.component';
 
 type View = 'details' | 'contribution' | 'collection';
 
@@ -67,6 +68,17 @@ export class MgrDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMgrDetails();
+    
+    // Check for showJoin query parameter for public MGR auto-join
+    const showJoin = this.route.snapshot.queryParamMap.get('showJoin');
+    if (showJoin === 'true') {
+      // Wait for plan data to load before showing join modal
+      setTimeout(() => {
+        if (this.mgrPlan?.is_public) {
+          this.showPublicJoinModal();
+        }
+      }, 500);
+    }
   }
 
   handleViewChange(event: View) {
@@ -98,5 +110,17 @@ export class MgrDetailsComponent implements OnInit {
         console.error(err);
       },
     });
+  }
+
+  showPublicJoinModal() {
+    this.modalService.open(
+      PublicMgrJoinModalComponent,
+      'small',
+      {
+        closable: true,
+        showHeading: false,
+      },
+      { plan: this.mgrPlan }
+    );
   }
 }

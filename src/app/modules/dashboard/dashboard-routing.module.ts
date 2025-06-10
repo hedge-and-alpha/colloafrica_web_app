@@ -82,6 +82,11 @@ const routes: Routes = [
             component: MgrPlanComponent,
           },
           {
+            path: 'view',
+            title: 'Contribution Details',
+            component: MgrPlanComponent,
+          },
+          {
             path: 'collection-statistics',
             title: 'Contribution Collection Statistics',
             component: MgrCollectionStatisticsComponent,

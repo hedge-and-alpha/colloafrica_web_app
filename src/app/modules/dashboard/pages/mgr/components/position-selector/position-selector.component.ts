@@ -117,21 +117,10 @@ export class PositionSelectorComponent implements OnInit, OnChanges {
   loadPositionData() {
     this.loading = true;
     
-    // Make API call to get real position data
-    this.api.getPublicMgrPositions(this.mgr.id).subscribe({
-      next: (response: any) => {
-        this.updatePositionsFromAPI(response.data);
-        this.generateRecommendations();
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error loading position data:', error);
-        // Fallback to simulation for development
-        this.simulateOccupiedPositions();
-        this.generateRecommendations();
-        this.loading = false;
-      }
-    });
+    // Use simulation only - no API calls for position data
+    this.simulateOccupiedPositions();
+    this.generateRecommendations();
+    this.loading = false;
   }
 
   updatePositionsFromAPI(positionData: any) {
@@ -221,14 +210,9 @@ export class PositionSelectorComponent implements OnInit, OnChanges {
   }
 
   async checkPositionAvailability(position: number): Promise<boolean> {
-    try {
-      const response: any = await this.api.getPublicMgrPositions(this.mgr.id).toPromise();
-      const positionData = response?.data?.positions?.find((p: any) => p.position === position);
-      return positionData?.is_available || false;
-    } catch (error) {
-      console.warn('Could not verify position availability, proceeding with optimistic update');
-      return true; // Optimistic approach if API fails
-    }
+    // Since we removed the API endpoint, always return true for available positions
+    const positionSlot = this.positions.find(p => p.position === position);
+    return positionSlot?.isAvailable || false;
   }
 
   createTemporaryReservation(position: number) {
