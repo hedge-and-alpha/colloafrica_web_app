@@ -28,38 +28,7 @@
   </div>
 
   <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
-    <!-- Position Selection Section -->
-    <div class="mb-6" *ngIf="data.plan.allotment_type === 'manual'">
-      <ca-position-selector 
-        [mgr]="data.plan"
-        [selectedPosition]="selectedPosition"
-        (positionSelected)="onPositionSelected($event)"
-        (recommendationRequested)="onRecommendationRequested()"
-      ></ca-position-selector>
-    </div>
 
-    <!-- Eligibility Check Section -->
-    <div class="mb-6" *ngIf="eligibilityChecked">
-      <div class="p-4 rounded-lg" [class]="canJoin ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
-        <div class="flex items-center gap-2 mb-2">
-          <svg *ngIf="canJoin" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
-            <path d="M9 12l2 2 4-4"></path>
-            <circle cx="12" cy="12" r="9"></circle>
-          </svg>
-          <svg *ngIf="!canJoin" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-600">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="15" y1="9" x2="9" y2="15"></line>
-            <line x1="9" y1="9" x2="15" y2="15"></line>
-          </svg>
-          <span class="font-medium" [class]="canJoin ? 'text-green-800' : 'text-red-800'">
-            {{ canJoin ? 'Eligible to Join' : 'Not Eligible' }}
-          </span>
-        </div>
-        <p class="text-sm" [class]="canJoin ? 'text-green-700' : 'text-red-700'">
-          {{ eligibilityMessage || (canJoin ? 'You meet all requirements to join this MGR plan.' : 'Please complete the required steps before joining.') }}
-        </p>
-      </div>
-    </div>
 
     <!-- Terms and Agreement -->
     <div class="mb-6">
@@ -74,8 +43,6 @@
           I agree to the terms and conditions of this MGR plan and understand my commitment to contribute 
           <strong>{{ data.plan.currency || 'NGN' }} {{ data.plan.amount | number }}</strong> 
           <strong>{{ data.plan.duration }}</strong>.
-          <span *ngIf="selectedPosition"> I have selected position <strong>{{ selectedPosition }}</strong>.</span>
-          <span *ngIf="!selectedPosition && data.plan.allotment_type === 'manual'"> The system will auto-assign my position.</span>
         </span>
       </label>
       <div *ngIf="joinForm.get('agreement')?.invalid && joinForm.get('agreement')?.touched" 

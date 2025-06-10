@@ -402,9 +402,6 @@ export class DashboardApiService {
   }
 
 
-  checkJoinEligibility(id: string) {
-    return this.http.get<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/eligibility`);
-  }
 
   createPublicMgr(data: any) {
     // Create a clean payload with explicit string conversions

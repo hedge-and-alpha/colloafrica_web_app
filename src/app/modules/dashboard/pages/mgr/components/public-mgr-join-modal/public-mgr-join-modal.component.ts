@@ -18,14 +18,6 @@ export class PublicMgrJoinModalComponent implements OnInit {
 
   joinForm: FormGroup;
   loading = false;
-  
-  // Position selection properties
-  selectedPosition: number | null = null;
-  
-  // Eligibility check properties
-  eligibilityChecked = false;
-  canJoin = true;
-  eligibilityMessage = '';
 
   data: { plan: MGR } = { plan: {} as MGR };
 
@@ -45,40 +37,7 @@ export class PublicMgrJoinModalComponent implements OnInit {
   ngOnInit() {
     if (this.plan) {
       this.data.plan = this.plan;
-      // Automatically check eligibility when component loads
-      this.checkEligibility();
     }
-  }
-
-  // Position selection methods
-  onPositionSelected(position: number | null) {
-    this.selectedPosition = position;
-    this.joinForm.patchValue({ position: position?.toString() || '' });
-  }
-
-  onRecommendationRequested() {
-    // Implementation for position recommendation
-    // This could call an API or use some logic to recommend a position
-    console.log('Position recommendation requested');
-  }
-
-  // Eligibility check method
-  checkEligibility() {
-    if (!this.plan?.id) return;
-    
-    this.api.checkJoinEligibility(this.plan.id).subscribe({
-      next: (response: any) => {
-        this.eligibilityChecked = true;
-        this.canJoin = response.data?.eligible || true;
-        this.eligibilityMessage = response.data?.message || '';
-      },
-      error: (error: any) => {
-        this.eligibilityChecked = true;
-        this.canJoin = true; // Default to true if check fails
-        this.eligibilityMessage = 'Unable to check eligibility, but you can still try to join.';
-        console.error('Eligibility check failed:', error);
-      }
-    });
   }
 
   onSubmit() {
@@ -87,7 +46,7 @@ export class PublicMgrJoinModalComponent implements OnInit {
       
       const joinData = {
         agreement: this.joinForm.value.agreement,
-        ...(this.selectedPosition && { position: this.selectedPosition })
+        ...(this.joinForm.value.position && { position: this.joinForm.value.position })
       };
 
       this.api.joinPublicMgr(this.plan.id, joinData).subscribe({
