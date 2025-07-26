@@ -32,6 +32,8 @@ export interface MGR {
   total_slots?: number;
   current_members?: number;
   join_deadline?: string;
+  display_status?: string;
+  can_join?: boolean;
   creator?: {
     name: string;
     id: number;

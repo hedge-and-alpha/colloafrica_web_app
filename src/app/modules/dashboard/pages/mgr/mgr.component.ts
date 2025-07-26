@@ -143,6 +143,11 @@ export class MgrComponent implements OnInit, OnDestroy {
   }
 
   joinPublicPlan(plan: MGR) {
+    // Prevent joining filled groups
+    if (plan.can_join === false || (plan.display_status || plan.status) === 'filled') {
+      return;
+    }
+    
     this.modalService.open(
       PublicMgrJoinModalComponent,
       'small',
