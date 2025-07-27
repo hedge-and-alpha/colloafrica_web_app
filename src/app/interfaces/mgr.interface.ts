@@ -34,6 +34,7 @@ export interface MGR {
   join_deadline?: string;
   display_status?: string;
   can_join?: boolean;
+  deadline_passed?: boolean;
   creator?: {
     name: string;
     id: number;

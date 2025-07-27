@@ -82,11 +82,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.min(1000),
       ]),
-      // Initialize join_date_deadline with today's date to ensure it has a value
-      join_date_deadline: new FormControl<string | null>(this.utils.toISODate(new Date()), {
-        validators: [Validators.required],
-        updateOn: 'change',
-      }),
+      join_date_deadline: new FormControl<string | null>(null),
       contribution_start_date: new FormControl<string | null>(null, {
         validators: [Validators.required],
         updateOn: 'change',
@@ -360,7 +356,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     formData.amount = Number(rawFormData.amount) || 0;
     formData.duration = rawFormData.duration?.toString() || 'monthly';
     formData.number_of_members = Number(rawFormData.number_of_members) || 3;
-    formData.join_date_deadline = rawFormData.join_date_deadline;
+    // Skip join_date_deadline for public MGRs (removed from creation flow)
+    // formData.join_date_deadline = rawFormData.join_date_deadline;
     formData.contribution_start_date = rawFormData.contribution_start_date;
     formData.allocation_date = rawFormData.allocation_date;
     formData.allotment_type = rawFormData.allotment_type?.toString() || 'auto';
@@ -394,15 +391,10 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     console.log('Selected allotment type:', this.selectedAllotmentType);
     console.log('Form allotment_type value:', formData.allotment_type);
     
-    // Set join_date_deadline to contribution_start_date if it's not present
-    if (!formData.join_date_deadline && formData.contribution_start_date) {
-      formData.join_date_deadline = this.formatDateForBackend(formData.contribution_start_date);
-      console.log('Setting join_date_deadline to contribution_start_date:', formData.join_date_deadline);
-    }
+
     
-    // Ensure join_date_deadline is after today
-    formData.join_date_deadline = this.formatDateForBackend(this.ensureDateIsAfterToday(formData.join_date_deadline));
-    console.log('Adjusted join_date_deadline to be after today:', formData.join_date_deadline);
+    // Skip join_date_deadline adjustment for public MGRs (removed from UI)
+    // formData.join_date_deadline = this.formatDateForBackend(this.ensureDateIsAfterToday(formData.join_date_deadline));
     
     // Ensure contribution_start_date is after today
     formData.contribution_start_date = this.formatDateForBackend(this.ensureDateIsAfterToday(formData.contribution_start_date));
@@ -420,8 +412,9 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       is_public: this.isPublicMgr // Send as boolean (true/false) instead of 1/0
     };
     
-    // Only add public_description for public MGRs
+    // Remove join_date_deadline for public MGRs (calculated on backend)
     if (this.isPublicMgr) {
+      delete finalFormData.join_date_deadline;
       finalFormData.public_description = this.publicDescription;
     }
     console.log('Creating plan with is_public:', finalFormData.is_public, 'isPublicMgr:', this.isPublicMgr);
@@ -456,8 +449,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         // For public MGRs, convert 'auto' to 'random' as required by backend validation
         formattedData[key] = allotmentType; // Preserve 'auto' or 'manual'
       }
-      // Special handling for date fields
-      else if (['join_date_deadline', 'contribution_start_date', 'allocation_date'].includes(key)) {
+      // Special handling for date fields (excluding join_date_deadline for public MGRs)
+      else if (['contribution_start_date', 'allocation_date'].includes(key)) {
         formattedData[key] = this.formatDateForBackend(value);
       }
       // Ensure strings for these fields

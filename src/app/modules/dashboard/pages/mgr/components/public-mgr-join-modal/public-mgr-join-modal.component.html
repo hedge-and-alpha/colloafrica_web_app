@@ -24,9 +24,9 @@
         <span class="text-gray-500">Status:</span>
         <p class="font-medium capitalize" [class]="{
           'text-orange-600': (data.plan.display_status || data.plan.status) === 'pending',
-          'text-green-600': (data.plan.display_status || data.plan.status) === 'active',
-          'text-red-600': (data.plan.display_status || data.plan.status) === 'filled',
-          'text-gray-600': !['pending', 'active', 'filled'].includes(data.plan.display_status || data.plan.status)
+          'text-green-600': (data.plan.display_status || data.plan.status) === 'active' || (data.plan.display_status || data.plan.status) === 'filled',
+          'text-red-600': (data.plan.display_status || data.plan.status) === 'deadline passed',
+          'text-gray-600': !['pending', 'active', 'filled', 'deadline passed'].includes(data.plan.display_status || data.plan.status)
         }">{{ data.plan.display_status || data.plan.status }}</p>
       </div>
     </div>

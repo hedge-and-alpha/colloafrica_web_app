@@ -143,8 +143,8 @@ export class MgrComponent implements OnInit, OnDestroy {
   }
 
   joinPublicPlan(plan: MGR) {
-    // Prevent joining filled groups
-    if (plan.can_join === false || (plan.display_status || plan.status) === 'filled') {
+    // Prevent joining filled groups or past deadline
+    if (plan.can_join === false || (plan.display_status || plan.status) === 'filled' || (plan.display_status || plan.status) === 'deadline passed') {
       return;
     }
     
@@ -157,6 +157,18 @@ export class MgrComponent implements OnInit, OnDestroy {
       },
       { plan }
     );
+  }
+
+  getJoinButtonText(plan: MGR): string {
+    if ((plan.display_status || plan.status) === 'filled') {
+      return 'Group Filled';
+    } else if ((plan.display_status || plan.status) === 'deadline passed') {
+      return 'Deadline Passed';
+    } else if (plan.can_join === false) {
+      return 'Cannot Join';
+    } else {
+      return 'Join Plan';
+    }
   }
 
   applyFilters() {
