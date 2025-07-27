@@ -16,12 +16,29 @@ export interface MGR {
   creator_id: number;
   status: string;
   id: string;
+  is_public?: boolean;
   next_allocation_to: null | { name: string; slot_number: string };
   mgr_users?: MGRUser[];
   user_allocations: MGRUserAllocation[];
   cycle_dates: { cycle_number: number; cycle_date: string }[];
   total_allocation: number;
   total_contribution: string;
+  
+  // New properties for public MGRs
+  public_description?: string;
+  description?: string;
+  category?: string;
+  available_slots?: number;
+  total_slots?: number;
+  current_members?: number;
+  join_deadline?: string;
+  display_status?: string;
+  can_join?: boolean;
+  deadline_passed?: boolean;
+  creator?: {
+    name: string;
+    id: number;
+  };
 }
 
 export interface MGRUserAllocation {
@@ -43,6 +60,7 @@ export interface MGRUser extends MGRUserBase {
   status: number;
   join_date: string;
   profile_pic: null | string;
+  rollover?: boolean;
 }
 
 export interface MGRAnalytics {

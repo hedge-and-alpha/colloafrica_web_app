@@ -1,0 +1,135 @@
+<div class="chart-widget" [style.height.px]="height">
+  @if (title) {
+    <div class="chart-title">
+      <h3>{{ title }}</h3>
+    </div>
+  }
+  
+  <div class="chart-container">
+    @switch (type) {
+      @case ('line') {
+        <svg class="chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <defs>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#grid)" />
+          
+          <!-- Chart lines -->
+          @for (dataset of chartPoints; track dataset.label) {
+            <path 
+              [attr.d]="dataset.path" 
+              fill="none" 
+              [attr.stroke]="dataset.borderColor || '#3b82f6'" 
+              stroke-width="2" 
+              class="chart-line"/>
+            
+            <!-- Data points -->
+            @for (point of dataset.points; track $index) {
+              <circle 
+                [attr.cx]="point.x" 
+                [attr.cy]="point.y" 
+                r="2" 
+                [attr.fill]="dataset.borderColor || '#3b82f6'"
+                class="chart-point">
+                <title>{{ point.label }}: {{ formatValue(point.value) }}</title>
+              </circle>
+            }
+          }
+        </svg>
+      }
+      
+      @case ('bar') {
+        <svg class="chart-svg" viewBox="0 0 100 100">
+          <!-- Grid lines -->
+          <defs>
+            <pattern id="grid-bar" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#grid-bar)" />
+          
+          <!-- Bars -->
+          @for (dataset of data.datasets; track dataset.label) {
+            @for (value of dataset.data; track $index) {
+              <rect 
+                [attr.x]="($index * (100 / data.labels.length)) + (100 / data.labels.length - getBarWidth()) / 2"
+                [attr.y]="100 - getBarHeight(value)"
+                [attr.width]="getBarWidth()"
+                [attr.height]="getBarHeight(value)"
+                [attr.fill]="getBackgroundColor(dataset, $index)"
+                class="chart-bar">
+                <title>{{ data.labels[$index] }}: {{ formatValue(value) }}</title>
+              </rect>
+            }
+          }
+        </svg>
+      }
+      
+      @case ('doughnut') {
+        <div class="doughnut-container">
+          <svg class="doughnut-svg" viewBox="0 0 100 100">
+            @for (segment of getDoughnutSegments(); track $index) {
+              <path 
+                [attr.d]="segment.path" 
+                [attr.fill]="segment.color" 
+                class="doughnut-segment">
+                <title>{{ segment.label }}: {{ segment.percentage }}%</title>
+              </path>
+            }
+            
+            <!-- Center circle for doughnut effect -->
+            <circle cx="50" cy="50" r="25" fill="white" />
+          </svg>
+          
+          <!-- Legend -->
+          <div class="doughnut-legend">
+            @for (segment of getDoughnutSegments(); track $index) {
+              <div class="legend-item">
+                <span class="legend-color" [style.background-color]="segment.color"></span>
+                <span class="legend-label">{{ segment.label }} ({{ segment.percentage }}%)</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+      
+      @case ('area') {
+        <svg class="chart-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <defs>
+            <pattern id="grid-area" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#grid-area)" />
+          
+          <!-- Area charts -->
+          @for (dataset of chartPoints; track dataset.label) {
+            <path 
+              [attr.d]="dataset.path + ' L 100 100 L 0 100 Z'" 
+              [attr.fill]="dataset.backgroundColor || 'rgba(59, 130, 246, 0.1)'" 
+              class="chart-area"/>
+            <path 
+              [attr.d]="dataset.path" 
+              fill="none" 
+              [attr.stroke]="dataset.borderColor || '#3b82f6'" 
+              stroke-width="2" 
+              class="chart-line"/>
+          }
+        </svg>
+      }
+    }
+    
+    <!-- X-axis labels -->
+    @if (type !== 'doughnut') {
+      <div class="chart-labels">
+        @for (label of data.labels; track $index) {
+          <span class="chart-label">{{ label }}</span>
+        }
+      </div>
+    }
+  </div>
+</div> 

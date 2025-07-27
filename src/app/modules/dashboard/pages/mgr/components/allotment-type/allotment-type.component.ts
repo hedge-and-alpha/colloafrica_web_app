@@ -17,6 +17,7 @@ export class AllotmentTypeComponent implements OnInit {
 
   @Input() numberOfMembers!: number;
   @Input() selectedPosition!: number;
+  @Input() selectedType: 'auto' | 'manual' | null = null;
 
   @Output() numberOfMembersChange = new EventEmitter<number>();
 

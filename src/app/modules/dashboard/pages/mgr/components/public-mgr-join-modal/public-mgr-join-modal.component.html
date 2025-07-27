@@ -1,0 +1,85 @@
+<div class="p-6 max-w-2xl mx-auto">
+  <h2 class="text-xl font-semibold mb-4">Join MGR Plan</h2>
+  
+  <div class="mb-4">
+    <h3 class="font-medium text-gray-900">{{ data.plan.name }}</h3>
+    <p class="text-sm text-gray-600 mt-1">{{ data.plan.public_description || data.plan.description }}</p>
+  </div>
+
+  <div class="bg-gray-50 p-4 rounded-lg mb-6">
+    <div class="grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <span class="text-gray-500">Amount:</span>
+        <p class="font-medium">{{ data.plan.currency || 'NGN' }} {{ data.plan.amount | number }}</p>
+      </div>
+      <div>
+        <span class="text-gray-500">Duration:</span>
+        <p class="font-medium capitalize">{{ data.plan.duration }}</p>
+      </div>
+      <div>
+        <span class="text-gray-500">Available Slots:</span>
+        <p class="font-medium">{{ data.plan.available_slots }}/{{ data.plan.total_slots }}</p>
+      </div>
+      <div>
+        <span class="text-gray-500">Status:</span>
+        <p class="font-medium capitalize" [class]="{
+          'text-orange-600': (data.plan.display_status || data.plan.status) === 'pending',
+          'text-green-600': (data.plan.display_status || data.plan.status) === 'active' || (data.plan.display_status || data.plan.status) === 'filled',
+          'text-red-600': (data.plan.display_status || data.plan.status) === 'deadline passed',
+          'text-gray-600': !['pending', 'active', 'filled', 'deadline passed'].includes(data.plan.display_status || data.plan.status)
+        }">{{ data.plan.display_status || data.plan.status }}</p>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="joinForm" (ngSubmit)="onSubmit()">
+
+
+    <!-- Terms and Agreement -->
+    <div class="mb-6">
+      <label class="flex items-start gap-3">
+        <input 
+          type="checkbox" 
+          formControlName="agreement" 
+          class="mt-1 text-purple-main focus:ring-purple-main"
+          required
+        />
+        <span class="text-sm text-gray-700">
+          I agree to the terms and conditions of this MGR plan and understand my commitment to contribute 
+          <strong>{{ data.plan.currency || 'NGN' }} {{ data.plan.amount | number }}</strong> 
+          <strong>{{ data.plan.duration }}</strong>.
+        </span>
+      </label>
+      <div *ngIf="joinForm.get('agreement')?.invalid && joinForm.get('agreement')?.touched" 
+           class="text-red-500 text-xs mt-1">
+        You must agree to the terms and conditions
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-3">
+      <button 
+        type="button" 
+        (click)="onCancel()"
+        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+        [disabled]="loading"
+      >
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        class="flex-1 px-4 py-2 bg-purple-main text-white rounded-lg hover:bg-purple-600 disabled:opacity-50"
+        [disabled]="loading || !joinForm.valid"
+      >
+        <span *ngIf="!loading">Join Plan</span>
+        <span *ngIf="loading" class="flex items-center justify-center gap-2">
+          <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Joining...
+        </span>
+      </button>
+    </div>
+  </form>
+</div> 

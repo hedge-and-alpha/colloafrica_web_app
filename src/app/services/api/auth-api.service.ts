@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../../interfaces/api-response';
-import { tap } from 'rxjs';
-import { Router } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { UserStoreService } from '../../stores+/user.store';
 
@@ -11,8 +12,19 @@ import { UserStoreService } from '../../stores+/user.store';
   providedIn: 'root',
 })
 export class AuthApiService {
-  private AUTH_TOKEN = localStorage.getItem('AUTH_TOKEN');
   private readonly baseUrl = environment.API_BASE_URL;
+  
+  get authToken(): string | null {
+    return localStorage.getItem('AUTH_TOKEN');
+  }
+  
+  private set authToken(token: string | null) {
+    if (token) {
+      localStorage.setItem('AUTH_TOKEN', token);
+    } else {
+      localStorage.removeItem('AUTH_TOKEN');
+    }
+  }
 
   constructor(
     private readonly http: HttpClient,
@@ -46,7 +58,7 @@ export class AuthApiService {
       .pipe(
         tap(({ data: { user, token } }) => {
           this.userStore.user = user;
-          localStorage.setItem('AUTH_TOKEN', token);
+          this.authToken = token;
         })
       );
   }
@@ -65,11 +77,32 @@ export class AuthApiService {
   }
 
   logoutUser() {
+    const token = this.authToken;
+    this.clearAuth();
+    
     return this.http.post<ApiResponse>(`${this.baseUrl}/auth/logout`, null, {
-      headers: new HttpHeaders().append(
-        'Authorization',
-        `Bearer ${this.AUTH_TOKEN}`
-      ),
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
     });
+  }
+  
+  validateToken(): Observable<boolean> {
+    return this.http.get<{ valid: boolean }>(
+      `${this.baseUrl}/auth/validate-token`,
+      {
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.authToken}`
+        })
+      }
+    ).pipe(
+      map((response: { valid: boolean }) => response.valid),
+      catchError(() => of(false))
+    );
+  }
+
+  clearAuth() {
+    this.authToken = null;
+    this.userStore.user = null;
   }
 }

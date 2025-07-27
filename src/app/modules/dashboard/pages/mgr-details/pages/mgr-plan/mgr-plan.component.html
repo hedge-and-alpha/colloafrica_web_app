@@ -7,7 +7,7 @@
         <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
           <div class="flex items-center">
             <div class="sm:font-medium text-xs text-[#7D7F85]">
-              Share invite link
+              {{ plan.is_public ? 'Share plan' : 'Share invite link' }}
             </div>
   
             <div class="ms-auto flex gap-2 icon-buttons">
@@ -38,8 +38,8 @@
             <a
               target="_blank"
               class="underline text-primary"
-              [routerLink]="['/', 'mgr', plan.id, 'join']"
-              [queryParams]="{ invite_id: plan.invite_link }"
+              [routerLink]="plan.is_public ? ['/', 'mgr', plan.id, 'view'] : ['/', 'mgr', plan.id, 'join']"
+              [queryParams]="plan.is_public ? {} : { invite_id: plan.invite_link }"
               >{{ inviteLink }}</a
             >
           </div>
@@ -48,25 +48,27 @@
       }
 
       @if (plan.status === 'started' && plan.next_allocation_to) {
-      <div class="allocation-card grow">
-        <ca-card class="px-4 py-3 rounded-md h-full">
-          <div
-            class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]"
-          >
-            Next Allocation to
-            <span class="bg-warning alloc-position">
-              {{ plan.next_allocation_to.slot_number }}
-            </span>
-          </div>
+        <div class="allocation-card grow">
+          <ca-card class="px-4 py-3 rounded-md h-full">
+            <div class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]">
+              Next Allocation to
+              <span class="bg-warning alloc-position">
+                {{ plan.next_allocation_to.slot_number }}
+              </span>
+            </div>
 
-          <div class="flex items-center gap-[0.625rem]">
-            <img src="assets/images/profile-photo.webp" alt="" />
-            <p class="text-xs font-medium">
-              {{ plan.next_allocation_to.name | titlecase }}
-            </p>
-          </div>
-        </ca-card>
-      </div>
+            <div class="flex items-center gap-[0.625rem]">
+              <img src="assets/images/profile-photo.webp" alt="" />
+              <p class="text-xs font-medium">
+                {{ plan.next_allocation_to.name | titlecase }}
+              </p>
+            </div>
+          </ca-card>
+        </div>
+      } @else if (showRolloverButton()) {
+        <div class="flex items-center justify-end grow">
+          <ca-mgr-rollover-button [plan]="plan"></ca-mgr-rollover-button>
+        </div>
       }
     </div>
 

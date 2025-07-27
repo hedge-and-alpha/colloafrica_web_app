@@ -1,26 +1,19 @@
-<header class="flex items-center h-[102px]">
-  <a routerLink="/" aria-label="Navigate to home page">
-    <img src="assets/images/logo.svg" alt="" width="75" />
-  </a>
+<header class="mt-[21px] flex items-center justify-between py-2 px-8 border-b border-[#E9EAEB] bg-white">
+  <div>
+    <h1 class="text-[#181D27] font-albert text-[24px] font-semibold leading-[32px]">{{ pageName }}</h1>
+  </div>
 
-  <div class="ms-auto flex items-center">
+  <div class="flex items-center gap-4">
     <a
       routerLink="/notifications"
       aria-label="Navigate to notifications page"
       class="notification"
     >
-      <i class="ca-notification"></i>
+      <i class="ca-notification text-gray-600"></i>
     </a>
-    <a
-      class="ms-4 text-[#171717] inline-flex items-center gap-2"
-      routerLink="/profile"
-    >
-      <span
-        class="font-medium hidden sm:inline-block max-w-40 overflow-hidden text-ellipsis whitespace-nowrap"
-      >
-        {{ user()?.first_name }} {{ user()?.last_name }}
-      </span>
-      <figure class="h-[30px] aspect-square relative">
+    
+    <div class="flex items-center gap-2">
+      <figure class="h-[32px] w-[32px] relative">
         <img
           fill
           priority="high"
@@ -31,9 +24,14 @@
           "
         />
       </figure>
-    </a>
+      <span class="font-medium text-gray-800 max-w-40 overflow-hidden text-ellipsis whitespace-nowrap">
+        {{ user()?.first_name }} {{ user()?.last_name }}
+      </span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    
     <ng-content select=".menu-btn" />
   </div>
 </header>
-
-<div class="divider"></div>

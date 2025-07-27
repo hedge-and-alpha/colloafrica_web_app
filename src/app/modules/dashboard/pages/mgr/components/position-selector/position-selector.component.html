@@ -1,0 +1,202 @@
+<div class="position-selector">
+  <!-- Guidance Overlay -->
+  <div *ngIf="showGuidance" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg p-6 max-w-md mx-4 relative">
+      <div class="flex justify-between items-start mb-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-purple-main rounded-full flex items-center justify-center text-white text-sm font-bold">
+            {{ guidanceStep + 1 }}
+          </div>
+          <span class="text-xs text-gray-500">{{ guidanceStep + 1 }} of {{ guidanceSteps.length }}</span>
+        </div>
+        <button (click)="skipGuidance()" class="text-gray-400 hover:text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <h3 class="text-lg font-semibold mb-3">{{ getCurrentGuidanceStep().title }}</h3>
+      <p class="text-gray-600 mb-6">{{ getCurrentGuidanceStep().description }}</p>
+      
+      <div class="flex justify-between">
+        <button 
+          *ngIf="guidanceStep > 0"
+          (click)="previousGuidanceStep()"
+          class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+        >
+          Previous
+        </button>
+        <div *ngIf="guidanceStep === 0"></div>
+        
+        <button 
+          (click)="nextGuidanceStep()"
+          class="px-4 py-2 bg-purple-main text-white rounded-lg hover:bg-purple-600"
+        >
+          {{ getCurrentGuidanceStep().action }}
+        </button>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="mt-4 bg-gray-200 rounded-full h-2">
+        <div 
+          class="bg-purple-main h-2 rounded-full transition-all duration-300"
+          [style.width.%]="((guidanceStep + 1) / guidanceSteps.length) * 100"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <div class="flex items-center justify-between mb-3">
+      <h4 class="text-sm font-medium text-gray-900">Choose Your Position</h4>
+      <div class="flex items-center gap-2">
+        <button 
+          type="button"
+          (click)="startGuidance()"
+          class="text-xs text-gray-500 hover:text-purple-main flex items-center gap-1"
+          title="Show tutorial"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          Help
+        </button>
+        <button 
+          type="button"
+          (click)="toggleRecommendations()"
+          class="text-xs text-purple-main hover:text-purple-600 flex items-center gap-1"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+          </svg>
+          {{ showRecommendations ? 'Hide' : 'Show' }} Recommendations
+        </button>
+      </div>
+    </div>
+    
+    <!-- Conflict Resolution Alert -->
+    <div *ngIf="conflictResolution" class="mb-4 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+      <div class="flex items-center gap-2 mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span class="font-medium text-orange-800">Position Conflict</span>
+      </div>
+      <p class="text-sm text-orange-700 mb-3">{{ conflictMessage }}</p>
+      <div class="flex gap-2">
+        <button 
+          (click)="resolveConflict()"
+          class="px-3 py-1 bg-orange-600 text-white text-xs rounded hover:bg-orange-700"
+        >
+          Show Alternatives
+        </button>
+        <button 
+          (click)="refreshPositionData()"
+          class="px-3 py-1 border border-orange-300 text-orange-700 text-xs rounded hover:bg-orange-50"
+        >
+          Refresh Positions
+        </button>
+      </div>
+    </div>
+    
+    <!-- Auto-assign option -->
+    <div class="mb-4" id="auto-assign">
+      <label class="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50" 
+             [class.border-purple-main]="autoAssignMode"
+             [class.bg-purple-50]="autoAssignMode"
+             (click)="selectAutoAssign()">
+        <input 
+          type="radio" 
+          name="positionChoice" 
+          [checked]="autoAssignMode"
+          class="text-purple-main focus:ring-purple-main"
+        />
+        <div class="flex-1">
+          <div class="font-medium text-sm">Auto-assign position</div>
+          <div class="text-xs text-gray-600">Let the system choose the best available position for you</div>
+        </div>
+        <div class="text-xs text-green-600 font-medium" *ngIf="autoAssignMode">✓ Recommended</div>
+      </label>
+    </div>
+    
+    <div class="text-xs text-gray-600 mb-3">Or select a specific position:</div>
+  </div>
+
+  <!-- Position Grid -->
+  <div id="position-grid" class="position-grid" *ngIf="!loading">
+    <div 
+      *ngFor="let position of positions" 
+      [class]="getPositionClass(position)"
+      [title]="getPositionTooltip(position)"
+      (click)="selectPosition(position)"
+    >
+      <div class="position-number">{{ position.position }}</div>
+      
+      <!-- Available position -->
+      <div *ngIf="position.isAvailable" class="position-content">
+        <div class="position-status">Available</div>
+        <div *ngIf="position.isRecommended && showRecommendations" class="recommended-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Recommended
+        </div>
+      </div>
+      
+      <!-- Occupied position -->
+      <div *ngIf="!position.isAvailable && position.occupant" class="position-content">
+        <div class="occupant-avatar">
+          {{ position.occupant.initials }}
+        </div>
+        <div class="position-status">Taken</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="loading" class="flex justify-center py-8">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-main"></div>
+  </div>
+
+  <!-- Position Benefits -->
+  <div id="benefits-guide" *ngIf="showRecommendations" class="mt-4 p-3 bg-blue-50 rounded-lg">
+    <h5 class="text-sm font-medium text-blue-900 mb-2">Position Benefits Guide:</h5>
+    <div class="space-y-2 text-xs text-blue-800">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+        <span><strong>Early positions (1-3):</strong> Lower risk, faster payout</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
+        <span><strong>Middle positions:</strong> Balanced risk and reward</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+        <span><strong>Late positions:</strong> Maximum savings discipline</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected position info -->
+  <div *ngIf="!autoAssignMode && selectedPosition" class="mt-4 p-3 bg-green-50 rounded-lg">
+    <div class="flex items-center gap-2 text-green-800">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 12l2 2 4-4"></path>
+        <circle cx="12" cy="12" r="9"></circle>
+      </svg>
+      <span class="text-sm font-medium">Position {{ selectedPosition }} selected</span>
+    </div>
+    <div class="mt-1 text-xs text-green-700">
+      {{ getSelectedPositionBenefits() }}
+    </div>
+  </div>
+</div> 

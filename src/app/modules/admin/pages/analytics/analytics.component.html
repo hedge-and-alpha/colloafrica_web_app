@@ -1,0 +1,216 @@
+<div class="analytics-page">
+  <div class="analytics-header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1 class="page-title">Analytics Dashboard</h1>
+        <p class="page-subtitle">Detailed platform insights and performance metrics</p>
+      </div>
+      <div class="header-actions">
+        <select class="timeframe-select" [value]="selectedTimeframe" (change)="onTimeframeChange($event)">
+          @for (option of timeframeOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+        <button class="export-btn" (click)="exportData()">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          Export
+        </button>
+        <button class="report-btn" (click)="generateReport()">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          Report
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading analytics data...</p>
+    </div>
+  } @else {
+    <div class="analytics-content">
+      <!-- User Analytics Section -->
+      @if (userAnalytics) {
+        <section class="analytics-section">
+          <h2 class="section-title">User Analytics</h2>
+          
+          <!-- User Activity Metrics -->
+          <div class="metrics-grid">
+            @for (metric of userAnalytics.activityMetrics; track metric.metric) {
+              <div class="metric-card">
+                <div class="metric-content">
+                  <h3 class="metric-value">{{ metric.value | number }}</h3>
+                  <p class="metric-label">{{ metric.metric }}</p>
+                  <div class="metric-change">
+                    <span class="change-indicator" [class]="getChangeClass(metric.change)">
+                      {{ getChangeIcon(metric.change) }}{{ formatPercentage(Math.abs(metric.change)) }}
+                    </span>
+                    <span class="change-text">vs previous period</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- User Charts -->
+          <div class="charts-row">
+            @if (userDemographicsChartData) {
+              <div class="chart-wrapper">
+                <ca-chart-widget
+                  type="doughnut"
+                  [data]="userDemographicsChartData"
+                  title="User Demographics"
+                  [height]="300">
+                </ca-chart-widget>
+              </div>
+            }
+            
+            @if (activityMetricsChartData) {
+              <div class="chart-wrapper">
+                <ca-chart-widget
+                  type="bar"
+                  [data]="activityMetricsChartData"
+                  title="Activity Metrics"
+                  [height]="300">
+                </ca-chart-widget>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- MGR Analytics Section -->
+      @if (mgrAnalytics) {
+        <section class="analytics-section">
+          <h2 class="section-title">MGR Analytics</h2>
+          
+          <!-- MGR Performance Metrics -->
+          <div class="performance-cards">
+            @for (metric of mgrAnalytics.performanceMetrics; track metric.metric) {
+              <div class="performance-card">
+                <div class="performance-icon">
+                  @switch (metric.metric) {
+                    @case ('Average Duration') {
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                    }
+                    @case ('Success Rate') {
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                    }
+                    @case ('Member Retention') {
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                      </svg>
+                    }
+                  }
+                </div>
+                <div class="performance-content">
+                  <h3 class="performance-value">{{ metric.value }}{{ metric.metric === 'Average Duration' ? ' months' : '%' }}</h3>
+                  <p class="performance-label">{{ metric.metric }}</p>
+                  <div class="performance-trend">
+                    <span class="trend-indicator" [class]="getChangeClass(metric.trend)">
+                      {{ getChangeIcon(metric.trend) }}{{ formatPercentage(Math.abs(metric.trend)) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- MGR Charts -->
+          <div class="charts-row">
+            @if (mgrCategoryChartData) {
+              <div class="chart-wrapper">
+                <ca-chart-widget
+                  type="doughnut"
+                  [data]="mgrCategoryChartData"
+                  title="MGR Category Distribution"
+                  [height]="300">
+                </ca-chart-widget>
+              </div>
+            }
+            
+            @if (mgrTrendsChartData) {
+              <div class="chart-wrapper">
+                <ca-chart-widget
+                  type="line"
+                  [data]="mgrTrendsChartData"
+                  title="MGR Creation vs Completion Trends"
+                  [height]="300">
+                </ca-chart-widget>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      <!-- Revenue Analytics Section -->
+      @if (revenueAnalytics) {
+        <section class="analytics-section">
+          <h2 class="section-title">Revenue Analytics</h2>
+          
+          <!-- Revenue KPIs -->
+          <div class="revenue-kpis">
+            @for (kpi of revenueAnalytics.kpis; track kpi.metric) {
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h3 class="kpi-title">{{ kpi.metric }}</h3>
+                  <div class="kpi-trend" [class]="getChangeClass(kpi.trend)">
+                    {{ getChangeIcon(kpi.trend) }}{{ formatPercentage(Math.abs(kpi.trend)) }}
+                  </div>
+                </div>
+                <div class="kpi-values">
+                  <div class="kpi-current">{{ kpi.current }}{{ kpi.metric === 'Customer LTV' ? '' : '%' }}</div>
+                  <div class="kpi-target">Target: {{ kpi.target }}{{ kpi.metric === 'Customer LTV' ? '' : '%' }}</div>
+                </div>
+                <div class="kpi-progress">
+                  <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="(kpi.current / kpi.target) * 100"></div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Revenue Charts -->
+          <div class="charts-row">
+            @if (revenueProjectionChartData) {
+              <div class="chart-wrapper full-width">
+                <ca-chart-widget
+                  type="line"
+                  [data]="revenueProjectionChartData"
+                  title="Revenue Trends & Projections"
+                  [height]="400">
+                </ca-chart-widget>
+              </div>
+            }
+          </div>
+
+          <!-- Revenue by Category -->
+          <div class="revenue-breakdown">
+            <h3 class="breakdown-title">Revenue by Category</h3>
+            <div class="category-list">
+              @for (category of revenueAnalytics.revenueByCategory; track category.category) {
+                <div class="category-item">
+                  <div class="category-info">
+                    <span class="category-name">{{ category.category }}</span>
+                    <span class="category-percentage">{{ formatPercentage(category.percentage) }}</span>
+                  </div>
+                  <div class="category-amount">{{ formatCurrency(category.revenue) }}</div>
+                </div>
+              }
+            </div>
+          </div>
+        </section>
+      }
+    </div>
+  }
+</div> 

@@ -63,10 +63,18 @@ export class JoinMgrPlanFormComponent implements OnInit {
 
   ngOnInit(): void {
     let inviteIdQueryParam = this.route.snapshot.queryParamMap.get('invite_id');
+    const mgrId = this.route.snapshot.paramMap.get('id');
 
     if (inviteIdQueryParam) {
+      // Private MGR join flow
       this.inviteId = inviteIdQueryParam;
       this.getMgrDetails(this.inviteId);
+    } else if (mgrId) {
+      // This shouldn't happen anymore since public MGRs are redirected
+      // But keeping for safety
+      this.router.navigate(['/mgr', mgrId, 'view'], { 
+        queryParams: { showJoin: 'true' } 
+      });
     }
   }
 

@@ -1,0 +1,19 @@
+/* Public MGR Join Modal Styles */
+.purple-main {
+  background-color: #6c3dd1;
+}
+
+.purple-600 {
+  background-color: #5b21b6;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+} 

@@ -27,18 +27,26 @@ export class MgrCreateEditComponent implements OnInit {
       this.formTemplate = view as FormTemplate;
 
       if (this.formTemplate === 'new') {
-        this.pageTitle = 'New MGR Plan';
+        this.pageTitle = 'New Contribution';
         this.processing = false;
       } else if (this.formTemplate === 'edit') {
-        this.pageTitle = 'Edit MGR Plan';
+        this.pageTitle = 'Edit Contribution';
         this.processing = false;
       } else {
-        this.pageTitle = 'Join MGR Plan';
+        this.pageTitle = 'Join Contribution';
         this.processing = true;
         let inviteIdQueryParam = this.route.snapshot.queryParamMap.get('invite_id');
+        const mgrId = this.route.snapshot.paramMap.get('id'); // For public MGRs
+        
         if (inviteIdQueryParam) {
+          // Private MGR join flow
           this.inviteId = inviteIdQueryParam;
           this.getMgrDetails(this.inviteId);
+        } else if (mgrId) {
+          // Public MGR join flow - redirect to public MGR view with join modal
+          this.router.navigate(['/mgr', mgrId, 'view'], { 
+            queryParams: { showJoin: 'true' } 
+          });
         } else {
           this.alert.open('danger', { details: 'Invalid invitation link.'});
           setTimeout(() => {
