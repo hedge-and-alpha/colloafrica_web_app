@@ -73,13 +73,6 @@ const routes: Routes = [
       { path: 'mgr', component: MgrComponent, title: 'Contribution' },
       { path: 'mgr/public', component: MgrComponent, title: 'Public Contributions' },
       
-      // New friendly URL route for joining MGRs by slug
-      {
-        path: 'join/:slug',
-        component: MgrCreateEditComponent,
-        title: 'Join Contribution Plan'
-      },
-      
       {
         path: 'mgr/:id',
         component: MgrDetailsComponent,
