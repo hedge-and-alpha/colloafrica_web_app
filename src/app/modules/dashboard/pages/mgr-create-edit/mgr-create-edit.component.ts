@@ -54,6 +54,11 @@ export class MgrCreateEditComponent implements OnInit {
           }, 3000);
         }
       }
+    } else {
+      this.alert.open('danger', { details: 'Invalid invitation link.'});
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      }, 3000);
     }
   }
 
@@ -81,6 +86,8 @@ export class MgrCreateEditComponent implements OnInit {
       },
     });
   }
+
+
 }
 
 type FormTemplate = 'new' | 'join' | 'edit';

@@ -23,6 +23,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/admin/admin.module').then((m) => m.AdminModule),
   },
+
   { path: 'error', component: ErrorPageComponent },
   {
     path: '**',
