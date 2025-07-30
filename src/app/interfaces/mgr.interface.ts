@@ -13,6 +13,7 @@ export interface MGR {
   theme_color: string;
   allotment_type: string;
   invite_link: string;
+  slug?: string; // New slug field for friendly URLs
   creator_id: number;
   status: string;
   id: string;

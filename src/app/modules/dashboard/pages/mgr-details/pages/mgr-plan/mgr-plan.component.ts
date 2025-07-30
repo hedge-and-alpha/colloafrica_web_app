@@ -56,13 +56,22 @@ export class MgrPlanComponent implements OnInit {
     
     // Different link generation based on MGR type
     if (this.plan.is_public) {
-      // For public MGRs, create direct view link
-      this.inviteLink = `https://colloafrica.com/mgr/${this.plan.id}/view`;
-    } else if (this.plan.invite_link) {
-      // For private MGRs, create invite link
-      this.inviteLink = `https://colloafrica.com/features/mgr/join?contribution_amount=${this.plan.amount}&desc=${this.plan.desc}&frequency=${this.plan.duration}&invite_id=${this.plan.invite_link}&join_date_deadline=${this.plan.join_date_deadline}&members=${this.plan.number_of_members}&mgr_id=${this.plan.id}&start_date=${this.plan.contribution_start_date}`;
+      // For public MGRs, use slug if available, otherwise use ID
+      if (this.plan.slug) {
+        this.inviteLink = `https://colloafrica.com/join/${this.plan.slug}`;
+      } else {
+        this.inviteLink = `https://colloafrica.com/mgr/${this.plan.id}/view`;
+      }
     } else {
-      this.inviteLink = null;
+      // For private MGRs, prioritize slug-based URLs
+      if (this.plan.slug) {
+        this.inviteLink = `https://colloafrica.com/join/${this.plan.slug}`;
+      } else if (this.plan.invite_link) {
+        // Fallback to old invite link format for backward compatibility
+        this.inviteLink = `https://colloafrica.com/features/mgr/join?contribution_amount=${this.plan.amount}&desc=${this.plan.desc}&frequency=${this.plan.duration}&invite_id=${this.plan.invite_link}&join_date_deadline=${this.plan.join_date_deadline}&members=${this.plan.number_of_members}&mgr_id=${this.plan.id}&start_date=${this.plan.contribution_start_date}`;
+      } else {
+        this.inviteLink = null;
+      }
     }
   }
 
