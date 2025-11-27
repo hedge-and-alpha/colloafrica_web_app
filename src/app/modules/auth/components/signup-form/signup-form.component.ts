@@ -160,7 +160,7 @@ export class SignupFormComponent implements OnDestroy, OnInit {
     this.api.verifyReferralCode(code)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (response: any) => {
+        next: (response: { data: { valid: boolean } }) => {
           this.validatingReferral = false;
           this.referralValid = response.data.valid;
         },
@@ -224,7 +224,7 @@ export class SignupFormComponent implements OnDestroy, OnInit {
 
     // Final check for referral code validation
     const referralCodeValue = this.referralCode?.value?.trim();
-    if (referralCodeValue && referralCodeValue.length > 0 && this.referralValid === false) {
+    if (referralCodeValue && this.referralValid === false) {
       this.alertService.open('danger', {
         details: 'Please enter a valid referral code or remove it'
       });
