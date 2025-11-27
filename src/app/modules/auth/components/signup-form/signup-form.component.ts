@@ -1,40 +1,43 @@
-import { NgClass } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Subject, takeUntil, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgClass } from '@angular/common';
+
 import { AlertService } from '../../../../components/alert/alert.service';
 import { ColsField2Component } from '../../../../components/cols-field-2/cols-field-2.component';
 import { FormErrorComponent } from '../../../../components/form-error/form-error.component';
-import { FormFieldComponent } from '../../../../components/form-field/form-field.component';
-import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
-import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
-import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
 import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
+// import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
+// import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
 
 @Component({
   selector: 'ca-signup-form',
   standalone: true,
   templateUrl: './signup-form.component.html',
-  styleUrl: './signup-form.component.css',
   imports: [
     ReactiveFormsModule,
     RouterLink,
     NgClass,
-    ButtonPrimaryDirective,
-    ButtonLoadingDirective,
     ColsField2Component,
     FormErrorComponent,
-    FormFieldComponent,
-    SpinnerComponent,
+    // ButtonPrimaryDirective,
+    // ButtonLoadingDirective,
   ],
 })
-export class SignupFormComponent {
+export class SignupFormComponent implements OnDestroy, OnInit {
+  private destroy$ = new Subject<void>();
+
   isSubmitted = false;
   loading = false;
+  wasAutoFilled = false;
+  validatingReferral = false;
+  referralValid: boolean | null = null;
+  lastReferralCode = '';
 
   form = this.fb.group(
     {
@@ -63,9 +66,7 @@ export class SignupFormComponent {
         Validators.required,
         emptyFieldValidator(),
       ]),
-      referral_code: this.fb.control<string | null>(null, [
-        emptyFieldValidator(),
-      ]),
+      referral_code: this.fb.control<string | null>(null),
       subscription: this.fb.control<boolean | null>(false, [
         Validators.requiredTrue,
       ]),
@@ -80,32 +81,138 @@ export class SignupFormComponent {
     private api: AuthApiService,
     private auth: AuthService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    const referralCode = this.route.snapshot.queryParamMap.get('referral_code');
+    this.setupReferralCodeAutoFill();
+    this.setupReferralCodeValidation();
+  }
 
-    referralCode && this.referralCode?.setValue(referralCode);
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private setupReferralCodeAutoFill(): void {
+    this.route.queryParamMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        const referralCode = params.get('referral_code');
+
+        if (referralCode && !this.referralCode?.value) {
+          const trimmedCode = referralCode.trim();
+          this.referralCode?.setValue(trimmedCode);
+          this.wasAutoFilled = true;
+          this.lastReferralCode = trimmedCode;
+
+          // Trigger immediate validation for auto-filled code
+          this.validateReferralCodeImmediately(trimmedCode);
+          this.clearUrlParameter();
+        }
+      });
+  }
+
+  private setupReferralCodeValidation(): void {
+    this.referralCode?.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(300), // Reduced to 300ms for faster response
+        distinctUntilChanged()
+      )
+      .subscribe(code => {
+        this.handleReferralCodeChange(code || '');
+      });
+  }
+
+  private handleReferralCodeChange(code: string): void {
+    const trimmedCode = code.trim();
+
+    // Reset state if code is empty
+    if (!trimmedCode) {
+      this.referralValid = null;
+      this.validatingReferral = false;
+      this.lastReferralCode = '';
+      return;
+    }
+
+    // Don't re-validate the same code
+    if (trimmedCode === this.lastReferralCode) {
+      return;
+    }
+
+    this.lastReferralCode = trimmedCode;
+
+    // Immediate minimum length validation
+    if (trimmedCode.length < 3) {
+      this.referralValid = false;
+      this.validatingReferral = false;
+      return;
+    }
+
+    // Validate the code
+    this.validateReferralCodeImmediately(trimmedCode);
+  }
+
+  private validateReferralCodeImmediately(code: string): void {
+    this.validatingReferral = true;
+    this.referralValid = null;
+
+    this.api.verifyReferralCode(code)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response: any) => {
+          this.validatingReferral = false;
+          this.referralValid = response.data.valid;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.validatingReferral = false;
+          this.referralValid = false;
+          console.error('Referral code validation error:', error);
+        }
+      });
+  }
+
+  // Optional: Validate on blur as well for immediate feedback
+  onReferralCodeBlur(): void {
+    const code = this.referralCode?.value?.trim();
+    if (code && code.length >= 3 && code !== this.lastReferralCode) {
+      this.validateReferralCodeImmediately(code);
+    }
+  }
+
+  private clearUrlParameter(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { referral_code: null },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
   }
 
   get firstName() {
     return this.form.get('first_name');
   }
+
   get lastName() {
     return this.form.get('last_name');
   }
+
   get email() {
     return this.form.get('email');
   }
+
   get password() {
     return this.form.get('password');
   }
+
   get passwordConfirmation() {
     return this.form.get('password_confirmation');
   }
+
   get phoneNumber() {
     return this.form.get('phone_number');
   }
+
   get referralCode() {
     return this.form.get('referral_code');
   }
@@ -115,9 +222,23 @@ export class SignupFormComponent {
 
     if (this.form.invalid) return;
 
+    // Final check for referral code validation
+    const referralCodeValue = this.referralCode?.value?.trim();
+    if (referralCodeValue && referralCodeValue.length > 0 && this.referralValid === false) {
+      this.alertService.open('danger', {
+        details: 'Please enter a valid referral code or remove it'
+      });
+      return;
+    }
+
     this.loading = true;
 
     const data = { ...this.form.value };
+
+    if (data.referral_code) {
+      data.referral_code = data.referral_code.trim();
+    }
+
     delete data.subscription;
     this.auth.email = data.email;
 
