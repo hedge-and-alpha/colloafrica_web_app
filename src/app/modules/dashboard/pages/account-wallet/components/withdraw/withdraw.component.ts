@@ -59,12 +59,15 @@ export class WithdrawComponent implements OnInit {
   get bankAccountId() {
     return this.form.get('bank_account_id');
   }
+
   get accountNumber() {
     return this.form.get('account_number');
   }
+
   get amount() {
     return this.form.get('amount');
   }
+
   get otp() {
     return this.otpForm.get('otp');
   }
@@ -76,6 +79,7 @@ export class WithdrawComponent implements OnInit {
       this.accountNumber?.patchValue(null);
       return;
     }
+
     this.selectedBank = event;
     this.holderName = event.holder_name;
     this.accountNumber?.setValue(event.account_number as any);
@@ -83,13 +87,14 @@ export class WithdrawComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-
     if (this.form.invalid) return;
+    
     this.step = 'confirm';
     this.modalService.updateConfig({
       closable: false,
       showHeading: false,
     });
+
     this.isSubmitted = false;
   }
 
