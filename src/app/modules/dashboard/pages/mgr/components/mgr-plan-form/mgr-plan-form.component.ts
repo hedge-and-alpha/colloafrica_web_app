@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit, effect } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, effect } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -23,7 +23,6 @@ import {
 } from '../../interfaces/mgr.interfaces';
 import { AllotmentTypeComponent } from '../allotment-type/allotment-type.component';
 import { UtilsService } from '../../../../../../services/utils/utils.service';
-import { contributionDateValidator } from '../../../../../../validators/contribution-date.validator';
 
 @Component({
   selector: 'ca-mgr-plan-form',
@@ -44,7 +43,9 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   publicDescription = '';
 
   minJoinDate = new Date();
+  maxJoinDate: Date | undefined = undefined;
   minContributionDate = new Date(new Date().setDate(new Date().getDate() + 1));
+  minAllocationDate = new Date(new Date().setDate(new Date().getDate() + 2));
 
   numberOfMembersSub?: Subscription;
   joinDateSub?: Subscription;
@@ -87,12 +88,9 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         validators: [Validators.required],
         updateOn: 'change',
       }),
-      allocation_date: new FormControl<string | null>(
-        { value: null, disabled: true },
-        {
-          validators: [Validators.required],
-        }
-      ),
+      allocation_date: new FormControl<string | null>(null, {
+        validators: [Validators.required],
+      }),
       theme_color: new FormControl<string | null>(null),
       allotment_type: new FormControl<string | null>(null, [
         Validators.required,
@@ -108,7 +106,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private modalService: ModalService,
-    private api: DashboardApiService,
+    @Inject(DashboardApiService) private api: DashboardApiService,
     private alert: AlertService,
     private router: Router,
     private route: ActivatedRoute,
@@ -124,7 +122,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
           if (modalData.type === 'manual' || modalData.type === 'auto') {
             this.selectedAllotmentType = modalData.type;
             this.allotmentType.patchValue(modalData.type === 'auto' ? 'auto' : 'manual');
-            
+
             if (modalData.position !== undefined) {
               this.selectedPosition = modalData.position;
               this.slotNumber.patchValue(modalData.position);
@@ -139,10 +137,16 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     // Check if creating a public MGR based on query parameter
     this.route.queryParams.subscribe(params => {
       this.isPublicMgr = params['type'] === 'public';
-      
-      // If it's a public MGR, set a default description
+
+      // If it's a public MGR, set a default description and handle join date field
       if (this.isPublicMgr) {
         this.publicDescription = 'Join our MGR plan to save together and achieve financial goals!';
+        // Clear join date deadline for public MGRs since it's calculated by backend
+        this.joinDateDeadline.setValue(null);
+        this.joinDateDeadline.disable();
+      } else {
+        // Enable join date deadline for private MGRs
+        this.joinDateDeadline.enable();
       }
     });
 
@@ -227,12 +231,19 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
 
             if (join >= start) {
               this.joinDateDeadline.setErrors({ deadline: true });
+            } else {
+              this.joinDateDeadline.setErrors(null);
             }
           }
 
           const date = new Date(value);
           const minStartDate = new Date(date.setDate(date.getDate() + 1));
           this.minContributionDate = minStartDate;
+        } else {
+          // Reset validation when join date is cleared
+          this.joinDateDeadline.setErrors(null);
+          // Reset min contribution date to tomorrow
+          this.minContributionDate = new Date(new Date().setDate(new Date().getDate() + 1));
         }
       },
     });
@@ -248,10 +259,26 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
             const join = new Date(this.joinDateDeadline.value).getTime();
             const start = new Date(value).getTime();
 
-            if (start > join) {
+            if (join >= start) {
+              this.joinDateDeadline.setErrors({ deadline: true });
+            } else {
               this.joinDateDeadline.setErrors(null);
             }
           }
+
+          // Set max join date to one day before contribution start date
+          const startDate = new Date(value);
+          const maxJoin = new Date(startDate);
+          maxJoin.setDate(startDate.getDate() - 1);
+          this.maxJoinDate = maxJoin;
+
+          // Set min allocation date to be after start date
+          const minAlloc = new Date(startDate);
+          minAlloc.setDate(startDate.getDate() + 1);
+          this.minAllocationDate = minAlloc;
+        } else {
+          this.maxJoinDate = undefined;
+          this.minAllocationDate = new Date(new Date().setDate(new Date().getDate() + 2));
         }
       },
     });
@@ -274,12 +301,12 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   selectAllotmentType() {
     // Get the current value from the form control
     const currentValue = this.allotmentType.value;
-    
+
     // If the form control already has a value, use it to set the selectedAllotmentType
     if (currentValue && !this.selectedAllotmentType) {
       this.selectedAllotmentType = currentValue === 'automatic' ? 'auto' : 'manual';
     }
-    
+
     // Open the modal to select allotment type
     this.modalService.open(
       AllotmentTypeComponent,
@@ -302,14 +329,21 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   }
 
   updateAllotmentTypeForPublicMgr() {
-    // No need to change the UI value when public MGR status changes
-    // We'll convert 'auto' to the appropriate backend value during form submission
     console.log('Public MGR status changed to:', this.isPublicMgr);
-    
-    // If switching to public MGR and no description yet, provide a default
-    if (this.isPublicMgr && !this.publicDescription) {
-      // Don't set it immediately, let the user focus on the field first
-      console.log('Public MGR enabled, description will be suggested on field focus');
+
+    // Handle join date deadline field based on public MGR status
+    if (this.isPublicMgr) {
+      // Clear and disable join date deadline for public MGRs
+      this.joinDateDeadline.setValue(null);
+      this.joinDateDeadline.disable();
+
+      // If switching to public MGR and no description yet, provide a default
+      if (!this.publicDescription) {
+        console.log('Public MGR enabled, description will be suggested on field focus');
+      }
+    } else {
+      // Enable join date deadline for private MGRs
+      this.joinDateDeadline.enable();
     }
   }
 
@@ -318,7 +352,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     console.log('Form submitted', this.form.value);
     console.log('Form valid?', this.form.valid);
     console.log('Terms valid?', this.terms.valid);
-    
+
     // Force validation of all form controls
     Object.keys(this.form.controls).forEach(key => {
       const control = this.form.get(key);
@@ -327,12 +361,12 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         control.updateValueAndValidity();
       }
     });
-    
+
     if (this.form.invalid || !this.terms.value) {
       console.error('Form is invalid or terms not accepted', this.getFormValidationErrors());
       return;
     }
-    
+
     // For public MGRs, also validate the public description
     if (this.isPublicMgr && !this.publicDescription) {
       console.error('Public description is required for public MGRs');
@@ -344,22 +378,30 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
 
     // Get form values and ensure they're properly formatted
     const rawFormData = this.form.getRawValue();
-    
+
     // Create a clean object with primitive values
     const formData: any = {};
-    
+
     // Ensure name is a string
     formData.name = rawFormData.name?.toString() || '';
-    
+
     // Copy other fields
     formData.desc = rawFormData.desc?.toString() || '';
     formData.amount = Number(rawFormData.amount) || 0;
     formData.duration = rawFormData.duration?.toString() || 'monthly';
     formData.number_of_members = Number(rawFormData.number_of_members) || 3;
-    // Skip join_date_deadline for public MGRs (removed from creation flow)
-    // formData.join_date_deadline = rawFormData.join_date_deadline;
-    formData.contribution_start_date = rawFormData.contribution_start_date;
-    formData.allocation_date = rawFormData.allocation_date;
+
+    // Handle contribution start date
+    formData.contribution_start_date = this.formatDateForBackend(
+      this.ensureDateIsAfterToday(rawFormData.contribution_start_date)
+    );
+
+    // Handle allocation date
+    formData.allocation_date = this.formatDateForBackend(
+      this.ensureDateIsAfterToday(rawFormData.allocation_date)
+    );
+
+    // Handle allotment type
     formData.allotment_type = rawFormData.allotment_type?.toString() || 'auto';
     formData.slot_number = rawFormData.slot_number ? Number(rawFormData.slot_number) : null;
     formData.theme_color = rawFormData.theme_color?.toString() || '';
@@ -372,56 +414,59 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
 
     // Handle allotment type
     if (formData.allotment_type === 'auto') {
-      // For public MGRs, convert 'auto' to 'random' as required by backend validation
-      // For regular MGRs, 'auto' is used for both public and private MGRs.
-      
-      // Ensure slot_number is null for automatic/random allotment
+      // Ensure slot_number is null for automatic allotment
       formData.slot_number = null;
     } else if (formData.allotment_type === 'manual') {
-      // Keep as 'manual'
       // Ensure slot_number is set for manual allotment
       if (!formData.slot_number) {
         formData.slot_number = 1; // Default to first position if not selected
       }
     }
-    
+
     console.log('Allotment type after conversion:', formData.allotment_type);
-    
-    // Log the allotment type for debugging
     console.log('Selected allotment type:', this.selectedAllotmentType);
     console.log('Form allotment_type value:', formData.allotment_type);
-    
 
-    
-    // Skip join_date_deadline adjustment for public MGRs (removed from UI)
-    // formData.join_date_deadline = this.formatDateForBackend(this.ensureDateIsAfterToday(formData.join_date_deadline));
-    
-    // Ensure contribution_start_date is after today
-    formData.contribution_start_date = this.formatDateForBackend(this.ensureDateIsAfterToday(formData.contribution_start_date));
-    console.log('Adjusted contribution_start_date to be after today:', formData.contribution_start_date);
-    
-    // Ensure allocation_date is after today
-    formData.allocation_date = this.formatDateForBackend(this.ensureDateIsAfterToday(formData.allocation_date));
-    console.log('Adjusted allocation_date to be after today:', formData.allocation_date);
-    
+    // Handle join_date_deadline based on whether it's a public MGR or not
+    const joinDeadlineValue = rawFormData.join_date_deadline;
+
+    if (!this.isPublicMgr) {
+      // For private MGRs: Send join_date_deadline only if it has a value
+      if (joinDeadlineValue && joinDeadlineValue.toString().trim() !== '') {
+        // Ensure join date is before contribution start date
+        const joinDate = this.ensureDateIsBeforeContributionStart(
+          joinDeadlineValue,
+          rawFormData.contribution_start_date
+        );
+        formData.join_date_deadline = this.formatDateForBackend(joinDate);
+        console.log('Private MGR - join_date_deadline set to:', formData.join_date_deadline);
+      } else {
+        // For private MGRs with no join date, send empty string
+        formData.join_date_deadline = '';
+        console.log('Private MGR - join_date_deadline set to empty string');
+      }
+    } else {
+      // For public MGRs: DO NOT send join_date_deadline at all
+      console.log('Public MGR - join_date_deadline will be omitted from request');
+    }
+
     // Set is_public flag based on the isPublicMgr variable
-    // Send it as a boolean value instead of a number to match backend expectations
-    // Create base form data
     const finalFormData: any = {
       ...formData,
-      is_public: this.isPublicMgr // Send as boolean (true/false) instead of 1/0
+      is_public: this.isPublicMgr
     };
-    
-    // Remove join_date_deadline for public MGRs (calculated on backend)
+
+    // For public MGRs, add public_description
     if (this.isPublicMgr) {
-      delete finalFormData.join_date_deadline;
       finalFormData.public_description = this.publicDescription;
     }
+
     console.log('Creating plan with is_public:', finalFormData.is_public, 'isPublicMgr:', this.isPublicMgr);
-    
+    console.log('Final form data to send:', JSON.stringify(finalFormData, null, 2));
+
     this.createNewPlan(finalFormData);
   }
-  
+
   // Helper method to get all validation errors
   getFormValidationErrors() {
     const errors: any = {};
@@ -437,26 +482,31 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   createNewPlan(data: any) {
     // Ensure all fields are the correct types
     const formattedData: any = {};
-    
+
     // Convert all fields to their expected types
     Object.keys(data).forEach(key => {
       const value = data[key];
-      
+
       // Special handling for allotment_type
       if (key === 'allotment_type') {
         const allotmentType = value?.toString() || 'auto';
-        
-        // For public MGRs, convert 'auto' to 'random' as required by backend validation
         formattedData[key] = allotmentType; // Preserve 'auto' or 'manual'
       }
-      // Special handling for date fields (excluding join_date_deadline for public MGRs)
-      else if (['contribution_start_date', 'allocation_date'].includes(key)) {
-        formattedData[key] = this.formatDateForBackend(value);
+      // Special handling for date fields - format as YYYY-MM-DD
+      else if (['contribution_start_date', 'allocation_date', 'join_date_deadline'].includes(key)) {
+        // If join_date_deadline is empty string for private MGRs, keep it as empty string
+        if (key === 'join_date_deadline' && value === '') {
+          formattedData[key] = '';
+        } else if (value) {
+          formattedData[key] = this.formatDateForBackend(value);
+        } else {
+          formattedData[key] = '';
+        }
       }
       // Ensure strings for these fields
       else if (['name', 'desc', 'public_description', 'theme_color', 'duration'].includes(key)) {
         formattedData[key] = value?.toString() || '';
-      } 
+      }
       // Ensure numbers for these fields
       else if (['amount', 'number_of_members', 'slot_number'].includes(key)) {
         formattedData[key] = value !== null && value !== undefined ? Number(value) : null;
@@ -470,15 +520,20 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         formattedData[key] = value;
       }
     });
-    
+
+    // For public MGRs, remove join_date_deadline from the payload
+    if (this.isPublicMgr && formattedData.join_date_deadline !== undefined) {
+      delete formattedData.join_date_deadline;
+    }
+
     // Log the formatted data being sent to the API
     console.log('Formatted data being sent to API:', JSON.stringify(formattedData, null, 2));
-    
+
     if (this.isPublicMgr) {
       // For public MGRs, use the public MGR API endpoint
       console.log('Using public MGR API endpoint');
       this.api.createPublicMgr(formattedData).subscribe({
-        next: ({ data, message, status }) => {
+        next: ({ data, message, status }: { data: MGR; message: string; status: string }) => {
           this.loading = false;
           this.alert.open('success', { details: message, summary: status });
           this.form.reset();
@@ -493,7 +548,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
           console.error('Error response:', err.error);
           console.error('Status:', err.status);
           console.error('Headers:', err.headers);
-          
+
           // Check if there are validation errors in the response
           if (err.error && err.error.errors) {
             console.error('Validation errors:', err.error.errors);
@@ -513,7 +568,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       // For regular MGRs, use the existing API endpoint
       console.log('Using regular MGR API endpoint');
       this.api.createMGR(formattedData).subscribe({
-        next: ({ data, message, status }) => {
+        next: ({ data, message, status }: { data: MGR; message: string; status: string }) => {
           this.loading = false;
           this.alert.open('success', { details: message, summary: status });
           this.form.reset();
@@ -528,7 +583,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
           console.error('Error response:', err.error);
           console.error('Status:', err.status);
           console.error('Headers:', err.headers);
-          
+
           // Check if there are validation errors in the response
           if (err.error && err.error.errors) {
             console.error('Validation errors:', err.error.errors);
@@ -551,52 +606,85 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
   ensureDateIsAfterToday(date: Date | string | null): Date {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set to beginning of day
-    
+
     if (!date) {
       // If date is null or undefined, return tomorrow
       const tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + 1);
       return tomorrow;
     }
-    
+
     const dateObj = typeof date === 'string' ? new Date(date) : date;
-    
+
     if (isNaN(dateObj.getTime())) {
       // If date is invalid, return tomorrow
       const tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + 1);
       return tomorrow;
     }
-    
+
     // If date is before or equal to today, ALWAYS return tomorrow
-    // This is critical for backend validation which requires dates to be after:today
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     // Check if the date is today or earlier
-    if (dateObj.getFullYear() === today.getFullYear() && 
-        dateObj.getMonth() === today.getMonth() && 
-        dateObj.getDate() <= today.getDate()) {
+    if (dateObj.getFullYear() === today.getFullYear() &&
+      dateObj.getMonth() === today.getMonth() &&
+      dateObj.getDate() <= today.getDate()) {
       return tomorrow;
     }
-    
+
     return dateObj;
   }
-  
+
+  // New helper method to ensure join date is before contribution start date
+  ensureDateIsBeforeContributionStart(joinDate: string | Date | null, startDate: string | Date | null): Date {
+    if (!startDate) {
+      throw new Error('Start date is required');
+    }
+
+    if (!joinDate) {
+      // If no join date is provided, default to one day before start date
+      const start = typeof startDate === 'string' ? new Date(startDate) : startDate;
+      const oneDayBefore = new Date(start);
+      oneDayBefore.setDate(start.getDate() - 1);
+      return oneDayBefore;
+    }
+
+    const join = typeof joinDate === 'string' ? new Date(joinDate) : joinDate;
+    const start = typeof startDate === 'string' ? new Date(startDate) : startDate;
+
+    // Ensure join date is valid
+    if (isNaN(join.getTime())) {
+      const oneDayBefore = new Date(start);
+      oneDayBefore.setDate(start.getDate() - 1);
+      return oneDayBefore;
+    }
+
+    // If join date is on or after start date, set it to one day before
+    if (join >= start) {
+      const oneDayBefore = new Date(start);
+      oneDayBefore.setDate(start.getDate() - 1);
+      return oneDayBefore;
+    }
+
+    return join;
+  }
+
   // Helper method to format date as YYYY-MM-DD
   formatDateForBackend(date: Date | string | null): string {
     if (!date) return '';
-    
+
     const dateObj = typeof date === 'string' ? new Date(date) : date;
-    
+
     if (isNaN(dateObj.getTime())) {
       return '';
     }
-    
+
     const year = dateObj.getFullYear();
     const month = String(dateObj.getMonth() + 1).padStart(2, '0');
     const day = String(dateObj.getDate()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}`;
   }
 
