@@ -48,7 +48,7 @@ export class BankAccountFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.banks$ = this.api.getBanks().pipe(map(response => response.data as BankInfo[]));
+    this.banks$ = this.api.getBanks();
   }
 
   get bankName() {
@@ -82,7 +82,7 @@ export class BankAccountFormComponent implements OnInit {
 
     this.api.addBankAccount(this.form.value).subscribe({
       next: (ba) => {
-        this.cardBankStore.addBankAccount(ba.data);
+        this.cardBankStore.addBankAccount(ba);
         this.modalService.update(
           ModalStatusComponent,
           'small',

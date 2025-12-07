@@ -1,227 +1,439 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { map, pipe, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ApiResponse, PaginatedData } from '../../interfaces/api-response';
-import { BankAccount, Card } from '../../interfaces/bank-and-card';
-import { MGR, MGRAnalytics, MGRContributionStats } from '../../interfaces/mgr.interface';
+import { Account, Transaction } from '../../interfaces/account';
+import { ApiResponse, TablePagination } from '../../interfaces/api-response';
+import { Bank, BankAccount, Card } from '../../interfaces/bank-and-card';
+import {
+  MGR,
+  MGRAnalytics,
+  MGRContributionStats,
+} from '../../interfaces/mgr.interface';
 import { INotificationData } from '../../interfaces/notification';
-import { User, VirtualAccount } from '../../interfaces/user';
+import {
+  BasicInfo,
+  ContactInfo,
+  EmploymentInfo,
+  IDCard,
+  NextOfKinInfo,
+  User,
+  VirtualAccount,
+} from '../../interfaces/user';
 import { IDashboardData } from '../../modules/dashboard/pages/home/models/home.model';
+import { CardAndBankStoreService } from '../../stores+/card-bank.store';
+import { MgrStoreService } from '../../stores+/mgr.store';
+import { TransactionStoreService } from '../../stores+/transaction.store';
+import { UserStoreService } from '../../stores+/user.store';
 
-type ApiResponseWithData<T = unknown> = ApiResponse & { data: T };
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DashboardApiService {
-  private readonly baseUrl = environment.API_BASE_URL;
+  #baseUrl = environment.API_BASE_URL;
 
-  private get authToken(): string | null {
-    return localStorage.getItem('AUTH_TOKEN');
+  constructor(
+    private http: HttpClient,
+    private userStore: UserStoreService,
+    private cardBankStore: CardAndBankStoreService,
+    private transactionStore: TransactionStoreService,
+    private mgrStore: MgrStoreService
+  ) { }
+
+  getUser() {
+    return this.http
+      .get<{ data: { user: User } }>(`${this.#baseUrl}/user`)
+      .pipe(
+        map(({ data }) => data.user),
+        tap((user) => {
+          this.userStore.user = user;
+        })
+      );
   }
 
-  constructor(private readonly http: HttpClient) { }
+  getDashboardData() {
+    return this.http
+      .get<{ data: IDashboardData }>(`${this.#baseUrl}/user/dashboard`)
+      .pipe(map((response) => response.data));
+  }
 
-  private getAuthHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.authToken}`
+  uploadProfilePicture(data: FormData) {
+    return this.http
+      .post<ApiResponse & { data: Pick<User, 'profile_picture'> }>(
+        `${this.#baseUrl}/user/upload/profile-pic`,
+        data
+      )
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
+  }
+
+  updatePersonalInfo(data: object) {
+    return this.http
+      .post<ApiResponse & { data: BasicInfo }>(
+        `${this.#baseUrl}/user/update/personal-info`,
+        data
+      )
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
+  }
+
+  updatePersonalContactInfo(data: object) {
+    return this.http
+      .post<ApiResponse & { data: ContactInfo }>(
+        `${this.#baseUrl}/user/update/contact-info`,
+        data
+      )
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
+  }
+
+  updatePersonalEmploymentInfo(data: object) {
+    return this.http
+      .post<ApiResponse & { data: EmploymentInfo }>(
+        `${this.#baseUrl}/user/update/employment-info`,
+        data
+      )
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
+  }
+
+  updatePersonalNokInfo(data: object) {
+    return this.http
+      .post<ApiResponse & { data: NextOfKinInfo }>(
+        `${this.#baseUrl}/user/update/nextofkin-info`,
+        data
+      )
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
+  }
+
+  updateIdCardDetails(data: object) {
+    return this.http
+      .post<ApiResponse & { data: IDCard }>(
+        `${this.#baseUrl}/user/update/id-verification`,
+        data
+      )
+      .pipe(tap((res) => this.userStore.updateUser(res.data as User)));
+  }
+
+  getBanks() {
+    return this.http
+      .get<{ data: { bank: Bank[] } }>(
+        'https://api-apps.vfdbank.systems/vtech-wallet/api/v1/wallet2/bank'
+      )
+      .pipe(
+        map((res) => {
+          const transformed = res.data.bank.map((b) => {
+            return {
+              bank_name: b.name,
+              bank_code: b.code,
+            };
+          });
+          return transformed;
+        })
+      );
+  }
+
+  getBankAccounts() {
+    return this.http
+      .get<ApiResponse & { data: { accounts: BankAccount[] } }>(
+        `${this.#baseUrl}/bank`
+      )
+      .pipe(
+        map((res) => res.data.accounts),
+        tap((res) => {
+          this.cardBankStore.setBankAccounts(res);
+        })
+      );
+  }
+
+  addBankAccount(data: object) {
+    return this.http
+      .post<ApiResponse & { data: BankAccount }>(
+        `${this.#baseUrl}/bank/add`,
+        data
+      )
+      .pipe(map((res) => res.data));
+  }
+
+  primaryBankAccount(id: string | number) {
+    return this.http.post<ApiResponse & { data: BankAccount }>(
+      `${this.#baseUrl}/bank/primary/${id}`,
+      null
+    );
+  }
+
+  deleteBankAccount(id: string | number) {
+    return this.http.delete<ApiResponse>(`${this.#baseUrl}/bank/delete/${id}`);
+  }
+
+  getBankCards() {
+    return this.http
+      .get<ApiResponse & { data: { cards: Card[] } }>(`${this.#baseUrl}/card`)
+      .pipe(
+        map((res) => res.data.cards),
+        tap((cards) => this.cardBankStore.setBankCards(cards))
+      );
+  }
+
+  addBankCard(data: object) {
+    return this.http
+      .post<ApiResponse & { data: Card }>(`${this.#baseUrl}/card/add`, data)
+      .pipe(map((res) => res.data));
+  }
+
+  deleteBankCard(id: string) {
+    return this.http.delete(`${this.#baseUrl}/card/delete/${id}`);
+  }
+
+  changePassword(data: object) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/user/change-password`,
+      data
+    );
+  }
+
+  verifyBvn(data: object) {
+    return this.http.post<{ data: VirtualAccount }>(
+      `${this.#baseUrl}/virtual-account/create`,
+      data
+    );
+  }
+
+  getTransactions(page = 1, perPage = 10) {
+    return this.http
+      .get<
+        ApiResponse & {
+          data: { transactions: Transaction[] } & TablePagination;
+        }
+      >(`${this.#baseUrl}/transaction?page=${page}&per_page=${perPage}`)
+      .pipe(
+        tap(({ data }) =>
+          this.transactionStore.setTransactions(data.transactions)
+        )
+      );
+  }
+
+  requestOtp() {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/transaction/request-otp`, {}
+    );
+  }
+
+  initiateWithdrawal(data: object) {
+    return this.http.post<
+      ApiResponse & {
+        data: { transaction: Transaction; current_balance: number };
+      }
+    >(`${this.#baseUrl}/transaction/transfer`, data);
+  }
+
+  createMGR(data: any) {
+    const payload = {
+      name: String(data.name || ''),
+      desc: String(data.desc || ''),
+      amount: Number(data.amount || 0),
+      duration: String(data.duration || 'monthly'),
+      number_of_members: Number(data.number_of_members || 3),
+      join_date_deadline: String(data.join_date_deadline || ''),
+      contribution_start_date: String(data.contribution_start_date || ''),
+      allocation_date: String(data.allocation_date || ''),
+      allotment_type: String(data.allotment_type || 'auto'),
+      slot_number: data.slot_number ? Number(data.slot_number) : null,
+      theme_color: String(data.theme_color || ''),
+      is_public: Boolean(data.is_public)
+    };
+
+    console.log('API Service - Final payload for createMGR:', JSON.stringify(payload, null, 2));
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
-  }
 
-  createMGR(data: Record<string, unknown>): Observable<ApiResponse & { data: MGR }> {
     return this.http.post<ApiResponse & { data: MGR }>(
-      `${this.baseUrl}/mgr/create`,
-      data,
-      { headers: this.getAuthHeaders() }
+      `${this.#baseUrl}/mgr`,
+      JSON.stringify(payload),
+      { headers: headers }
     );
   }
 
-  createPublicMgr(data: Record<string, unknown>): Observable<ApiResponse & { data: MGR }> {
+  updateMGR(id: string, data: object) {
+    return this.http.put<ApiResponse & { data: MGR }>(
+      `${this.#baseUrl}/mgr/${id}`,
+      data
+    );
+  }
+
+  getAdminMGR(status?: string) {
+    const endpoint = status
+      ? `${this.#baseUrl}/mgr/admin/${status}`
+      : `${this.#baseUrl}/mgr/admin`;
+    return this.http.get<{ data: MGR[] }>(endpoint);
+  }
+
+  getParticipantMGR(status?: string) {
+    const endpoint = status
+      ? `${this.#baseUrl}/mgr/participant/${status}`
+      : `${this.#baseUrl}/mgr/participant`;
+    return this.http.get<{ data: MGR[] }>(endpoint);
+  }
+
+  getMGRById(id: string) {
+    return this.http.get<{ data: MGR }>(`${this.#baseUrl}/mgr/${id}`).pipe(
+      tap((mgr) => {
+        this.mgrStore.setActivePlan(mgr.data!);
+        this.mgrStore.setMembers(mgr.data.mgr_users!);
+      })
+    );
+  }
+
+  getMgrByInviteLink(link: string) {
+    return this.http.get<{
+      data: { mgr: MGR; available_positions?: number[] };
+    }>(`${this.#baseUrl}/mgr/invite-link/${link}`);
+  }
+
+  getMgrPlanAvailableSlots(mgrId: string) {
+    return this.http
+      .get<{ data: number[] }>(`${this.#baseUrl}/mgr/${mgrId}/slots`)
+      .pipe(map((response) => response.data));
+  }
+
+  joinMgrByInviteLink(link: string, position: string) {
+    return this.http.post<ApiResponse & { data: { mgr: MGR } }>(
+      `${this.#baseUrl}/mgr/join/${link}${position ? `/${position}` : ``}`,
+      {}
+    );
+  }
+
+  cancelMgrPlan(id: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/cancel/${id}`,
+      {}
+    );
+  }
+
+  changeMgrPosition(mgrId: string, newPosition: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/change-position/${mgrId}/${newPosition}`,
+      {}
+    );
+  }
+
+  proposePositionSwap(mgrId: string, userId: number) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/propose-swap/${mgrId}/${userId}`,
+      {}
+    );
+  }
+
+  manageSwapRequests(action: 'accept' | 'reject', swapRequestId: string, notificationId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/swap-requests/${action}/${swapRequestId}/${notificationId}`,
+      {}
+    );
+  }
+
+  removeMember(mgrId: string, userId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/remove-member/${mgrId}/${userId}`,
+      {}
+    );
+  }
+
+  leavePlan(mgrId: string, userId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/leave-mgr/${mgrId}`,
+      {}
+    );
+  }
+
+  getMgrAnalyticsById(mgrId: string) {
+    return this.http.get<{ data: MGRAnalytics }>(
+      `${this.#baseUrl}/mgr/analytics/${mgrId}`
+    );
+  }
+
+  getMgrPlanContributionStats(mgrId: string, cycleNumber: number | string) {
+    return this.http.get<{ data: MGRContributionStats[] }>(
+      `${this.#baseUrl}/mgr/${mgrId}/cycle/${cycleNumber}`
+    );
+  }
+
+  initiateMgrRollover(mgrId: string) {
+    return this.http.post<ApiResponse>(
+      `${this.#baseUrl}/mgr/${mgrId}/rollover`,
+      {}
+    );
+  }
+
+  getUnreadNotifications() {
+    return this.http
+      .get<{ data: { notifications: INotificationData[] } }>(
+        `${this.#baseUrl}/user/notifications/unread`
+      )
+      .pipe(map((res) => res.data.notifications));
+  }
+
+  getPublicMgrs(filters?: any) {
+    let params = '';
+    if (filters) {
+      const searchParams = new URLSearchParams(filters);
+      params = `?${searchParams.toString()}`;
+    }
+    return this.http.get<ApiResponse & { data: any }>(`${this.#baseUrl}/mgr/public${params}`);
+  }
+
+  getPublicMgrDetails(id: string) {
+    return this.http.get<ApiResponse & { data: MGR }>(`${this.#baseUrl}/mgr/public/${id}`);
+  }
+
+  joinPublicMgr(id: string, data: any) {
+    return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/join`, data);
+  }
+
+  createPublicMgr(data: any) {
+    const payload = {
+      name: '' + (data.name || ''),
+      desc: '' + (data.desc || ''),
+      duration: '' + (data.duration || 'monthly'),
+      number_of_members: Number(data.number_of_members || 3),
+      amount: Number(data.amount || 0),
+      join_date_deadline: '' + (data.join_date_deadline || ''),
+      contribution_start_date: '' + (data.contribution_start_date || ''),
+      allocation_date: '' + (data.allocation_date || ''),
+      allotment_type: String(data.allotment_type || 'auto'),
+      slot_number: data.slot_number ? Number(data.slot_number) : null,
+      theme_color: '' + (data.theme_color || ''),
+      is_public: Boolean(data.is_public),
+      public_description: '' + (data.public_description || '')
+    };
+
+    console.log('API Service - Final payload for createPublicMgr:', JSON.stringify(payload, null, 2));
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
     return this.http.post<ApiResponse & { data: MGR }>(
-      `${this.baseUrl}/mgr/create-public`,
-      data,
-      { headers: this.getAuthHeaders() }
+      `${this.#baseUrl}/mgr/public`,
+      payload,
+      { headers: headers }
     );
   }
 
-  getMgrDetails(mgrId: string): Observable<ApiResponse & { data: MGR }> {
-    return this.http.get<ApiResponse & { data: MGR }>(
-      `${this.baseUrl}/mgr/${mgrId}`,
-      { headers: this.getAuthHeaders() }
+  checkPublicMgrPermission() {
+    return this.http.get<ApiResponse & { data: { can_create: boolean; user_id: number } }>(
+      `${this.#baseUrl}/mgr/public/permission-check`
     );
   }
 
-  verifyBvn(data: Record<string, unknown>): Observable<ApiResponse & { data: VirtualAccount }> {
-    return this.http.post<ApiResponse & { data: VirtualAccount }>(`${this.baseUrl}/verify-bvn`, data, { headers: this.getAuthHeaders() });
+  grantPublicMgrPermission(userId: number, notes?: string) {
+    return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/permissions/grant/${userId}`, { notes });
   }
 
-  getTransactions(page?: number): Observable<ApiResponseWithData> {
-    const endpoint = page ? `${this.baseUrl}/transaction?page=${page}` : `${this.baseUrl}/transaction`;
-    return this.http.get<ApiResponseWithData>(endpoint, { headers: this.getAuthHeaders() });
+  revokePublicMgrPermission(userId: number) {
+    return this.http.delete<ApiResponse>(`${this.#baseUrl}/mgr/public/permissions/revoke/${userId}`);
   }
 
-  getBankAccounts(): Observable<ApiResponseWithData> {
-    return this.http.get<ApiResponseWithData>(`${this.baseUrl}/bank-accounts`, { headers: this.getAuthHeaders() });
+  getPublicMgrPermissions() {
+    return this.http.get<ApiResponse & { data: any[] }>(`${this.#baseUrl}/mgr/public/permissions`);
   }
 
-  getBanks(): Observable<ApiResponseWithData> {
-    return this.http.get<ApiResponseWithData>(`${this.baseUrl}/banks`, { headers: this.getAuthHeaders() });
-  }
-
-  addBankAccount(data: Record<string, unknown>): Observable<ApiResponse & { data: BankAccount }> {
-    return this.http.post<ApiResponse & { data: BankAccount }>(`${this.baseUrl}/bank-accounts`, data, { headers: this.getAuthHeaders() });
-  }
-
-  deleteBankAccount(id: string): Observable<unknown> {
-    return this.http.delete(`${this.baseUrl}/bank-accounts/${id}`, { headers: this.getAuthHeaders() });
-  }
-
-  primaryBankAccount(id: string): Observable<ApiResponse & { data: BankAccount }> {
-    return this.http.put<ApiResponse & { data: BankAccount }>(`${this.baseUrl}/bank-accounts/${id}/primary`, {}, { headers: this.getAuthHeaders() });
-  }
-
-  getBankCards(): Observable<unknown> {
-    return this.http.get(`${this.baseUrl}/bank-cards`, { headers: this.getAuthHeaders() });
-  }
-
-  addBankCard(data: Record<string, unknown>): Observable<ApiResponse & { data: Card }> {
-    return this.http.post<ApiResponse & { data: Card }>(`${this.baseUrl}/bank-cards`, data, { headers: this.getAuthHeaders() });
-  }
-
-  deleteBankCard(id: string): Observable<unknown> {
-    return this.http.delete(`${this.baseUrl}/bank-cards/${id}`, { headers: this.getAuthHeaders() });
-  }
-
-  requestOtp(): Observable<unknown> {
-    return this.http.post(`${this.baseUrl}/otp/request`, {}, { headers: this.getAuthHeaders() });
-  }
-
-  initiateWithdrawal(data: Record<string, unknown>): Observable<unknown> {
-    return this.http.post(`${this.baseUrl}/withdrawal/initiate`, data, { headers: this.getAuthHeaders() });
-  }
-
-  getDashboardData(): Observable<ApiResponse & { data: IDashboardData }> {
-    return this.http.get<ApiResponse & { data: IDashboardData }>(`${this.baseUrl}/dashboard`, { headers: this.getAuthHeaders() });
-  }
-
-  getMgrByInviteLink(link: string): Observable<ApiResponse & { data: { mgr: MGR, available_positions: number[] } }> {
-    return this.http.get<ApiResponse & { data: { mgr: MGR, available_positions: number[] } }>(
-      `${this.baseUrl}/mgr/invite/${link}`,
-      { headers: this.getAuthHeaders() }
-    );
-  }
-
-  getMGRById(mgrId: string): Observable<ApiResponse & { data: MGR }> {
-    return this.http.get<ApiResponse & { data: MGR }>(`${this.baseUrl}/mgr/${mgrId}`, { headers: this.getAuthHeaders() });
-  }
-
-  cancelMgrPlan(planId: string): Observable<unknown> {
-    return this.http.delete(`${this.baseUrl}/mgr/${planId}/cancel`, { headers: this.getAuthHeaders() });
-  }
-
-  getMgrPlanAvailableSlots(mgrId: string): Observable<number[]> {
-    return this.http.get<ApiResponse & { data: number[] }>(`${this.baseUrl}/mgr/${mgrId}/available-slots`, { headers: this.getAuthHeaders() }).pipe(map(res => res.data));
-  }
-
-  changeMgrPosition(mgrId: string, slotNumber: number): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/mgr/${mgrId}/position`, { slot_number: slotNumber }, { headers: this.getAuthHeaders() });
-  }
-
-  updateMGR(mgrId: string, data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/mgr/${mgrId}`, data, { headers: this.getAuthHeaders() });
-  }
-
-  getMgrAnalyticsById(mgrId: string): Observable<ApiResponse & { data: MGRAnalytics }> {
-    return this.http.get<ApiResponse & { data: MGRAnalytics }>(`${this.baseUrl}/mgr/${mgrId}/analytics`, { headers: this.getAuthHeaders() });
-  }
-
-  getMgrPlanContributionStats(mgrId: string, cycle: number): Observable<ApiResponse & { data: MGRContributionStats[] }> {
-    return this.http.get<ApiResponse & { data: MGRContributionStats[] }>(`${this.baseUrl}/mgr/${mgrId}/contribution-stats/${cycle}`, { headers: this.getAuthHeaders() });
-  }
-
-  removeMember(planId: string, userId: string | number): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(`${this.baseUrl}/mgr/${planId}/members/${userId}`, { headers: this.getAuthHeaders() });
-  }
-
-  leavePlan(planId: string, userId: string | number): Observable<ApiResponse> {
-    return this.http.delete<ApiResponse>(`${this.baseUrl}/mgr/${planId}/leave`, { headers: this.getAuthHeaders() });
-  }
-
-  proposePositionSwap(planId: string, userId: string | number): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.baseUrl}/mgr/${planId}/swap-proposal`, { target_user_id: userId }, { headers: this.getAuthHeaders() });
-  }
-
-  joinMgrByInviteLink(inviteId: string, position?: number): Observable<ApiResponse & { data: { mgr: MGR } }> {
-    return this.http.post<ApiResponse & { data: { mgr: MGR } }>(`${this.baseUrl}/mgr/join/${inviteId}`, { position }, { headers: this.getAuthHeaders() });
-  }
-
-  joinPublicMgr(mgrId: string, data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.baseUrl}/mgr/${mgrId}/join-public`, data, { headers: this.getAuthHeaders() });
-  }
-
-  checkPublicMgrPermission(): Observable<ApiResponse & { data: { can_create: boolean } }> {
-    return this.http.get<ApiResponse & { data: { can_create: boolean } }>(`${this.baseUrl}/mgr/public/permission`, { headers: this.getAuthHeaders() });
-  }
-
-  getPublicMgrs(): Observable<ApiResponse & { data: PaginatedData<MGR> }> {
-    return this.http.get<ApiResponse & { data: PaginatedData<MGR> }>(`${this.baseUrl}/mgr/public`, { headers: this.getAuthHeaders() });
-  }
-
-  getAdminMGR(status?: string): Observable<unknown> {
-    const endpoint = status ? `${this.baseUrl}/mgr/admin?status=${status}` : `${this.baseUrl}/mgr/admin`;
-    return this.http.get(endpoint, { headers: this.getAuthHeaders() });
-  }
-
-  getParticipantMGR(status?: string): Observable<unknown> {
-    const endpoint = status ? `${this.baseUrl}/mgr/participant?status=${status}` : `${this.baseUrl}/mgr/participant`;
-    return this.http.get(endpoint, { headers: this.getAuthHeaders() });
-  }
-
-  initiateMgrRollover(mgrId: string): Observable<unknown> {
-    return this.http.post(`${this.baseUrl}/mgr/${mgrId}/rollover`, {}, { headers: this.getAuthHeaders() });
-  }
-
-  getUnreadNotifications(): Observable<ApiResponse & { data: INotificationData[] }> {
-    return this.http.get<ApiResponse & { data: INotificationData[] }>(`${this.baseUrl}/notifications/unread`, { headers: this.getAuthHeaders() });
-  }
-
-  manageSwapRequests(action: string, swapRequestId: string | number, notificationId: string | number): Observable<ApiResponse> {
-    const data = { swap_request_id: swapRequestId, notification_id: notificationId };
-    return this.http.post<ApiResponse>(`${this.baseUrl}/mgr/swap-requests/${action}`, data, { headers: this.getAuthHeaders() });
-  }
-
-  updateIdCardDetails(data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/profile/id-card`, data, { headers: this.getAuthHeaders() });
-  }
-
-  updatePersonalInfo(data: Record<string, unknown>): Observable<unknown> {
-    return this.http.put(`${this.baseUrl}/profile/personal`, data, { headers: this.getAuthHeaders() });
-  }
-
-  updatePersonalContactInfo(data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/profile/contact`, data, { headers: this.getAuthHeaders() });
-  }
-
-  updatePersonalEmploymentInfo(data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/profile/employment`, data, { headers: this.getAuthHeaders() });
-  }
-
-  updatePersonalNokInfo(data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/profile/nok`, data, { headers: this.getAuthHeaders() });
-  }
-
-  uploadProfilePicture(data: FormData): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.baseUrl}/profile/picture`, data, { headers: this.getAuthHeaders() });
-  }
-
-  changePassword(data: Record<string, unknown>): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.baseUrl}/profile/change-password`, data, { headers: this.getAuthHeaders() });
-  }
-
-  getUser(): Observable<ApiResponseWithData<User>> {
-    return this.http.get<ApiResponseWithData<User>>(`${this.baseUrl}/user`, { headers: this.getAuthHeaders() });
+  getPublicMgrStats() {
+    return this.http.get<ApiResponse & { data: any }>(`${this.#baseUrl}/mgr/public/permissions/stats`);
   }
 }

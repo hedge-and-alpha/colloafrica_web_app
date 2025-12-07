@@ -32,7 +32,7 @@ export class UtilsService {
 
     // Return in YYYY-MM-DD format
     return `${year}-${month}-${day}`;
-}
+  }
 
   private isValidDate(dateString: string | number | Date) {
     const date = new Date(dateString);
@@ -66,7 +66,6 @@ export class UtilsService {
     const year = date.getUTCFullYear();
     const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-indexed
     const day = String(date.getUTCDate()).padStart(2, '0');
-
     return `${year}-${month}-${day}`;
   }
 }

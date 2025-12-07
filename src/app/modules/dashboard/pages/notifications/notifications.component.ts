@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { INotificationData } from '../../../../interfaces/notification';
 
 @Component({
@@ -13,12 +12,12 @@ export class NotificationsComponent implements OnInit {
   notifications$!: Observable<INotificationData[]>;
 
   constructor(private api: DashboardApiService) {
-    this.notifications$ = this.api.getUnreadNotifications().pipe(map(res => res.data));
+    this.notifications$ = this.api.getUnreadNotifications();
   }
 
   ngOnInit(): void { }
 
   handleNotification() {
-    this.notifications$ = this.api.getUnreadNotifications().pipe(map(res => res.data));
+    this.notifications$ = this.api.getUnreadNotifications();
   }
 }

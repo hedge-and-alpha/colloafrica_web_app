@@ -42,4 +42,4 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

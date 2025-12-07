@@ -3,7 +3,7 @@ import { EChartsOption } from 'echarts';
 import { TableHeading } from '../../../../interfaces/table-heading';
 import { chartOptions } from './data/home.data';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
-import { IDashboardAnalytics, IDashboardData } from './models/home.model';
+import { IDashboardAnalytics, IDashboardChartData, IDashboardData } from './models/home.model';
 import { Transaction } from '../../../../interfaces/account';
 
 @Component({
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.api.getDashboardData().subscribe({
       next: (res) => {
         this.isLoading = false;
-        const data = res.data;
+        const data = res;
         this.analytics = {
           amount_allotted: data.amount_allotted,
           investments: data.investments,
@@ -46,10 +46,10 @@ export class HomeComponent implements OnInit {
           wallet_balance: data.wallet_balance,
         };
         const amount = data.contributions_last_12_months
-          .map((contrib) => Number(contrib.total_amount))
+          .map((contrib: IDashboardChartData) => Number(contrib.total_amount))
           .reverse();
         const months = data.contributions_last_12_months
-          .map((contrib) => contrib.month.slice(0, 3))
+          .map((contrib: IDashboardChartData) => contrib.month.slice(0, 3))
           .reverse();
         this.options = chartOptions(amount, months);
       },

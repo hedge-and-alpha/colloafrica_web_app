@@ -112,12 +112,12 @@ export interface MgrFilters {
 })
 export class AdminMgrService {
   private readonly baseUrl = environment.API_BASE_URL;
-  
+
   get authToken(): string | null {
     return localStorage.getItem('AUTH_TOKEN');
   }
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   /**
    * Get MGRs with advanced filtering
@@ -128,7 +128,7 @@ export class AdminMgrService {
     });
 
     let params = new HttpParams();
-    
+
     Object.keys(filters).forEach(key => {
       const value = (filters as any)[key];
       if (value !== undefined && value !== null && value !== '') {
@@ -143,9 +143,9 @@ export class AdminMgrService {
       }
     });
 
-    return this.http.get<ApiResponse & { 
-      data: MgrListItem[]; 
-      meta: { total: number; page: number; totalPages: number } 
+    return this.http.get<ApiResponse & {
+      data: MgrListItem[];
+      meta: { total: number; page: number; totalPages: number }
     }>(`${this.baseUrl}/admin/mgrs`, { headers, params }).pipe(
       map((response) => ({
         data: response.data,
@@ -259,10 +259,10 @@ export class AdminMgrService {
     });
     params = params.set('format', format);
 
-    return this.http.get(`${this.baseUrl}/admin/mgrs/export`, { 
-      headers, 
-      params, 
-      responseType: 'blob' 
+    return this.http.get(`${this.baseUrl}/admin/mgrs/export`, {
+      headers,
+      params,
+      responseType: 'blob'
     }).pipe(
       catchError(() => of(new Blob(['Mock export data'], { type: 'text/csv' })))
     );
@@ -399,7 +399,7 @@ export class AdminMgrService {
     }
     if (filters.search) {
       const search = filters.search.toLowerCase();
-      filteredData = filteredData.filter(mgr => 
+      filteredData = filteredData.filter(mgr =>
         mgr.name.toLowerCase().includes(search) ||
         mgr.description.toLowerCase().includes(search) ||
         mgr.creator.name.toLowerCase().includes(search)

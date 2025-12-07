@@ -15,16 +15,13 @@ import { AlertService } from './components/alert/alert.service';
 })
 export class AppComponent implements OnInit {
   loading = false;
+  title = 'collo-africa';
 
   private router = inject(Router);
   private alertService = inject(AlertService);
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
-      // if (event instanceof NavigationEnd) {
-      //   this.alertService.closeAll();
-      // }
-
       if (event instanceof ResolveStart) {
         this.loading = true;
       } else if (

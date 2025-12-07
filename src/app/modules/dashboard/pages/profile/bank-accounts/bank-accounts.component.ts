@@ -64,7 +64,7 @@ export class BankAccountsComponent implements OnInit {
   handleDelete(id: number) {
     this.toDeleteIds.push(id);
 
-    this.api.deleteBankAccount(id.toString()).subscribe({
+    this.api.deleteBankAccount(id).subscribe({
       next: () => {
         this.alert.open('success', {
           summary: 'Success!',
@@ -83,10 +83,10 @@ export class BankAccountsComponent implements OnInit {
   }
 
   togglePrimary(id: number) {
-    this.api.primaryBankAccount(id.toString()).subscribe({
+    this.api.primaryBankAccount(id).subscribe({
       next: ({ message, status, data }) => {
         this.alert.open('success', {
-          summary: status,
+          summary: status.toString(),
           details: `${data.bank_name} ${message.toLowerCase()}`,
         });
         this.cardAndBankStore.togglePrimaryAccount(data);

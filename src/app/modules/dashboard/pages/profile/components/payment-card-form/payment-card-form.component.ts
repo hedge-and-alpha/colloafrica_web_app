@@ -89,7 +89,7 @@ export class PaymentCardFormComponent {
 
     this.api.addBankCard(data).subscribe({
       next: (response) => {
-        this.cardBankStore.addBankCard(response.data);
+        this.cardBankStore.addBankCard(response);
         this.modalService.update(
           ModalStatusComponent,
           'small',
