@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, computed } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AlertService } from '../../../../../../components/alert/alert.service';
 import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
 import { ModalService } from '../../../../../../components/modal/modal.service';
@@ -25,7 +26,7 @@ export class WithdrawComponent implements OnInit {
   loading = false;
   selectedBank: BankAccount | null = null;
   banks$!: Observable<BankAccount[]>;
-  withdrawalAmount =  new FormControl();
+  withdrawalAmount = new FormControl();
   user = computed(() => this.userStore.user);
 
   form = this.fb.group(
@@ -50,10 +51,12 @@ export class WithdrawComponent implements OnInit {
     private userStore: UserStoreService,
     private alert: AlertService,
     private transactionStore: TransactionStoreService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.banks$ = this.api.getBankAccounts();
+    this.banks$ = this.api.getBankAccounts().pipe(
+      map((response: any) => response.data as BankAccount[])
+    );
   }
 
   get bankAccountId() {
@@ -95,8 +98,8 @@ export class WithdrawComponent implements OnInit {
 
   moveToOtp() {
     this.loading = true;
-    this.api.requestOtp().subscribe({
-      next: ({ message, status }) => {
+    this.api.requestOtp().subscribe(
+      ({ message, status }: any) => {
         this.alert.open('success', { details: message, summary: status });
         this.loading = false;
         this.modalService.updateConfig(
@@ -109,11 +112,11 @@ export class WithdrawComponent implements OnInit {
         );
         this.step = 'otp';
       },
-      error: (error: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         console.log(error);
         this.loading = false;
-      },
-    });
+      }
+    );
   }
 
   cancelWithdrawalRequest() {
@@ -140,8 +143,8 @@ export class WithdrawComponent implements OnInit {
       otp: this.otp!.value,
     };
 
-    this.api.initiateWithdrawal(data).subscribe({
-      next: ({ data, status }) => {
+    this.api.initiateWithdrawal(data).subscribe(
+      ({ data, status }: any) => {
         this.modalService.update(
           ModalStatusComponent,
           'small',
@@ -158,7 +161,7 @@ export class WithdrawComponent implements OnInit {
         this.transactionStore.updateTransactions(data.transaction);
         this.loading = false;
       },
-      error: (error: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         this.loading = false;
         this.modalService.update(
           ModalStatusComponent,
@@ -173,7 +176,7 @@ export class WithdrawComponent implements OnInit {
             message: error.error.message,
           }
         );
-      },
-    });
+      }
+    );
   }
 }

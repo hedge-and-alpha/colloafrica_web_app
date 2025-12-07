@@ -30,7 +30,7 @@ export class ChangePositionComponent implements OnInit {
     private api: DashboardApiService,
     private fb: FormBuilder,
     private alert: AlertService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.availableSlots$ = this.api.getMgrPlanAvailableSlots(this.mgrId);
@@ -40,7 +40,7 @@ export class ChangePositionComponent implements OnInit {
     if (this.form.invalid) return;
     this.loading = true;
 
-    this.api.changeMgrPosition(this.mgrId, this.form.value.slot!).subscribe({
+    this.api.changeMgrPosition(this.mgrId, +this.form.value.slot!).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
         this.modalService.close({ action: 'refresh' });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
@@ -45,10 +45,10 @@ export class BankAccountFormComponent implements OnInit {
     private modalService: ModalService,
     private api: DashboardApiService,
     private cardBankStore: CardAndBankStoreService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.banks$ = this.api.getBanks();
+    this.banks$ = this.api.getBanks().pipe(map(response => response.data as BankInfo[]));
   }
 
   get bankName() {
@@ -82,7 +82,7 @@ export class BankAccountFormComponent implements OnInit {
 
     this.api.addBankAccount(this.form.value).subscribe({
       next: (ba) => {
-        this.cardBankStore.addBankAccount(ba);
+        this.cardBankStore.addBankAccount(ba.data);
         this.modalService.update(
           ModalStatusComponent,
           'small',

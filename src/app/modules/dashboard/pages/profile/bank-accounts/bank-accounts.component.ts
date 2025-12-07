@@ -27,7 +27,7 @@ export class BankAccountsComponent implements OnInit {
     private api: DashboardApiService,
     private cardAndBankStore: CardAndBankStoreService,
     private alert: AlertService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getBankAccounts();
@@ -64,7 +64,7 @@ export class BankAccountsComponent implements OnInit {
   handleDelete(id: number) {
     this.toDeleteIds.push(id);
 
-    this.api.deleteBankAccount(id).subscribe({
+    this.api.deleteBankAccount(id.toString()).subscribe({
       next: () => {
         this.alert.open('success', {
           summary: 'Success!',
@@ -83,7 +83,7 @@ export class BankAccountsComponent implements OnInit {
   }
 
   togglePrimary(id: number) {
-    this.api.primaryBankAccount(id).subscribe({
+    this.api.primaryBankAccount(id.toString()).subscribe({
       next: ({ message, status, data }) => {
         this.alert.open('success', {
           summary: status,

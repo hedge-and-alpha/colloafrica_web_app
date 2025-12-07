@@ -63,7 +63,7 @@ export class PaymentCardFormComponent {
     private modalService: ModalService,
     private api: DashboardApiService,
     private cardBankStore: CardAndBankStoreService
-  ) {}
+  ) { }
 
   get cardNumber() {
     return this.form.get('card_number');
@@ -88,8 +88,8 @@ export class PaymentCardFormComponent {
     };
 
     this.api.addBankCard(data).subscribe({
-      next: (card) => {
-        this.cardBankStore.addBankCard(card);
+      next: (response) => {
+        this.cardBankStore.addBankCard(response.data);
         this.modalService.update(
           ModalStatusComponent,
           'small',
