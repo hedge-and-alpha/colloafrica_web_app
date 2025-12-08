@@ -44,12 +44,12 @@ interface RevenueAnalytics {
 })
 export class AdminAnalyticsService {
   private readonly baseUrl = environment.API_BASE_URL;
-  
+
   get authToken(): string | null {
     return localStorage.getItem('AUTH_TOKEN');
   }
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   /**
    * Get dashboard statistics

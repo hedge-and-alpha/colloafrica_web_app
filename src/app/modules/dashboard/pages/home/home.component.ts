@@ -3,7 +3,7 @@ import { EChartsOption } from 'echarts';
 import { TableHeading } from '../../../../interfaces/table-heading';
 import { chartOptions } from './data/home.data';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
-import { IDashboardAnalytics, IDashboardData } from './models/home.model';
+import { IDashboardAnalytics, IDashboardChartData, IDashboardData } from './models/home.model';
 import { Transaction } from '../../../../interfaces/account';
 
 @Component({
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   tableHeading = TABLE_HEADING;
   tableData: Transaction[] = [];
 
-  constructor(private api: DashboardApiService) {}
+  constructor(private api: DashboardApiService) { }
 
   ngOnInit(): void {
     this.getDashboardData();
@@ -36,19 +36,20 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
 
     this.api.getDashboardData().subscribe({
-      next: (res: IDashboardData) => {
+      next: (res) => {
         this.isLoading = false;
+        const data = res;
         this.analytics = {
-          amount_allotted: res.amount_allotted,
-          investments: res.investments,
-          total_contributions: res.total_contributions,
-          wallet_balance: res.wallet_balance,
+          amount_allotted: data.amount_allotted,
+          investments: data.investments,
+          total_contributions: data.total_contributions,
+          wallet_balance: data.wallet_balance,
         };
-        const amount = res.contributions_last_12_months
-          .map((contrib) => Number(contrib.total_amount))
+        const amount = data.contributions_last_12_months
+          .map((contrib: IDashboardChartData) => Number(contrib.total_amount))
           .reverse();
-        const months = res.contributions_last_12_months
-          .map((contrib) => contrib.month.slice(0, 3))
+        const months = data.contributions_last_12_months
+          .map((contrib: IDashboardChartData) => contrib.month.slice(0, 3))
           .reverse();
         this.options = chartOptions(amount, months);
       },
@@ -57,8 +58,8 @@ export class HomeComponent implements OnInit {
 
   getTransactions(page: number) {
     this.api.getTransactions(page).subscribe({
-      next: ({ data }) => {
-        this.tableData = data.transactions;
+      next: (response) => {
+        this.tableData = (response.data as { transactions: Transaction[] }).transactions;
       },
     });
   }

@@ -10,12 +10,12 @@ import { ApiResponse } from '../../interfaces/api-response';
 })
 export class AdminApiService {
   private readonly baseUrl = environment.API_BASE_URL;
-  
+
   get authToken(): string | null {
     return localStorage.getItem('AUTH_TOKEN');
   }
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   /**
    * Check if current user has admin permissions

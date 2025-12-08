@@ -35,7 +35,7 @@ export class CancelPlanModalComponent {
     private alert: AlertService,
     private modalService: ModalService,
     private router: Router
-  ) {}
+  ) { }
 
   handleSubmit() {
     this.isSubmitted = true;
@@ -44,20 +44,21 @@ export class CancelPlanModalComponent {
 
     this.loading = true;
 
-    this.api.cancelMgrPlan(this.planId).subscribe({
-      next: ({ message, status }) => {
+    this.api.cancelMgrPlan(this.planId).subscribe(
+      (value) => {
+        const { message, status } = value as { message: any; status: any };
         this.loading = false;
         this.alert.open('success', { summary: status, details: message });
         this.modalService.close();
         this.router.navigate(['/', 'mgr']);
       },
-      error: (err: HttpErrorResponse) => {
+      (err: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
           summary: `${err.error.status}: ${err.status}`,
           details: err.error.message,
         });
-      },
-    });
+      }
+    );
   }
 }

@@ -15,7 +15,7 @@ export class NotificationsComponent implements OnInit {
     this.notifications$ = this.api.getUnreadNotifications();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   handleNotification() {
     this.notifications$ = this.api.getUnreadNotifications();

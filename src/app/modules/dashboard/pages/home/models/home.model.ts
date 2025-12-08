@@ -1,4 +1,4 @@
-interface IDashboardChartData {
+export interface IDashboardChartData {
   year: number;
   month: string;
   total_amount: string;

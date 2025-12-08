@@ -1,9 +1,12 @@
 <div class="bg-white rounded-lg p-8 shadow-sm mb-8">
   <h2 class="text-2xl font-medium mb-6">Create new plan</h2>
-  
+
   <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <!-- Plan Name -->
     <div class="mb-6">
-      <label for="name" class="block text-gray-700 mb-2">Plan name <span class="text-purple-main">*</span></label>
+      <label for="name" class="block text-gray-700 mb-2">
+        Plan name <span class="text-purple-main">*</span>
+      </label>
       <input
         type="text"
         id="name"
@@ -11,7 +14,7 @@
         placeholder="Name"
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty border-red-500': isSubmitted && name.invalid
+          'border-red-500': isSubmitted && name.invalid
         }"
       />
       @if (isSubmitted && name.invalid) {
@@ -19,8 +22,11 @@
       }
     </div>
 
+    <!-- Short Description -->
     <div class="mb-6">
-      <label for="desc" class="block text-gray-700 mb-2">Short description <span class="text-purple-main">*</span></label>
+      <label for="desc" class="block text-gray-700 mb-2">
+        Short description <span class="text-purple-main">*</span>
+      </label>
       <input
         type="text"
         id="desc"
@@ -28,7 +34,7 @@
         placeholder="Short description"
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty border-red-500': isSubmitted && desc.invalid
+          'border-red-500': isSubmitted && desc.invalid
         }"
       />
       @if (isSubmitted && desc.invalid) {
@@ -36,30 +42,44 @@
       }
     </div>
 
-    <!-- Public description field - only shown when creating a public MGR -->
+    <!-- Public Description (Conditional) -->
     @if (isPublicMgr) {
     <div class="mb-6">
-      <label for="public-desc" class="block text-gray-700 mb-2 font-medium">Public description <span class="text-purple-main">*</span></label>
-      <div class="text-sm text-gray-600 mb-2">This description will be visible to all Collo Africa users. Required for public MGRs.</div>
+      <label for="public-desc" class="block text-gray-700 mb-2 font-medium">
+        Public description <span class="text-purple-main">*</span>
+      </label>
+      <div class="text-sm text-gray-600 mb-2">
+        This description will be visible to all Collo Africa users. Required for
+        public MGRs.
+      </div>
       <textarea
         id="public-desc"
         [(ngModel)]="publicDescription"
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
         placeholder="Detailed description visible to the public"
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main h-24"
         [ngClass]="{
-          'ng-touched ng-dirty border-red-500': isSubmitted && !publicDescription
+          'border-red-500': isSubmitted && !publicDescription
         }"
-        (focus)="publicDescription = publicDescription || 'Join our MGR plan to save together and achieve financial goals!'"
+        (focus)="
+          publicDescription =
+            publicDescription ||
+            'Join our MGR plan to save together and achieve financial goals!'
+        "
       ></textarea>
       @if (isSubmitted && !publicDescription) {
-      <div class="text-red-500 text-sm mt-1">Public description is required for public MGRs</div>
+      <div class="text-red-500 text-sm mt-1">
+        Public description is required for public MGRs
+      </div>
       }
     </div>
     }
 
+    <!-- Duration -->
     <div class="mb-6">
-      <label for="duration" class="block text-gray-700 mb-2">Duration <span class="text-purple-main">*</span></label>
+      <label for="duration" class="block text-gray-700 mb-2">
+        Duration <span class="text-purple-main">*</span>
+      </label>
       <div class="relative">
         <ng-select
           id="duration"
@@ -68,7 +88,7 @@
           placeholder="Select duration"
           class="py-1 border border-gray-300 rounded-lg"
           [ngClass]="{
-            'ng-touched ng-dirty border-red-500': isSubmitted && duration.invalid
+            'border-red-500': isSubmitted && duration.invalid
           }"
         >
           @for (duration of durations; track $index) {
@@ -81,8 +101,11 @@
       }
     </div>
 
+    <!-- Number of Members -->
     <div class="mb-6">
-      <label for="num-members" class="block text-gray-700 mb-2">Number of members <span class="text-purple-main">*</span></label>
+      <label for="num-members" class="block text-gray-700 mb-2">
+        Number of members <span class="text-purple-main">*</span>
+      </label>
       <input
         type="number"
         id="num-members"
@@ -90,7 +113,7 @@
         placeholder="Number of members"
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty border-red-500': isSubmitted && numberOfMembers.invalid
+          'border-red-500': isSubmitted && numberOfMembers.invalid
         }"
       />
       @if (isSubmitted && numberOfMembers.invalid) {
@@ -98,8 +121,11 @@
       }
     </div>
 
+    <!-- Amount -->
     <div class="mb-6">
-      <label for="amount" class="block text-gray-700 mb-2">Amount <span class="text-purple-main">*</span></label>
+      <label for="amount" class="block text-gray-700 mb-2">
+        Amount <span class="text-purple-main">*</span>
+      </label>
       <input
         type="text"
         id="amount"
@@ -107,7 +133,7 @@
         placeholder="Enter amount"
         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
         [ngClass]="{
-          'ng-touched ng-dirty border-red-500': isSubmitted && amount.invalid
+          'border-red-500': isSubmitted && amount.invalid
         }"
       />
       @if (isSubmitted && amount.invalid) {
@@ -115,24 +141,82 @@
       }
     </div>
 
+    <!-- Join Date Deadline (Optional) -->
     <div class="mb-6">
-      <label for="date" class="block text-gray-700 mb-2">Contribution Start Date <span class="text-purple-main">*</span></label>
+      <label for="join-deadline" class="block text-gray-700 mb-2">
+        Join Date Deadline <span class="text-gray-500">(Optional)</span>
+      </label>
+      <div class="text-sm text-gray-600 mb-2">
+        Last date for members to join this plan. Must be before the Contribution
+        Start Date. @if (isPublicMgr) {
+        <span class="text-blue-500"
+          >Automatically calculated for public MGRs.</span
+        >
+        }
+      </div>
+      <div class="relative">
+        <input
+          id="join-deadline"
+          type="text"
+          formControlName="join_date_deadline"
+          placeholder="DD-MM-YYYY"
+          bsDatepicker
+          #jdp="bsDatepicker"
+          [minDate]="minJoinDate"
+          [maxDate]="maxJoinDate"
+          [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }"
+          [disabled]="isPublicMgr"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
+          [ngClass]="{
+            'border-red-500': isSubmitted && joinDateDeadline.invalid,
+            'bg-gray-100 cursor-not-allowed': isPublicMgr
+          }"
+        />
+        <button
+          type="button"
+          (click)="!isPublicMgr && jdp.show()"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2"
+          [class]="
+            isPublicMgr ? 'text-gray-400 cursor-not-allowed' : 'text-[#5c5c5c]'
+          "
+        >
+          <i class="ca-calendar"></i>
+        </button>
+      </div>
+      @if (isSubmitted && joinDateDeadline.invalid) {
+      <ca-form-error [errors]="joinDateDeadline.errors" />
+      } @if (joinDateDeadline.hasError('deadline')) {
+      <div class="text-red-500 text-sm mt-1">
+        Join date must be before the contribution start date.
+      </div>
+      }
+    </div>
+
+    <!-- Contribution Start Date -->
+    <div class="mb-6">
+      <label for="date" class="block text-gray-700 mb-2">
+        Contribution Start Date <span class="text-purple-main">*</span>
+      </label>
       <div class="relative">
         <input
           id="date"
           type="text"
           formControlName="contribution_start_date"
-          placeholder="18-05-2023"
+          placeholder="DD-MM-YYYY"
           bsDatepicker
           #cdp="bsDatepicker"
           [minDate]="minContributionDate"
           [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
           [ngClass]="{
-            'ng-dirty ng-touched border-red-500': isSubmitted && startDate.invalid
+            'border-red-500': isSubmitted && startDate.invalid
           }"
         />
-        <button type="button" (click)="cdp.show()" class="absolute right-3 top-1/2 transform -translate-y-1/2">
+        <button
+          type="button"
+          (click)="cdp.show()"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2"
+        >
           <i class="ca-calendar text-[#5c5c5c]"></i>
         </button>
       </div>
@@ -141,66 +225,84 @@
       }
     </div>
 
+    <!-- Allocation Date -->
     <div class="mb-6">
-      <label for="allocation-date" class="block text-gray-700 mb-2">Allocation Date <span class="text-purple-main">*</span></label>
+      <label for="allocation-date" class="block text-gray-700 mb-2">
+        Allocation Date <span class="text-purple-main">*</span>
+      </label>
       <div class="relative">
         <input
           id="allocation-date"
           type="text"
           formControlName="allocation_date"
-          placeholder="18-05-2023"
+          placeholder="DD-MM-YYYY"
+          bsDatepicker
+          #adp="bsDatepicker"
+          [minDate]="minAllocationDate"
+          [bsConfig]="{ isAnimated: true, dateInputFormat: 'DD-MM-YYYY' }"
           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-main"
           [ngClass]="{
-            'ng-dirty ng-touched border-red-500': isSubmitted && allocationDate.invalid
+            'border-red-500': isSubmitted && allocationDate.invalid
           }"
         />
-        <span class="absolute right-3 top-1/2 transform -translate-y-1/2">
+        <button
+          type="button"
+          (click)="adp.show()"
+          class="absolute right-3 top-1/2 transform -translate-y-1/2"
+        >
           <i class="ca-calendar text-[#5c5c5c]"></i>
-        </span>
+        </button>
       </div>
       @if (isSubmitted && allocationDate.invalid) {
       <ca-form-error [errors]="allocationDate.errors" />
       }
     </div>
 
+    <!-- Allotment Type -->
     <div class="mb-6">
-      <label for="allotment-type" class="block text-gray-700 mb-2">Allotment Type <span class="text-purple-main">*</span></label>
-      <div class="relative">
-        <!-- Use buttons instead of ng-select for more reliable selection -->
-        <div class="flex gap-3 mb-2">
-          <button 
-            type="button" 
-            class="px-4 py-2 border rounded-lg" 
-            [class.bg-purple-main]="selectedAllotmentType === 'manual'" 
-            [class.text-white]="selectedAllotmentType === 'manual'" 
-            [class.border-purple-main]="selectedAllotmentType === 'manual'" 
-            [class.border-gray-300]="selectedAllotmentType !== 'manual'" 
-            (click)="selectedAllotmentType = 'manual'; allotmentType.setValue('manual')"
-          >
-            Manual
-          </button>
-          <button 
-            type="button" 
-            class="px-4 py-2 border rounded-lg" 
-            [class.bg-purple-main]="selectedAllotmentType === 'auto'" 
-            [class.text-white]="selectedAllotmentType === 'auto'" 
-            [class.border-purple-main]="selectedAllotmentType === 'auto'" 
-            [class.border-gray-300]="selectedAllotmentType !== 'auto'" 
-            (click)="selectedAllotmentType = 'auto'; allotmentType.setValue('auto')"
-          >
-            Automatic
-          </button>
-        </div>
-        
-        <!-- Hidden input for form validation -->
-        <input type="hidden" formControlName="allotment_type">
+      <label for="allotment-type" class="block text-gray-700 mb-2">
+        Allotment Type <span class="text-purple-main">*</span>
+      </label>
+      <div class="flex gap-3 mb-2">
+        <button
+          type="button"
+          class="px-4 py-2 border rounded-lg"
+          [ngClass]="
+            selectedAllotmentType === 'manual'
+              ? 'bg-purple-main text-white border-purple-main'
+              : 'border-gray-300'
+          "
+          (click)="
+            selectedAllotmentType = 'manual'; allotmentType.setValue('manual')
+          "
+        >
+          Manual
+        </button>
+        <button
+          type="button"
+          class="px-4 py-2 border rounded-lg"
+          [ngClass]="
+            selectedAllotmentType === 'auto'
+              ? 'bg-purple-main text-white border-purple-main'
+              : 'border-gray-300'
+          "
+          (click)="
+            selectedAllotmentType = 'auto'; allotmentType.setValue('auto')
+          "
+        >
+          Automatic
+        </button>
+        <!-- Hidden field for form validation -->
+        <input type="hidden" formControlName="allotment_type" />
       </div>
       @if (isSubmitted && allotmentType.invalid) {
-      <div class="text-red-500 text-sm mt-1">Please select an allotment type</div>
+      <div class="text-red-500 text-sm mt-1">
+        Please select an allotment type
+      </div>
       }
     </div>
-    
-    <!-- Only shown if allotment type is selected -->
+
+    <!-- Allotment Type Card (shown when type is selected) -->
     @if (selectedAllotmentType) {
     <div class="mb-6">
       <ca-allotment-type-card
@@ -210,15 +312,16 @@
     </div>
     }
 
+    <!-- Plan Visibility Toggle -->
     <div class="mb-6">
       <div class="flex items-start gap-3">
-        <input 
-          type="checkbox" 
-          id="public-mgr" 
-          [(ngModel)]="isPublicMgr" 
-          [ngModelOptions]="{standalone: true}" 
-          (ngModelChange)="updateAllotmentTypeForPublicMgr()" 
-          class="mt-1" 
+        <input
+          type="checkbox"
+          id="public-mgr"
+          [(ngModel)]="isPublicMgr"
+          [ngModelOptions]="{ standalone: true }"
+          (ngModelChange)="updateAllotmentTypeForPublicMgr()"
+          class="mt-1"
         />
         <label class="text-sm text-gray-700" for="public-mgr">
           Make this MGR plan public (visible to all Collo Africa users)
@@ -226,11 +329,17 @@
       </div>
     </div>
 
+    <!-- Terms & Conditions Agreement -->
     <div class="mb-12">
       <div class="flex items-start gap-3">
-        <input type="checkbox" id="subscribe" [formControl]="terms" class="mt-1" />
-        <label class="text-sm text-gray-700" for="subscribe">
-          I agree to Collo Africa MGR terms and conditions.
+        <input
+          type="checkbox"
+          id="agree-terms"
+          [formControl]="terms"
+          class="mt-1"
+        />
+        <label class="text-sm text-gray-700" for="agree-terms">
+          I agree to Collo Africa MGR terms and conditions
         </label>
       </div>
       @if (isSubmitted && terms.invalid) {
@@ -238,13 +347,14 @@
       }
     </div>
 
+    <!-- Form Submission -->
     <div class="mb-4">
       <button
-        class="w-full py-3 bg-purple-main text-white rounded-lg font-medium"
+        class="w-full py-3 bg-purple-main text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
         type="submit"
         [disabled]="loading"
       >
-        {{ loading ? 'Processing...' : 'Create plan' }}
+        {{ loading ? "Processing..." : "Create plan" }}
       </button>
     </div>
   </form>

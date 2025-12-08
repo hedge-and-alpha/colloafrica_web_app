@@ -36,7 +36,7 @@ export class DashboardApiService {
     private cardBankStore: CardAndBankStoreService,
     private transactionStore: TransactionStoreService,
     private mgrStore: MgrStoreService
-  ) {}
+  ) { }
 
   getUser() {
     return this.http
@@ -49,15 +49,12 @@ export class DashboardApiService {
       );
   }
 
-  /********************** Dashboard home **********************/
   getDashboardData() {
     return this.http
       .get<{ data: IDashboardData }>(`${this.#baseUrl}/user/dashboard`)
       .pipe(map((response) => response.data));
   }
-  /********************** Dashboard end **********************/
 
-  /********************** Profile **********************/
   uploadProfilePicture(data: FormData) {
     return this.http
       .post<ApiResponse & { data: Pick<User, 'profile_picture'> }>(
@@ -152,14 +149,14 @@ export class DashboardApiService {
       .pipe(map((res) => res.data));
   }
 
-  primaryBankAccount(id: number) {
+  primaryBankAccount(id: string | number) {
     return this.http.post<ApiResponse & { data: BankAccount }>(
       `${this.#baseUrl}/bank/primary/${id}`,
       null
     );
   }
 
-  deleteBankAccount(id: number) {
+  deleteBankAccount(id: string | number) {
     return this.http.delete<ApiResponse>(`${this.#baseUrl}/bank/delete/${id}`);
   }
 
@@ -188,9 +185,7 @@ export class DashboardApiService {
       data
     );
   }
-  /********************** Profile end **********************/
 
-  /********************** Account **********************/
   verifyBvn(data: object) {
     return this.http.post<{ data: VirtualAccount }>(
       `${this.#baseUrl}/virtual-account/create`,
@@ -225,12 +220,8 @@ export class DashboardApiService {
       }
     >(`${this.#baseUrl}/transaction/transfer`, data);
   }
-  /********************** Account end **********************/
 
-  /********************** MGR start **********************/
   createMGR(data: any) {
-    // Create a completely new object with only the required fields
-    // This avoids any potential issues with object references or nested properties
     const payload = {
       name: String(data.name || ''),
       desc: String(data.desc || ''),
@@ -245,16 +236,13 @@ export class DashboardApiService {
       theme_color: String(data.theme_color || ''),
       is_public: Boolean(data.is_public)
     };
-    
-    // Log the final payload for debugging
+
     console.log('API Service - Final payload for createMGR:', JSON.stringify(payload, null, 2));
-    
-    // Use HttpHeaders to ensure proper content type
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    
-    // Use a more explicit approach with stringification
+
     return this.http.post<ApiResponse & { data: MGR }>(
       `${this.#baseUrl}/mgr`,
       JSON.stringify(payload),
@@ -371,9 +359,7 @@ export class DashboardApiService {
       {}
     );
   }
-  /********************** MGR end **********************/
 
-  /********************** Notification start **********************/
   getUnreadNotifications() {
     return this.http
       .get<{ data: { notifications: INotificationData[] } }>(
@@ -381,9 +367,7 @@ export class DashboardApiService {
       )
       .pipe(map((res) => res.data.notifications));
   }
-  /********************** Notification end **********************/
 
-  /********************** Public MGR start **********************/
   getPublicMgrs(filters?: any) {
     let params = '';
     if (filters) {
@@ -401,13 +385,9 @@ export class DashboardApiService {
     return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/join`, data);
   }
 
-
-
   createPublicMgr(data: any) {
-    // Create a clean payload with explicit string conversions
     const payload = {
-      // CRITICAL: Ensure name is explicitly a string
-      name: '' + (data.name || ''),  // Force string conversion with concatenation
+      name: '' + (data.name || ''),
       desc: '' + (data.desc || ''),
       duration: '' + (data.duration || 'monthly'),
       number_of_members: Number(data.number_of_members || 3),
@@ -421,16 +401,13 @@ export class DashboardApiService {
       is_public: Boolean(data.is_public),
       public_description: '' + (data.public_description || '')
     };
-    
-    // Log the final payload for debugging
+
     console.log('API Service - Final payload for createPublicMgr:', JSON.stringify(payload, null, 2));
-    
-    // Use explicit content type and manual serialization to ensure proper format
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    
-    // Send as a raw JSON string to avoid any automatic transformations
+
     return this.http.post<ApiResponse & { data: MGR }>(
       `${this.#baseUrl}/mgr/public`,
       payload,
@@ -444,7 +421,6 @@ export class DashboardApiService {
     );
   }
 
-  // Admin methods for permission management
   grantPublicMgrPermission(userId: number, notes?: string) {
     return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/permissions/grant/${userId}`, { notes });
   }
@@ -460,5 +436,4 @@ export class DashboardApiService {
   getPublicMgrStats() {
     return this.http.get<ApiResponse & { data: any }>(`${this.#baseUrl}/mgr/public/permissions/stats`);
   }
-  /********************** Public MGR end **********************/
 }

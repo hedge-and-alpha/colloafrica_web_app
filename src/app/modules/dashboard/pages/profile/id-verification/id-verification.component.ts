@@ -3,6 +3,7 @@ import { Component, OnInit, computed } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../components/alert/alert.service';
 import { DashboardApiService } from '../../../../../services/api/dashboard-api.service';
+import { ApiResponse } from '../../../../../interfaces/api-response';
 import { UserStoreService } from '../../../../../stores+/user.store';
 
 @Component({
@@ -21,7 +22,7 @@ export class IdVerificationComponent implements OnInit {
     private userStore: UserStoreService,
     private api: DashboardApiService,
     private alert: AlertService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -90,19 +91,19 @@ export class IdVerificationComponent implements OnInit {
 
     this.loading = true;
 
-    this.api.updateIdCardDetails(this.form.value).subscribe({
-      next: ({ message, status }) => {
+    this.api.updateIdCardDetails(this.form.value).subscribe(
+      (response: ApiResponse) => {
         this.loading = false;
-        this.alert.open('success', { details: message, summary: status });
+        this.alert.open('success', { details: response.message, summary: response.status });
         window.location.reload();
       },
-      error: (error: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
           details: error.error.message,
           summary: 'Identity verification failed',
         });
-      },
-    });
+      }
+    );
   }
 }

@@ -21,7 +21,7 @@ export class TransactionsComponent {
     private router: Router,
     private route: ActivatedRoute,
     private transactionStore: TransactionStoreService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const page = this.route.snapshot.queryParamMap.get('page');
@@ -32,13 +32,14 @@ export class TransactionsComponent {
   getTransactions(page: number) {
     this.api.getTransactions(page).subscribe({
       next: ({ data }) => {
+        const paginationData = data as TablePagination;
         let pagination: TablePagination = {
-          current_page: data.current_page,
-          last_page: data.last_page,
-          next_page_url: data.next_page_url,
-          per_page: data.per_page,
-          prev_page_url: data.prev_page_url,
-          total: data.total,
+          current_page: paginationData.current_page,
+          last_page: paginationData.last_page,
+          next_page_url: paginationData.next_page_url,
+          per_page: paginationData.per_page,
+          prev_page_url: paginationData.prev_page_url,
+          total: paginationData.total,
         };
         this.pagination = pagination;
       },

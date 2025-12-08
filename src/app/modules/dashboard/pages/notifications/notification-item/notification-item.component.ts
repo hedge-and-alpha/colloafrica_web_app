@@ -35,7 +35,7 @@ export class NotificationItemComponent implements OnInit {
     private api: DashboardApiService,
     private modalService: ModalService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.notificationTypes = {
@@ -78,7 +78,6 @@ export class NotificationItemComponent implements OnInit {
     }
   }
 
-  acceptRequest() {}
-
-  rejectRequest() {}
+  acceptRequest() { }
+  rejectRequest() { }
 }

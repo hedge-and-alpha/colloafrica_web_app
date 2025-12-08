@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, forkJoin, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { MGR } from '../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
@@ -44,17 +45,17 @@ export class MgrComponent implements OnInit, OnDestroy {
   paramSub!: Subscription;
   searchSub!: Subscription;
 
-  constructor(private router: Router, private api: DashboardApiService, private modalService: ModalService) {}
+  constructor(private router: Router, private api: DashboardApiService, private modalService: ModalService) { }
 
   ngOnInit() {
     // Check if we're on the public plans route
     this.isPublicView = this.router.url.includes('/public');
-    
+
     // Check public MGR creation permission
     if (this.isPublicView) {
       this.checkPublicMgrPermission();
     }
-    
+
     if (this.isPublicView) {
       this.fetchPublicPlans();
     } else {
@@ -92,7 +93,8 @@ export class MgrComponent implements OnInit, OnDestroy {
       admin: this.api.getAdminMGR(status),
       participant: this.api.getParticipantMGR(status),
     }).subscribe({
-      next: ({ admin, participant }) => {
+      next: (result) => {
+        const { admin, participant } = result as { admin: { data: MGR[] }, participant: { data: MGR[] } };
         this.loading = false;
         this.adminMgrs = admin.data;
         this.participantMgrs = participant.data;
@@ -105,7 +107,7 @@ export class MgrComponent implements OnInit, OnDestroy {
 
   fetchPublicPlans() {
     this.loading = true;
-    
+
     this.api.getPublicMgrs().subscribe({
       next: (response) => {
         this.loading = false;
@@ -147,7 +149,7 @@ export class MgrComponent implements OnInit, OnDestroy {
     if (plan.can_join === false || (plan.display_status || plan.status) === 'filled' || (plan.display_status || plan.status) === 'deadline passed') {
       return;
     }
-    
+
     this.modalService.open(
       PublicMgrJoinModalComponent,
       'small',
@@ -173,31 +175,31 @@ export class MgrComponent implements OnInit, OnDestroy {
 
   applyFilters() {
     if (!this.isPublicView) return;
-    
+
     let filteredMgrs = [...this.allPublicMgrs];
-    
+
     // Apply search filter
     if (this.searchFilters.search) {
       const searchLower = this.searchFilters.search.toLowerCase();
-      filteredMgrs = filteredMgrs.filter(mgr => 
+      filteredMgrs = filteredMgrs.filter(mgr =>
         mgr.name.toLowerCase().includes(searchLower) ||
         (mgr.public_description || mgr.description || '').toLowerCase().includes(searchLower) ||
         (mgr.category || '').toLowerCase().includes(searchLower)
       );
     }
-    
+
     // Apply frequency filter (daily/weekly/monthly)
     if (this.searchFilters.frequency) {
       filteredMgrs = filteredMgrs.filter(mgr => mgr.duration === this.searchFilters.frequency);
     }
-    
+
     // Apply duration filter (total length like 3 months, 6 months)
     if (this.searchFilters.duration) {
       filteredMgrs = filteredMgrs.filter(mgr => {
         // Calculate total duration based on frequency and member count
         const totalSlots = mgr.total_slots || parseInt(mgr.number_of_members);
         const frequency = mgr.duration;
-        
+
         // Convert to approximate months for comparison
         let durationInMonths = 0;
         if (frequency === 'daily') {
@@ -207,34 +209,34 @@ export class MgrComponent implements OnInit, OnDestroy {
         } else if (frequency === 'monthly') {
           durationInMonths = totalSlots;
         }
-        
+
         // Filter based on selected duration range
         const selectedDuration = this.searchFilters.duration;
         if (selectedDuration === '1-3') return durationInMonths >= 1 && durationInMonths <= 3;
         if (selectedDuration === '4-6') return durationInMonths >= 4 && durationInMonths <= 6;
         if (selectedDuration === '7-12') return durationInMonths >= 7 && durationInMonths <= 12;
         if (selectedDuration === '12+') return durationInMonths > 12;
-        
+
         return true;
       });
     }
-    
+
     // Apply category filter
     if (this.searchFilters.category) {
       filteredMgrs = filteredMgrs.filter(mgr => mgr.category === this.searchFilters.category);
     }
-    
+
     // Apply amount filters
     if (this.searchFilters.min_amount) {
       const minAmount = parseFloat(this.searchFilters.min_amount);
       filteredMgrs = filteredMgrs.filter(mgr => parseFloat(mgr.amount) >= minAmount);
     }
-    
+
     if (this.searchFilters.max_amount) {
       const maxAmount = parseFloat(this.searchFilters.max_amount);
       filteredMgrs = filteredMgrs.filter(mgr => parseFloat(mgr.amount) <= maxAmount);
     }
-    
+
     // Apply start date range filters
     if (this.searchFilters.start_date_from) {
       const startDateFrom = new Date(this.searchFilters.start_date_from);
@@ -243,7 +245,7 @@ export class MgrComponent implements OnInit, OnDestroy {
         return mgrStartDate >= startDateFrom;
       });
     }
-    
+
     if (this.searchFilters.start_date_to) {
       const startDateTo = new Date(this.searchFilters.start_date_to);
       filteredMgrs = filteredMgrs.filter(mgr => {
@@ -251,7 +253,7 @@ export class MgrComponent implements OnInit, OnDestroy {
         return mgrStartDate <= startDateTo;
       });
     }
-    
+
     this.publicMgrs = filteredMgrs;
   }
 
@@ -272,14 +274,14 @@ export class MgrComponent implements OnInit, OnDestroy {
       start_date_to: ''
     };
     this.searchControl.setValue('');
-    
+
     // Reset all select and input elements
     const selects = document.querySelectorAll('select');
     const inputs = document.querySelectorAll('input[type="number"], input[type="date"]');
-    
+
     selects.forEach(select => (select as HTMLSelectElement).value = '');
     inputs.forEach(input => (input as HTMLInputElement).value = '');
-    
+
     this.publicMgrs = [...this.allPublicMgrs];
   }
 
