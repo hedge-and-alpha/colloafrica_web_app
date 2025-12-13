@@ -36,7 +36,7 @@ export class DashboardApiService {
     private cardBankStore: CardAndBankStoreService,
     private transactionStore: TransactionStoreService,
     private mgrStore: MgrStoreService
-  ) {}
+  ) { }
 
   getUser() {
     return this.http
@@ -125,6 +125,7 @@ export class DashboardApiService {
               bank_code: b.code,
             };
           });
+
           return transformed;
         })
       );
@@ -245,15 +246,15 @@ export class DashboardApiService {
       theme_color: String(data.theme_color || ''),
       is_public: Boolean(data.is_public)
     };
-    
+
     // Log the final payload for debugging
     console.log('API Service - Final payload for createMGR:', JSON.stringify(payload, null, 2));
-    
+
     // Use HttpHeaders to ensure proper content type
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    
+
     // Use a more explicit approach with stringification
     return this.http.post<ApiResponse & { data: MGR }>(
       `${this.#baseUrl}/mgr`,
@@ -404,10 +405,8 @@ export class DashboardApiService {
 
 
   createPublicMgr(data: any) {
-    // Create a clean payload with explicit string conversions
     const payload = {
-      // CRITICAL: Ensure name is explicitly a string
-      name: '' + (data.name || ''),  // Force string conversion with concatenation
+      name: '' + (data.name || ''),
       desc: '' + (data.desc || ''),
       duration: '' + (data.duration || 'monthly'),
       number_of_members: Number(data.number_of_members || 3),
@@ -421,15 +420,15 @@ export class DashboardApiService {
       is_public: Boolean(data.is_public),
       public_description: '' + (data.public_description || '')
     };
-    
+
     // Log the final payload for debugging
     console.log('API Service - Final payload for createPublicMgr:', JSON.stringify(payload, null, 2));
-    
+
     // Use explicit content type and manual serialization to ensure proper format
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    
+
     // Send as a raw JSON string to avoid any automatic transformations
     return this.http.post<ApiResponse & { data: MGR }>(
       `${this.#baseUrl}/mgr/public`,

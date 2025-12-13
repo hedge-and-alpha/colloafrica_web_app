@@ -1,10 +1,8 @@
 @if (!!(bvnVerified() === 1)) {
 <ca-content-sidebar>
   <ca-h1 class="mb-4 mt-3">Account Wallet</ca-h1>
-
   <div class="cards-row mb-4">
     <ca-wallet-balance-card />
-
     <div
       class="actions flex justify-around bg-white py-4 lg:py-5 rounded-md lg:rounded-xl"
     >
@@ -29,7 +27,6 @@
         </button>
         <span class="font-medium lg:font-normal">Withdraw</span>
       </div>
-
       <div class="inline-flex flex-col items-center gap-2">
         <button
           class="text-purple-main rounded-md lg:rounded-[18px]"
@@ -41,13 +38,10 @@
         <span class="font-medium lg:font-normal">Pay bills</span>
       </div>
     </div>
-
     <ca-wallet-account-details />
   </div>
-
   <ca-wallet-account-transactions />
 </ca-content-sidebar>
-
 } @else {
 <div class="h-full flex items-center justify-center w-full">
   <div class="text-center">
@@ -93,7 +87,8 @@
       class="font-medium mt-9 mb-10 max-w-[26.0625rem]"
       style="font-size: clamp(0.875rem, 0.7917rem + 0.3704vw, 1.125rem)"
     >
-      Click the button below to verify your BVN in order to generate your wallet account.
+      Click the button below to verify your BVN in order to generate your wallet
+      account.
     </p>
 
     <button

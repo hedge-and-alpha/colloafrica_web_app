@@ -17,7 +17,7 @@ export class AccountWalletComponent {
     private modalService: ModalService,
     private userStore: UserStoreService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   verifyBvn() {
     async function loadBvn() {

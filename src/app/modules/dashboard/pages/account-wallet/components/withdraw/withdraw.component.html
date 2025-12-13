@@ -29,10 +29,10 @@
   <div class="mb-6">
     <ca-form-field [isRequired]="true">
       <input
+        type="text"
         class="h-full"
-        type="number"
+        [placeholder]="selectedBank?.account_number || '1234567890'"
         formControlName="account_number"
-        placeholder="0123456789"
         readonly
       />
     </ca-form-field>
@@ -46,15 +46,18 @@
   <div class="mb-5">
     <ca-form-field [isRequired]="true">
       <input
-        class="h-full"
         type="number"
+        class="h-full"
         formControlName="amount"
-        [formControl]="withdrawalAmount"
         placeholder="Enter amount, e.g 1000"
-        [ngClass]="{ 'ng-dirty ng-touched': isSubmitted && !validWithdrawalAmount(withdrawalAmount.value) }"
-    /></ca-form-field>
+        [ngClass]="{
+          'ng-dirty ng-touched':
+            isSubmitted && !validWithdrawalAmount(amount?.value)
+        }"
+      />
+    </ca-form-field>
 
-    @if (isSubmitted && !validWithdrawalAmount(withdrawalAmount.value)) {
+    @if (isSubmitted && !validWithdrawalAmount(amount?.value)) {
     <ca-form-error [errors]="amount?.errors" />
     }
   </div>
@@ -62,7 +65,11 @@
   <div class="mb-12 flex text-sm leading-1.2">
     <p class="text-[#7d7f85]">Processing Fee</p>
     <p class="text-[#5c5c5c] ms-auto">
-      ₦{{ validWithdrawalAmount(withdrawalAmount.value) ? formattedCurrency(withdrawalAmount.value) : 0 }}
+      ₦{{
+        validWithdrawalAmount(amount?.value)
+          ? formattedCurrency(amount?.value ?? null)
+          : 0
+      }}
     </p>
   </div>
 
@@ -82,8 +89,8 @@
     </h2>
     <p class="max-w-[22.75rem] mx-auto leading-[1.375] text-[#171717]">
       You are about to send
-      {{ withdrawalAmount.value | currency : "NGN" : "symbol-narrow" : "1.0-0" }} to
-      {{ selectedBank?.account_number }} {{ selectedBank?.bank_name }}.
+      {{ amount?.value | currency : "NGN" : "symbol-narrow" : "1.0-0" }}
+      to {{ selectedBank?.account_number }} {{ selectedBank?.bank_name }}.
     </p>
   </hgroup>
 
