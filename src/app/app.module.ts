@@ -38,8 +38,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
   ],
   providers: [
     { provide: TitleStrategy, useClass: PageTitleStrategyService },
-    // { provide: ErrorHandler, useClass: DashboardErrorHandlerService },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

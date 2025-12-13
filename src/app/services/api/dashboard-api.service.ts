@@ -49,15 +49,12 @@ export class DashboardApiService {
       );
   }
 
-  /********************** Dashboard home **********************/
   getDashboardData() {
     return this.http
       .get<{ data: IDashboardData }>(`${this.#baseUrl}/user/dashboard`)
       .pipe(map((response) => response.data));
   }
-  /********************** Dashboard end **********************/
 
-  /********************** Profile **********************/
   uploadProfilePicture(data: FormData) {
     return this.http
       .post<ApiResponse & { data: Pick<User, 'profile_picture'> }>(
@@ -153,14 +150,14 @@ export class DashboardApiService {
       .pipe(map((res) => res.data));
   }
 
-  primaryBankAccount(id: number) {
+  primaryBankAccount(id: string | number) {
     return this.http.post<ApiResponse & { data: BankAccount }>(
       `${this.#baseUrl}/bank/primary/${id}`,
       null
     );
   }
 
-  deleteBankAccount(id: number) {
+  deleteBankAccount(id: string | number) {
     return this.http.delete<ApiResponse>(`${this.#baseUrl}/bank/delete/${id}`);
   }
 
@@ -189,9 +186,7 @@ export class DashboardApiService {
       data
     );
   }
-  /********************** Profile end **********************/
 
-  /********************** Account **********************/
   verifyBvn(data: object) {
     return this.http.post<{ data: VirtualAccount }>(
       `${this.#baseUrl}/virtual-account/create`,
@@ -226,12 +221,8 @@ export class DashboardApiService {
       }
     >(`${this.#baseUrl}/transaction/transfer`, data);
   }
-  /********************** Account end **********************/
 
-  /********************** MGR start **********************/
   createMGR(data: any) {
-    // Create a completely new object with only the required fields
-    // This avoids any potential issues with object references or nested properties
     const payload = {
       name: String(data.name || ''),
       desc: String(data.desc || ''),
@@ -372,9 +363,7 @@ export class DashboardApiService {
       {}
     );
   }
-  /********************** MGR end **********************/
 
-  /********************** Notification start **********************/
   getUnreadNotifications() {
     return this.http
       .get<{ data: { notifications: INotificationData[] } }>(
@@ -382,9 +371,7 @@ export class DashboardApiService {
       )
       .pipe(map((res) => res.data.notifications));
   }
-  /********************** Notification end **********************/
 
-  /********************** Public MGR start **********************/
   getPublicMgrs(filters?: any) {
     let params = '';
     if (filters) {
@@ -401,8 +388,6 @@ export class DashboardApiService {
   joinPublicMgr(id: string, data: any) {
     return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/${id}/join`, data);
   }
-
-
 
   createPublicMgr(data: any) {
     const payload = {
@@ -443,7 +428,6 @@ export class DashboardApiService {
     );
   }
 
-  // Admin methods for permission management
   grantPublicMgrPermission(userId: number, notes?: string) {
     return this.http.post<ApiResponse>(`${this.#baseUrl}/mgr/public/permissions/grant/${userId}`, { notes });
   }
@@ -459,5 +443,4 @@ export class DashboardApiService {
   getPublicMgrStats() {
     return this.http.get<ApiResponse & { data: any }>(`${this.#baseUrl}/mgr/public/permissions/stats`);
   }
-  /********************** Public MGR end **********************/
 }

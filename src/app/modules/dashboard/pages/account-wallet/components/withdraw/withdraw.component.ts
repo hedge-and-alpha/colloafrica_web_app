@@ -134,8 +134,8 @@ export class WithdrawComponent implements OnInit, OnDestroy {
 
   moveToOtp() {
     this.loading = true;
-    this.api.requestOtp().subscribe({
-      next: ({ message, status }) => {
+    this.api.requestOtp().subscribe(
+      ({ message, status }: any) => {
         this.alert.open('success', { details: message, summary: status });
         this.loading = false;
         this.modalService.updateConfig(
@@ -148,15 +148,15 @@ export class WithdrawComponent implements OnInit, OnDestroy {
         );
         this.step = 'otp';
       },
-      error: (error: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         console.log(error);
         this.loading = false;
         this.alert.open('danger', {
           details: error.error?.message || 'Failed to request OTP',
           summary: 'Error'
         });
-      },
-    });
+      }
+    );
   }
 
   cancelWithdrawalRequest() {
@@ -183,8 +183,8 @@ export class WithdrawComponent implements OnInit, OnDestroy {
       otp: this.otp!.value,
     };
 
-    this.api.initiateWithdrawal(data).subscribe({
-      next: ({ data, status }) => {
+    this.api.initiateWithdrawal(data).subscribe(
+      ({ data, status }: any) => {
         this.modalService.update(
           ModalStatusComponent,
           'small',
@@ -202,7 +202,7 @@ export class WithdrawComponent implements OnInit, OnDestroy {
         this.transactionStore.updateTransactions(data.transaction);
         this.loading = false;
       },
-      error: (error: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         this.loading = false;
         this.modalService.update(
           ModalStatusComponent,
@@ -217,7 +217,7 @@ export class WithdrawComponent implements OnInit, OnDestroy {
             message: error.error?.message || 'Withdrawal failed',
           }
         );
-      },
-    });
+      }
+    );
   }
 }

@@ -8,7 +8,7 @@ import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'ca-profile-card',
   standalone: true,
-  imports: [NgOptimizedImage],
+  imports: [],
   templateUrl: './profile-card.component.html',
   styles: `
     :host .img-ctr {

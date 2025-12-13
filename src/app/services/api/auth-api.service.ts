@@ -13,11 +13,11 @@ import { UserStoreService } from '../../stores+/user.store';
 })
 export class AuthApiService {
   private readonly baseUrl = environment.API_BASE_URL;
-  
+
   get authToken(): string | null {
     return localStorage.getItem('AUTH_TOKEN');
   }
-  
+
   private set authToken(token: string | null) {
     if (token) {
       localStorage.setItem('AUTH_TOKEN', token);
@@ -30,10 +30,17 @@ export class AuthApiService {
     private readonly http: HttpClient,
     private router: Router,
     private userStore: UserStoreService
-  ) {}
+  ) { }
 
   registerUser(data: object) {
     return this.http.post<ApiResponse>(`${this.baseUrl}/auth/register`, data);
+  }
+
+  verifyReferralCode(referralCode: string) {
+    return this.http.post<ApiResponse & { data: { valid: boolean } }>(
+      `${this.baseUrl}/auth/verify-referral-code`,
+      { referral_code: referralCode }
+    );
   }
 
   EmailVerification(code: string) {
@@ -79,14 +86,14 @@ export class AuthApiService {
   logoutUser() {
     const token = this.authToken;
     this.clearAuth();
-    
+
     return this.http.post<ApiResponse>(`${this.baseUrl}/auth/logout`, null, {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`
       })
     });
   }
-  
+
   validateToken(): Observable<boolean> {
     return this.http.get<{ valid: boolean }>(
       `${this.baseUrl}/auth/validate-token`,
