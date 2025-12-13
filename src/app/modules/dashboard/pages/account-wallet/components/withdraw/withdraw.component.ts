@@ -165,7 +165,7 @@ export class WithdrawComponent implements OnInit, OnDestroy {
 
   formattedCurrency(amount: number | null) {
     if (!amount) return '0';
-    return new Intl.NumberFormat('en-US').format(amount * 0.005);
+    return new Intl.NumberFormat('en-US').format(10);
   }
 
   validWithdrawalAmount(amount: number | null | undefined) {
