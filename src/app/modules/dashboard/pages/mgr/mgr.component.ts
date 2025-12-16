@@ -10,12 +10,12 @@ import { PublicMgrJoinModalComponent } from './components/public-mgr-join-modal/
 
 @Component({
   selector: 'ca-mgr',
-  templateUrl: './mgr.component.html',
   styleUrl: './mgr.component.css',
+  templateUrl: './mgr.component.html',
 })
 export class MgrComponent implements OnInit, OnDestroy {
-  view: 'intro' | 'new' | 'join' = 'intro';
   defaultFiltervalue = 'active';
+  view: 'intro' | 'new' | 'join' = 'intro';
 
   hasMgr = true;
   loading = true;
@@ -26,9 +26,8 @@ export class MgrComponent implements OnInit, OnDestroy {
   adminMgrs: MGR[] = [];
   participantMgrs: MGR[] = [];
   publicMgrs: MGR[] = [];
-  allPublicMgrs: MGR[] = []; // Store all MGRs for filtering
+  allPublicMgrs: MGR[] = [];
 
-  // Search and filter controls
   searchControl = new FormControl('');
   searchFilters = {
     search: '',
@@ -41,17 +40,14 @@ export class MgrComponent implements OnInit, OnDestroy {
     start_date_to: ''
   };
 
-  // mgrs$: Observable
   paramSub!: Subscription;
   searchSub!: Subscription;
 
   constructor(private router: Router, private api: DashboardApiService, private modalService: ModalService) { }
 
   ngOnInit() {
-    // Check if we're on the public plans route
     this.isPublicView = this.router.url.includes('/public');
 
-    // Check public MGR creation permission
     if (this.isPublicView) {
       this.checkPublicMgrPermission();
     }
@@ -139,13 +135,10 @@ export class MgrComponent implements OnInit, OnDestroy {
   }
 
   createPublicPlan() {
-    // Navigate to public MGR creation page (you might want a separate route/component for this)
-    // For now, we'll navigate to the same creation page but with a query parameter
     this.router.navigate(['/mgr', 0, 'new'], { queryParams: { type: 'public' } });
   }
 
   joinPublicPlan(plan: MGR) {
-    // Prevent joining filled groups or past deadline
     if (plan.can_join === false || (plan.display_status || plan.status) === 'filled' || (plan.display_status || plan.status) === 'deadline passed') {
       return;
     }

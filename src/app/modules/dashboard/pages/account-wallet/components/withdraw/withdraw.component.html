@@ -16,7 +16,7 @@
           [ngClass]="{
             'ng-dirty ng-touched': isSubmitted && bankAccountId?.invalid
           }"
-          (change)="handleSelectBank($event)"
+          (change)="handleSelectBank($event?.id ?? $event)"
         >
         </ng-select>
       </div>
@@ -31,7 +31,7 @@
       <input
         type="text"
         class="h-full"
-        [placeholder]="selectedBank?.account_number || '1234567890'"
+        placeholder="1234567890"
         formControlName="account_number"
         readonly
       />
