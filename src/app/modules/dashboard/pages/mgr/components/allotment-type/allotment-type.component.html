@@ -78,7 +78,7 @@
           (change)="handlePositionChange($event)"
         >
           @for (n of allowableNumbers; track $index) {
-          <ng-option [value]="n">{{ n }}</ng-option>
+            <ng-option [value]="n">{{ n }}</ng-option>
           }
         </ng-select>
       </div>
@@ -96,7 +96,7 @@
         class="text-white h-8 w-[138px] inline-flex justify-center items-center text-xs font-medium rounded-[4px]"
         [ngClass]="{
           'bg-[#D0D5DD]': selectedPositionControl.invalid,
-          'bg-purple-main': selectedPositionControl.valid
+          'bg-purple-main': selectedPositionControl.valid,
         }"
         [disabled]="selectedPositionControl.invalid"
         (click)="handleTypeSelection('manual')"

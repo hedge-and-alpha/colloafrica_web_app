@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription, forkJoin, debounceTime, distinctUntilChanged } from 'rxjs';
-import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription, debounceTime, distinctUntilChanged, forkJoin } from 'rxjs';
+import { ModalService } from '../../../../components/modal/modal.service';
 import { MGR } from '../../../../interfaces/mgr.interface';
 import { DashboardApiService } from '../../../../services/api/dashboard-api.service';
-import { ModalService } from '../../../../components/modal/modal.service';
 import { PublicMgrJoinModalComponent } from './components/public-mgr-join-modal/public-mgr-join-modal.component';
 
 @Component({

@@ -3,13 +3,13 @@
 
   <div class="col-2 grow">
     <div class="share-alloc flex flex-col sm:flex-row gap-2">
-      @if (plan.status == 'pending') {
+      @if (plan.status == "pending") {
         <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
           <div class="flex items-center">
             <div class="sm:font-medium text-xs text-[#7D7F85]">
-              {{ plan.is_public ? 'Share plan' : 'Share invite link' }}
+              {{ plan.is_public ? "Share plan" : "Share invite link" }}
             </div>
-  
+
             <div class="ms-auto flex gap-2 icon-buttons">
               <button
                 class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
@@ -28,29 +28,37 @@
             </div>
           </div>
           @if (!inviteLink) {
-          <div class="text-sm sm:text-xs font-medium text-[#b0b0b0] mt-3">
-            Not available
-          </div>
+            <div class="text-sm sm:text-xs font-medium text-[#b0b0b0] mt-3">
+              Not available
+            </div>
           } @else {
-          <div
-            class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
-          >
-            <a
-              target="_blank"
-              class="underline text-primary"
-              [routerLink]="plan.is_public ? ['/', 'mgr', plan.id, 'view'] : ['/', 'mgr', plan.id, 'join']"
-              [queryParams]="plan.is_public ? {} : { invite_id: plan.invite_link }"
-              >{{ inviteLink }}</a
+            <div
+              class="text-sm sm:text-xs font-medium sm:max-w-[22rem] lg:max-w-[13rem] xl:max-w-[16rem] overflow-hidden text-nowrap text-ellipsis mt-3"
             >
-          </div>
+              <a
+                target="_blank"
+                class="underline text-primary"
+                [routerLink]="
+                  plan.is_public
+                    ? ['/', 'mgr', plan.id, 'view']
+                    : ['/', 'mgr', plan.id, 'join']
+                "
+                [queryParams]="
+                  plan.is_public ? {} : { invite_id: plan.invite_link }
+                "
+                >{{ inviteLink }}</a
+              >
+            </div>
           }
         </ca-card>
       }
 
-      @if (plan.status === 'started' && plan.next_allocation_to) {
+      @if (plan.status === "started" && plan.next_allocation_to) {
         <div class="allocation-card grow">
           <ca-card class="px-4 py-3 rounded-md h-full">
-            <div class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]">
+            <div
+              class="inline-flex gap-3 items-center text-xs text-[#7D7F85] mb-[6px]"
+            >
               Next Allocation to
               <span class="bg-warning alloc-position">
                 {{ plan.next_allocation_to.slot_number }}
@@ -89,7 +97,7 @@
             }}] and you will get
             {{
               +plan.amount * +plan.number_of_members
-                | currency : "NGN" : "symbol-narrow"
+                | currency: "NGN" : "symbol-narrow"
             }}.
           </p>
 
@@ -123,17 +131,17 @@
       <td class="whitespace-nowrap">
         <div class="flex items-center gap-3">
           @if (!item.profile_pic) {
-          <div
-            class="h-[50px] w-[50px] font-medium text-lg bg-purple-main rounded-full"
-          >
             <div
-              class="h-full w-full inline-flex items-center justify-center text-white"
+              class="h-[50px] w-[50px] font-medium text-lg bg-purple-main rounded-full"
             >
-              {{ item.first_name[0] }}{{ item.last_name[0] }}
+              <div
+                class="h-full w-full inline-flex items-center justify-center text-white"
+              >
+                {{ item.first_name[0] }}{{ item.last_name[0] }}
+              </div>
             </div>
-          </div>
           } @else {
-          <img src="rounded-full" alt="" width="50" height="50" />
+            <img src="rounded-full" alt="" width="50" height="50" />
           }
           {{ item.first_name | titlecase }} {{ item.last_name | titlecase }}
         </div>
@@ -149,24 +157,53 @@
       <td class="whitespace-nowrap">
         <span
           class="text-white text-sm font-medium c-badge"
-          [attr.data-status]="item.allocation_paused == 1 ? 'failed' : item.status == 1 ? 'success' : 'failed'"
+          [attr.data-status]="
+            item.allocation_paused == 1
+              ? 'failed'
+              : item.status == 1
+                ? 'success'
+                : 'failed'
+          "
         >
-          {{ item.allocation_paused == 1 ? "Missed" : item.status === 1 ? "Active" : "Error" }}
+          {{
+            item.allocation_paused == 1
+              ? "Missed"
+              : item.status === 1
+                ? "Active"
+                : "Error"
+          }}
         </span>
       </td>
       <td class="whitespace-nowrap">
-        {{ item.join_date | date : "dd MMMM, y hh:mm a" }}
+        {{ item.join_date | date: "dd MMMM, y hh:mm a" }}
       </td>
       <td class="whitespace-nowrap">
-        <div class="inline-flex gap-3" *ngIf="activePlan()!.status == 'started' || activePlan()!.status == 'pending'">
-          <button *ngIf="!( user()!.id === item.user_id || activePlan()!.status === 'started')"
-            ca-button-icon 
+        <div
+          class="inline-flex gap-3"
+          *ngIf="
+            activePlan()!.status == 'started' ||
+            activePlan()!.status == 'pending'
+          "
+        >
+          <button
+            *ngIf="
+              !(
+                user()!.id === item.user_id ||
+                activePlan()!.status === 'started'
+              )
+            "
+            ca-button-icon
             (click)="swapMember(item)"
           >
             <i class="ca-arrows-left-right"></i>
           </button>
 
-          <button  *ngIf="(plan.status === 'pending') && (item.role !== 'admin') && (user()!.id === plan!.creator_id)"
+          <button
+            *ngIf="
+              plan.status === 'pending' &&
+              item.role !== 'admin' &&
+              user()!.id === plan!.creator_id
+            "
             ca-button-icon
             [disabled]="
               activePlan()!.status === 'started' || item.role === 'admin'
@@ -178,14 +215,17 @@
             <i class="ca-trash"></i>
           </button>
 
-          <button  *ngIf="(plan.status === 'pending') && (item.role === 'member') && (user()!.id === item.user_id)"
-          ca-button-icon
-          (click)="
-            leavePlan(item.user_id, item.first_name, item.last_name)
-          "
-        >
-          <i class="ca-trash"></i>
-        </button>
+          <button
+            *ngIf="
+              plan.status === 'pending' &&
+              item.role === 'member' &&
+              user()!.id === item.user_id
+            "
+            ca-button-icon
+            (click)="leavePlan(item.user_id, item.first_name, item.last_name)"
+          >
+            <i class="ca-trash"></i>
+          </button>
         </div>
       </td>
     </ng-template>
