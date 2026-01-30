@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.colloafrica.mobile_app",
+      "sha256_cert_fingerprints": [
+        "F2:70:13:9B:8E:04:9E:3F:4C:5C:4E:78:EB:55:CC:8C:81:29:23:5B:17:23:D1:CE:C2:58:38:A0:94:91:EB:96"
+      ]
+    }
+  }
+]
