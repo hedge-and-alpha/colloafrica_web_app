@@ -3,7 +3,7 @@
 
   <div class="col-2 grow">
     <div class="share-alloc flex flex-col sm:flex-row gap-2">
-      @if (plan.status == "pending") {
+      @if (plan.status === "pending") {
         <ca-card class="py-3 px-4 rounded-[14px] share-link grow leading-3">
           <div class="flex items-center">
             <div class="sm:font-medium text-xs text-[#7D7F85]">
@@ -141,7 +141,7 @@
               </div>
             </div>
           } @else {
-            <img src="rounded-full" alt="" width="50" height="50" />
+            <img [src]="item.profile_pic" class="rounded-full" alt="{{ item.first_name | titlecase }} {{ item.last_name | titlecase }}" width="50" height="50" />
           }
           {{ item.first_name | titlecase }} {{ item.last_name | titlecase }}
         </div>
@@ -158,15 +158,15 @@
         <span
           class="text-white text-sm font-medium c-badge"
           [attr.data-status]="
-            item.allocation_paused == 1
+            item.allocation_paused === 1
               ? 'failed'
-              : item.status == 1
+              : item.status === 1
                 ? 'success'
                 : 'failed'
           "
         >
           {{
-            item.allocation_paused == 1
+            item.allocation_paused === 1
               ? "Missed"
               : item.status === 1
                 ? "Active"
@@ -181,8 +181,8 @@
         <div
           class="inline-flex gap-3"
           *ngIf="
-            activePlan()!.status == 'started' ||
-            activePlan()!.status == 'pending'
+            activePlan()!.status === 'started' ||
+            activePlan()!.status === 'pending'
           "
         >
           <button
