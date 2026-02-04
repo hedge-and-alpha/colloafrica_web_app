@@ -119,9 +119,6 @@ export class AdminMgrService {
 
   constructor(private readonly http: HttpClient) { }
 
-  /**
-   * Get MGRs with advanced filtering
-   */
   getMgrs(filters: MgrFilters = {}): Observable<{ data: MgrListItem[]; total: number; page: number; totalPages: number }> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authToken}`

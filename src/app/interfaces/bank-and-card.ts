@@ -1,9 +1,3 @@
-export interface Bank {
-  id: number;
-  code: string;
-  name: string;
-}
-
 export interface BankAccount {
   id: number;
   user_id: number;
@@ -23,4 +17,10 @@ export interface Card {
   card_expiry: string;
   card_number: string;
   cvv: string;
+}
+
+export interface Bank {
+  id: number;
+  code: string;
+  name: string;
 }

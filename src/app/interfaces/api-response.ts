@@ -1,8 +1,3 @@
-export interface ApiResponse {
-  status: string;
-  message: string;
-}
-
 export interface TablePagination {
   current_page: number;
   last_page: number;
@@ -20,4 +15,9 @@ export interface PaginatedData<T> {
   per_page: number;
   prev_page_url: string | null;
   total: number;
+}
+
+export interface ApiResponse {
+  status: string;
+  message: string;
 }
