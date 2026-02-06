@@ -15,6 +15,11 @@ import { AlertService } from './components/alert/alert.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  private static readonly ANDROID_PACKAGE = 'com.colloafrica.mobile_app';
+  private static readonly ANDROID_MARKET_URL = `market://details?id=${AppComponent.ANDROID_PACKAGE}`;
+  private static readonly ANDROID_PLAY_STORE_URL = `https://play.google.com/store/apps/details?id=${AppComponent.ANDROID_PACKAGE}`;
+  private static readonly IOS_APP_STORE_URL = 'https://apps.apple.com/us/app/colloafrica/id6755192715';
+
   loading = false;
   title = 'collo-africa';
 
@@ -44,20 +49,17 @@ export class AppComponent implements OnInit {
     const params = new URLSearchParams(window.location.search);
     if (params.get('redirect') !== 'app') return;
 
-    const userAgent = navigator.userAgent || navigator.vendor;
+    const userAgent = navigator.userAgent || navigator.vendor || '';
     const isAndroid = /android/i.test(userAgent);
     const isIOS = /iPad|iPhone|iPod/.test(userAgent);
 
     if (isAndroid) {
-      window.location.href =
-        'market://details?id=com.colloafrica.mobile_app';
+      window.location.href = AppComponent.ANDROID_MARKET_URL;
       setTimeout(() => {
-        window.location.href =
-          'https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app';
-      }, 500);
+        window.location.href = AppComponent.ANDROID_PLAY_STORE_URL;
+      }, 2000);
     } else if (isIOS) {
-      window.location.href =
-        'https://apps.apple.com/us/app/colloafrica/id6755192715';
+      window.location.href = AppComponent.IOS_APP_STORE_URL;
     }
   }
 }
