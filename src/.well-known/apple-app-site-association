@@ -3,8 +3,11 @@
     "apps": [],
     "details": [
       {
-        "appID": "6755192715.com.colloafrica.app",
-        "paths": ["/mgr/*", "/auth/*"]
+        "appID": "bpxustds62.com.colloafrica.app/",
+        "paths": [
+          "/mgr/*",
+          "/auth/*"
+        ]
       }
     ]
   }

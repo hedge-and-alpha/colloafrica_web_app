@@ -16,7 +16,6 @@ import { AlertService } from './components/alert/alert.service';
 })
 export class AppComponent implements OnInit {
   private static readonly ANDROID_PACKAGE = 'com.colloafrica.mobile_app';
-  private static readonly ANDROID_MARKET_URL = `market://details?id=${AppComponent.ANDROID_PACKAGE}`;
   private static readonly ANDROID_PLAY_STORE_URL = `https://play.google.com/store/apps/details?id=${AppComponent.ANDROID_PACKAGE}`;
   private static readonly IOS_APP_STORE_URL = 'https://apps.apple.com/us/app/colloafrica/id6755192715';
 
@@ -54,10 +53,8 @@ export class AppComponent implements OnInit {
     const isIOS = /iPad|iPhone|iPod/.test(userAgent);
 
     if (isAndroid) {
-      window.location.href = AppComponent.ANDROID_MARKET_URL;
-      setTimeout(() => {
-        window.location.href = AppComponent.ANDROID_PLAY_STORE_URL;
-      }, 2000);
+      const fallbackUrl = encodeURIComponent(AppComponent.ANDROID_PLAY_STORE_URL);
+      window.location.href = `intent://#Intent;package=${AppComponent.ANDROID_PACKAGE};S.browser_fallback_url=${fallbackUrl};end`;
     } else if (isIOS) {
       window.location.href = AppComponent.IOS_APP_STORE_URL;
     }
