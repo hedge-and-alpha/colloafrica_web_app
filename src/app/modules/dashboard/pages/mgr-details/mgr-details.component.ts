@@ -68,7 +68,7 @@ export class MgrDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMgrDetails();
-    
+
     // Check for showJoin query parameter for public MGR auto-join
     const showJoin = this.route.snapshot.queryParamMap.get('showJoin');
     if (showJoin === 'true') {

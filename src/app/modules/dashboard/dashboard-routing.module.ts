@@ -9,8 +9,11 @@ import { InvestmentDetailsComponent } from './pages/investment-details/investmen
 import { AllInvestmentsComponent } from './pages/investments/all-investments/all-investments.component';
 import { InvestmentsComponent } from './pages/investments/investments.component';
 import { MyInvestmentsComponent } from './pages/investments/my-investments/my-investments.component';
-import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
 import { MgrCreateEditComponent } from './pages/mgr-create-edit/mgr-create-edit.component';
+import { MgrDetailsComponent } from './pages/mgr-details/mgr-details.component';
+import { MgrCollectionStatisticsComponent } from './pages/mgr-details/pages/mgr-collection-statistics/mgr-collection-statistics.component';
+import { MgrContributionStatisticsComponent } from './pages/mgr-details/pages/mgr-contribution-statistics/mgr-contribution-statistics.component';
+import { MgrPlanComponent } from './pages/mgr-details/pages/mgr-plan/mgr-plan.component';
 import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { BankAccountsComponent } from './pages/profile/bank-accounts/bank-accounts.component';
@@ -21,9 +24,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SecurityComponent } from './pages/profile/security/security.component';
 import { SavingsComponent } from './pages/savings/savings.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { MgrPlanComponent } from './pages/mgr-details/pages/mgr-plan/mgr-plan.component';
-import { MgrCollectionStatisticsComponent } from './pages/mgr-details/pages/mgr-collection-statistics/mgr-collection-statistics.component';
-import { MgrContributionStatisticsComponent } from './pages/mgr-details/pages/mgr-contribution-statistics/mgr-contribution-statistics.component';
 
 const routes: Routes = [
   {
@@ -72,7 +72,7 @@ const routes: Routes = [
       },
       { path: 'mgr', component: MgrComponent, title: 'Contribution' },
       { path: 'mgr/public', component: MgrComponent, title: 'Public Contributions' },
-      
+
       {
         path: 'mgr/:id',
         component: MgrDetailsComponent,
@@ -149,4 +149,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule { }

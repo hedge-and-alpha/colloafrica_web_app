@@ -13,7 +13,7 @@ export interface MGR {
   theme_color: string;
   allotment_type: string;
   invite_link: string;
-  slug?: string; // New slug field for friendly URLs
+  slug?: string;
   creator_id: number;
   status: string;
   id: string;
@@ -24,8 +24,7 @@ export interface MGR {
   cycle_dates: { cycle_number: number; cycle_date: string }[];
   total_allocation: number;
   total_contribution: string;
-  
-  // New properties for public MGRs
+
   public_description?: string;
   description?: string;
   category?: string;

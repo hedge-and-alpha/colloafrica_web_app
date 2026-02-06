@@ -141,7 +141,15 @@
               </div>
             </div>
           } @else {
-            <img [src]="item.profile_pic" class="rounded-full" alt="{{ item.first_name | titlecase }} {{ item.last_name | titlecase }}" width="50" height="50" />
+            <img
+              [src]="item.profile_pic"
+              class="rounded-full"
+              alt="{{ item.first_name | titlecase }} {{
+                item.last_name | titlecase
+              }}"
+              width="50"
+              height="50"
+            />
           }
           {{ item.first_name | titlecase }} {{ item.last_name | titlecase }}
         </div>
