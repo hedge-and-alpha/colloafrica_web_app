@@ -17,6 +17,7 @@ import { AlertService } from './components/alert/alert.service';
 export class AppComponent implements OnInit {
   private static readonly ANDROID_PACKAGE = 'com.colloafrica.mobile_app';
   private static readonly ANDROID_PLAY_STORE_URL = `https://play.google.com/store/apps/details?id=${AppComponent.ANDROID_PACKAGE}`;
+  private static readonly IOS_APP_SCHEME = 'colloafrica://';
   private static readonly IOS_APP_STORE_URL = 'https://apps.apple.com/us/app/colloafrica/id6755192715';
 
   loading = false;
@@ -45,8 +46,7 @@ export class AppComponent implements OnInit {
   private handleAppRedirect(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('redirect') !== 'app') return;
+    if (this.route.snapshot.queryParamMap.get('redirect') !== 'app') return;
 
     const userAgent = navigator.userAgent || navigator.vendor || '';
     const isAndroid = /android/i.test(userAgent);
@@ -56,7 +56,10 @@ export class AppComponent implements OnInit {
       const fallbackUrl = encodeURIComponent(AppComponent.ANDROID_PLAY_STORE_URL);
       window.location.href = `intent://#Intent;package=${AppComponent.ANDROID_PACKAGE};S.browser_fallback_url=${fallbackUrl};end`;
     } else if (isIOS) {
-      window.location.href = AppComponent.IOS_APP_STORE_URL;
+      window.location.href = AppComponent.IOS_APP_SCHEME;
+      setTimeout(() => {
+        window.location.href = AppComponent.IOS_APP_STORE_URL;
+      }, 2000);
     }
   }
 }
