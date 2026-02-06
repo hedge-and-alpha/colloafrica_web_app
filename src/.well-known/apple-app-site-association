@@ -4,7 +4,7 @@
     "details": [
       {
         "appID": "6755192715.com.colloafrica.app",
-        "paths": ["/mgr/", "/auth/"]
+        "paths": ["/mgr/*", "/auth/*"]
       }
     ]
   }

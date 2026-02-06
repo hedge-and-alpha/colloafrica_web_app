@@ -1,8 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {
+  ActivatedRoute,
   NavigationEnd,
   NavigationError,
-  ResolveEnd,
   ResolveStart,
   Router,
 } from '@angular/router';
@@ -18,7 +19,9 @@ export class AppComponent implements OnInit {
   title = 'collo-africa';
 
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private alertService = inject(AlertService);
+  private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
@@ -31,5 +34,30 @@ export class AppComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    this.handleAppRedirect();
+  }
+
+  private handleAppRedirect(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('redirect') !== 'app') return;
+
+    const userAgent = navigator.userAgent || navigator.vendor;
+    const isAndroid = /android/i.test(userAgent);
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+
+    if (isAndroid) {
+      window.location.href =
+        'market://details?id=com.colloafrica.mobile_app';
+      setTimeout(() => {
+        window.location.href =
+          'https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app';
+      }, 500);
+    } else if (isIOS) {
+      window.location.href =
+        'https://apps.apple.com/us/app/colloafrica/id6755192715';
+    }
   }
 }

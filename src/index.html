@@ -116,30 +116,6 @@
     </ca-root>
 
     <script>
-      window.onload = function () {
-        const userAgent =
-          navigator.userAgent || navigator.vendor || window.opera;
-        const isAndroid = /android/i.test(userAgent);
-        const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-
-        setTimeout(function () {
-          if (isAndroid) {
-            window.location.href =
-              "market://details?id=com.colloafrica.mobile_app";
-
-            setTimeout(() => {
-              window.location.href =
-                "https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app";
-            }, 500);
-          } else if (isIOS) {
-            window.location.href =
-              "https://apps.apple.com/us/app/colloafrica/id6755192715";
-          }
-        }, 2500);
-      };
-    </script>
-
-    <script>
       window.$zoho = window.$zoho || {};
       $zoho.salesiq = $zoho.salesiq || { ready: function () {} };
     </script>
