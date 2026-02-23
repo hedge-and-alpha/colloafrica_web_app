@@ -9,7 +9,6 @@
             <div class="sm:font-medium text-xs text-[#7D7F85]">
               {{ plan.is_public ? "Share plan" : "Share invite link" }}
             </div>
-
             <div class="ms-auto flex gap-2 icon-buttons">
               <button
                 class="rounded-full inline-flex items-center justify-center w-8 h-8 text-white bg-purple-main"
@@ -27,6 +26,7 @@
               </button>
             </div>
           </div>
+
           @if (!inviteLink) {
             <div class="text-sm sm:text-xs font-medium text-[#b0b0b0] mt-3">
               Not available
@@ -90,6 +90,7 @@
             {{ activePlan()?.logged_user_position }}
           </span>
         </div>
+
         <div class="flex items-center">
           <p class="text-xs max-w-52">
             Your Allocation position is [{{
@@ -100,7 +101,6 @@
                 | currency: "NGN" : "symbol-narrow"
             }}.
           </p>
-
           <button
             class="rounded-md bg-purple-main text-white py-2 px-4 ms-auto font-medium text-xs disabled:bg-[#b0b0b0]"
             [disabled]="plan.status !== 'pending'"
@@ -232,7 +232,7 @@
             ca-button-icon
             (click)="leavePlan(item.user_id, item.first_name, item.last_name)"
           >
-            <i class="ca-trash"></i>
+            <i class="ca-logout"></i>
           </button>
         </div>
       </td>
