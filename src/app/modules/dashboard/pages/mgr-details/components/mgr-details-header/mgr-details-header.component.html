@@ -1,52 +1,52 @@
 <div>
   @if (!groupStarted && isAdmin) {
-  <div class="buttons inline-flex gap-3 sm:ms-auto">
-    <button class="bg-purple-main text-white px-3" (click)="editPlan()">
-      <i class="ca-pencil"></i>
-      Edit plan
-    </button>
+    <div class="buttons inline-flex gap-3 sm:ms-auto">
+      <button class="bg-purple-main text-white px-3" (click)="editPlan()">
+        <i class="ca-pencil"></i>
+        Edit plan
+      </button>
 
-    <button class="text-purple-main px-3" (click)="cancelPlan()">
-      <i class="ca-trash"></i>
-      Cancel plan
-    </button>
-  </div>
+      <button class="text-purple-main px-3" (click)="cancelPlan()">
+        <i class="ca-trash"></i>
+        Cancel plan
+      </button>
+    </div>
   }
 
   <!--  -->
   @if (groupStarted) {
-  <div
-    class="tabs flex items-center justify-center gap-3 flex-nowrap overflow-x-scroll no-scrollbar sm:ms-auto"
-  >
-    <button
-      class="font-medium px-3"
-      (click)="changeView('details')"
-      [ngClass]="{ active: view === 'details' }"
+    <div
+      class="tabs flex items-center justify-center gap-3 flex-nowrap overflow-x-scroll no-scrollbar sm:ms-auto"
     >
-      <i class="ca-money-bag"></i>
-      MGR plan details
-    </button>
+      <button
+        class="font-medium px-3"
+        (click)="changeView('details')"
+        [ngClass]="{ active: view === 'details' }"
+      >
+        <i class="ca-money-bag"></i>
+        MGR plan details
+      </button>
 
-    <!--  -->
-    <!-- @if (isAdmin) { -->
-    <button
-      class="font-medium px-3"
-      (click)="changeView('collection')"
-      [ngClass]="{ active: view === 'collection' }"
-    >
-      <i class="ca-chart-pie-slice"></i>
-      View collection statistics
-    </button>
+      <!--  -->
+      <!-- @if (isAdmin) { -->
+      <button
+        class="font-medium px-3"
+        (click)="changeView('collection')"
+        [ngClass]="{ active: view === 'collection' }"
+      >
+        <i class="ca-chart-pie-slice"></i>
+        View collection statistics
+      </button>
 
-    <button
-      class="font-medium px-3"
-      (click)="changeView('contribution')"
-      [ngClass]="{ active: view === 'contribution' }"
-    >
-      <i class="ca-chart-bar"></i>
-      View contribution statistics
-    </button>
-    <!-- } -->
-  </div>
+      <button
+        class="font-medium px-3"
+        (click)="changeView('contribution')"
+        [ngClass]="{ active: view === 'contribution' }"
+      >
+        <i class="ca-chart-bar"></i>
+        View contribution statistics
+      </button>
+      <!-- } -->
+    </div>
   }
 </div>
