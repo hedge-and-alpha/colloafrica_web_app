@@ -205,7 +205,7 @@
         // Don't intercept auth/registration flows
         const excludedPaths = ["/register", "/login", "/sign-up", "/auth"];
         const currentPath = window.location.pathname;
-        if (excludedPaths.some((p) => currentPath.startsWith(p))) return;
+        if (excludedPaths.some((p) => currentPath === p || currentPath.startsWith(p + "/"))) return;
 
         // Respect previous "Continue on Web" choice
         if (localStorage.getItem("preferWeb") === "true") return;
