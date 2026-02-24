@@ -194,18 +194,23 @@
       }
 
       function closeDialog() {
+        localStorage.setItem("preferWeb", "true");
         document.getElementById("app-dialog").style.display = "none";
       }
 
       window.onload = function () {
         const platform = getPlatform();
-
         if (platform === "web") return;
 
-        // Try opening app immediately
-        openApp();
+        // Don't intercept auth/registration flows
+        const excludedPaths = ["/register", "/login", "/sign-up", "/auth"];
+        const currentPath = window.location.pathname;
+        if (excludedPaths.some((p) => currentPath === p || currentPath.startsWith(p + "/"))) return;
 
-        // If still visible after 1.5s, show dialog
+        // Respect previous "Continue on Web" choice
+        if (localStorage.getItem("preferWeb") === "true") return;
+
+        openApp();
         setTimeout(() => {
           if (document.visibilityState === "visible") {
             showDialog();
