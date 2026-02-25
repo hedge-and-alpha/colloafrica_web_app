@@ -6,199 +6,119 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://s3.eu-west-2.amazonaws.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300..600;1,300..600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
 
+    <link
+      rel="preload"
+      href="assets/images/logo.svg"
+      as="image"
+      fetchpriority="high"
+    />
+    <!-- <link
+      rel="preload"
+      href="assets/images/ajo-group.webp"
+      fetchpriority="high"
+      as="image"
+    /> -->
     <style>
-      body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      }
-
-      /* Web content (visible by default) */
-      #web-content {
-        text-align: center;
-        padding: 40px 20px;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      #web-content h1 {
-        color: #470b96;
-      }
-
-      #web-content .store-buttons {
-        margin-top: 30px;
+      .splash {
+        height: 100svh;
         display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      #web-content .store-button {
-        display: inline-block;
-        padding: 12px 24px;
-        background: #470b96;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-      }
-
-      #web-content .store-button.android {
-        background: #e29700;
-      }
-
-      /* Dialog modal */
-      #app-dialog {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
         align-items: center;
         justify-content: center;
-        z-index: 9999;
       }
 
-      .dialog-box {
-        background: #ffffff;
-        width: 90%;
-        max-width: 400px;
-        border-radius: 16px;
-        padding: 24px;
-        text-align: center;
+      .loader-ctr {
+        width: 100px;
+        height: 100px;
+        position: relative;
       }
 
-      .dialog-buttons {
-        margin-top: 20px;
+      .splash .img-ctr {
+        position: absolute;
+        inset: 0;
         display: flex;
-        gap: 10px;
+        align-items: center;
         justify-content: center;
-        flex-wrap: wrap;
       }
 
-      .dialog-buttons button {
-        padding: 10px 18px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 14px;
+      .splash img {
+        animation: pulse 2s linear infinite;
       }
 
-      .open-btn {
-        background: #470b96;
-        color: white;
+      .splash .loader {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: inline-block;
+        border-top: 4px solid #470b96;
+        border-right: 4px solid transparent;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite alternate both;
+      }
+      .splash .loader::after {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border-bottom: 4px solid #e29700;
+        border-left: 4px solid transparent;
+      }
+      @keyframes rotation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
 
-      .download-btn {
-        background: #e29700;
-        color: white;
-      }
-
-      .continue-btn {
-        background: transparent;
-        color: #666;
+      @keyframes pulse {
+        0% {
+          transform: scale(0.5);
+          opacity: 0.5;
+        }
+        50% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.5);
+          opacity: 0.5;
+        }
       }
     </style>
   </head>
-
   <body>
-    <!-- Web content (shown to everyone by default) -->
-    <div id="web-content">
-      <h1>Welcome to ColloAfrica</h1>
-      <p>
-        You're using the web version. For the best experience, download our
-        mobile app!
-      </p>
-      <div class="store-buttons">
-        <a
-          href="https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app"
-          class="store-button android"
-          target="_blank"
-          >Get it on Google Play</a
-        >
-        <a
-          href="https://apps.apple.com/app/id6755192715"
-          class="store-button ios"
-          target="_blank"
-          >Download on the App Store</a
-        >
-      </div>
-      <p style="margin-top: 40px; color: #666">
-        Or continue to our <a href="/">full website</a>.
-      </p>
-    </div>
-
-    <div id="app-dialog">
-      <div class="dialog-box">
-        <h2>Open in ColloAfrica App?</h2>
-        <p>You’ll get a better experience in the mobile app.</p>
-
-        <div class="dialog-buttons">
-          <button class="open-btn" onclick="openApp()">Open App</button>
-          <button class="download-btn" onclick="openStore()">
-            Download App
-          </button>
-          <button class="continue-btn" onclick="continueOnWeb()">
-            Continue on Web
-          </button>
+    <ca-root>
+      <div class="splash">
+        <div class="loader-ctr">
+          <div class="loader"></div>
+          <div class="img-ctr">
+            <img src="assets/images/icon.png" alt="" width="44" height="44" />
+          </div>
         </div>
       </div>
-    </div>
-
-    <script>
-      function getPlatform() {
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        if (/android/i.test(ua)) return "android";
-        if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return "ios";
-        return "web";
-      }
-
-      function getStoreUrl() {
-        const platform = getPlatform();
-        if (platform === "android") {
-          return "https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app";
-        } else if (platform === "ios") {
-          return "https://apps.apple.com/app/id6755192715";
-        }
-        return null;
-      }
-
-      function openApp() {
-        const path = window.location.pathname + window.location.search;
-        const platform = getPlatform();
-
-        if (platform === "ios") {
-          window.location.href = `colloafrica://${path}`;
-        } else if (platform === "android") {
-          window.location.href = `intent://${path}#Intent;scheme=https;package=com.colloafrica.mobile_app;end`;
-        }
-      }
-
-      function openStore() {
-        const url = getStoreUrl();
-        if (url) {
-          window.location.href = url;
-        }
-      }
-
-      function showDialog() {
-        document.getElementById("app-dialog").style.display = "flex";
-      }
-
-      function closeDialog() {
-        document.getElementById("app-dialog").style.display = "none";
-      }
-
-      function continueOnWeb() {
-        closeDialog();
-      }
-
-      window.onload = function () {
-        const platform = getPlatform();
-
-        if (platform !== "web") {
-          showDialog();
-        }
-      };
-    </script>
+    </ca-root>
+    <!-- Start of colloafrica Zendesk Widget script -->
+    <script
+      id="ze-snippet"
+      src="https://static.zdassets.com/ekr/snippet.js?key=7c51ca7b-4b03-4cab-8dea-3a1283b352e3"
+    ></script>
+    <!-- End of colloafrica Zendesk Widget script -->
   </body>
 </html>
