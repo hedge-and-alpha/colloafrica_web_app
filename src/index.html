@@ -8,77 +8,13 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <style>
-      :root {
-        --primary-color: #470b96;
-        --android-button-color: var(--android-button-color);
-      }
-
       body {
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       }
 
-      .splash {
-        height: 100svh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .loader-ctr {
-        width: 100px;
-        height: 100px;
-        position: relative;
-      }
-
-      .splash .img-ctr {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .splash img {
-        animation: pulse 2s linear infinite;
-      }
-
-      .splash .loader {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        border-top: 4px solid var(--primary-color);
-        border-right: 4px solid transparent;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-      }
-
-      @keyframes rotation {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(0.6);
-          opacity: 0.6;
-        }
-        50% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(0.6);
-          opacity: 0.6;
-        }
-      }
-
+      /* Web content (visible by default) */
       #web-content {
-        display: none;
         text-align: center;
         padding: 40px 20px;
         max-width: 600px;
@@ -86,7 +22,7 @@
       }
 
       #web-content h1 {
-        color: var(--primary-color);
+        color: #470b96;
       }
 
       #web-content .store-buttons {
@@ -100,7 +36,7 @@
       #web-content .store-button {
         display: inline-block;
         padding: 12px 24px;
-        background: var(--primary-color);
+        background: #470b96;
         color: white;
         text-decoration: none;
         border-radius: 8px;
@@ -108,10 +44,10 @@
       }
 
       #web-content .store-button.android {
-        background: var(--android-button-color);
+        background: #e29700;
       }
 
-      /* Dialog styles */
+      /* Dialog modal */
       #app-dialog {
         display: none;
         position: fixed;
@@ -148,12 +84,12 @@
       }
 
       .open-btn {
-        background: var(--primary-color);
+        background: #470b96;
         color: white;
       }
 
       .download-btn {
-        background: var(--android-button-color);
+        background: #e29700;
         color: white;
       }
 
@@ -165,15 +101,7 @@
   </head>
 
   <body>
-    <div class="splash" id="splash">
-      <div class="loader-ctr">
-        <div class="loader"></div>
-        <div class="img-ctr">
-          <img src="assets/images/icon.png" width="44" height="44" />
-        </div>
-      </div>
-    </div>
-
+    <!-- Web content (shown to everyone by default) -->
     <div id="web-content">
       <h1>Welcome to ColloAfrica</h1>
       <p>
@@ -185,14 +113,12 @@
           href="https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app"
           class="store-button android"
           target="_blank"
-          rel="noopener noreferrer"
           >Get it on Google Play</a
         >
         <a
           href="https://apps.apple.com/app/id6755192715"
           class="store-button ios"
           target="_blank"
-          rel="noopener noreferrer"
           >Download on the App Store</a
         >
       </div>
@@ -201,7 +127,6 @@
       </p>
     </div>
 
-    <!-- Dialog for mobile users (when app not installed) -->
     <div id="app-dialog">
       <div class="dialog-box">
         <h2>Open in ColloAfrica App?</h2>
@@ -212,7 +137,7 @@
           <button class="download-btn" onclick="openStore()">
             Download App
           </button>
-          <button class="continue-btn" onclick="closeDialog()">
+          <button class="continue-btn" onclick="continueOnWeb()">
             Continue on Web
           </button>
         </div>
@@ -263,29 +188,16 @@
         document.getElementById("app-dialog").style.display = "none";
       }
 
-      function hideSplash() {
-        document.getElementById("splash").style.display = "none";
-      }
-
-      function showWebContent() {
-        document.getElementById("web-content").style.display = "block";
+      function continueOnWeb() {
+        closeDialog();
       }
 
       window.onload = function () {
         const platform = getPlatform();
 
-        if (platform === "web") {
-          hideSplash();
-          showWebContent();
+        if (platform !== "web") {
+          showDialog();
         }
-
-        openApp();
-
-        setTimeout(() => {
-          if (document.visibilityState === "visible") {
-            showDialog();
-          }
-        }, 1500);
       };
     </script>
   </body>
