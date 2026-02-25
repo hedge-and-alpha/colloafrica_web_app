@@ -13,6 +13,7 @@
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       }
 
+      /* Splash screen */
       .splash {
         height: 100svh;
         display: flex;
@@ -72,6 +73,40 @@
         }
       }
 
+      #web-content {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      #web-content h1 {
+        color: #470b96;
+      }
+
+      #web-content .store-buttons {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      #web-content .store-button {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #470b96;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+
+      #web-content .store-button.android {
+        background: #e29700;
+      }
+
       /* Dialog styles */
       #app-dialog {
         display: none;
@@ -126,7 +161,7 @@
   </head>
 
   <body>
-    <div class="splash">
+    <div class="splash" id="splash">
       <div class="loader-ctr">
         <div class="loader"></div>
         <div class="img-ctr">
@@ -135,7 +170,32 @@
       </div>
     </div>
 
-    <!-- Dialog -->
+    <div id="web-content">
+      <h1>Welcome to ColloAfrica</h1>
+      <p>
+        You're using the web version. For the best experience, download our
+        mobile app!
+      </p>
+      <div class="store-buttons">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.colloafrica.mobile_app"
+          class="store-button android"
+          target="_blank"
+          >Get it on Google Play</a
+        >
+        <a
+          href="https://apps.apple.com/app/id6755192715"
+          class="store-button ios"
+          target="_blank"
+          >Download on the App Store</a
+        >
+      </div>
+      <p style="margin-top: 40px; color: #666">
+        Or continue to our <a href="/">full website</a>.
+      </p>
+    </div>
+
+    <!-- Dialog for mobile users (when app not installed) -->
     <div id="app-dialog">
       <div class="dialog-box">
         <h2>Open in ColloAfrica App?</h2>
@@ -194,23 +254,27 @@
       }
 
       function closeDialog() {
-        localStorage.setItem("preferWeb", "true");
         document.getElementById("app-dialog").style.display = "none";
+      }
+
+      function hideSplash() {
+        document.getElementById("splash").style.display = "none";
+      }
+
+      function showWebContent() {
+        document.getElementById("web-content").style.display = "block";
       }
 
       window.onload = function () {
         const platform = getPlatform();
-        if (platform === "web") return;
 
-        // Don't intercept auth/registration flows
-        const excludedPaths = ["/register", "/login", "/sign-up", "/auth"];
-        const currentPath = window.location.pathname;
-        if (excludedPaths.some((p) => currentPath === p || currentPath.startsWith(p + "/"))) return;
-
-        // Respect previous "Continue on Web" choice
-        if (localStorage.getItem("preferWeb") === "true") return;
+        if (platform === "web") {
+          hideSplash();
+          showWebContent();
+        }
 
         openApp();
+
         setTimeout(() => {
           if (document.visibilityState === "visible") {
             showDialog();
