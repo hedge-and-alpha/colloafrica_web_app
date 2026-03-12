@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["BPXUSTDS62.com.colloafrica.mobile_app"],
+        "components": [
+          { "/": "/*" }
+        ]
+      }
+    ]
+  }
+}

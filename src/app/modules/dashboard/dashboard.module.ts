@@ -79,6 +79,7 @@ import { MgrIntroComponent } from './pages/mgr/components/mgr-intro/mgr-intro.co
 import { MgrPlanCardComponent } from './pages/mgr/components/mgr-plan-card/mgr-plan-card.component';
 import { MgrPlanFormComponent } from './pages/mgr/components/mgr-plan-form/mgr-plan-form.component';
 import { MgrPlanListComponent } from './pages/mgr/components/mgr-plan-list/mgr-plan-list.component';
+import { PublicMgrJoinModalComponent } from './pages/mgr/components/public-mgr-join-modal/public-mgr-join-modal.component';
 import { MgrComponent } from './pages/mgr/mgr.component';
 import { NotificationItemComponent } from './pages/notifications/notification-item/notification-item.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
@@ -101,6 +102,9 @@ import { EditMgrPlanComponent } from './pages/mgr-details/components/edit-mgr-pl
 import { ChangePositionComponent } from './pages/mgr-details/components/change-position/change-position.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { MgrDetailsModule } from './pages/mgr-details/mgr-details.module';
+import { MgrCreateWizardComponent } from './components/mgr-create-wizard/mgr-create-wizard.component';
+import { PositionSelectorComponent } from './pages/mgr/components/position-selector/position-selector.component';
 
 @NgModule({
   declarations: [
@@ -160,6 +164,9 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     AllotmentTypeCardComponent,
     EditMgrPlanComponent,
     ChangePositionComponent,
+    MgrCreateWizardComponent,
+    PublicMgrJoinModalComponent,
+    PositionSelectorComponent,
   ],
   imports: [
     CommonModule,
@@ -174,6 +181,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
       echarts: () => import('echarts'),
     }),
     DashboardRoutingModule,
+    MgrDetailsModule,
     BankAccountInfoItemComponent,
     BankAccountInfoItemColumnComponent,
     ButtonLoadingDirective,

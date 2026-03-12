@@ -50,7 +50,7 @@ export class BasicComponent implements OnInit {
     private api: DashboardApiService,
     private alert: AlertService,
     private utils: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.createForm();
@@ -107,7 +107,8 @@ export class BasicComponent implements OnInit {
     };
 
     this.api.updatePersonalInfo(data).subscribe({
-      next: ({ message, status }) => {
+      next: (value) => {
+        const { message, status } = value as { message: string; status: string };
         this.loading = false;
         this.alert.open('success', { details: message, summary: status });
       },

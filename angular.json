@@ -32,7 +32,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/.well-known"
             ],
             "styles": [
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
@@ -47,13 +48,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "550kb",
                   "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "12kb",
+                  "maximumError": "15kb"
                 }
               ],
               "outputHashing": "all"

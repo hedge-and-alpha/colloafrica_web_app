@@ -59,14 +59,22 @@ export class JoinMgrPlanFormComponent implements OnInit {
     private alert: AlertService,
     private router: Router,
     private utils: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     let inviteIdQueryParam = this.route.snapshot.queryParamMap.get('invite_id');
+    const mgrId = this.route.snapshot.paramMap.get('id');
 
     if (inviteIdQueryParam) {
+      // Private MGR join flow
       this.inviteId = inviteIdQueryParam;
       this.getMgrDetails(this.inviteId);
+    } else if (mgrId) {
+      // This shouldn't happen anymore since public MGRs are redirected
+      // But keeping for safety
+      this.router.navigate(['/mgr', mgrId, 'view'], {
+        queryParams: { showJoin: 'true' }
+      });
     }
   }
 
@@ -98,11 +106,11 @@ export class JoinMgrPlanFormComponent implements OnInit {
           ),
           allocation_date: this.utils.toISODate(mgr.allocation_date),
           theme_color: mgr.theme_color,
-          allotment_type: mgr.theme_color,
+          allotment_type: mgr.allotment_type,
         });
         this.loading = false;
       },
-      error: (err: HttpErrorResponse) => {},
+      error: (err: HttpErrorResponse) => { },
     });
   }
 

@@ -30,7 +30,7 @@ export class ChangePositionComponent implements OnInit {
     private api: DashboardApiService,
     private fb: FormBuilder,
     private alert: AlertService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.availableSlots$ = this.api.getMgrPlanAvailableSlots(this.mgrId);

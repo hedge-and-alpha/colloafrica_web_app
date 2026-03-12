@@ -1,0 +1,758 @@
+<!-- User Details Modal -->
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="header-content">
+        <div class="user-info">
+          <div class="user-avatar">
+            <img [src]="getUserInfo('profilePicture')" *ngIf="getUserInfo('profilePicture')" [alt]="getUserInfo('name')">
+            <div class="avatar-placeholder" *ngIf="!getUserInfo('profilePicture')">
+              {{ getUserInfo('name')?.charAt(0) }}
+            </div>
+          </div>
+          <div class="user-details">
+            <h2>{{ getUserInfo('name') }}</h2>
+            <p class="user-email">{{ getUserInfo('email') }}</p>
+            <div class="user-badges">
+              <span class="badge" [ngClass]="getStatusClass(getUserInfo('status'))">
+                {{ getUserInfo('status') | titlecase }}
+              </span>
+              <span class="badge" [ngClass]="getVerificationLevelClass(getVerificationLevel())">
+                {{ getVerificationLabel(getVerificationLevel()) }}
+              </span>
+              <span class="badge" [ngClass]="getRiskLevelClass(getUserInfo('riskLevel'))">
+                {{ getRiskLabel(getUserInfo('riskLevel')) }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-secondary" (click)="openStatusModal()">
+            <i class="icon-edit"></i> Update Status
+          </button>
+          <button class="btn btn-warning" (click)="resetPassword()">
+            <i class="icon-key"></i> Reset Password
+          </button>
+          <button class="btn btn-primary" (click)="openNotificationModal()">
+            <i class="icon-send"></i> Send Notification
+          </button>
+          <button class="close-btn" (click)="close()">
+            <i class="icon-close"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading user details...</p>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="modal-content" *ngIf="!loading && user">
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'overview'"
+          (click)="setActiveTab('overview')">
+          <i class="icon-overview"></i> Overview
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'personal'"
+          (click)="setActiveTab('personal')">
+          <i class="icon-user"></i> Personal Info
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'kyc'"
+          (click)="setActiveTab('kyc')">
+          <i class="icon-document"></i> KYC Verification
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'financial'"
+          (click)="setActiveTab('financial')">
+          <i class="icon-bank"></i> Financial Info
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'activity'"
+          (click)="setActiveTab('activity')">
+          <i class="icon-activity"></i> Activity Log
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'mgr'"
+          (click)="setActiveTab('mgr')">
+          <i class="icon-group"></i> MGR Participation
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'admin'"
+          (click)="setActiveTab('admin')">
+          <i class="icon-admin"></i> Admin Notes
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content">
+        <!-- Overview Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'overview'">
+          <div class="overview-grid">
+            <!-- Quick Stats -->
+            <div class="stat-card">
+              <div class="stat-header">
+                <h3>Credit Score</h3>
+                <button class="btn btn-sm btn-secondary" (click)="openCreditScoreModal()">
+                  <i class="icon-edit"></i> Adjust
+                </button>
+              </div>
+              <div class="credit-score">
+                <div class="score-circle">
+                  <svg width="80" height="80" viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="35" stroke="#f3f4f6" stroke-width="4" fill="none"></circle>
+                    <circle cx="40" cy="40" r="35" 
+                            [attr.stroke]="getCreditScoreColor(getUserInfo('creditScore') || 0)"
+                            stroke-width="4" 
+                            fill="none"
+                            stroke-linecap="round"
+                            [attr.stroke-dasharray]="2 * Math.PI * 35"
+                            [attr.stroke-dashoffset]="2 * Math.PI * 35 * (1 - (getUserInfo('creditScore') || 0) / 1000)">
+                    </circle>
+                  </svg>
+                  <div class="score-text">{{ getUserInfo('creditScore') }}</div>
+                </div>
+                <div class="score-info">
+                  <p class="score-label">Credit Score</p>
+                  <p class="score-description">
+                    <span *ngIf="(getUserInfo('creditScore') || 0) >= 800" class="text-green">Excellent</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) >= 700 && (getUserInfo('creditScore') || 0) < 800" class="text-yellow">Good</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) >= 600 && (getUserInfo('creditScore') || 0) < 700" class="text-orange">Fair</span>
+                    <span *ngIf="(getUserInfo('creditScore') || 0) < 600" class="text-red">Poor</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Account Statistics -->
+            <div class="stat-card">
+              <h3>Account Statistics</h3>
+              <div class="stat-grid">
+                <div class="stat-item">
+                  <span class="stat-label">MGRs Joined</span>
+                  <span class="stat-value">{{ getUserInfo('totalMgrs') }}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Total Contributions</span>
+                  <span class="stat-value">{{ formatCurrency(getUserInfo('totalContributions')) }}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Member Since</span>
+                  <span class="stat-value">{{ formatDate(getUserInfo('joinedAt')) }}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Last Login</span>
+                  <span class="stat-value">{{ formatDate(getUserInfo('lastLoginAt')) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Financial Summary -->
+            <div class="stat-card">
+              <h3>Financial Summary</h3>
+              <div class="financial-grid">
+                <div class="financial-item">
+                  <span class="financial-label">Total Deposits</span>
+                  <span class="financial-value text-green">
+                    +{{ formatCurrency(getTransactionValue('totalDeposits')) }}
+                  </span>
+                </div>
+                <div class="financial-item">
+                  <span class="financial-label">Total Withdrawals</span>
+                  <span class="financial-value text-red">
+                    -{{ formatCurrency(getTransactionValue('totalWithdrawals')) }}
+                  </span>
+                </div>
+                <div class="financial-item">
+                  <span class="financial-label">Total Received</span>
+                  <span class="financial-value text-blue">
+                    {{ formatCurrency(getTransactionValue('totalReceived')) }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Info -->
+            <div class="stat-card">
+              <h3>Quick Information</h3>
+              <div class="info-list">
+                <div class="info-item">
+                  <span class="info-label">Phone</span>
+                  <span class="info-value">{{ getUserInfo('phone') }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Location</span>
+                  <span class="info-value">{{ getUserInfo('location') }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Gender</span>
+                  <span class="info-value">{{ getPersonalInfo('gender') | titlecase }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Occupation</span>
+                  <span class="info-value">{{ getPersonalInfo('occupation') }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Info Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'personal'">
+          <div class="personal-info-grid">
+            <div class="info-section">
+              <h3>Basic Information</h3>
+              <div class="info-grid">
+                <div class="info-item">
+                  <label>Full Name</label>
+                  <span>{{ getPersonalInfo('firstName') }} {{ getPersonalInfo('middleName') }} {{ getPersonalInfo('lastName') }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Date of Birth</label>
+                  <span>{{ formatDate(getPersonalInfo('dateOfBirth')) }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Gender</label>
+                  <span>{{ getPersonalInfo('gender') | titlecase }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Phone Number</label>
+                  <span>{{ getUserInfo('phone') }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Email Address</label>
+                  <span>{{ getUserInfo('email') }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3>Address Information</h3>
+              <div class="address-info">
+                <p>{{ getAddressInfo('street') }}</p>
+                <p>{{ getAddressInfo('city') }}, {{ getAddressInfo('state') }}</p>
+                <p>{{ getAddressInfo('country') }} {{ getAddressInfo('postalCode') }}</p>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3>Employment Information</h3>
+              <div class="info-grid">
+                <div class="info-item">
+                  <label>Occupation</label>
+                  <span>{{ getPersonalInfo('occupation') }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Employer</label>
+                  <span>{{ getPersonalInfo('employer') || 'Not provided' }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Monthly Income</label>
+                  <span>{{ getPersonalInfo('monthlyIncome') ? formatCurrency(getPersonalInfo('monthlyIncome')) : 'Not provided' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <h3>Next of Kin</h3>
+              <div class="info-grid">
+                <div class="info-item">
+                  <label>Name</label>
+                  <span>{{ getNextOfKin('name') }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Relationship</label>
+                  <span>{{ getNextOfKin('relationship') }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Phone</label>
+                  <span>{{ getNextOfKin('phone') }}</span>
+                </div>
+                <div class="info-item">
+                  <label>Email</label>
+                  <span>{{ getNextOfKin('email') || 'Not provided' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KYC Verification Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'kyc'">
+          <div class="kyc-content">
+            <div class="kyc-status">
+              <h3>KYC Verification Status</h3>
+              <div class="status-info">
+                <span class="status-badge" [ngClass]="getVerificationLevelClass(getVerificationLevel())">
+                  {{ getVerificationLabel(getVerificationLevel()) }}
+                </span>
+                <div class="status-details" *ngIf="getVerificationStatus() === 'approved'">
+                  <p><strong>Verified by:</strong> {{ getVerifiedBy() }}</p>
+                  <p *ngIf="getVerifiedAt()"><strong>Verification:</strong> {{ formatDate(getVerifiedAt()) }}</p>
+                </div>
+                <div class="status-details" *ngIf="getVerificationStatus() === 'rejected'">
+                  <p *ngIf="getRejectionReason()"><strong>Rejection Reason:</strong> {{ getRejectionReason() }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="documents-section">
+              <h3>KYC Documents</h3>
+              <div class="documents-grid" *ngIf="getKycDocuments().length; else noDocuments">
+                <div class="document-card" *ngFor="let document of getKycDocuments()">
+                  <div class="document-header">
+                    <div class="document-info">
+                      <h4>{{ document.type | titlecase }}</h4>
+                      <p class="document-filename">{{ document.fileName }}</p>
+                      <span class="document-status" [ngClass]="getDocumentStatusClass(document.status)">
+                        {{ document.status | titlecase }}
+                      </span>
+                    </div>
+                    <div class="document-actions">
+                      <button class="btn btn-sm btn-secondary" (click)="downloadDocument(document)">
+                        <i class="icon-download"></i> Download
+                      </button>
+                      <button 
+                        class="btn btn-sm btn-success" 
+                        *ngIf="document.status === 'pending'"
+                        (click)="openKycReviewModal(document, 'approve')">
+                        <i class="icon-check"></i> Approve
+                      </button>
+                      <button 
+                        class="btn btn-sm btn-danger" 
+                        *ngIf="document.status === 'pending'"
+                        (click)="openKycReviewModal(document, 'reject')">
+                        <i class="icon-close"></i> Reject
+                      </button>
+                    </div>
+                  </div>
+                  <div class="document-meta">
+                    <p><strong>Uploaded:</strong> {{ formatDate(document.uploadedAt) }}</p>
+                    <p *ngIf="document.reviewedBy"><strong>Reviewed by:</strong> {{ document.reviewedBy }}</p>
+                    <p *ngIf="document.reviewedAt"><strong>Reviewed on:</strong> {{ formatDate(document.reviewedAt) }}</p>
+                    <p *ngIf="document.rejectionReason" class="text-red"><strong>Rejection Reason:</strong> {{ document.rejectionReason }}</p>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noDocuments>
+                <div class="empty-state">
+                  <p>No KYC documents uploaded yet.</p>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Info Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'financial'">
+          <div class="financial-content">
+            <!-- Bank Accounts -->
+            <div class="financial-section">
+              <h3>Bank Accounts</h3>
+              <div class="bank-accounts" *ngIf="getBankAccounts().length; else noBankAccounts">
+                <div class="bank-card" *ngFor="let account of getBankAccounts()">
+                  <div class="bank-info">
+                    <h4>{{ account.bankName }}</h4>
+                    <p class="account-number">**** **** {{ account.accountNumber.slice(-4) }}</p>
+                    <p class="account-name">{{ account.accountName }}</p>
+                    <div class="account-badges">
+                      <span class="badge" [class.badge-primary]="account.isPrimary">
+                        {{ account.isPrimary ? 'Primary' : 'Secondary' }}
+                      </span>
+                      <span class="badge" [class.badge-success]="account.isVerified" [class.badge-warning]="!account.isVerified">
+                        {{ account.isVerified ? 'Verified' : 'Unverified' }}
+                      </span>
+                      <span class="badge badge-secondary">{{ account.accountType | titlecase }}</span>
+                    </div>
+                  </div>
+                  <div class="bank-meta">
+                    <p><strong>Added:</strong> {{ formatDate(account.addedAt) }}</p>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noBankAccounts>
+                <div class="empty-state">
+                  <p>No bank accounts added yet.</p>
+                </div>
+              </ng-template>
+            </div>
+
+            <!-- Credit Score History -->
+            <div class="financial-section">
+              <h3>Credit Score History</h3>
+              <div class="credit-history" *ngIf="getCreditHistory().length; else noCreditHistory">
+                <div class="history-item" *ngFor="let history of getCreditHistory()">
+                  <div class="history-info">
+                    <div class="score-change">
+                      <span class="new-score">{{ history.score }}</span>
+                      <span class="score-arrow">←</span>
+                      <span class="old-score">{{ history.previousScore }}</span>
+                    </div>
+                    <p class="history-reason">{{ history.reason }}</p>
+                    <div class="history-meta">
+                      <span class="history-type badge" [ngClass]="'badge-' + history.type">{{ history.type | titlecase }}</span>
+                      <span class="history-by">by {{ history.adjustedBy }}</span>
+                      <span class="history-date">{{ formatDate(history.adjustedAt) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noCreditHistory>
+                <div class="empty-state">
+                  <p>No credit score history available.</p>
+                </div>
+              </ng-template>
+            </div>
+
+            <!-- Transaction Summary -->
+            <div class="financial-section">
+              <h3>Transaction Summary</h3>
+              <div class="transaction-summary">
+                <div class="summary-item">
+                  <div class="summary-icon success">
+                    <i class="icon-arrow-down"></i>
+                  </div>
+                  <div class="summary-info">
+                    <span class="summary-label">Total Deposits</span>
+                    <span class="summary-value text-green">{{ formatCurrency(getTransactionValue('totalDeposits')) }}</span>
+                  </div>
+                </div>
+                <div class="summary-item">
+                  <div class="summary-icon danger">
+                    <i class="icon-arrow-up"></i>
+                  </div>
+                  <div class="summary-info">
+                    <span class="summary-label">Total Withdrawals</span>
+                    <span class="summary-value text-red">{{ formatCurrency(getTransactionValue('totalWithdrawals')) }}</span>
+                  </div>
+                </div>
+                <div class="summary-item">
+                  <div class="summary-icon primary">
+                    <i class="icon-mgr"></i>
+                  </div>
+                  <div class="summary-info">
+                    <span class="summary-label">Total Contributions</span>
+                    <span class="summary-value text-blue">{{ formatCurrency(getTransactionValue('totalContributions')) }}</span>
+                  </div>
+                </div>
+                <div class="summary-item">
+                  <div class="summary-icon warning">
+                    <i class="icon-receive"></i>
+                  </div>
+                  <div class="summary-info">
+                    <span class="summary-label">Total Received</span>
+                    <span class="summary-value text-yellow">{{ formatCurrency(getTransactionValue('totalReceived')) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Log Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'activity'">
+          <div class="activity-content">
+            <h3>Recent Activity</h3>
+            <div class="activity-log" *ngIf="getActivityLog().length; else noActivity">
+              <div class="activity-item" *ngFor="let activity of getActivityLog()">
+                <div class="activity-icon" [ngClass]="'activity-' + activity.type">
+                  <i [ngClass]="'icon-' + activity.type"></i>
+                </div>
+                <div class="activity-info">
+                  <h4>{{ activity.description }}</h4>
+                  <div class="activity-meta">
+                    <span class="activity-type">{{ activity.type | titlecase }}</span>
+                    <span class="activity-location">{{ activity.location }}</span>
+                    <span class="activity-time">{{ formatDate(activity.timestamp) }}</span>
+                  </div>
+                  <div class="activity-details">
+                    <p><strong>IP Address:</strong> {{ activity.ipAddress }}</p>
+                    <p><strong>User Agent:</strong> {{ activity.userAgent }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #noActivity>
+              <div class="empty-state">
+                <p>No activity recorded yet.</p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- MGR Participation Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'mgr'">
+          <div class="mgr-content">
+            <h3>MGR Participation</h3>
+            <div class="mgr-list" *ngIf="getMgrParticipation().length; else noMgrs">
+              <div class="mgr-card" *ngFor="let mgr of getMgrParticipation()">
+                <div class="mgr-header">
+                  <h4>{{ mgr.mgrName }}</h4>
+                  <div class="mgr-badges">
+                    <span class="badge badge-primary">{{ mgr.role | titlecase }}</span>
+                    <span class="badge" [ngClass]="'badge-' + mgr.status">{{ mgr.status | titlecase }}</span>
+                  </div>
+                </div>
+                <div class="mgr-stats">
+                  <div class="stat-item">
+                    <span class="stat-label">Position</span>
+                    <span class="stat-value">{{ mgr.position || 'N/A' }}</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Contributed</span>
+                    <span class="stat-value">{{ formatCurrency(mgr.totalContributed) }}</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Expected</span>
+                    <span class="stat-value">{{ formatCurrency(mgr.expectedContribution) }}</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Missed Payments</span>
+                    <span class="stat-value" [class.text-red]="mgr.missedPayments > 0">{{ mgr.missedPayments }}</span>
+                  </div>
+                </div>
+                <div class="mgr-meta">
+                  <p><strong>Joined:</strong> {{ formatDate(mgr.joinedAt) }}</p>
+                  <p *ngIf="mgr.disbursementReceived"><strong>Disbursement Received:</strong> {{ formatCurrency(mgr.disbursementReceived) }}</p>
+                  <p *ngIf="mgr.disbursementDate"><strong>Disbursement Date:</strong> {{ formatDate(mgr.disbursementDate) }}</p>
+                </div>
+              </div>
+            </div>
+            <ng-template #noMgrs>
+              <div class="empty-state">
+                <p>User has not participated in any MGRs yet.</p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- Admin Notes Tab -->
+        <div class="tab-pane" *ngIf="activeTab === 'admin'">
+          <div class="admin-content">
+            <div class="admin-header">
+              <h3>Admin Notes</h3>
+              <button class="btn btn-primary" (click)="openAdminNoteModal()">
+                <i class="icon-plus"></i> Add Note
+              </button>
+            </div>
+            <div class="admin-notes" *ngIf="user?.adminNotes?.length; else noNotes">
+              <div class="note-item" *ngFor="let note of user?.adminNotes">
+                <div class="note-header">
+                  <div class="note-author">
+                    <strong>{{ note.adminName }}</strong>
+                    <span class="note-type badge" [ngClass]="'badge-' + note.type">{{ note.type | titlecase }}</span>
+                    <span class="note-visibility" [class.text-red]="note.isInternal">
+                      {{ note.isInternal ? 'Internal' : 'Public' }}
+                    </span>
+                  </div>
+                  <span class="note-date">{{ formatDate(note.createdAt) }}</span>
+                </div>
+                <div class="note-content">
+                  <p>{{ note.note }}</p>
+                </div>
+              </div>
+            </div>
+            <ng-template #noNotes>
+              <div class="empty-state">
+                <p>No admin notes recorded yet.</p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Status Update Modal -->
+<div class="modal-overlay" *ngIf="showStatusModal" (click)="showStatusModal = false">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Update User Status</h3>
+      <button class="close-btn" (click)="showStatusModal = false">
+        <i class="icon-close"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Status</label>
+        <select [(ngModel)]="statusUpdate.status" class="form-control">
+          <option *ngFor="let status of availableStatuses" [value]="status.value">
+            {{ status.label }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Reason</label>
+        <input type="text" [(ngModel)]="statusUpdate.reason" class="form-control" placeholder="Reason for status change">
+      </div>
+      <div class="form-group">
+        <label>Admin Note</label>
+        <textarea [(ngModel)]="statusUpdate.adminNote" class="form-control" rows="3" placeholder="Internal admin note"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="statusUpdate.notifyUser">
+          Notify user via email
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showStatusModal = false">Cancel</button>
+      <button class="btn btn-primary" (click)="updateUserStatus()">Update Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- Credit Score Modal -->
+<div class="modal-overlay" *ngIf="showCreditScoreModal" (click)="showCreditScoreModal = false">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Adjust Credit Score</h3>
+      <button class="close-btn" (click)="showCreditScoreModal = false">
+        <i class="icon-close"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>New Credit Score</label>
+        <input type="number" [(ngModel)]="creditScoreAdjustment.newScore" class="form-control" min="0" max="1000">
+      </div>
+      <div class="form-group">
+        <label>Adjustment Type</label>
+        <select [(ngModel)]="creditScoreAdjustment.type" class="form-control">
+          <option value="manual_adjustment">Manual Adjustment</option>
+          <option value="penalty">Penalty</option>
+          <option value="reward">Reward</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Reason</label>
+        <input type="text" [(ngModel)]="creditScoreAdjustment.reason" class="form-control" placeholder="Reason for adjustment">
+      </div>
+      <div class="form-group">
+        <label>Admin Note</label>
+        <textarea [(ngModel)]="creditScoreAdjustment.adminNote" class="form-control" rows="3" placeholder="Internal admin note"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showCreditScoreModal = false">Cancel</button>
+      <button class="btn btn-primary" (click)="adjustCreditScore()">Adjust Score</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal-overlay" *ngIf="showNotificationModal" (click)="showNotificationModal = false">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Send Notification</h3>
+      <button class="close-btn" (click)="showNotificationModal = false">
+        <i class="icon-close"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" [(ngModel)]="notification.title" class="form-control" placeholder="Notification title">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea [(ngModel)]="notification.message" class="form-control" rows="4" placeholder="Notification message"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select [(ngModel)]="notification.type" class="form-control">
+          <option value="info">Info</option>
+          <option value="warning">Warning</option>
+          <option value="success">Success</option>
+          <option value="error">Error</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showNotificationModal = false">Cancel</button>
+      <button class="btn btn-primary" (click)="sendNotification()">Send Notification</button>
+    </div>
+  </div>
+</div>
+
+<!-- KYC Review Modal -->
+<div class="modal-overlay" *ngIf="showKycReviewModal" (click)="showKycReviewModal = false">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ kycReviewAction | titlecase }} KYC Document</h3>
+      <button class="close-btn" (click)="showKycReviewModal = false">
+        <i class="icon-close"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="document-info">
+        <h4>{{ selectedDocument?.type | titlecase }}</h4>
+        <p>{{ selectedDocument?.fileName }}</p>
+      </div>
+      <div class="form-group" *ngIf="kycReviewAction === 'reject'">
+        <label>Rejection Reason</label>
+        <textarea [(ngModel)]="kycReviewReason" class="form-control" rows="3" placeholder="Reason for rejection"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showKycReviewModal = false">Cancel</button>
+      <button class="btn" [ngClass]="kycReviewAction === 'approve' ? 'btn-success' : 'btn-danger'" (click)="reviewKycDocument()">
+        {{ kycReviewAction | titlecase }} Document
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Note Modal -->
+<div class="modal-overlay" *ngIf="showAdminNoteModal" (click)="showAdminNoteModal = false">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Add Admin Note</h3>
+      <button class="close-btn" (click)="showAdminNoteModal = false">
+        <i class="icon-close"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Note Type</label>
+        <select [(ngModel)]="adminNote.type" class="form-control">
+          <option value="info">Info</option>
+          <option value="warning">Warning</option>
+          <option value="restriction">Restriction</option>
+          <option value="verification">Verification</option>
+          <option value="support">Support</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Note</label>
+        <textarea [(ngModel)]="adminNote.note" class="form-control" rows="4" placeholder="Admin note"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="adminNote.isInternal">
+          Internal note (not visible to user)
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showAdminNoteModal = false">Cancel</button>
+      <button class="btn btn-primary" (click)="addAdminNote()">Add Note</button>
+    </div>
+  </div>
+</div> 

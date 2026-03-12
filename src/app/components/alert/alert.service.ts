@@ -1,12 +1,14 @@
 import { Injectable, WritableSignal, signal } from '@angular/core';
 
 type Variant = 'warning' | 'danger' | 'success' | 'plain';
+
 type Config = {
   summary?: string;
   details?: string;
   action?: boolean;
   closable?: boolean;
 };
+
 type Alert = {
   variant: Variant;
   id: string;
@@ -23,7 +25,7 @@ export class AlertService {
     return this.#alerts;
   }
 
-  constructor() {}
+  constructor() { }
 
   open(
     type: Variant,
@@ -52,7 +54,7 @@ export class AlertService {
     }, duration);
   }
 
-  openWithComponent() {}
+  openWithComponent() { }
 
   close(id: string) {
     let filtered = this.#alerts().filter((alert) => alert.id !== id);

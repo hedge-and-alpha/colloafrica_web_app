@@ -1,11 +1,3 @@
-export interface Account {
-  account_number: string;
-  account_first_name: string;
-  account_last_name: string;
-  account_balance: string;
-  bank_name: string;
-}
-
 export interface Transaction {
   id: number;
   user_id: number;
@@ -27,4 +19,12 @@ export interface Transaction {
   provider: string;
   provider_status: string;
   created_at: string;
+}
+
+export interface Account {
+  account_number: string;
+  account_first_name: string;
+  account_last_name: string;
+  account_balance: string;
+  bank_name: string;
 }

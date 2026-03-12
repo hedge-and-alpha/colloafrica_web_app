@@ -17,14 +17,14 @@ export class MgrContributionStatisticsComponent implements OnInit {
 
   @Input({ required: true }) mgrPlan!: MGR;
 
-  constructor(private api: DashboardApiService) {}
+  constructor(private api: DashboardApiService) { }
 
   ngOnInit(): void {
     this.currentCycleNumber = this.mgrPlan.current_cycle_number;
     this.getContributionStats(this.mgrPlan.id, this.currentCycleNumber);
   }
 
-  getContributionStats(planId: string, cycle: number | string) {
+  getContributionStats(planId: string, cycle: number) {
     this.api
       .getMgrPlanContributionStats(planId, cycle)
       .pipe(

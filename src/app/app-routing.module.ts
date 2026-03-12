@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./modules/admin/admin.module').then((m) => m.AdminModule),
+  },
   { path: 'error', component: ErrorPageComponent },
   {
     path: '**',
@@ -29,4 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

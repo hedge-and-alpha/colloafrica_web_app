@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ModalStatusComponent } from '../../../../../../components/modal-status/modal-status.component';
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { DashboardApiService } from '../../../../../../services/api/dashboard-api.service';
@@ -45,7 +45,7 @@ export class BankAccountFormComponent implements OnInit {
     private modalService: ModalService,
     private api: DashboardApiService,
     private cardBankStore: CardAndBankStoreService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.banks$ = this.api.getBanks();

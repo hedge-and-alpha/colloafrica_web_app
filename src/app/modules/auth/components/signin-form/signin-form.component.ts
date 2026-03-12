@@ -65,7 +65,11 @@ export class SigninFormComponent implements OnInit {
         //   summary: status,
         //   details: message,
         // });
-        if (this.auth.url) {
+
+
+        if(message === 'An OTP has been sent to your Email address') {
+          this.router.navigateByUrl('/auth/forgot-password/reset');
+        } else if (this.auth.url) {
           this.router.navigateByUrl(this.auth.url);
         } else {
           this.router.navigate(['/']);

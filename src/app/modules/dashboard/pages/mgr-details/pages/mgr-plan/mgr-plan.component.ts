@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertService } from '../../../../../../components/alert/alert.service';
 import { ModalService } from '../../../../../../components/modal/modal.service';
 import { MGR, MGRUser } from '../../../../../../interfaces/mgr.interface';
 import { TableHeading } from '../../../../../../interfaces/table-heading';
 import { MgrStoreService } from '../../../../../../stores+/mgr.store';
-import { ManageGroupMemberModalComponent } from '../../components/manage-group-member-modal/manage-group-member-modal.component';
-import { AlertService } from '../../../../../../components/alert/alert.service';
-import { ChangePositionComponent } from '../../components/change-position/change-position.component';
 import { UserStoreService } from '../../../../../../stores+/user.store';
+import { ChangePositionComponent } from '../../components/change-position/change-position.component';
+import { ManageGroupMemberModalComponent } from '../../components/manage-group-member-modal/manage-group-member-modal.component';
 
 @Component({
   selector: 'ca-mgr-plan',
@@ -21,7 +21,7 @@ export class MgrPlanComponent implements OnInit {
   isNewlyCreatedPlan = false;
 
   user = computed(() => this.userStore.user);
-  activePlan = computed(() => this.mgrStore.activePlan());
+  activePlan = computed(() => this.mgrStore.activePlan() as { logged_user_position?: number; status?: string } | null);
 
   tableHeading = TABLE_HEADING;
 
@@ -34,7 +34,7 @@ export class MgrPlanComponent implements OnInit {
     private mgrStore: MgrStoreService,
     private alert: AlertService,
     private userStore: UserStoreService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initPageData();
@@ -53,7 +53,15 @@ export class MgrPlanComponent implements OnInit {
     this.adminId = this.plan.mgr_users!.find(
       (user) => user.role === 'admin'
     )?.user_id;
-    this.inviteLink = `${location.origin}/mgr/${this.plan.id}/join?invite_id=${this.plan.invite_link}`;
+
+    // Generate invite link using slug-based format
+    if (this.plan.slug) {
+      this.inviteLink = `https://colloafrica.com/join/${this.plan.slug}`;
+    } else {
+      // For MGRs without slugs, no invite link available 
+      // (they need to have slugs generated to be shareable)
+      this.inviteLink = null;
+    }
   }
 
   async shareLink() {
@@ -142,6 +150,24 @@ export class MgrPlanComponent implements OnInit {
         userId: plan.user_id,
       }
     );
+  }
+
+  /**
+   * Determines if the rollover button should be shown
+   * The button should be shown when:
+   * - The MGR is active
+   * - The current user is a member of the MGR
+   * - The user hasn't already opted in for rollover
+   */
+  showRolloverButton(): boolean {
+    if (!this.plan) return false;
+
+    const isActive = this.plan.status === 'active';
+    const currentUser = this.user();
+    const isMember = this.plan.mgr_users?.some(user => user.user_id === currentUser?.id);
+    const hasOptedIn = this.plan.mgr_users?.find(user => user.user_id === currentUser?.id)?.rollover;
+
+    return isActive && !!isMember && !hasOptedIn;
   }
 }
 

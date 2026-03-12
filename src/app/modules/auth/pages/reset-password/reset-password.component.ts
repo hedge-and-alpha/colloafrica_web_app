@@ -44,7 +44,6 @@ export class ResetPasswordComponent {
         null,
         [
           Validators.required,
-          Validators.pattern(/\d{6}/),
           Validators.max(999999),
         ],
       ],

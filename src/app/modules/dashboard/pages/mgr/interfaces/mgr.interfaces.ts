@@ -26,6 +26,8 @@ export interface MGRForm {
   slot_number: FormControl<null | number>;
   theme_color: FormControl<null | string>;
   amount: FormControl<null | string>;
+  // Optional field for public/private MGR plans
+  is_public?: FormControl<number>;
 }
 
 export interface EditMGRForm {

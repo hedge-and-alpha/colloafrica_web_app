@@ -5,6 +5,16 @@ import { Transaction } from '../../../../../../interfaces/account';
 import { TablePagination } from '../../../../../../interfaces/api-response';
 import { ActivatedRoute, Router } from '@angular/router';
 
+interface TransactionsResponseData {
+  transactions: Transaction[];
+  current_page: number;
+  last_page: number;
+  next_page_url: string | null;
+  per_page: number;
+  prev_page_url: string | null;
+  total: number;
+}
+
 @Component({
   selector: 'ca-wallet-account-transactions',
   templateUrl: './wallet-account-transactions.component.html',
@@ -20,7 +30,7 @@ export class WalletAccountTransactionsComponent implements OnInit {
     private api: DashboardApiService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const page = this.route.snapshot.queryParamMap.get('page');
@@ -30,7 +40,8 @@ export class WalletAccountTransactionsComponent implements OnInit {
 
   getTransactions(page: number) {
     this.api.getTransactions(page).subscribe({
-      next: ({ data }) => {
+      next: (response) => {
+        const data = response.data as TransactionsResponseData;
         this.tableData = data.transactions;
         let pagination: TablePagination = {
           current_page: data.current_page,

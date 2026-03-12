@@ -1,155 +1,261 @@
-<h1 class="font-semibold leading-1.2 mb-8">Sign Up</h1>
+<div class="max-w-[516px] mx-auto">
+  <h1 class="font-semibold leading-1.2 mb-8">Sign Up</h1>
 
-<form [formGroup]="form" (ngSubmit)="handleSubmit()">
-  <ca-cols-field-2 class="mb-6">
-    <div col-1>
-      <ca-form-field
-        label="First Name"
-        labelFor="first_name"
-        [isRequired]="true"
-      >
-        <i class="ca-user-circle"></i>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <ca-cols-field-2 class="mb-8">
+      <div col-1>
+        <div>
+          <p class="mb-2 text-sm leading-[normal] font-medium">First Name*</p>
+          <input
+            id="first_name"
+            type="text"
+            formControlName="first_name"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (firstName?.dirty || firstName?.invalid),
+            }"
+            class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+            placeholder="Akinyemi"
+          />
+        </div>
+        @if (isSubmitted && (firstName?.dirty || firstName?.invalid)) {
+          <ca-form-error [errors]="firstName?.errors" />
+        }
+      </div>
+      <div col-2>
+        <div>
+          <p class="mb-2 text-sm leading-[normal] font-medium">Last Name*</p>
+          <input
+            id="last_name"
+            type="text"
+            formControlName="last_name"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (lastName?.dirty || lastName?.invalid),
+            }"
+            class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+            placeholder="Olushola"
+          />
+        </div>
+        @if (isSubmitted && (lastName?.dirty || lastName?.invalid)) {
+          <ca-form-error [errors]="lastName?.errors" />
+        }
+      </div>
+    </ca-cols-field-2>
+    <div class="mb-8">
+      <div>
+        <p class="mb-2 text-sm leading-[normal] font-medium">Email</p>
         <input
-          id="first_name"
-          type="text"
-          formControlName="first_name"
+          id="email"
+          type="email"
+          formControlName="email"
           [ngClass]="{
             'ng-dirty ng-touched':
-              isSubmitted && (firstName?.dirty || firstName?.invalid)
+              isSubmitted && (email?.dirty || email?.invalid),
           }"
+          class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+          placeholder="akinyemiolushola@gmail.com"
         />
-      </ca-form-field>
-      @if (isSubmitted && (firstName?.dirty || firstName?.invalid)) {
-      <ca-form-error [errors]="firstName?.errors" />
+      </div>
+      @if (isSubmitted && (email?.dirty || email?.invalid)) {
+        <ca-form-error [errors]="email?.errors" />
       }
     </div>
-
-    <div col-2>
-      <ca-form-field label="Last Name" labelFor="last_name" [isRequired]="true">
-        <i class="ca-user-circle"></i>
+    <div class="mb-8">
+      <div>
+        <p class="mb-2 text-sm leading-[normal] font-medium">Phone Number*</p>
         <input
-          id="last_name"
-          type="text"
-          formControlName="last_name"
+          id="phone"
+          type="tel"
+          formControlName="phone_number"
           [ngClass]="{
             'ng-dirty ng-touched':
-              isSubmitted && (lastName?.dirty || lastName?.invalid)
+              isSubmitted && (phoneNumber?.dirty || phoneNumber?.invalid),
           }"
+          class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+          placeholder="08123456789"
         />
-      </ca-form-field>
-      @if (isSubmitted && (lastName?.dirty || lastName?.invalid)) {
-      <ca-form-error [errors]="lastName?.errors" />
+      </div>
+      @if (isSubmitted && (phoneNumber?.dirty || phoneNumber?.invalid)) {
+        <ca-form-error [errors]="phoneNumber?.errors" />
       }
     </div>
-  </ca-cols-field-2>
-
-  <div class="mb-6">
-    <ca-form-field label="Email" labelFor="email" [isRequired]="true">
-      <i class="ca-at"></i>
+    <ca-cols-field-2 class="mb-8">
+      <div col-1>
+        <div class="relative">
+          <p class="mb-2 text-sm leading-[normal] font-medium">Password*</p>
+          <input
+            #passwordInput
+            type="password"
+            id="password"
+            formControlName="password"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted && (password?.dirty || password?.invalid),
+            }"
+            class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+            placeholder="Akinyemi"
+          />
+          <i
+            (click)="
+              passwordInput.type === 'password'
+                ? (passwordInput.type = 'text')
+                : (passwordInput.type = 'password')
+            "
+            [ngClass]="{
+              'ca-eye': passwordInput.type === 'password',
+              'ca-eye-slash': passwordInput.type === 'text',
+            }"
+            class="absolute right-2.5 bottom-[20px]"
+          ></i>
+        </div>
+        @if (isSubmitted && (password?.dirty || password?.invalid)) {
+          <ca-form-error [errors]="password?.errors" />
+        }
+      </div>
+      <div col-2>
+        <div class="relative">
+          <p class="mb-2 text-sm leading-[normal] font-medium">
+            Confirm Password*
+          </p>
+          <input
+            #confirmPasswordInput
+            type="password"
+            id="confirm_password"
+            formControlName="password_confirmation"
+            [ngClass]="{
+              'ng-dirty ng-touched':
+                isSubmitted &&
+                (passwordConfirmation?.dirty || passwordConfirmation?.invalid),
+            }"
+            class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+            placeholder="Akinyemi"
+          />
+          <i
+            (click)="
+              confirmPasswordInput.type === 'password'
+                ? (confirmPasswordInput.type = 'text')
+                : (confirmPasswordInput.type = 'password')
+            "
+            [ngClass]="{
+              'ca-eye': confirmPasswordInput.type === 'password',
+              'ca-eye-slash': confirmPasswordInput.type === 'text',
+            }"
+            class="absolute right-2.5 bottom-[20px]"
+          ></i>
+        </div>
+        @if (
+          isSubmitted &&
+          (passwordConfirmation?.dirty || passwordConfirmation?.invalid)
+        ) {
+          <ca-form-error [errors]="form.errors" />
+        }
+      </div>
+    </ca-cols-field-2>
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-sm leading-[normal] font-medium">
+          Referral Code (optional)
+        </p>
+        <div class="flex items-center gap-2">
+          @if (wasAutoFilled) {
+            <span
+              class="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full border border-blue-200"
+            >
+              ✓ Auto-filled
+            </span>
+          }
+          @if (validatingReferral) {
+            <span
+              class="text-xs text-gray-600 bg-gray-50 px-2 py-1 rounded-full border border-gray-200"
+            >
+              Validating...
+            </span>
+          }
+          @if (referralValid === true) {
+            <span
+              class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-200"
+            >
+              ✓ Valid code
+            </span>
+          }
+          @if (referralValid === false) {
+            <span
+              class="text-xs text-red-600 bg-red-50 px-2 py-1 rounded-full border border-red-200"
+            >
+              ✗ Invalid code
+            </span>
+          }
+        </div>
+      </div>
       <input
-        id="email"
-        type="email"
-        formControlName="email"
+        type="text"
+        id="referral"
+        formControlName="referral_code"
+        class="rounded-xl border border-solid border-[#E7E4E4] bg-white p-4 w-full outline-0"
+        placeholder="Enter referral code"
         [ngClass]="{
-          'ng-dirty ng-touched': isSubmitted && (email?.dirty || email?.invalid)
+          'border-green-500': referralValid === true,
+          'border-red-500': referralValid === false,
         }"
       />
-    </ca-form-field>
-    @if (isSubmitted && (email?.dirty || email?.invalid)) {
-    <ca-form-error [errors]="email?.errors" />
-    }
-  </div>
+    </div>
 
-  <div class="mb-6">
-    <ca-form-field label="Phone Number" labelFor="phone" [isRequired]="true">
-      <i class="ca-phone"></i>
-      <input
-        id="phone"
-        type="tel"
-        formControlName="phone_number"
-        [ngClass]="{
-          'ng-dirty ng-touched':
-            isSubmitted && (phoneNumber?.dirty || phoneNumber?.invalid)
-        }"
-      />
-    </ca-form-field>
-    @if (isSubmitted && (phoneNumber?.dirty || phoneNumber?.invalid)) {
-    <ca-form-error [errors]="phoneNumber?.errors" />
-    }
-  </div>
-
-  <ca-cols-field-2 class="mb-6">
-    <div col-1>
-      <ca-form-field label="Password" labelFor="password" [isRequired]="true">
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          [ngClass]="{
-            'ng-dirty ng-touched':
-              isSubmitted && (password?.dirty || password?.invalid)
-          }"
-        />
-      </ca-form-field>
-      @if (isSubmitted && (password?.dirty || password?.invalid)) {
-      <ca-form-error [errors]="password?.errors" />
+    <div class="mb-12">
+      <div class="flex items-start gap-[11px]">
+        <input type="checkbox" id="subscribe" formControlName="subscription" />
+        <label class="text-sm" for="subscribe">
+          By submitting this form, I acknowledge that I am subscribing to emails
+          related to ColloAfrica
+        </label>
+      </div>
+      @if (isSubmitted && form.get("subscription")?.errors) {
+        <ca-form-error [errors]="form.get('subscription')?.errors" />
       }
     </div>
 
-    <div col-2>
-      <ca-form-field
-        label="Confirm Password"
-        labelFor="confirm_password"
-        [isRequired]="true"
-      >
-        <input
-          type="password"
-          id="confirm_password"
-          formControlName="password_confirmation"
-          [ngClass]="{
-            'ng-dirty ng-touched':
-              isSubmitted &&
-              (passwordConfirmation?.dirty || passwordConfirmation?.invalid)
-          }"
-        />
-      </ca-form-field>
-      @if (isSubmitted && (passwordConfirmation?.dirty ||
-      passwordConfirmation?.invalid)) {
-      <ca-form-error [errors]="form.errors" />
-      }
-    </div>
-  </ca-cols-field-2>
-
-  <div class="mb-6">
-    <ca-form-field label="Referral Code (optional)" labelFor="referral">
-      <input type="text" id="referral" formControlName="referral_code" />
-    </ca-form-field>
-    @if (isSubmitted && (referralCode?.dirty || referralCode?.invalid)) {
-    <ca-form-error [errors]="referralCode?.errors" />
-    }
-  </div>
-
-  <div class="mb-12">
-    <div class="flex items-start gap-3">
-      <input type="checkbox" id="subscribe" formControlName="subscription" />
-      <label class="text-sm" for="subscribe">
-        By submitting this form, I acknowledge that I am subscribing to emails
-        related to ColloAfrica
-      </label>
-    </div>
-    @if (isSubmitted && form.get('subscription')?.errors) {
-    <ca-form-error [errors]="form.get('subscription')?.errors" />
-    }
-  </div>
-
-  <button type="submit" class="w-full" ca-button-primary [loading]="loading">
-    Sign up
-  </button>
-
-  <p class="mt-6 mb-10 text-center text-sm font-medium">
-    Already have an account?
-    <a routerLink="/auth/sign-in" class="text-purple-main hover:underline"
-      >Login</a
+    <button
+      type="submit"
+      class="w-full bg-purple-main text-white py-4 px-6 rounded-xl font-semibold hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      [disabled]="loading || validatingReferral"
     >
-  </p>
-</form>
+      @if (loading) {
+        <span class="flex items-center justify-center">
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Signing up...
+        </span>
+      }
+      @if (!loading) {
+        Sign up
+      }
+    </button>
+
+    <p class="mt-6 mb-10 text-center text-base leading-[21px] font-medium">
+      Already have an account?
+      <a
+        routerLink="/auth/sign-in"
+        class="text-purple-main hover:underline text-sm"
+        >Login</a
+      >
+    </p>
+  </form>
+</div>

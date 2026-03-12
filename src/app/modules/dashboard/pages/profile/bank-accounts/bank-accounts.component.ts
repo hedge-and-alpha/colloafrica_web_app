@@ -27,7 +27,7 @@ export class BankAccountsComponent implements OnInit {
     private api: DashboardApiService,
     private cardAndBankStore: CardAndBankStoreService,
     private alert: AlertService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getBankAccounts();
@@ -86,7 +86,7 @@ export class BankAccountsComponent implements OnInit {
     this.api.primaryBankAccount(id).subscribe({
       next: ({ message, status, data }) => {
         this.alert.open('success', {
-          summary: status,
+          summary: status.toString(),
           details: `${data.bank_name} ${message.toLowerCase()}`,
         });
         this.cardAndBankStore.togglePrimaryAccount(data);

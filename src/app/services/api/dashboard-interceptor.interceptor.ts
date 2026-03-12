@@ -11,7 +11,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { AlertService } from '../../components/alert/alert.service';
 
 export class dashboardInterceptorInterceptor implements HttpInterceptor {
-  #token = localStorage.getItem('AUTH_TOKEN');
   #router = inject(Router);
   #alertService = inject(AlertService);
 
@@ -19,11 +18,8 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // const modifiedRequest = req.clone({
-    //   headers: req.headers
-    //     .set('Authorization', `Bearer ${this.#token}`)
-    //     .set('Content-Type', 'application/json'),
-    // });
+    // Get fresh token from localStorage on each request
+    const token = localStorage.getItem('AUTH_TOKEN');
 
     let modifiedRequest: HttpRequest<any>;
 
@@ -31,13 +27,13 @@ export class dashboardInterceptorInterceptor implements HttpInterceptor {
     if (req.body instanceof FormData) {
       // If it's FormData, don't set Content-Type (browser will handle it)
       modifiedRequest = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${this.#token}`)
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
       });
     } else {
       // If it's not FormData, set Content-Type to application/json
       modifiedRequest = req.clone({
         headers: req.headers
-          .set('Authorization', `Bearer ${this.#token}`)
+          .set('Authorization', `Bearer ${token}`)
           .set('Content-Type', 'application/json')
       });
     }
