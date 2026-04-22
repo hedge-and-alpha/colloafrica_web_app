@@ -39,9 +39,9 @@ export class SigninFormComponent implements OnInit {
     private api: AuthApiService,
     private auth: AuthService,
     private alertService: AlertService
-  ) { }
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   get email() {
     return this.form.get('email');
@@ -58,16 +58,16 @@ export class SigninFormComponent implements OnInit {
 
     this.loading = true;
 
-    const payload = {
-      identifier: this.form.value.email,
-      password: this.form.value.password,
-    };
-
-    this.api.login(payload).subscribe({
+    this.api.login(this.form.value).subscribe({
       next: ({ message, status }) => {
         this.loading = false;
+        // this.alertService.open('success', {
+        //   summary: status,
+        //   details: message,
+        // });
 
-        if (message === 'An OTP has been sent to your Email address') {
+
+        if(message === 'An OTP has been sent to your Email address') {
           this.router.navigateByUrl('/auth/forgot-password/reset');
         } else if (this.auth.url) {
           this.router.navigateByUrl(this.auth.url);
