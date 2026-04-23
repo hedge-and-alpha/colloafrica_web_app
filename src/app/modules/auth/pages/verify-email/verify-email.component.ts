@@ -46,28 +46,40 @@ export class VerifyEmailComponent {
     private router: Router,
     private api: AuthApiService,
     private alertService: AlertService,
-    private auth: AuthService
+    private auth: AuthService,
+    
   ) {}
 
-  resendVerificationCode() {
-    this.resending = true;
-    this.api.resendVerificationCode(this.auth.email!).subscribe({
-      next: ({ message, status }) => {
-        this.resending = false;
-        this.alertService.open('success', {
-          summary: status,
-          details: message,
-        });
-      },
-      error: (error: HttpErrorResponse) => {
-        this.resending = false;
-        this.alertService.open('danger', {
-          summary: error.error.status + ' ' + error.status,
-          details: error.error.message,
-        });
-      },
-    });
-  }
+ private getEmail(): string {
+  return (
+    this.auth.email ||
+    new URLSearchParams(window.location.search).get('email') ||
+    ''
+  );
+}
+
+resendVerificationCode() {
+  this.resending = true;
+
+  const email = this.getEmail();
+
+  this.api.resendVerificationCode(email).subscribe({
+    next: ({ message, status }) => {
+      this.resending = false;
+      this.alertService.open('success', {
+        summary: status,
+        details: message,
+      });
+    },
+    error: (error: HttpErrorResponse) => {
+      this.resending = false;
+      this.alertService.open('danger', {
+        summary: error.error.status + ' ' + error.status,
+        details: error.error.message,
+      });
+    },
+  });
+}
 
   handleSubmit() {
     this.isSubmitted = true;
