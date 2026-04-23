@@ -17,6 +17,9 @@ export class SigninFormComponent implements OnInit {
   isSubmitted = false;
   loading = false;
 
+  showVerifyModal = false;
+  countdown = 3;
+
   form = this.fb.group(
     {
       email: [
@@ -39,9 +42,9 @@ export class SigninFormComponent implements OnInit {
     private api: AuthApiService,
     private auth: AuthService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   get email() {
     return this.form.get('email');
@@ -49,6 +52,22 @@ export class SigninFormComponent implements OnInit {
 
   get password() {
     return this.form.get('password');
+  }
+
+  openVerifyModal() {
+    this.showVerifyModal = true;
+    this.countdown = 3;
+
+    const interval = setInterval(() => {
+      this.countdown--;
+
+      if (this.countdown === 0) {
+        clearInterval(interval);
+        this.router.navigate(['/auth/verify-email'], {
+          queryParams: { email: this.form.value.email },
+        });
+      }
+    }, 1000);
   }
 
   handleSubmit() {
@@ -67,7 +86,7 @@ export class SigninFormComponent implements OnInit {
         // });
 
 
-        if(message === 'An OTP has been sent to your Email address') {
+        if (message === 'An OTP has been sent to your Email address') {
           this.router.navigateByUrl('/auth/forgot-password/reset');
         } else if (this.auth.url) {
           this.router.navigateByUrl(this.auth.url);
@@ -77,6 +96,21 @@ export class SigninFormComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
+        const message = error?.error?.message;
+
+        if (
+          error.status === 403 &&
+          message?.toLowerCase().includes('verify your account')
+        ) {
+          // resend OTP
+          const email = this.form.value.email ?? '';
+
+          this.api.resendVerificationCode(email).subscribe();
+
+          // open modal
+          this.openVerifyModal();
+          return;
+        }
         this.alertService.open('danger', {
           details: error.error.message,
         });
