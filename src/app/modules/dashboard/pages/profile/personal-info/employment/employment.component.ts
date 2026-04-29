@@ -56,10 +56,10 @@ export class EmploymentComponent implements OnInit {
       {
         occupation: [occupation, [Validators.required, emptyFieldValidator()]],
         employer: [employer, [Validators.required, emptyFieldValidator()]],
-        employer_address: [
-          employer_address,
-          [Validators.required, emptyFieldValidator()],
-        ],
+        // employer_address: [
+        //   employer_address,
+        //   [Validators.required, emptyFieldValidator()],
+        // ],
       },
       { updateOn: 'submit' }
     );
@@ -71,9 +71,9 @@ export class EmploymentComponent implements OnInit {
   get employer() {
     return this.form.get('employer');
   }
-  get employerAddress() {
-    return this.form.get('employer_address');
-  }
+  // get employerAddress() {
+  //   return this.form.get('employer_address');
+  // }
 
   handleSubmit() {
     this.isSubmitted = true;

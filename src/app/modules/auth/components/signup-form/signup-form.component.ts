@@ -12,8 +12,11 @@ import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { emptyFieldValidator } from '../../../../validators/emptyField.validator';
 import { matchPasswordValidator } from '../../../../validators/matchPassword.validator';
+import { getErrorMessage } from '../../../../services/utils/error.util';
 // import { ButtonLoadingDirective } from '../../../../directives/button-loading/button-loading.directive';
 // import { ButtonPrimaryDirective } from '../../../../directives/button-primary/button-primary.directive';
+
+// import { getErrorMessage } from '../../../../utils/error.util';
 
 @Component({
   selector: 'ca-signup-form',
@@ -256,10 +259,16 @@ export class SignupFormComponent implements OnDestroy, OnInit {
         );
         this.router.navigate(['/auth/verify-email']);
       },
+      // error: (error: HttpErrorResponse) => {
+      //   this.loading = false;
+      //   this.alertService.open('danger', {
+      //     details: error.error.message,
+      //   });
+      // },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         this.alertService.open('danger', {
-          details: error.error.message,
+          details: getErrorMessage(error),
         });
       },
     });

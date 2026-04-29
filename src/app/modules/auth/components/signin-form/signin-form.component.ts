@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AlertService } from '../../../../components/alert/alert.service';
 import { AuthApiService } from '../../../../services/api/auth-api.service';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { getErrorMessage } from '../../../../services/utils/error.util';
 
 @Component({
   selector: 'ca-signin-form',
@@ -94,6 +95,27 @@ export class SigninFormComponent implements OnInit {
           this.router.navigate(['/']);
         }
       },
+      // error: (error: HttpErrorResponse) => {
+      //   this.loading = false;
+      //   const message = error?.error?.message;
+
+      //   if (
+      //     error.status === 403 &&
+      //     message?.toLowerCase().includes('verify your account')
+      //   ) {
+      //     // resend OTP
+      //     const email = this.form.value.email ?? '';
+
+      //     this.api.resendVerificationCode(email).subscribe();
+
+      //     // open modal
+      //     this.openVerifyModal();
+      //     return;
+      //   }
+      //   this.alertService.open('danger', {
+      //     details: error.error.message,
+      //   });
+      // },
       error: (error: HttpErrorResponse) => {
         this.loading = false;
         const message = error?.error?.message;
@@ -102,17 +124,14 @@ export class SigninFormComponent implements OnInit {
           error.status === 403 &&
           message?.toLowerCase().includes('verify your account')
         ) {
-          // resend OTP
           const email = this.form.value.email ?? '';
-
           this.api.resendVerificationCode(email).subscribe();
-
-          // open modal
           this.openVerifyModal();
           return;
         }
+
         this.alertService.open('danger', {
-          details: error.error.message,
+          details: getErrorMessage(error),
         });
       },
     });
