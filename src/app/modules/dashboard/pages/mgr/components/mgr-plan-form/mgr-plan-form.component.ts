@@ -88,9 +88,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         validators: [Validators.required],
         updateOn: 'change',
       }),
-      allocation_date: new FormControl<string | null>(null, {
-        validators: [Validators.required],
-      }),
+      allocation_date: new FormControl<string | null>(null),
       theme_color: new FormControl<string | null>(null),
       allotment_type: new FormControl<string | null>(null, [
         Validators.required,
@@ -210,7 +208,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.allocationDate.setValue(this.utils.toISODate(nextAllocationDate));
+    // Only update the min date constraint, do NOT pre-fill the field
+    this.minAllocationDate = new Date(nextAllocationDate);
   }
 
   observeDurationControl() {
@@ -397,9 +396,11 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
     );
 
     // Handle allocation date
-    formData.allocation_date = this.formatDateForBackend(
-      this.ensureDateIsAfterToday(rawFormData.allocation_date)
-    );
+    if (rawFormData.allocation_date) {
+      formData.allocation_date = this.formatDateForBackend(
+        this.ensureDateIsAfterToday(rawFormData.allocation_date)
+      );
+    }
 
     // Handle allotment type
     formData.allotment_type = rawFormData.allotment_type?.toString() || 'auto';
@@ -493,16 +494,21 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         formattedData[key] = allotmentType; // Preserve 'auto' or 'manual'
       }
       // Special handling for date fields - format as YYYY-MM-DD
-      else if (['contribution_start_date', 'allocation_date', 'join_date_deadline'].includes(key)) {
-        // If join_date_deadline is empty string for private MGRs, keep it as empty string
+      // ✅ WITH THIS
+      else if (['contribution_start_date', 'join_date_deadline'].includes(key)) {
         if (key === 'join_date_deadline' && value === '') {
           formattedData[key] = '';
         } else if (value) {
           formattedData[key] = this.formatDateForBackend(value);
-        } else {
-          formattedData[key] = '';
         }
       }
+      else if (key === 'allocation_date') {
+        // Only include if admin set it — backend auto-calculates if omitted
+        if (value) {
+          formattedData[key] = this.formatDateForBackend(value);
+        }
+      }
+
       // Ensure strings for these fields
       else if (['name', 'desc', 'public_description', 'theme_color', 'duration'].includes(key)) {
         formattedData[key] = value?.toString() || '';
