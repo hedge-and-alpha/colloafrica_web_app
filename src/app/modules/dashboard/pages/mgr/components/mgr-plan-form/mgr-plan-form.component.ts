@@ -424,9 +424,7 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       }
     }
 
-    console.log('Allotment type after conversion:', formData.allotment_type);
-    console.log('Selected allotment type:', this.selectedAllotmentType);
-    console.log('Form allotment_type value:', formData.allotment_type);
+  
 
     // Handle join_date_deadline based on whether it's a public MGR or not
     const joinDeadlineValue = rawFormData.join_date_deadline;
@@ -462,8 +460,6 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
       finalFormData.public_description = this.publicDescription;
     }
 
-    console.log('Creating plan with is_public:', finalFormData.is_public, 'isPublicMgr:', this.isPublicMgr);
-    console.log('Final form data to send:', JSON.stringify(finalFormData, null, 2));
 
     this.createNewPlan(finalFormData);
   }
@@ -493,8 +489,8 @@ export class MgrPlanFormComponent implements OnInit, OnDestroy {
         const allotmentType = value?.toString() || 'auto';
         formattedData[key] = allotmentType; // Preserve 'auto' or 'manual'
       }
+
       // Special handling for date fields - format as YYYY-MM-DD
-      // ✅ WITH THIS
       else if (['contribution_start_date', 'join_date_deadline'].includes(key)) {
         if (key === 'join_date_deadline' && value === '') {
           formattedData[key] = '';
