@@ -45,9 +45,15 @@ export class EditMgrPlanComponent implements OnInit {
     private modalService: ModalService,
     private alert: AlertService,
     public utils: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    const parsedJoinDate = this.parseDateLocal(this.plan.join_date_deadline);
+
+    // Allow selecting the existing date even if it's in the past
+    this.minJoinDate =
+      parsedJoinDate < new Date() ? parsedJoinDate : new Date();
+
     this.form = this.fb.nonNullable.group({
       name: this.fb.nonNullable.control(this.plan.name, [
         Validators.required,
@@ -68,16 +74,37 @@ export class EditMgrPlanComponent implements OnInit {
       duration: this.fb.nonNullable.control(this.plan.duration, [
         Validators.required,
       ]),
-      join_date_deadline: this.fb.nonNullable.control(
-        this.plan.join_date_deadline,
-        [Validators.required]
-      ),
+      join_date_deadline: this.fb.nonNullable.control(parsedJoinDate as unknown as string, [
+        Validators.required,
+      ]),
       theme_color: this.fb.nonNullable.control(this.plan.theme_color, [
         Validators.required,
       ]),
     });
-    this.selectedThemeIndex =
-      this.getCurrentThemeColor(this.plan.theme_color) + 1;
+
+    const idx = this.getCurrentThemeColor(this.plan.theme_color);
+    this.selectedThemeIndex = idx >= 0 ? idx + 1 : null;
+  }
+
+  // Strips time/timezone from ISO string to avoid UTC offset shifting the date
+  parseDateLocal(dateStr: string): Date {
+    // Convert to local time first, then extract the date
+    const utcDate = new Date(dateStr);
+    const year = utcDate.getFullYear();
+    const month = utcDate.getMonth();
+    const day = utcDate.getDate();
+    return new Date(year, month, day);
+  }
+
+  // Safely formats a Date object or string to YYYY-MM-DD for the backend
+  formatDateForBackend(value: any): string {
+    if (!value) return '';
+    const d = value instanceof Date ? value : new Date(value);
+    if (isNaN(d.getTime())) return '';
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   get name() {
@@ -110,7 +137,7 @@ export class EditMgrPlanComponent implements OnInit {
 
   selectTheme(theme: Theme, idx: number) {
     this.selectedThemeIndex = idx;
-    let themeString = `${theme.from} ${theme.to}`;
+    const themeString = `${theme.from} ${theme.to}`;
     this.themeColour?.patchValue(themeString);
   }
 
@@ -129,7 +156,7 @@ export class EditMgrPlanComponent implements OnInit {
       number_of_members: data.number_of_members,
       amount: data.amount,
       theme_color: data.theme_color,
-      join_date_deadline: this.utils.transformDate(data.join_date_deadline!.toString()),
+      join_date_deadline: this.formatDateForBackend(data.join_date_deadline),
     };
 
     this.api.updateMGR(this.plan.id, payload).subscribe({
@@ -145,7 +172,7 @@ export class EditMgrPlanComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         this.loading = false;
         this.alert.open('danger', {
-          details: `${err.error.message}`
+          details: `${err.error.message}`,
         });
       },
     });
