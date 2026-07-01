@@ -56,8 +56,8 @@ export class MgrPlanComponent implements OnInit {
 
     // Generate invite link using slug-based format
     if (this.plan.slug) {
-      const baseUrl = window.location.origin;
-      this.inviteLink = `${baseUrl}/join/${this.plan.slug}`;
+      // const baseUrl = window.location.origin;
+      this.inviteLink = `https://colloafrica.com/join/${this.plan.slug}`;
     } else {
       // For MGRs without slugs, no invite link available 
       // (they need to have slugs generated to be shareable)
